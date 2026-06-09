@@ -1,4 +1,13 @@
-<head>
+<!DOCTYPE html>
+
+<html
+  lang="en"
+  class="light-style layout-navbar-fixed layout-wide"
+  dir="ltr"
+  data-theme="theme-default"
+  data-assets-path="../../assets/"
+  data-template="front-pages">
+  <head>
     <meta charset="utf-8" />
     <meta
       name="viewport"
@@ -46,8 +55,12 @@
     <script src="{{ asset('assets/js/front-config.js') }}"></script>
   </head>
 
-  <body>
-  <nav class="layout-navbar container shadow-none py-0">
+    <body>
+    <script src="{{ asset('assets/vendor/js/dropdown-hover.js') }}"></script>
+    <script src="{{ asset('assets/vendor/js/mega-dropdown.js') }}"></script>
+
+    <!-- Navbar: Start -->
+    <nav class="layout-navbar container shadow-none py-0">
       <div class="navbar navbar-expand-lg landing-navbar border-top-0 px-3 px-md-4">
         <!-- Menu logo wrapper: Start -->
         <div class="navbar-brand app-brand demo d-flex py-0 py-lg-2 me-4">
@@ -431,7 +444,3 @@
         <!-- Toolbar: End -->
       </div>
     </nav>
-
-    <script src="{{ asset('assets/vendor/js/dropdown-hover.js') }}"></script>
-    <script src="{{ asset('assets/vendor/js/mega-dropdown.js') }}"></script>
-</body>

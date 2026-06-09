@@ -20,6 +20,15 @@ Route::prefix('customer')->group(function () {
 
     Route::view('/riwayat', 'customers.riwayat');
 
+<<<<<<< HEAD
     Route::view('/profil', 'customers.profil');
+=======
+    Route::view('/riwayat', 'customer.riwayat');
 
+    Route::view('/profil', 'customer.profil');
+});
+>>>>>>> 383011699f124a7fedfd44ceedc4bcb76c9d0676
+
+Route::get('/AdminMitra/dashboard', function () {
+    return view('AdminMitra.dashboard');
 });
