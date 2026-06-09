@@ -6,21 +6,38 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// ==================== CUSTOMER ROUTES ====================
 Route::prefix('customer')->group(function () {
-
-    Route::view('/dashboard', 'customer.dashboard');
-
-    Route::view('/cari-parkir', 'customer.cari-parkir');
-
-    Route::view('/denah', 'customer.denah');
-
-    Route::view('/transaksi', 'customer.transaksi');
-
-    Route::view('/riwayat', 'customer.riwayat');
-
-    Route::view('/profil', 'customer.profil');
+    Route::view('/dashboard', 'customer.dashboard')->name('customer.dashboard');
+    Route::view('/cari-parkir', 'customer.cari-parkir')->name('customer.cari-parkir');
+    Route::view('/denah', 'customer.denah')->name('customer.denah');
+    Route::view('/transaksi', 'customer.transaksi')->name('customer.transaksi');
+    Route::view('/riwayat', 'customer.riwayat')->name('customer.riwayat');
+    Route::view('/profil', 'customer.profil')->name('customer.profil');
 });
 
-Route::get('/AdminMitra/dashboard', function () {
-    return view('AdminMitra.dashboard');
+// ==================== ADMIN MITRA ROUTES ====================
+Route::prefix('AdminMitra')->name('adminmitra.')->group(function () {
+    Route::view('/dashboard', 'AdminMitra.dashboard')->name('dashboard');
+    // Tambahkan route lain untuk AdminMitra jika perlu
+    // Route::view('/kelola-parkir', 'AdminMitra.kelola-parkir')->name('kelola-parkir');
+    // Route::view('/laporan', 'AdminMitra.laporan')->name('laporan');
+});
+
+// ==================== SUPER ADMIN ROUTES ====================
+Route::prefix('SuperAdmin')->name('superadmin.')->group(function () {
+    // Dashboard Super Admin
+    Route::view('/dashboard', 'SuperAdmin.dashboard')->name('dashboard');
+    
+    // Kelola Mitra
+    Route::view('/kelola-mitra', 'SuperAdmin.kelolamitra')->name('kelola-mitra');
+    
+    // Kelola User (Mitra)
+    Route::view('/kelola-user-mitra', 'SuperAdmin.kelolauser-mitra')->name('kelola-user-mitra');
+    
+    // Keuangan
+    Route::view('/keuangan', 'SuperAdmin.keuangan')->name('keuangan');
+    
+    // Laporan
+    Route::view('/laporan', 'SuperAdmin.laporan')->name('laporan');
 });
