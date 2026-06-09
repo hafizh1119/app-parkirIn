@@ -19,5 +19,8 @@ Route::prefix('customer')->group(function () {
     Route::view('/riwayat', 'customer.riwayat');
 
     Route::view('/profil', 'customer.profil');
+});
 
+Route::get('/AdminMitra/dashboard', function () {
+    return view('AdminMitra.dashboard');
 });
