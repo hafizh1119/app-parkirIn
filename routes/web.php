@@ -6,18 +6,20 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/customer/denah', function () {
+    return view('customers.denah');
+});
+
 Route::prefix('customer')->group(function () {
 
-    Route::view('/dashboard', 'customer.dashboard');
+    Route::view('/cari-parkir', 'customers.cari-parkir');
 
-    Route::view('/cari-parkir', 'customer.cari-parkir');
+    Route::view('/denah', 'customers.denah');
 
-    Route::view('/denah', 'customer.denah');
+    Route::view('/transaksi', 'customers.transaksi');
 
-    Route::view('/transaksi', 'customer.transaksi');
+    Route::view('/riwayat', 'customers.riwayat');
 
-    Route::view('/riwayat', 'customer.riwayat');
-
-    Route::view('/profil', 'customer.profil');
+    Route::view('/profil', 'customers.profil');
 
 });
