@@ -143,10 +143,9 @@
           </button>
           <ul class="navbar-nav me-auto p-3 p-lg-0">
             <li class="nav-item">
-              <a class="nav-link fw-medium" aria-current="page" href="landing-page.html#landingHero">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link fw-medium" href="landing-page.html#landingFeatures">Features</a>
+                <a class="nav-link fw-medium" data-scroll href="#landingFeatures">
+                    Tentukan Lokasi
+                </a>
             </li>
             <li class="nav-item">
               <a class="nav-link fw-medium" href="landing-page.html#landingTeam">Team</a>
@@ -449,112 +448,330 @@
 
     <!-- Sections:Start -->
 
-    <div data-bs-spy="scroll" class="scrollspy-example">
-      <!-- Hero: Start -->
-      <section id="landingHero" class="section-py landing-hero">
-        <div class="container">
-          <div class="hero-text-box text-center">
-            <h1 class="text-primary hero-title">All in one sass application for your business</h1>
-            <h2 class="h6 mb-4 pb-1 lh-lg">
-              No coding required to make customisations.<br />The live customiser has everything your marketing need.
-            </h2>
-            <a href="#landingPricing" class="btn btn-primary">Get early access</a>
-          </div>
-          <div class="position-relative hero-animation-img">
-            <a href="../vertical-menu-template/app-ecommerce-dashboard.html" target="_blank">
-              <div class="hero-dashboard-img text-center">
-                <img
-                  src="../../assets/img/front-pages/landing-page/hero-dashboard-light.png"
-                  alt="hero dashboard"
-                  class="animation-img"
-                  data-speed="2"
-                  data-app-light-img="front-pages/landing-page/hero-dashboard-light.png"
-                  data-app-dark-img="front-pages/landing-page/hero-dashboard-dark.png" />
-              </div>
-              <div class="position-absolute hero-elements-img">
-                <img
-                  src="../../assets/img/front-pages/landing-page/hero-elements-light.png"
-                  alt="hero elements"
-                  class="animation-img"
-                  data-speed="4"
-                  data-app-light-img="front-pages/landing-page/hero-elements-light.png"
-                  data-app-dark-img="front-pages/landing-page/hero-elements-dark.png" />
-              </div>
-            </a>
-          </div>
+    <section id="landingFeatures" class="section-py">
+
+    <div class="container">
+
+        <!-- Judul -->
+        <h6 class="text-center fw-semibold d-flex justify-content-center align-items-center mb-4">
+            <img
+                src="../../assets/img/front-pages/icons/section-tilte-icon.png"
+                alt="section title icon"
+                class="me-2" />
+            <span class="text-uppercase">Cari Parkir</span>
+        </h6>
+
+        <h3 class="text-center mb-2">
+            <span class="fw-bold">Tentukan Lokasi Parkir</span>
+        </h3>
+
+        <p class="text-center fw-medium mb-5">
+            Temukan lokasi parkir terdekat dan pesan slot parkir dengan mudah
+        </p>
+
+        <!-- Banner -->
+        <div class="position-relative mb-5">
+
+            <img
+                src="https://images.unsplash.com/photo-1590674899484-d5640e854abe?q=80&w=1920"
+                class="img-fluid rounded-4 w-100"
+                style="height:500px; object-fit:cover;">
+
+            <!-- Overlay -->
+            <div
+                class="position-absolute top-0 start-0 w-100 h-100 rounded-4"
+                style="background: rgba(0,0,0,.35);">
+            </div>
+
+            <!-- Text -->
+            <div
+                class="position-absolute top-50 start-50 translate-middle text-center text-white">
+
+                <h2 class="text-white fw-bold mb-3">
+                    Cari Tempat Parkir Favoritmu
+                </h2>
+
+                <p class="fs-5">
+                    Booking parkir lebih cepat tanpa harus berputar mencari tempat kosong
+                </p>
+
+            </div>
+
+            <!-- Search Box -->
+            <div
+                class="card shadow-lg border-0 position-absolute start-50 translate-middle-x"
+                style="bottom:-50px; width:85%;">
+
+                <div class="card-body p-4">
+
+                    <div class="row g-3">
+
+                        <div class="col-md-5">
+
+                            <input
+                                type="text"
+                                class="form-control"
+                                placeholder="Masukkan lokasi parkir">
+
+                        </div>
+
+                        <div class="col-md-3">
+
+                            <select class="form-select">
+
+                                <option>Semua Lokasi</option>
+                                <option>Kampus</option>
+                                <option>Mall</option>
+                                <option>Perkantoran</option>
+
+                            </select>
+
+                        </div>
+
+                        <div class="col-md-2">
+
+                            <input
+                                type="date"
+                                class="form-control">
+
+                        </div>
+
+                        <div class="col-md-2">
+
+                            <button class="btn btn-primary w-100">
+
+                                Cari
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
         </div>
-      </section>
+
+        <!-- Spacer -->
+        <div style="height:90px"></div>
+
+        <!-- Lokasi Populer -->
+        <div class="text-center mb-5">
+
+            <h4 class="fw-bold">
+                Lokasi Parkir Populer
+            </h4>
+
+            <p class="text-muted">
+                Pilih lokasi yang tersedia di sekitar Anda
+            </p>
+
+        </div>
+
+        <div class="row">
+
+            <!-- UDINUS -->
+            <div class="col-lg-4 col-md-6 mb-4">
+
+                <div class="card h-100 shadow-sm border-0">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1519501025264-65ba15a82390?q=80&w=800"
+                        class="card-img-top"
+                        style="height:220px; object-fit:cover;">
+
+                    <div class="card-body">
+
+                        <h5>📍 Parkir UDINUS</h5>
+
+                        <p class="text-muted">
+                            Jl. Imam Bonjol No.207 Semarang
+                        </p>
+
+                        <p class="text-success fw-semibold">
+                             25 Slot Tersedia
+                        </p>
+
+                        <a href="/customer/denah" class="btn btn-primary w-100">
+                            Pilih Denah
+                        </a>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Simpang Lima -->
+            <div class="col-lg-4 col-md-6 mb-4">
+
+                <div class="card h-100 shadow-sm border-0">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=800"
+                        class="card-img-top"
+                        style="height:220px; object-fit:cover;">
+
+                    <div class="card-body">
+
+                        <h5>📍 Simpang Lima</h5>
+
+                        <p class="text-muted">
+                            Kawasan Simpang Lima Semarang
+                        </p>
+
+                        <p class="text-success fw-semibold">
+                             12 Slot Tersedia
+                        </p>
+
+                        <a href="/customer/denah" class="btn btn-primary w-100">
+                            Pilih Denah
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Paragon -->
+            <div class="col-lg-4 col-md-6 mb-4">
+
+                <div class="card h-100 shadow-sm border-0">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1460317442991-0ec209397118?q=80&w=800"
+                        class="card-img-top"
+                        style="height:220px; object-fit:cover;">
+
+                    <div class="card-body">
+
+                        <h5>📍 Paragon Mall</h5>
+
+                        <p class="text-muted">
+                            Jl. Pemuda No.118 Semarang
+                        </p>
+
+                        <p class="text-success fw-semibold">
+                             40 Slot Tersedia
+                        </p>
+
+                        <a href="/customer/denah" class="btn btn-primary w-100">
+                            Pilih Denah
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- DP Mall -->
+            <div class="col-lg-4 col-md-6 mb-4">
+
+                <div class="card h-100 shadow-sm border-0">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1448630360428-65456885c650?q=80&w=800"
+                        class="card-img-top"
+                        style="height:220px; object-fit:cover;">
+
+                    <div class="card-body">
+
+                        <h5>📍 DP Mall</h5>
+
+                        <p class="text-muted">
+                            Jl. Pemuda No.150 Semarang
+                        </p>
+
+                        <p class="text-success fw-semibold">
+                             30 Slot Tersedia
+                        </p>
+
+                        <a href="/customer/denah" class="btn btn-primary w-100">
+                            Pilih Denah
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Java Mall -->
+            <div class="col-lg-4 col-md-6 mb-4">
+
+                <div class="card h-100 shadow-sm border-0">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?q=80&w=800"
+                        class="card-img-top"
+                        style="height:220px; object-fit:cover;">
+
+                    <div class="card-body">
+
+                        <h5>📍 Java Mall</h5>
+
+                        <p class="text-muted">
+                            Jl. MT. Haryono Semarang
+                        </p>
+
+                        <p class="text-success fw-semibold">
+                             18 Slot Tersedia
+                        </p>
+
+                        <a href="/customer/denah" class="btn btn-primary w-100">
+                            Pilih Denah
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Citraland -->
+            <div class="col-lg-4 col-md-6 mb-4">
+
+                <div class="card h-100 shadow-sm border-0">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1494526585095-c41746248156?q=80&w=800"
+                        class="card-img-top"
+                        style="height:220px; object-fit:cover;">
+
+                    <div class="card-body">
+
+                        <h5>📍 Citraland Mall</h5>
+
+                        <p class="text-muted">
+                            Jl. Siliwangi Semarang
+                        </p>
+
+                        <p class="text-success fw-semibold">
+                             22 Slot Tersedia
+                        </p>
+
+                        <a href="/customer/denah" class="btn btn-primary w-100">
+                            Pilih Denah
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
       <!-- Hero: End -->
 
       <!-- Useful features: Start -->
-      <section id="landingFeatures" class="section-py landing-features">
-        <div class="container">
-          <h6 class="text-center fw-semibold d-flex justify-content-center align-items-center mb-4">
-            <img
-              src="../../assets/img/front-pages/icons/section-tilte-icon.png"
-              alt="section title icon"
-              class="me-2" />
-            <span class="text-uppercase">Useful features</span>
-          </h6>
-          <h3 class="text-center mb-2"><span class="fw-bold">Everything you need</span> to start your next project</h3>
-          <p class="text-center fw-medium mb-3 mb-md-5 pb-3">
-            Not just a set of tools, the package includes ready-to-deploy conceptual application.
-          </p>
-          <div class="features-icon-wrapper row gx-0 gy-4 g-sm-5">
-            <div class="col-lg-4 col-sm-6 text-center features-icon-box">
-              <div class="features-icon mb-3">
-                <img src="../../assets/img/front-pages/icons/laptop-charging.png" alt="laptop charging" />
-              </div>
-              <h5 class="mb-2">Quality Code</h5>
-              <p class="features-icon-description">
-                Code structure that all developers will easily understand and fall in love with.
-              </p>
-            </div>
-            <div class="col-lg-4 col-sm-6 text-center features-icon-box">
-              <div class="features-icon mb-3">
-                <img src="../../assets/img/front-pages/icons/transition-up.png" alt="transition up" />
-              </div>
-              <h5 class="mb-2">Continuous Updates</h5>
-              <p class="features-icon-description">
-                Free updates for the next 12 months, including new demos and features.
-              </p>
-            </div>
-            <div class="col-lg-4 col-sm-6 text-center features-icon-box">
-              <div class="features-icon mb-3">
-                <img src="../../assets/img/front-pages/icons/edit.png" alt="edit" />
-              </div>
-              <h5 class="mb-2">Stater-Kit</h5>
-              <p class="features-icon-description">
-                Start your project quickly without having to remove unnecessary features.
-              </p>
-            </div>
-            <div class="col-lg-4 col-sm-6 text-center features-icon-box">
-              <div class="features-icon mb-3">
-                <img src="../../assets/img/front-pages/icons/3d-select-solid.png" alt="3d select solid" />
-              </div>
-              <h5 class="mb-2">API Ready</h5>
-              <p class="features-icon-description">
-                Just change the endpoint and see your own data loaded within seconds.
-              </p>
-            </div>
-            <div class="col-lg-4 col-sm-6 text-center features-icon-box">
-              <div class="features-icon mb-3">
-                <img src="../../assets/img/front-pages/icons/lifebelt.png" alt="lifebelt" />
-              </div>
-              <h5 class="mb-2">Excellent Support</h5>
-              <p class="features-icon-description">An easy-to-follow doc with lots of references and code examples.</p>
-            </div>
-            <div class="col-lg-4 col-sm-6 text-center features-icon-box">
-              <div class="features-icon mb-3">
-                <img src="../../assets/img/front-pages/icons/google-docs.png" alt="google docs" />
-              </div>
-              <h5 class="mb-2">Well Documented</h5>
-              <p class="features-icon-description">An easy-to-follow doc with lots of references and code examples.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-      <!-- Useful features: End -->
+            <!-- Useful features: End -->
 
       <!-- Real customers reviews: Start -->
       <section id="landingReviews" class="section-py bg-body landing-reviews pb-0">

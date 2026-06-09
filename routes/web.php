@@ -7,6 +7,11 @@ Route::get('/', function () {
 });
 
 // ==================== CUSTOMER ROUTES ====================
+=======
+Route::get('/customer/denah', function () {
+    return view('customers.denah');
+});
+
 Route::prefix('customer')->group(function () {
     Route::view('/dashboard', 'customer.dashboard')->name('customer.dashboard');
     Route::view('/cari-parkir', 'customer.cari-parkir')->name('customer.cari-parkir');
@@ -16,12 +21,28 @@ Route::prefix('customer')->group(function () {
     Route::view('/profil', 'customer.profil')->name('customer.profil');
 });
 
+
 // ==================== ADMIN MITRA ROUTES ====================
 Route::prefix('AdminMitra')->name('adminmitra.')->group(function () {
     Route::view('/dashboard', 'AdminMitra.dashboard')->name('dashboard');
     // Tambahkan route lain untuk AdminMitra jika perlu
     // Route::view('/kelola-parkir', 'AdminMitra.kelola-parkir')->name('kelola-parkir');
     // Route::view('/laporan', 'AdminMitra.laporan')->name('laporan');
+
+    Route::view('/cari-parkir', 'customers.cari-parkir');
+
+    Route::view('/denah', 'customers.denah');
+
+    Route::view('/transaksi', 'customers.transaksi');
+
+    Route::view('/riwayat', 'customers.riwayat');
+
+    Route::view('/profil', 'customers.profil');
+=======
+    Route::view('/riwayat', 'customer.riwayat');
+
+    Route::view('/profil', 'customer.profil');
+
 });
 
 // ==================== SUPER ADMIN ROUTES ====================
