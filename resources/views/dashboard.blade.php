@@ -1,399 +1,513 @@
 @extends('layouts.app')
 
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/swiper/swiper.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/vendor/css/pages/front-page-landing.css') }}" />
+@endpush
+
 @section('content')
 
     <!-- Sections:Start -->
 
-    <section class="hero-section position-relative overflow-hidden min-vh-100 d-flex align-items-center">
+    <section id="dashboard" class="hero-section position-relative overflow-hidden min-vh-100 d-flex align-items-center">
 
-    <!-- Background Blur -->
-    <div class="hero-blur hero-blur-1"></div>
-    <div class="hero-blur hero-blur-2"></div>
+          <!-- Background Blur -->
+          <div class="hero-blur hero-blur-1"></div>
+          <div class="hero-blur hero-blur-2"></div>
 
-    <div class="container">
+          <div class="container">
 
-        <div class="row align-items-center gy-5">
+              <div class="row align-items-center gy-5">
 
-            <!-- Kiri -->
-            <div class="col-lg-6">
+                  <!-- Kiri -->
+                  <div class="col-lg-6">
 
-                <span class="badge bg-label-primary rounded-pill px-4 py-2 mb-4">
-                    🚗 Smart Parking Platform
-                </span>
+                      <span class="badge bg-label-primary rounded-pill px-4 py-2 mb-4">
+                          🚗 Smart Parking Platform
+                      </span>
 
-                <h1 class="display-3 fw-bold mb-4">
-                    Temukan Tempat Parkir Terdekat
-                    <span class="text-primary">
-                        dalam Hitungan Detik
-                    </span>
-                </h1>
-
-                <p class="fs-5 text-body-secondary mb-5">
-                    Cari lokasi parkir yang tersedia secara real-time,
-                    pilih slot terbaik, dan lakukan reservasi sebelum tiba.
-                    Nikmati pengalaman parkir yang lebih cepat dan praktis
-                    bersama ParkirIn.
-                </p>
-
-                <div class="d-flex gap-3 flex-wrap">
-
-                    <a href="#cari-parkir" class="btn btn-primary btn-lg">
-                        Cari Parkir
-                    </a>
-
-                    <a href="#cara-kerja" class="btn btn-outline-primary btn-lg">
-                        Cara Kerja
-                    </a>
-
-                </div>
-
-            </div>
-
-            <!-- Kanan -->
-            <div class="col-lg-5 offset-lg-1">
-
-                <div class="card border-0 shadow-lg rounded-4">
-
-                    <div class="card-body p-4 p-lg-5">
-
-                        <div class="text-center mb-4">
-
-                            <div
-                                class="avatar avatar-lg mx-auto mb-3 bg-label-primary rounded-circle">
-
-                                <span class="mdi mdi-map-marker fs-2"></span>
-
-                            </div>
-
-                            <h4 class="fw-bold mb-1">
-                                Cari Lokasi Parkir
-                            </h4>
-
-                            <p class="text-body-secondary mb-0">
-                                Temukan area parkir terdekat dari lokasi Anda
-                            </p>
-
-                        </div>
-
-                        <div class="mb-3">
-
-                            <label class="form-label">
-                                Lokasi Anda
-                            </label>
-
-                            <input
-                                type="text"
-                                class="form-control"
-                                placeholder="Contoh: Semarang">
-
-                        </div>
-
-                        <div class="mb-4">
-
-                            <label class="form-label">
-                                Jenis Kendaraan
-                            </label>
-
-                            <select class="form-select">
-                                <option>Mobil</option>
-                                <option>Motor</option>
-                            </select>
-
-                        </div>
-
-                        <button
-                            class="btn btn-primary w-100 btn-lg">
-
-                            <span class="mdi mdi-magnify me-1"></span>
-                            Cari Sekarang
-
-                        </button>
-
-                        <div class="text-center mt-3">
-
-                            <a href="#"
-                                class="text-primary text-decoration-none">
-
-                                📍 Gunakan Lokasi Saat Ini
-
-                            </a>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-        <div class="text-center mb-5">
-
-            <span class="badge bg-label-primary rounded-pill mb-3">
-                📍 Nearby Parking
-            </span>
-
-            <h2 class="fw-bold mb-2">
-                Area Parkir Terdekat
-            </h2>
-
-            <p class="text-body-secondary">
-                Temukan lokasi parkir yang tersedia di sekitar Anda secara real-time
-            </p>
-
-        </div>
-
-        <div class="row justify-content-center g-4">
-            <!-- Card 1 -->
-            <div class="col-xl-3 col-lg-3 col-md-6">
-                <div class="card h-100 shadow-sm border-0">
-                    <div class="position-relative">
-                          <img
-                              src="https://blog.getandride.com/wp-content/uploads/2023/05/ukuran-parkiran-mobil.jpg"
-                              class="card-img-top"
-                              style="height:220px;object-fit:cover;">
-                          <span
-                              class="badge bg-success position-absolute top-0 end-0 m-3">
-                              Tersedia
+                      <h1 class="display-3 fw-bold mb-4">
+                          Temukan Tempat Parkir Terdekat
+                          <span class="text-primary">
+                              dalam Hitungan Detik
                           </span>
-                      </div>
-                      <div class="card-body">
-                          <div class="d-flex justify-content-between mb-2">
-                              <h5 class="fw-semibold mb-0">
-                                  Parkir UDINUS
-                              </h5>
-                              <span class="text-warning">
-                                  ⭐ 4.8
-                              </span>
-                          </div>
-                          <p class="text-body-secondary mb-3">
-                              Jl. Imam Bonjol No.207 Semarang
-                          </p>
-                          <div class="d-flex justify-content-between mb-3">
-                              <span>
-                                  📍 1.2 km
-                              </span>
-                              <span class="text-success fw-semibold">
-                                  25 Slot
-                              </span>
-                          </div>
-                          <a
-                              href="/customer/denah"
-                              class="btn btn-primary w-100">
-                              Lihat Denah
-                          </a>
-                      </div>
-                </div>
-            </div>
+                      </h1>
 
-            <!-- Card 2 -->
-            <div class="col-xl-3 col-lg-3 col-md-6">
-                <div class="card h-100 shadow-sm border-0">
-                    <div class="position-relative">
-                          <img
-                              src="https://blog.getandride.com/wp-content/uploads/2023/05/ukuran-parkiran-mobil.jpg"
-                              class="card-img-top"
-                              style="height:220px;object-fit:cover;">
-                          <span
-                              class="badge bg-success position-absolute top-0 end-0 m-3">
-                              Tersedia
-                          </span>
-                      </div>
-                      <div class="card-body">
-                          <div class="d-flex justify-content-between mb-2">
-                              <h5 class="fw-semibold mb-0">
-                                  Parkir UDINUS
-                              </h5>
-                              <span class="text-warning">
-                                  ⭐ 4.8
-                              </span>
-                          </div>
-                          <p class="text-body-secondary mb-3">
-                              Jl. Imam Bonjol No.207 Semarang
-                          </p>
-                          <div class="d-flex justify-content-between mb-3">
-                              <span>
-                                  📍 1.2 km
-                              </span>
-                              <span class="text-success fw-semibold">
-                                  25 Slot
-                              </span>
-                          </div>
-                          <a
-                              href="/customer/denah"
-                              class="btn btn-primary w-100">
-                              Lihat Denah
-                          </a>
-                      </div>
-                </div>
-            </div>
+                      <p class="fs-5 text-body-secondary mb-5">
+                          Cari lokasi parkir yang tersedia secara real-time,
+                          pilih slot terbaik, dan lakukan reservasi sebelum tiba.
+                          Nikmati pengalaman parkir yang lebih cepat dan praktis
+                          bersama ParkirIn.
+                      </p>
 
-            <!-- Card 3 -->
-            <div class="col-xl-3 col-lg-3 col-md-6">
-                <div class="card h-100 shadow-sm border-0">
-                    <div class="position-relative">
-                          <img
-                              src="https://blog.getandride.com/wp-content/uploads/2023/05/ukuran-parkiran-mobil.jpg"
-                              class="card-img-top"
-                              style="height:220px;object-fit:cover;">
-                          <span
-                              class="badge bg-success position-absolute top-0 end-0 m-3">
-                              Tersedia
-                          </span>
-                      </div>
-                      <div class="card-body">
-                          <div class="d-flex justify-content-between mb-2">
-                              <h5 class="fw-semibold mb-0">
-                                  Parkir UDINUS
-                              </h5>
-                              <span class="text-warning">
-                                  ⭐ 4.8
-                              </span>
-                          </div>
-                          <p class="text-body-secondary mb-3">
-                              Jl. Imam Bonjol No.207 Semarang
-                          </p>
-                          <div class="d-flex justify-content-between mb-3">
-                              <span>
-                                  📍 1.2 km
-                              </span>
-                              <span class="text-success fw-semibold">
-                                  25 Slot
-                              </span>
-                          </div>
-                          <a
-                              href="/customer/denah"
-                              class="btn btn-primary w-100">
-                              Lihat Denah
+                      <div class="d-flex gap-3 flex-wrap">
+
+                          <a href="#cari-parkir" class="btn btn-primary btn-lg">
+                              Cari Parkir
                           </a>
+
+                          <a href="#cara-kerja" class="btn btn-outline-primary btn-lg">
+                              Cara Kerja
+                          </a>
+
                       </div>
-                </div>
-            </div>
-        </div>
+
+                  </div>
+
+                  <!-- Kanan -->
+                  <div class="col-lg-5 offset-lg-1">
+
+                      <div class="card border-0 shadow-lg rounded-4">
+
+                          <div class="card-body p-4 p-lg-5">
+
+                              <div class="text-center mb-4">
+
+                                  <div
+                                      class="avatar avatar-lg mx-auto mb-3 bg-label-primary rounded-circle">
+
+                                      <span class="mdi mdi-map-marker fs-2"></span>
+
+                                  </div>
+
+                                  <h4 class="fw-bold mb-1">
+                                      Cari Lokasi Parkir
+                                  </h4>
+
+                                  <p class="text-body-secondary mb-0">
+                                      Temukan area parkir terdekat dari lokasi Anda
+                                  </p>
+
+                              </div>
+
+                              <div class="mb-3">
+
+                                  <label class="form-label">
+                                      Lokasi Anda
+                                  </label>
+
+                                  <input
+                                      type="text"
+                                      class="form-control"
+                                      placeholder="Contoh: Semarang">
+
+                              </div>
+
+                              <div class="mb-4">
+
+                                  <label class="form-label">
+                                      Jenis Kendaraan
+                                  </label>
+
+                                  <select class="form-select">
+                                      <option>Mobil</option>
+                                      <option>Motor</option>
+                                  </select>
+
+                              </div>
+
+                              <button
+                                  class="btn btn-primary w-100 btn-lg">
+
+                                  <span class="mdi mdi-magnify me-1"></span>
+                                  Cari Sekarang
+
+                              </button>
+
+                              <div class="text-center mt-3">
+
+                                  <a href="#"
+                                      class="text-primary text-decoration-none">
+
+                                      📍 Gunakan Lokasi Saat Ini
+
+                                  </a>
+
+                              </div>
+
+                          </div>
+
+                      </div>
+
+                  </div>
+
+              </div>
+
+          </div>
+
+      </section>
+
+      <section id="parkir-terdekat" class="section-py bg-body position-relative d-flex align-items-center min-vh-100">
+
+          <div class="container">
+
+              <!-- Heading -->
+              <div class="text-center mb-5">
+
+                  <span class="badge bg-label-primary rounded-pill mb-3 px-3 py-2">
+                      📍 Nearby Parking
+                  </span>
+
+                  <h2 class="fw-bold mb-3">
+                      Area Parkir Terdekat
+                  </h2>
+
+                  <p class="text-body-secondary fs-6 mx-auto"
+                      style="max-width:700px;">
+                      Temukan lokasi parkir yang tersedia di sekitar Anda secara real-time,
+                      pilih area terbaik, dan lakukan reservasi langsung dari aplikasi.
+                  </p>
+
+              </div>
+
+              <!-- Cards -->
+              <div class="row justify-content-center g-4">
+
+                  <div class="col-lg-4 col-md-6">
+                      <div class="card parking-card h-100 shadow-sm border-0">
+                          <div class="position-relative">
+                              <img
+                                  src="https://blog.getandride.com/wp-content/uploads/2023/05/ukuran-parkiran-mobil.jpg"
+                                  class="card-img-top"
+                                  style="height:220px;object-fit:cover;">
+                              <span class="badge bg-success position-absolute top-0 end-0 m-3">
+                                  Tersedia
+                              </span>
+                          </div>
+                          <div class="card-body">
+                              <div class="d-flex justify-content-between mb-2">
+                                  <h5 class="fw-semibold mb-0">Parkir UDINUS</h5>
+                                  <span class="text-warning">⭐ 4.8</span>
+                              </div>
+                              <p class="text-body-secondary mb-3">
+                                  Jl. Imam Bonjol No.207 Semarang
+                              </p>
+                              <div class="d-flex justify-content-between mb-3">
+                                  <span>📍 1.2 km</span>
+                                  <span class="text-success fw-semibold">25 Slot</span>
+                              </div>
+                              <a href="/customer/denah" class="btn btn-primary w-100">
+                                  Lihat Denah
+                              </a>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="col-lg-4 col-md-6">
+                      <div class="card parking-card h-100 shadow-sm border-0">
+                          <div class="position-relative">
+                              <img
+                                  src="https://blog.getandride.com/wp-content/uploads/2023/05/ukuran-parkiran-mobil.jpg"
+                                  class="card-img-top"
+                                  style="height:220px;object-fit:cover;">
+                              <span class="badge bg-success position-absolute top-0 end-0 m-3">
+                                  Tersedia
+                              </span>
+                          </div>
+                          <div class="card-body">
+                              <div class="d-flex justify-content-between mb-2">
+                                  <h5 class="fw-semibold mb-0">Parkir UDINUS</h5>
+                                  <span class="text-warning">⭐ 4.8</span>
+                              </div>
+                              <p class="text-body-secondary mb-3">
+                                  Jl. Imam Bonjol No.207 Semarang
+                              </p>
+                              <div class="d-flex justify-content-between mb-3">
+                                  <span>📍 1.2 km</span>
+                                  <span class="text-success fw-semibold">25 Slot</span>
+                              </div>
+                              <a href="/customer/denah" class="btn btn-primary w-100">
+                                  Lihat Denah
+                              </a>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="col-lg-4 col-md-6">
+                      <div class="card parking-card h-100 shadow-sm border-0">
+                          <div class="position-relative">
+                              <img
+                                  src="https://blog.getandride.com/wp-content/uploads/2023/05/ukuran-parkiran-mobil.jpg"
+                                  class="card-img-top"
+                                  style="height:220px;object-fit:cover;">
+                              <span class="badge bg-success position-absolute top-0 end-0 m-3">
+                                  Tersedia
+                              </span>
+                          </div>
+                          <div class="card-body">
+                              <div class="d-flex justify-content-between mb-2">
+                                  <h5 class="fw-semibold mb-0">Parkir UDINUS</h5>
+                                  <span class="text-warning">⭐ 4.8</span>
+                              </div>
+                              <p class="text-body-secondary mb-3">
+                                  Jl. Imam Bonjol No.207 Semarang
+                              </p>
+                              <div class="d-flex justify-content-between mb-3">
+                                  <span>📍 1.2 km</span>
+                                  <span class="text-success fw-semibold">25 Slot</span>
+                              </div>
+                              <a href="/customer/denah" class="btn btn-primary w-100">
+                                  Lihat Denah
+                              </a>
+                          </div>
+                      </div>
+                  </div>
+
+              </div>
+
+              <!-- Button -->
+              <div class="text-center mt-5">
+                  <a href="/customer/cari-parkir" class="btn btn-outline-primary btn-lg px-5">
+                      Lihat Semua Lokasi
+                  </a>
+              </div>
+
+          </div>
+
+      </section>
       <!-- Hero: End -->
 
-      <!-- Our great team: Start -->
-      <section id="landingTeam" class="section-py landing-team">
-        <div class="container bg-icon-right">
-          <h6 class="text-center fw-semibold d-flex justify-content-center align-items-center mb-4">
-            <img
-              src="../../assets/img/front-pages/icons/section-tilte-icon.png"
-              alt="section title icon"
-              class="me-2" />
-            <span class="text-uppercase">our great team</span>
-          </h6>
-          <h3 class="text-center mb-2"><span class="fw-bold">Supported</span> by Real People</h3>
-          <p class="text-center fw-medium mb-3 mb-md-5 pb-3">Who is behind these great-looking interfaces?</p>
-          <div class="row gy-5 mt-2">
-            <div class="col-lg-3 col-sm-6">
-              <div class="card card-hover-border-primary mt-3 mt-lg-0 shadow-none">
-                <div class="bg-label-primary position-relative team-image-box">
+      <!-- Cara Kerja: Start -->
+      <section id="cara-kerja" class="bg-white d-flex align-items-center" style="min-height:60vh;">
+
+          <div class="container">
+
+              <h6 class="text-center fw-semibold d-flex justify-content-center align-items-center mb-4">
                   <img
-                    src="../../assets/img/front-pages/landing-page/team-member-1.png"
-                    class="position-absolute card-img-position bottom-0 start-50 scaleX-n1-rtl"
-                    alt="human image" />
-                </div>
-                <div class="card-body text-center">
-                  <h5 class="card-title fw-semibold mb-1">Sophie Gilbert</h5>
-                  <p class="card-text">Project Manager</p>
-                  <div class="text-center team-media-icons">
-                    <a href="javascript:void(0);" class="text-heading" target="_blank">
-                      <i class="tf-icons mdi mdi-facebook mdi-24px me-2"></i>
-                    </a>
-                    <a href="javascript:void(0);" class="text-heading" target="_blank">
-                      <i class="tf-icons mdi mdi-twitter mdi-24px me-2"></i>
-                    </a>
-                    <a href="javascript:void(0);" class="text-heading" target="_blank">
-                      <i class="tf-icons mdi mdi-linkedin mdi-24px"></i>
-                    </a>
+                      src="{{ asset('assets/img/front-pages/icons/section-tilte-icon.png') }}"
+                      alt="section title icon"
+                      class="me-2" />
+                  <span class="text-uppercase">Cara Kerja</span>
+              </h6>
+
+              <h3 class="text-center mb-2">
+                  <span class="fw-bold">
+                      Reservasi Parkir Dalam 4 Langkah Mudah
+                  </span>
+              </h3>
+
+              <p class="text-center fw-medium mb-5">
+                  Temukan slot parkir terbaik dan lakukan reservasi kapan saja secara cepat dan mudah.
+              </p>
+
+              <div class="row g-5 text-center">
+
+                  <!-- Step 1 -->
+                  <div class="col-lg-3 col-sm-6">
+
+                      <div class="landing-feature">
+
+                          <div class="mb-4">
+
+                              <span class="badge rounded-pill bg-label-primary p-3">
+
+                                  <i class="mdi mdi-map-marker-radius mdi-36px"></i>
+
+                              </span>
+
+                          </div>
+
+                          <h5 class="mb-2">
+                              Cari Lokasi
+                          </h5>
+
+                          <p class="mb-0">
+                              Gunakan lokasi saat ini atau cari area parkir tujuan Anda.
+                          </p>
+
+                      </div>
+
                   </div>
-                </div>
+
+                  <!-- Step 2 -->
+                  <div class="col-lg-3 col-sm-6">
+
+                      <div class="landing-feature">
+
+                          <div class="mb-4">
+
+                              <span class="badge rounded-pill bg-label-success p-3">
+
+                                  <i class="mdi mdi-car-search mdi-36px"></i>
+
+                              </span>
+
+                          </div>
+
+                          <h5 class="mb-2">
+                              Pilih Area
+                          </h5>
+
+                          <p class="mb-0">
+                              Lihat lokasi parkir terdekat beserta jumlah slot yang tersedia.
+                          </p>
+
+                      </div>
+
+                  </div>
+
+                  <!-- Step 3 -->
+                  <div class="col-lg-3 col-sm-6">
+
+                      <div class="landing-feature">
+
+                          <div class="mb-4">
+
+                              <span class="badge rounded-pill bg-label-warning p-3">
+
+                                  <i class="mdi mdi-parking mdi-36px"></i>
+
+                              </span>
+
+                          </div>
+
+                          <h5 class="mb-2">
+                              Pilih Slot
+                          </h5>
+
+                          <p class="mb-0">
+                              Tentukan slot parkir melalui denah parkir interaktif secara realtime.
+                          </p>
+
+                      </div>
+
+                  </div>
+
+                  <!-- Step 4 -->
+                  <div class="col-lg-3 col-sm-6">
+
+                      <div class="landing-feature">
+
+                          <div class="mb-4">
+
+                              <span class="badge rounded-pill bg-label-info p-3">
+
+                                  <i class="mdi mdi-check-decagram mdi-36px"></i>
+
+                              </span>
+
+                          </div>
+
+                          <h5 class="mb-2">
+                              Reservasi
+                          </h5>
+
+                          <p class="mb-0">
+                              Konfirmasi pemesanan dan langsung parkir tanpa mencari tempat kosong.
+                          </p>
+
+                      </div>
+
+                  </div>
+
               </div>
-            </div>
-            <div class="col-lg-3 col-sm-6">
-              <div class="card card-hover-border-danger mt-3 mt-lg-0 shadow-none">
-                <div class="bg-label-danger position-relative team-image-box">
-                  <img
-                    src="../../assets/img/front-pages/landing-page/team-member-2.png"
-                    class="position-absolute card-img-position bottom-0 start-50 scaleX-n1-rtl"
-                    alt="human image" />
-                </div>
-                <div class="card-body text-center">
-                  <h5 class="card-title fw-semibold mb-1">Nannie Ford</h5>
-                  <p class="card-text">Development Lead</p>
-                  <div class="text-center team-media-icons">
-                    <a href="javascript:void(0);" class="text-heading" target="_blank">
-                      <i class="tf-icons mdi mdi-facebook mdi-24px me-2"></i>
-                    </a>
-                    <a href="javascript:void(0);" class="text-heading" target="_blank">
-                      <i class="tf-icons mdi mdi-twitter mdi-24px me-2"></i>
-                    </a>
-                    <a href="javascript:void(0);" class="text-heading" target="_blank">
-                      <i class="tf-icons mdi mdi-linkedin mdi-24px"></i>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-3 col-sm-6">
-              <div class="card card-hover-border-success mt-3 mt-lg-0 shadow-none">
-                <div class="bg-label-success position-relative team-image-box">
-                  <img
-                    src="../../assets/img/front-pages/landing-page/team-member-3.png"
-                    class="position-absolute card-img-position bottom-0 start-50 scaleX-n1-rtl"
-                    alt="human image" />
-                </div>
-                <div class="card-body text-center">
-                  <h5 class="card-title fw-semibold mb-1">Chris Watkins</h5>
-                  <p class="card-text">Marketing Manager</p>
-                  <div class="text-center team-media-icons">
-                    <a href="javascript:void(0);" class="text-heading" target="_blank">
-                      <i class="tf-icons mdi mdi-facebook mdi-24px me-2"></i>
-                    </a>
-                    <a href="javascript:void(0);" class="text-heading" target="_blank">
-                      <i class="tf-icons mdi mdi-twitter mdi-24px me-2"></i>
-                    </a>
-                    <a href="javascript:void(0);" class="text-heading" target="_blank">
-                      <i class="tf-icons mdi mdi-linkedin mdi-24px"></i>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-3 col-sm-6">
-              <div class="card card-hover-border-info mt-3 mt-lg-0 shadow-none">
-                <div class="bg-label-info position-relative team-image-box">
-                  <img
-                    src="../../assets/img/front-pages/landing-page/team-member-4.png"
-                    class="position-absolute card-img-position bottom-0 start-50 scaleX-n1-rtl"
-                    alt="human image" />
-                </div>
-                <div class="card-body text-center">
-                  <h5 class="card-title fw-semibold mb-1">Paul Miles</h5>
-                  <p class="card-text">UI Designer</p>
-                  <div class="text-center team-media-icons">
-                    <a href="javascript:void(0);" class="text-heading" target="_blank">
-                      <i class="tf-icons mdi mdi-facebook mdi-24px me-2"></i>
-                    </a>
-                    <a href="javascript:void(0);" class="text-heading" target="_blank">
-                      <i class="tf-icons mdi mdi-twitter mdi-24px me-2"></i>
-                    </a>
-                    <a href="javascript:void(0);" class="text-heading" target="_blank">
-                      <i class="tf-icons mdi mdi-linkedin mdi-24px"></i>
-                    </a>
-                  </div>
-                </div>
+
+          </div>
+
+      </section>
+    <!-- Reviews: Start -->
+<section id="landingReviews" class="section-py bg-body landing-reviews pb-0 min-vh-100 d-flex flex-column justify-content-center">
+  <div class="container">
+    <h6 class="text-center fw-semibold d-flex justify-content-center align-items-center mb-4">
+      <img src="{{ asset('assets/img/front-pages/icons/section-tilte-icon.png') }}"
+          alt="section title icon" class="me-2" />
+      <span class="text-uppercase">Ulasan Pengguna</span>
+    </h6>
+    <h3 class="text-center mb-2">
+      <span class="fw-bold">Pengalaman Nyata</span> dari Pengguna Parkirin
+    </h3>
+    <p class="text-center fw-medium mb-3 mb-md-5">
+      Ribuan pengguna sudah merasakan kemudahan reservasi parkir bersama Parkirin.
+    </p>
+  </div>
+
+  <div class="swiper-reviews-carousel overflow-hidden pt-4">
+    <div class="swiper" id="swiper-reviews">
+      <div class="swiper-wrapper">
+
+        <!-- Slide 1 -->
+        <div class="swiper-slide">
+          <div class="card h-100">
+            <div class="card-body text-body d-flex flex-column justify-content-between text-center p-4">
+              <p class="mb-3">"Parkirin bikin saya nggak perlu muter-muter nyari parkir lagi. Tinggal buka app, pilih slot, langsung masuk!"</p>
+              <div class="text-warning mb-3">⭐⭐⭐⭐⭐</div>
+              <div>
+                <h6 class="mb-1">Rizky Pratama</h6>
+                <p class="mb-0 text-muted small">Pengguna di Semarang</p>
               </div>
             </div>
           </div>
         </div>
-      </section>
-      <!-- Our great team: End -->
+
+        <!-- Slide 2 -->
+        <div class="swiper-slide">
+          <div class="card h-100">
+            <div class="card-body text-body d-flex flex-column justify-content-between text-center p-4">
+              <p class="mb-3">"Denah parkir interaktifnya sangat membantu. Saya bisa lihat persis mana slot yang kosong sebelum berangkat."</p>
+              <div class="text-warning mb-3">⭐⭐⭐⭐⭐</div>
+              <div>
+                <h6 class="mb-1">Sari Dewi</h6>
+                <p class="mb-0 text-muted small">Pengguna di Yogyakarta</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="swiper-slide">
+          <div class="card h-100">
+            <div class="card-body text-body d-flex flex-column justify-content-between text-center p-4">
+              <p class="mb-3">"Reservasi cuma butuh beberapa detik. Sangat praktis buat saya yang sering buru-buru ke kantor."</p>
+              <div class="text-warning mb-3">⭐⭐⭐⭐⭐</div>
+              <div>
+                <h6 class="mb-1">Budi Santoso</h6>
+                <p class="mb-0 text-muted small">Pengguna di Jakarta</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 4 -->
+        <div class="swiper-slide">
+          <div class="card h-100">
+            <div class="card-body text-body d-flex flex-column justify-content-between text-center p-4">
+              <p class="mb-3">"Parkiran lebih aman karena sudah tercatat. Ada konfirmasi reservasi jadi nggak khawatir slot diambil orang lain."</p>
+              <div class="text-warning mb-3">⭐⭐⭐⭐⭐</div>
+              <div>
+                <h6 class="mb-1">Anita Rahayu</h6>
+                <p class="mb-0 text-muted small">Pengguna di Bandung</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 5 -->
+        <div class="swiper-slide">
+          <div class="card h-100">
+            <div class="card-body text-body d-flex flex-column justify-content-between text-center p-4">
+              <p class="mb-3">"Harga parkir transparan, tidak ada biaya tersembunyi. Saya bisa bandingkan tarif antar lokasi sebelum memilih."</p>
+              <div class="text-warning mb-3">⭐⭐⭐⭐☆</div>
+              <div>
+                <h6 class="mb-1">Dimas Aditya</h6>
+                <p class="mb-0 text-muted small">Pengguna di Surabaya</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      {{-- Pagination di dalam swiper, tepat di bawah wrapper --}}
+      <div class="swiper-pagination"></div>
+    </div>
+  </div>
+
+  {{-- Spacer agar pagination tidak nempel hr --}}
+  <div class="pb-4"></div>
+
+  <hr class="m-0" />
+</section>
+<!-- Reviews: End -->
 
       <!-- Pricing plans: Start -->
       <section id="landingPricing" class="section-py bg-body landing-pricing">
@@ -966,10 +1080,36 @@
         </div>
       </section>
       <!-- Contact Us: End -->
-    </div>
 
     <!-- / Sections:End -->
     @endsection
+
+    @push('scripts')
+        <script src="{{ asset('assets/vendor/libs/swiper/swiper.js') }}"></script>
+        <script src="{{ asset('assets/js/front-page-landing.js') }}"></script>
+    @endpush
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    new Swiper('#swiper-reviews', {
+        slidesPerView: 1,
+        spaceBetween: 24,
+        loop: true,
+        autoplay: {
+            delay: 3000,
+            disableOnInteraction: false,
+        },
+        pagination: {
+            el: '#swiper-reviews .swiper-pagination',
+            clickable: true,
+        },
+        breakpoints: {
+            576: { slidesPerView: 2 },
+            992: { slidesPerView: 3 },
+        },
+    });
+});
+</script>
 
 <style>
 .hero-section{
@@ -1035,6 +1175,25 @@
 .parking-card:hover{
     transform:translateY(-8px);
     box-shadow:0 1rem 3rem rgba(0,0,0,.12)!important;
+}
+
+/* Pastikan pagination muncul di tengah dan tidak overlap card */
+#swiper-reviews {
+  padding-bottom: 40px; /* beri ruang untuk pagination */
+}
+
+#swiper-reviews .swiper-pagination {
+  position: relative; /* keluar dari absolute agar tidak overlap */
+  bottom: auto;
+  margin-top: 16px;
+  text-align: center;
+}
+
+#landingReviews {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 </style>
 

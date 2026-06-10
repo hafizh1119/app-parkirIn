@@ -23,7 +23,9 @@
     <link rel="stylesheet" href="{{ asset('assets/css/demo.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/vendor/css/pages/front-page.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/vendor/css/pages/front-page-landing.css') }}" />
-
+    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/swiper/swiper.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/vendor/css/pages/front-page-landing.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/vendor/css/pages/front-page.css') }}" />
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
 </head>

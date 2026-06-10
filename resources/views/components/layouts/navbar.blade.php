@@ -81,21 +81,28 @@
           </button>
           <ul class="navbar-nav me-auto p-3 p-lg-0">
             <li class="nav-item">
-                <a class="nav-link fw-medium" data-scroll href="#landingFeatures">
+                <a class="nav-link fw-medium" data-scroll href="#dashboard">
                     Dashboard
                 </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link fw-medium" href="landing-page.html#landingTeam">Cari Parkir</a>
+                <a class="nav-link fw-medium" data-scroll href="#parkir-terdekat">
+                    Area Parkir Terdekat
+                </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link fw-medium" href="landing-page.html#landingFAQ">Cara Kerja</a>
+                <a class="nav-link fw-medium" data-scroll href="#cara-kerja">
+                    Cara Kerja
+                </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link fw-medium text-nowrap" href="landing-page.html#landingContact">Keunggulan ParkirIn</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link fw-medium text-nowrap" href="landing-page.html#landingContact">Membership ParkirIn</a>
             </li>
             <li class="nav-item">
               <a class="nav-link fw-medium text-nowrap" href="landing-page.html#landingContact">FAQ</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link fw-medium text-nowrap" href="landing-page.html#landingContact">Tentang Kami</a>
             </li>
           </ul>
         </div>
