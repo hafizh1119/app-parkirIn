@@ -1,761 +1,124 @@
-<!DOCTYPE html>
+@extends('layouts.app')
 
-<html
-  lang="en"
-  class="light-style layout-navbar-fixed layout-wide"
-  dir="ltr"
-  data-theme="theme-default"
-  data-assets-path="../../assets/"
-  data-template="front-pages">
-  <head>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
-
-    <title>Landing Page - Front Pages | Materialize - Material Design HTML Admin Template</title>
-
-    <meta name="description" content="" />
-
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon/favicon.ico') }}" />
-
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&ampdisplay=swap"
-      rel="stylesheet" />
-
-    <link rel="stylesheet" href="{{ asset('assets/vendor/fonts/materialdesignicons.css') }}" />
-
-    <!-- Menu waves for no-customizer fix -->
-    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/node-waves/node-waves.css') }}" />
-
-    <!-- Core CSS -->
-    <link rel="stylesheet" href="{{ asset('assets/vendor/css/rtl/core.css') }}" class="template-customizer-core-css" />
-    <link rel="stylesheet" href="{{ asset('assets/vendor/css/rtl/theme-default.css') }}" class="template-customizer-theme-css" />
-    <link rel="stylesheet" href="{{ asset('assets/css/demo.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/vendor/css/pages/front-page.css') }}" />
-    <!-- Vendors CSS -->
-
-    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/nouislider/nouislider.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/swiper/swiper.css') }}" />
-
-    <!-- Page CSS -->
-
-    <link rel="stylesheet" href="{{ asset('assets/vendor/css/pages/front-page-landing.css') }}" />
-
-    <!-- Helpers -->
-    <script src="{{ asset('assets/vendor/js/helpers.js') }}"></script>
-    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
-    <!--? Template customizer: To hide customizer set displayCustomizer value false in config.js.  -->
-    <script src="{{ asset('assets/vendor/js/template-customizer.js') }}"></script>
-    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-    <script src="{{ asset('assets/js/front-config.js') }}"></script>
-  </head>
-
-  <body>
-    <script src="{{ asset('assets/vendor/js/dropdown-hover.js') }}"></script>
-    <script src="{{ asset('assets/vendor/js/mega-dropdown.js') }}"></script>
-
-    <!-- Navbar: Start -->
-    <nav class="layout-navbar container shadow-none py-0">
-      <div class="navbar navbar-expand-lg landing-navbar border-top-0 px-3 px-md-4">
-        <!-- Menu logo wrapper: Start -->
-        <div class="navbar-brand app-brand demo d-flex py-0 py-lg-2 me-4">
-          <!-- Mobile menu toggle: Start-->
-          <button
-            class="navbar-toggler border-0 px-0 me-2"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation">
-            <i class="tf-icons mdi mdi-menu mdi-24px align-middle"></i>
-          </button>
-          <!-- Mobile menu toggle: End-->
-          <a href="landing-page.html" class="app-brand-link">
-            <span class="app-brand-logo demo">
-              <span style="color: #666cff">
-                <svg width="268" height="150" viewBox="0 0 38 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M30.0944 2.22569C29.0511 0.444187 26.7508 -0.172113 24.9566 0.849138C23.1623 1.87039 22.5536 4.14247 23.5969 5.92397L30.5368 17.7743C31.5801 19.5558 33.8804 20.1721 35.6746 19.1509C37.4689 18.1296 38.0776 15.8575 37.0343 14.076L30.0944 2.22569Z"
-                    fill="currentColor" />
-                  <path
-                    d="M30.171 2.22569C29.1277 0.444187 26.8274 -0.172113 25.0332 0.849138C23.2389 1.87039 22.6302 4.14247 23.6735 5.92397L30.6134 17.7743C31.6567 19.5558 33.957 20.1721 35.7512 19.1509C37.5455 18.1296 38.1542 15.8575 37.1109 14.076L30.171 2.22569Z"
-                    fill="url(#paint0_linear_2989_100980)"
-                    fill-opacity="0.4" />
-                  <path
-                    d="M22.9676 2.22569C24.0109 0.444187 26.3112 -0.172113 28.1054 0.849138C29.8996 1.87039 30.5084 4.14247 29.4651 5.92397L22.5251 17.7743C21.4818 19.5558 19.1816 20.1721 17.3873 19.1509C15.5931 18.1296 14.9843 15.8575 16.0276 14.076L22.9676 2.22569Z"
-                    fill="currentColor" />
-                  <path
-                    d="M14.9558 2.22569C13.9125 0.444187 11.6122 -0.172113 9.818 0.849138C8.02377 1.87039 7.41502 4.14247 8.45833 5.92397L15.3983 17.7743C16.4416 19.5558 18.7418 20.1721 20.5361 19.1509C22.3303 18.1296 22.9391 15.8575 21.8958 14.076L14.9558 2.22569Z"
-                    fill="currentColor" />
-                  <path
-                    d="M14.9558 2.22569C13.9125 0.444187 11.6122 -0.172113 9.818 0.849138C8.02377 1.87039 7.41502 4.14247 8.45833 5.92397L15.3983 17.7743C16.4416 19.5558 18.7418 20.1721 20.5361 19.1509C22.3303 18.1296 22.9391 15.8575 21.8958 14.076L14.9558 2.22569Z"
-                    fill="url(#paint1_linear_2989_100980)"
-                    fill-opacity="0.4" />
-                  <path
-                    d="M7.82901 2.22569C8.87231 0.444187 11.1726 -0.172113 12.9668 0.849138C14.7611 1.87039 15.3698 4.14247 14.3265 5.92397L7.38656 17.7743C6.34325 19.5558 4.04298 20.1721 2.24875 19.1509C0.454514 18.1296 -0.154233 15.8575 0.88907 14.076L7.82901 2.22569Z"
-                    fill="currentColor" />
-                  <defs>
-                    <linearGradient
-                      id="paint0_linear_2989_100980"
-                      x1="5.36642"
-                      y1="0.849138"
-                      x2="10.532"
-                      y2="24.104"
-                      gradientUnits="userSpaceOnUse">
-                      <stop offset="0" stop-opacity="1" />
-                      <stop offset="1" stop-opacity="0" />
-                    </linearGradient>
-                    <linearGradient
-                      id="paint1_linear_2989_100980"
-                      x1="5.19475"
-                      y1="0.849139"
-                      x2="10.3357"
-                      y2="24.1155"
-                      gradientUnits="userSpaceOnUse">
-                      <stop offset="0" stop-opacity="1" />
-                      <stop offset="1" stop-opacity="0" />
-                    </linearGradient>
-                  </defs>
-                </svg>
-              </span>
-            </span>
-            <span class="app-brand-text demo menu-text fw-bold ms-2 ps-1">Materialize</span>
-          </a>
-        </div>
-        <!-- Menu logo wrapper: End -->
-        <!-- Menu wrapper: Start -->
-        <div class="collapse navbar-collapse landing-nav-menu" id="navbarSupportedContent">
-          <button
-            class="navbar-toggler border-0 text-heading position-absolute end-0 top-0 scaleX-n1-rtl"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation">
-            <i class="tf-icons mdi mdi-close"></i>
-          </button>
-          <ul class="navbar-nav me-auto p-3 p-lg-0">
-            <li class="nav-item">
-                <a class="nav-link fw-medium" data-scroll href="#landingFeatures">
-                    Tentukan Lokasi
-                </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link fw-medium" href="landing-page.html#landingTeam">Team</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link fw-medium" href="landing-page.html#landingFAQ">FAQ</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link fw-medium text-nowrap" href="landing-page.html#landingContact">Contact us</a>
-            </li>
-            <li class="nav-item mega-dropdown">
-              <a
-                href="javascript:void(0);"
-                class="nav-link dropdown-toggle navbar-ex-14-mega-dropdown mega-dropdown fw-medium"
-                aria-expanded="false"
-                data-bs-toggle="mega-dropdown"
-                data-trigger="hover">
-                <span data-i18n="Pages">Pages</span>
-              </a>
-              <div class="dropdown-menu p-4">
-                <div class="row gy-4">
-                  <div class="col-12 col-lg">
-                    <div class="h6 d-flex align-items-center mb-2 mb-lg-3">
-                      <div class="avatar avatar-sm flex-shrink-0 me-2">
-                        <span class="avatar-initial rounded bg-label-primary"
-                          ><i class="mdi mdi-view-grid-outline"></i
-                        ></span>
-                      </div>
-                      <span class="ps-1">Other</span>
-                    </div>
-                    <ul class="nav flex-column">
-                      <li class="nav-item">
-                        <a class="nav-link mega-dropdown-link d-flex align-items-center" href="pricing-page.html">
-                          <i class="mdi mdi-radiobox-blank mdi-14px me-2"></i>
-                          <span data-i18n="Pricing">Pricing</span>
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link mega-dropdown-link d-flex align-items-center" href="payment-page.html">
-                          <i class="mdi mdi-radiobox-blank mdi-14px me-2"></i>
-                          <span data-i18n="Payment">Payment</span>
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link mega-dropdown-link d-flex align-items-center" href="checkout-page.html">
-                          <i class="mdi mdi-radiobox-blank mdi-14px me-2"></i>
-                          <span data-i18n="Checkout">Checkout</span>
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a
-                          class="nav-link mega-dropdown-link d-flex align-items-center"
-                          href="help-center-landing.html">
-                          <i class="mdi mdi-radiobox-blank mdi-14px me-2"></i>
-                          <span data-i18n="Help Center">Help Center</span>
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                  <div class="col-12 col-lg">
-                    <div class="h6 d-flex align-items-center mb-2 mb-lg-3">
-                      <div class="avatar avatar-sm flex-shrink-0 me-2">
-                        <span class="avatar-initial rounded bg-label-primary"
-                          ><i class="mdi mdi-lock-open-outline"></i
-                        ></span>
-                      </div>
-                      <span class="ps-1">Auth Demo</span>
-                    </div>
-                    <ul class="nav flex-column">
-                      <li class="nav-item">
-                        <a
-                          class="nav-link mega-dropdown-link d-flex align-items-center"
-                          href="../vertical-menu-template/auth-login-basic.html"
-                          target="_blank">
-                          <i class="mdi mdi-radiobox-blank mdi-14px me-2"></i>
-                          Login (Basic)
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a
-                          class="nav-link mega-dropdown-link d-flex align-items-center"
-                          href="../vertical-menu-template/auth-login-cover.html"
-                          target="_blank">
-                          <i class="mdi mdi-radiobox-blank mdi-14px me-2"></i>
-                          Login (Cover)
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a
-                          class="nav-link mega-dropdown-link d-flex align-items-center"
-                          href="../vertical-menu-template/auth-register-basic.html"
-                          target="_blank">
-                          <i class="mdi mdi-radiobox-blank mdi-14px me-2"></i>
-                          Register (Basic)
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a
-                          class="nav-link mega-dropdown-link d-flex align-items-center"
-                          href="../vertical-menu-template/auth-register-cover.html"
-                          target="_blank">
-                          <i class="mdi mdi-radiobox-blank mdi-14px me-2"></i>
-                          Register (Cover)
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a
-                          class="nav-link mega-dropdown-link d-flex align-items-center"
-                          href="../vertical-menu-template/auth-register-multisteps.html"
-                          target="_blank">
-                          <i class="mdi mdi-radiobox-blank mdi-14px me-2"></i>
-                          Register (Multi-steps)
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a
-                          class="nav-link mega-dropdown-link d-flex align-items-center"
-                          href="../vertical-menu-template/auth-forgot-password-basic.html"
-                          target="_blank">
-                          <i class="mdi mdi-radiobox-blank mdi-14px me-2"></i>
-                          Forgot Password (Basic)
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a
-                          class="nav-link mega-dropdown-link d-flex align-items-center"
-                          href="../vertical-menu-template/auth-forgot-password-cover.html"
-                          target="_blank">
-                          <i class="mdi mdi-radiobox-blank mdi-14px me-2"></i>
-                          Forgot Password (Cover)
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a
-                          class="nav-link mega-dropdown-link d-flex align-items-center"
-                          href="../vertical-menu-template/auth-reset-password-basic.html"
-                          target="_blank">
-                          <i class="mdi mdi-radiobox-blank mdi-14px me-2"></i>
-                          Reset Password (Basic)
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a
-                          class="nav-link mega-dropdown-link d-flex align-items-center"
-                          href="../vertical-menu-template/auth-reset-password-cover.html"
-                          target="_blank">
-                          <i class="mdi mdi-radiobox-blank mdi-14px me-2"></i>
-                          Reset Password (Cover)
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                  <div class="col-12 col-lg">
-                    <div class="h6 d-flex align-items-center mb-2 mb-lg-3">
-                      <div class="avatar avatar-sm flex-shrink-0 me-2">
-                        <span class="avatar-initial rounded bg-label-primary"
-                          ><i class="mdi mdi-image-outline"></i
-                        ></span>
-                      </div>
-                      <span class="ps-1">Other</span>
-                    </div>
-                    <ul class="nav flex-column">
-                      <li class="nav-item">
-                        <a
-                          class="nav-link mega-dropdown-link d-flex align-items-center"
-                          href="../vertical-menu-template/pages-misc-error.html"
-                          target="_blank">
-                          <i class="mdi mdi-radiobox-blank mdi-14px me-2"></i>
-                          Error
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a
-                          class="nav-link mega-dropdown-link d-flex align-items-center"
-                          href="../vertical-menu-template/pages-misc-under-maintenance.html"
-                          target="_blank">
-                          <i class="mdi mdi-radiobox-blank mdi-14px me-2"></i>
-                          Under Maintenance
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a
-                          class="nav-link mega-dropdown-link d-flex align-items-center"
-                          href="../vertical-menu-template/pages-misc-comingsoon.html"
-                          target="_blank">
-                          <i class="mdi mdi-radiobox-blank mdi-14px me-2"></i>
-                          Coming Soon
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a
-                          class="nav-link mega-dropdown-link d-flex align-items-center"
-                          href="../vertical-menu-template/pages-misc-not-authorized.html"
-                          target="_blank">
-                          <i class="mdi mdi-radiobox-blank mdi-14px me-2"></i>
-                          Not Authorized
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a
-                          class="nav-link mega-dropdown-link d-flex align-items-center"
-                          href="../vertical-menu-template/auth-verify-email-basic.html"
-                          target="_blank">
-                          <i class="mdi mdi-radiobox-blank mdi-14px me-2"></i>
-                          Verify Email (Basic)
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a
-                          class="nav-link mega-dropdown-link d-flex align-items-center"
-                          href="../vertical-menu-template/auth-verify-email-cover.html"
-                          target="_blank">
-                          <i class="mdi mdi-radiobox-blank mdi-14px me-2"></i>
-                          Verify Email (Cover)
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a
-                          class="nav-link mega-dropdown-link d-flex align-items-center"
-                          href="../vertical-menu-template/auth-two-steps-basic.html"
-                          target="_blank">
-                          <i class="mdi mdi-radiobox-blank mdi-14px me-2"></i>
-                          Two Steps (Basic)
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a
-                          class="nav-link mega-dropdown-link d-flex align-items-center"
-                          href="../vertical-menu-template/auth-two-steps-cover.html"
-                          target="_blank">
-                          <i class="mdi mdi-radiobox-blank mdi-14px me-2"></i>
-                          Two Steps (Cover)
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                  <div class="col-lg-4 d-none d-lg-block">
-                    <div class="bg-body nav-img-col p-2">
-                      <img
-                        src="../../assets/img/front-pages/misc/nav-item-col-img-light.png"
-                        class="img-fluid scaleX-n1-rtl w-100"
-                        alt="nav item col image"
-                        data-app-light-img="front-pages/misc/nav-item-col-img-light.png"
-                        data-app-dark-img="front-pages/misc/nav-item-col-img-dark.png" />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link fw-medium" href="../vertical-menu-template/index.html" target="_blank">Admin</a>
-            </li>
-          </ul>
-        </div>
-        <div class="landing-menu-overlay d-lg-none"></div>
-        <!-- Menu wrapper: End -->
-        <!-- Toolbar: Start -->
-        <ul class="navbar-nav flex-row align-items-center ms-auto">
-          <!-- Style Switcher -->
-          <li class="nav-item dropdown-style-switcher dropdown me-2 me-xl-0">
-            <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-              <i class="mdi mdi-24px"></i>
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end dropdown-styles">
-              <li>
-                <a class="dropdown-item" href="javascript:void(0);" data-theme="light">
-                  <span class="align-middle"><i class="mdi mdi-weather-sunny me-2"></i>Light</span>
-                </a>
-              </li>
-              <li>
-                <a class="dropdown-item" href="javascript:void(0);" data-theme="dark">
-                  <span class="align-middle"><i class="mdi mdi-weather-night me-2"></i>Dark</span>
-                </a>
-              </li>
-              <li>
-                <a class="dropdown-item" href="javascript:void(0);" data-theme="system">
-                  <span class="align-middle"><i class="mdi mdi-monitor me-2"></i>System</span>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <!-- / Style Switcher-->
-
-          <!-- navbar button: Start -->
-          <li>
-            <a
-              href="{{ route('login') }}"
-              class="btn btn-primary px-2 px-sm-4 px-lg-2 px-xl-4"
-              target="_blank"
-              ><span class="tf-icons mdi mdi-account me-md-1"></span
-              ><span class="d-none d-md-block">Login/Register</span></a
-            >
-          </li>
-          <!-- navbar button: End -->
-        </ul>
-        <!-- Toolbar: End -->
-      </div>
-    </nav>
-    <!-- Navbar: End -->
+@section('content')
 
     <!-- Sections:Start -->
 
-    <section id="landingFeatures" class="section-py">
+    <section class="hero-section position-relative overflow-hidden min-vh-100 d-flex align-items-center">
+
+    <!-- Background Blur -->
+    <div class="hero-blur hero-blur-1"></div>
+    <div class="hero-blur hero-blur-2"></div>
 
     <div class="container">
 
-        <!-- Judul -->
-        <h6 class="text-center fw-semibold d-flex justify-content-center align-items-center mb-4">
-            <img
-                src="../../assets/img/front-pages/icons/section-tilte-icon.png"
-                alt="section title icon"
-                class="me-2" />
-            <span class="text-uppercase">Cari Parkir</span>
-        </h6>
+        <div class="row align-items-center gy-5">
 
-        <h3 class="text-center mb-2">
-            <span class="fw-bold">Tentukan Lokasi Parkir</span>
-        </h3>
+            <!-- Kiri -->
+            <div class="col-lg-6">
 
-        <p class="text-center fw-medium mb-5">
-            Temukan lokasi parkir terdekat dan pesan slot parkir dengan mudah
-        </p>
+                <span class="badge bg-label-primary rounded-pill px-4 py-2 mb-4">
+                    🚗 Smart Parking Platform
+                </span>
 
-        <!-- Banner -->
-        <div class="position-relative mb-5">
+                <h1 class="display-3 fw-bold mb-4">
+                    Temukan Tempat Parkir Terdekat
+                    <span class="text-primary">
+                        dalam Hitungan Detik
+                    </span>
+                </h1>
 
-            <img
-                src="https://images.unsplash.com/photo-1590674899484-d5640e854abe?q=80&w=1920"
-                class="img-fluid rounded-4 w-100"
-                style="height:500px; object-fit:cover;">
-
-            <!-- Overlay -->
-            <div
-                class="position-absolute top-0 start-0 w-100 h-100 rounded-4"
-                style="background: rgba(0,0,0,.35);">
-            </div>
-
-            <!-- Text -->
-            <div
-                class="position-absolute top-50 start-50 translate-middle text-center text-white">
-
-                <h2 class="text-white fw-bold mb-3">
-                    Cari Tempat Parkir Favoritmu
-                </h2>
-
-                <p class="fs-5">
-                    Booking parkir lebih cepat tanpa harus berputar mencari tempat kosong
+                <p class="fs-5 text-body-secondary mb-5">
+                    Cari lokasi parkir yang tersedia secara real-time,
+                    pilih slot terbaik, dan lakukan reservasi sebelum tiba.
+                    Nikmati pengalaman parkir yang lebih cepat dan praktis
+                    bersama ParkirIn.
                 </p>
 
+                <div class="d-flex gap-3 flex-wrap">
+
+                    <a href="#cari-parkir" class="btn btn-primary btn-lg">
+                        Cari Parkir
+                    </a>
+
+                    <a href="#cara-kerja" class="btn btn-outline-primary btn-lg">
+                        Cara Kerja
+                    </a>
+
+                </div>
+
             </div>
 
-            <!-- Search Box -->
-            <div
-                class="card shadow-lg border-0 position-absolute start-50 translate-middle-x"
-                style="bottom:-50px; width:85%;">
+            <!-- Kanan -->
+            <div class="col-lg-5 offset-lg-1">
 
-                <div class="card-body p-4">
+                <div class="card border-0 shadow-lg rounded-4">
 
-                    <div class="row g-3">
+                    <div class="card-body p-4 p-lg-5">
 
-                        <div class="col-md-5">
+                        <div class="text-center mb-4">
+
+                            <div
+                                class="avatar avatar-lg mx-auto mb-3 bg-label-primary rounded-circle">
+
+                                <span class="mdi mdi-map-marker fs-2"></span>
+
+                            </div>
+
+                            <h4 class="fw-bold mb-1">
+                                Cari Lokasi Parkir
+                            </h4>
+
+                            <p class="text-body-secondary mb-0">
+                                Temukan area parkir terdekat dari lokasi Anda
+                            </p>
+
+                        </div>
+
+                        <div class="mb-3">
+
+                            <label class="form-label">
+                                Lokasi Anda
+                            </label>
 
                             <input
                                 type="text"
                                 class="form-control"
-                                placeholder="Masukkan lokasi parkir">
+                                placeholder="Contoh: Semarang">
 
                         </div>
 
-                        <div class="col-md-3">
+                        <div class="mb-4">
+
+                            <label class="form-label">
+                                Jenis Kendaraan
+                            </label>
 
                             <select class="form-select">
-
-                                <option>Semua Lokasi</option>
-                                <option>Kampus</option>
-                                <option>Mall</option>
-                                <option>Perkantoran</option>
-
+                                <option>Mobil</option>
+                                <option>Motor</option>
                             </select>
 
                         </div>
 
-                        <div class="col-md-2">
+                        <button
+                            class="btn btn-primary w-100 btn-lg">
 
-                            <input
-                                type="date"
-                                class="form-control">
+                            <span class="mdi mdi-magnify me-1"></span>
+                            Cari Sekarang
+
+                        </button>
+
+                        <div class="text-center mt-3">
+
+                            <a href="#"
+                                class="text-primary text-decoration-none">
+
+                                📍 Gunakan Lokasi Saat Ini
+
+                            </a>
 
                         </div>
-
-                        <div class="col-md-2">
-
-                            <button class="btn btn-primary w-100">
-
-                                Cari
-
-                            </button>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-        <!-- Spacer -->
-        <div style="height:90px"></div>
-
-        <!-- Lokasi Populer -->
-        <div class="text-center mb-5">
-
-            <h4 class="fw-bold">
-                Lokasi Parkir Populer
-            </h4>
-
-            <p class="text-muted">
-                Pilih lokasi yang tersedia di sekitar Anda
-            </p>
-
-        </div>
-
-        <div class="row">
-
-            <!-- UDINUS -->
-            <div class="col-lg-4 col-md-6 mb-4">
-
-                <div class="card h-100 shadow-sm border-0">
-
-                    <img
-                        src="https://images.unsplash.com/photo-1519501025264-65ba15a82390?q=80&w=800"
-                        class="card-img-top"
-                        style="height:220px; object-fit:cover;">
-
-                    <div class="card-body">
-
-                        <h5>📍 Parkir UDINUS</h5>
-
-                        <p class="text-muted">
-                            Jl. Imam Bonjol No.207 Semarang
-                        </p>
-
-                        <p class="text-success fw-semibold">
-                             25 Slot Tersedia
-                        </p>
-
-                        <a href="/customer/denah" class="btn btn-primary w-100">
-                            Pilih Denah
-                        </a>
-                    </div>
-
-                </div>
-
-            </div>
-
-            <!-- Simpang Lima -->
-            <div class="col-lg-4 col-md-6 mb-4">
-
-                <div class="card h-100 shadow-sm border-0">
-
-                    <img
-                        src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=800"
-                        class="card-img-top"
-                        style="height:220px; object-fit:cover;">
-
-                    <div class="card-body">
-
-                        <h5>📍 Simpang Lima</h5>
-
-                        <p class="text-muted">
-                            Kawasan Simpang Lima Semarang
-                        </p>
-
-                        <p class="text-success fw-semibold">
-                             12 Slot Tersedia
-                        </p>
-
-                        <a href="/customer/denah" class="btn btn-primary w-100">
-                            Pilih Denah
-                        </a>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-            <!-- Paragon -->
-            <div class="col-lg-4 col-md-6 mb-4">
-
-                <div class="card h-100 shadow-sm border-0">
-
-                    <img
-                        src="https://images.unsplash.com/photo-1460317442991-0ec209397118?q=80&w=800"
-                        class="card-img-top"
-                        style="height:220px; object-fit:cover;">
-
-                    <div class="card-body">
-
-                        <h5>📍 Paragon Mall</h5>
-
-                        <p class="text-muted">
-                            Jl. Pemuda No.118 Semarang
-                        </p>
-
-                        <p class="text-success fw-semibold">
-                             40 Slot Tersedia
-                        </p>
-
-                        <a href="/customer/denah" class="btn btn-primary w-100">
-                            Pilih Denah
-                        </a>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-            <!-- DP Mall -->
-            <div class="col-lg-4 col-md-6 mb-4">
-
-                <div class="card h-100 shadow-sm border-0">
-
-                    <img
-                        src="https://images.unsplash.com/photo-1448630360428-65456885c650?q=80&w=800"
-                        class="card-img-top"
-                        style="height:220px; object-fit:cover;">
-
-                    <div class="card-body">
-
-                        <h5>📍 DP Mall</h5>
-
-                        <p class="text-muted">
-                            Jl. Pemuda No.150 Semarang
-                        </p>
-
-                        <p class="text-success fw-semibold">
-                             30 Slot Tersedia
-                        </p>
-
-                        <a href="/customer/denah" class="btn btn-primary w-100">
-                            Pilih Denah
-                        </a>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-            <!-- Java Mall -->
-            <div class="col-lg-4 col-md-6 mb-4">
-
-                <div class="card h-100 shadow-sm border-0">
-
-                    <img
-                        src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?q=80&w=800"
-                        class="card-img-top"
-                        style="height:220px; object-fit:cover;">
-
-                    <div class="card-body">
-
-                        <h5>📍 Java Mall</h5>
-
-                        <p class="text-muted">
-                            Jl. MT. Haryono Semarang
-                        </p>
-
-                        <p class="text-success fw-semibold">
-                             18 Slot Tersedia
-                        </p>
-
-                        <a href="/customer/denah" class="btn btn-primary w-100">
-                            Pilih Denah
-                        </a>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-            <!-- Citraland -->
-            <div class="col-lg-4 col-md-6 mb-4">
-
-                <div class="card h-100 shadow-sm border-0">
-
-                    <img
-                        src="https://images.unsplash.com/photo-1494526585095-c41746248156?q=80&w=800"
-                        class="card-img-top"
-                        style="height:220px; object-fit:cover;">
-
-                    <div class="card-body">
-
-                        <h5>📍 Citraland Mall</h5>
-
-                        <p class="text-muted">
-                            Jl. Siliwangi Semarang
-                        </p>
-
-                        <p class="text-success fw-semibold">
-                             22 Slot Tersedia
-                        </p>
-
-                        <a href="/customer/denah" class="btn btn-primary w-100">
-                            Pilih Denah
-                        </a>
 
                     </div>
 
@@ -768,478 +131,151 @@
     </div>
 
 </section>
+
+        <div class="text-center mb-5">
+
+            <span class="badge bg-label-primary rounded-pill mb-3">
+                📍 Nearby Parking
+            </span>
+
+            <h2 class="fw-bold mb-2">
+                Area Parkir Terdekat
+            </h2>
+
+            <p class="text-body-secondary">
+                Temukan lokasi parkir yang tersedia di sekitar Anda secara real-time
+            </p>
+
+        </div>
+
+        <div class="row justify-content-center g-4">
+            <!-- Card 1 -->
+            <div class="col-xl-3 col-lg-3 col-md-6">
+                <div class="card h-100 shadow-sm border-0">
+                    <div class="position-relative">
+                          <img
+                              src="https://blog.getandride.com/wp-content/uploads/2023/05/ukuran-parkiran-mobil.jpg"
+                              class="card-img-top"
+                              style="height:220px;object-fit:cover;">
+                          <span
+                              class="badge bg-success position-absolute top-0 end-0 m-3">
+                              Tersedia
+                          </span>
+                      </div>
+                      <div class="card-body">
+                          <div class="d-flex justify-content-between mb-2">
+                              <h5 class="fw-semibold mb-0">
+                                  Parkir UDINUS
+                              </h5>
+                              <span class="text-warning">
+                                  ⭐ 4.8
+                              </span>
+                          </div>
+                          <p class="text-body-secondary mb-3">
+                              Jl. Imam Bonjol No.207 Semarang
+                          </p>
+                          <div class="d-flex justify-content-between mb-3">
+                              <span>
+                                  📍 1.2 km
+                              </span>
+                              <span class="text-success fw-semibold">
+                                  25 Slot
+                              </span>
+                          </div>
+                          <a
+                              href="/customer/denah"
+                              class="btn btn-primary w-100">
+                              Lihat Denah
+                          </a>
+                      </div>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="col-xl-3 col-lg-3 col-md-6">
+                <div class="card h-100 shadow-sm border-0">
+                    <div class="position-relative">
+                          <img
+                              src="https://blog.getandride.com/wp-content/uploads/2023/05/ukuran-parkiran-mobil.jpg"
+                              class="card-img-top"
+                              style="height:220px;object-fit:cover;">
+                          <span
+                              class="badge bg-success position-absolute top-0 end-0 m-3">
+                              Tersedia
+                          </span>
+                      </div>
+                      <div class="card-body">
+                          <div class="d-flex justify-content-between mb-2">
+                              <h5 class="fw-semibold mb-0">
+                                  Parkir UDINUS
+                              </h5>
+                              <span class="text-warning">
+                                  ⭐ 4.8
+                              </span>
+                          </div>
+                          <p class="text-body-secondary mb-3">
+                              Jl. Imam Bonjol No.207 Semarang
+                          </p>
+                          <div class="d-flex justify-content-between mb-3">
+                              <span>
+                                  📍 1.2 km
+                              </span>
+                              <span class="text-success fw-semibold">
+                                  25 Slot
+                              </span>
+                          </div>
+                          <a
+                              href="/customer/denah"
+                              class="btn btn-primary w-100">
+                              Lihat Denah
+                          </a>
+                      </div>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="col-xl-3 col-lg-3 col-md-6">
+                <div class="card h-100 shadow-sm border-0">
+                    <div class="position-relative">
+                          <img
+                              src="https://blog.getandride.com/wp-content/uploads/2023/05/ukuran-parkiran-mobil.jpg"
+                              class="card-img-top"
+                              style="height:220px;object-fit:cover;">
+                          <span
+                              class="badge bg-success position-absolute top-0 end-0 m-3">
+                              Tersedia
+                          </span>
+                      </div>
+                      <div class="card-body">
+                          <div class="d-flex justify-content-between mb-2">
+                              <h5 class="fw-semibold mb-0">
+                                  Parkir UDINUS
+                              </h5>
+                              <span class="text-warning">
+                                  ⭐ 4.8
+                              </span>
+                          </div>
+                          <p class="text-body-secondary mb-3">
+                              Jl. Imam Bonjol No.207 Semarang
+                          </p>
+                          <div class="d-flex justify-content-between mb-3">
+                              <span>
+                                  📍 1.2 km
+                              </span>
+                              <span class="text-success fw-semibold">
+                                  25 Slot
+                              </span>
+                          </div>
+                          <a
+                              href="/customer/denah"
+                              class="btn btn-primary w-100">
+                              Lihat Denah
+                          </a>
+                      </div>
+                </div>
+            </div>
+        </div>
       <!-- Hero: End -->
-
-      <!-- Useful features: Start -->
-            <!-- Useful features: End -->
-
-      <!-- Real customers reviews: Start -->
-      <section id="landingReviews" class="section-py bg-body landing-reviews pb-0">
-        <div class="container">
-          <h6 class="text-center fw-semibold d-flex justify-content-center align-items-center mb-4">
-            <img
-              src="../../assets/img/front-pages/icons/section-tilte-icon.png"
-              alt="section title icon"
-              class="me-2" />
-            <span class="text-uppercase">real customers reviews</span>
-          </h6>
-          <h3 class="text-center mb-2"><span class="fw-bold">Success stories</span> from clients</h3>
-          <p class="text-center fw-medium mb-3 mb-md-5">See what our customers have to say about their experience.</p>
-        </div>
-        <div class="swiper-reviews-carousel overflow-hidden mb-5 pt-4">
-          <div class="swiper" id="swiper-reviews">
-            <div class="swiper-wrapper">
-              <div class="swiper-slide">
-                <div class="card h-100">
-                  <div class="card-body text-body d-flex flex-column justify-content-between text-center">
-                    <div class="mb-3">
-                      <img
-                        src="../../assets/img/front-pages/branding/logo-4.png"
-                        alt="client logo"
-                        class="client-logo img-fluid" />
-                    </div>
-                    <p>
-                      “I've never used a theme as versatile and flexible as Vuexy. It's my go to for building dashboard
-                      sites on almost any project.”
-                    </p>
-                    <div class="text-warning mb-3">
-                      <i class="tf-icons mdi mdi-star mdi-24px"></i>
-                      <i class="tf-icons mdi mdi-star mdi-24px"></i>
-                      <i class="tf-icons mdi mdi-star mdi-24px"></i>
-                      <i class="tf-icons mdi mdi-star mdi-24px"></i>
-                      <i class="tf-icons mdi mdi-star mdi-24px"></i>
-                    </div>
-                    <div>
-                      <h6 class="mb-1">Eugenia Moore</h6>
-                      <p class="mb-0">Founder of Hubspot</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="swiper-slide">
-                <div class="card h-100">
-                  <div class="card-body text-body d-flex flex-column justify-content-between text-center">
-                    <div class="mb-3">
-                      <img
-                        src="../../assets/img/front-pages/branding/logo-1.png"
-                        alt="client logo"
-                        class="client-logo img-fluid" />
-                    </div>
-                    <p>Materio is awesome, and I particularly enjoy knowing that if I get stuck on something.</p>
-                    <div class="text-warning mb-3">
-                      <i class="tf-icons mdi mdi-star mdi-24px"></i>
-                      <i class="tf-icons mdi mdi-star mdi-24px"></i>
-                      <i class="tf-icons mdi mdi-star mdi-24px"></i>
-                      <i class="tf-icons mdi mdi-star mdi-24px"></i>
-                      <i class="tf-icons mdi mdi-star mdi-24px"></i>
-                    </div>
-                    <div>
-                      <h6 class="mb-1">Tommy haffman</h6>
-                      <p class="mb-0">Founder of Levis</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="swiper-slide">
-                <div class="card h-100">
-                  <div class="card-body text-body d-flex flex-column justify-content-between text-center">
-                    <div class="mb-3">
-                      <img
-                        src="../../assets/img/front-pages/branding/logo-3.png"
-                        alt="client logo"
-                        class="client-logo img-fluid" />
-                    </div>
-                    <p>
-                      This template is superior in so many ways. The code, the design, the regular updates, the
-                      support.. It’s the whole package. Excellent Work.
-                    </p>
-                    <div class="text-warning mb-3">
-                      <i class="tf-icons mdi mdi-star mdi-24px"></i>
-                      <i class="tf-icons mdi mdi-star mdi-24px"></i>
-                      <i class="tf-icons mdi mdi-star mdi-24px"></i>
-                      <i class="tf-icons mdi mdi-star mdi-24px"></i>
-                      <i class="tf-icons mdi mdi-star mdi-24px"></i>
-                    </div>
-                    <div>
-                      <h6 class="mb-1">Eugenia Moore</h6>
-                      <p class="mb-0">CTO of Airbnb</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="swiper-slide">
-                <div class="card h-100">
-                  <div class="card-body text-body d-flex flex-column justify-content-between text-center">
-                    <div class="mb-3">
-                      <img
-                        src="../../assets/img/front-pages/branding/logo-2.png"
-                        alt="client logo"
-                        class="client-logo img-fluid" />
-                    </div>
-                    <p>
-                      All the requirements for developers have been taken into consideration, so I’m able to build any
-                      interface I want.
-                    </p>
-                    <div class="text-warning mb-3">
-                      <i class="tf-icons mdi mdi-star mdi-24px"></i>
-                      <i class="tf-icons mdi mdi-star mdi-24px"></i>
-                      <i class="tf-icons mdi mdi-star mdi-24px"></i>
-                      <i class="tf-icons mdi mdi-star mdi-24px"></i>
-                      <i class="tf-icons mdi mdi-star mdi-24px"></i>
-                    </div>
-                    <div>
-                      <h6 class="mb-1">Sara Smith</h6>
-                      <p class="mb-0">Founder of Continental</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="swiper-slide">
-                <div class="card h-100">
-                  <div class="card-body text-body d-flex flex-column justify-content-between text-center">
-                    <div class="mb-3">
-                      <img
-                        src="../../assets/img/front-pages/branding/logo-5.png"
-                        alt="client logo"
-                        class="client-logo img-fluid" />
-                    </div>
-                    <p>
-                      “I've never used a theme as versatile and flexible as Vuexy. It's my go to for building dashboard
-                      sites on almost any project.”
-                    </p>
-                    <div class="text-warning mb-3">
-                      <i class="tf-icons mdi mdi-star mdi-24px"></i>
-                      <i class="tf-icons mdi mdi-star mdi-24px"></i>
-                      <i class="tf-icons mdi mdi-star mdi-24px"></i>
-                      <i class="tf-icons mdi mdi-star mdi-24px"></i>
-                      <i class="tf-icons mdi mdi-star mdi-24px"></i>
-                    </div>
-                    <div>
-                      <h6 class="mb-1">Eugenia Moore</h6>
-                      <p class="mb-0">Founder of Hubspot</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="swiper-slide">
-                <div class="card h-100">
-                  <div class="card-body text-body d-flex flex-column justify-content-between text-center h-100">
-                    <div class="mb-3">
-                      <img
-                        src="../../assets/img/front-pages/branding/logo-4.png"
-                        alt="client logo"
-                        class="client-logo img-fluid" />
-                    </div>
-                    <p>
-                      “I've never used a theme as versatile and flexible as Vuexy. It's my go to for building dashboard
-                      sites on almost any project.”
-                    </p>
-                    <div class="text-warning mb-3">
-                      <i class="tf-icons mdi mdi-star mdi-24px"></i>
-                      <i class="tf-icons mdi mdi-star mdi-24px"></i>
-                      <i class="tf-icons mdi mdi-star mdi-24px"></i>
-                      <i class="tf-icons mdi mdi-star mdi-24px"></i>
-                      <i class="tf-icons mdi mdi-star-outline mdi-24px"></i>
-                    </div>
-                    <div>
-                      <h6 class="mb-1">Eugenia Moore</h6>
-                      <p class="mb-0">Founder of Hubspot</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="swiper-slide">
-                <div class="card h-100">
-                  <div class="card-body text-body d-flex flex-column justify-content-between text-center h-100">
-                    <div class="mb-3">
-                      <img
-                        src="../../assets/img/front-pages/branding/logo-1.png"
-                        alt="client logo"
-                        class="client-logo img-fluid" />
-                    </div>
-                    <p>Materio is awesome, and I particularly enjoy knowing that if I get stuck on something.</p>
-                    <div class="text-warning mb-3">
-                      <i class="tf-icons mdi mdi-star mdi-24px"></i>
-                      <i class="tf-icons mdi mdi-star mdi-24px"></i>
-                      <i class="tf-icons mdi mdi-star mdi-24px"></i>
-                      <i class="tf-icons mdi mdi-star mdi-24px"></i>
-                      <i class="tf-icons mdi mdi-star mdi-24px"></i>
-                    </div>
-                    <div>
-                      <h6 class="mb-1">Tommy haffman</h6>
-                      <p class="mb-0">Founder of Levis</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="swiper-slide">
-                <div class="card h-100">
-                  <div class="card-body text-body d-flex flex-column justify-content-between text-center h-100">
-                    <div class="mb-3">
-                      <img
-                        src="../../assets/img/front-pages/branding/logo-3.png"
-                        alt="client logo"
-                        class="client-logo img-fluid" />
-                    </div>
-                    <p>
-                      This template is superior in so many ways. The code, the design, the regular updates, the
-                      support.. It’s the whole package. Excellent Work.
-                    </p>
-                    <div class="text-warning mb-3">
-                      <i class="tf-icons mdi mdi-star mdi-24px"></i>
-                      <i class="tf-icons mdi mdi-star mdi-24px"></i>
-                      <i class="tf-icons mdi mdi-star mdi-24px"></i>
-                      <i class="tf-icons mdi mdi-star mdi-24px"></i>
-                      <i class="tf-icons mdi mdi-star mdi-24px"></i>
-                    </div>
-                    <div>
-                      <h6 class="mb-1">Eugenia Moore</h6>
-                      <p class="mb-0">CTO of Airbnb</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="swiper-slide">
-                <div class="card h-100">
-                  <div class="card-body text-body d-flex flex-column justify-content-between text-center h-100">
-                    <div class="mb-3">
-                      <img
-                        src="../../assets/img/front-pages/branding/logo-2.png"
-                        alt="client logo"
-                        class="client-logo img-fluid" />
-                    </div>
-                    <p>
-                      All the requirements for developers have been taken into consideration, so I’m able to build any
-                      interface I want.
-                    </p>
-                    <div class="text-warning mb-3">
-                      <i class="tf-icons mdi mdi-star mdi-24px"></i>
-                      <i class="tf-icons mdi mdi-star mdi-24px"></i>
-                      <i class="tf-icons mdi mdi-star mdi-24px"></i>
-                      <i class="tf-icons mdi mdi-star mdi-24px"></i>
-                      <i class="tf-icons mdi mdi-star-outline mdi-24px"></i>
-                    </div>
-                    <div>
-                      <h6 class="mb-1">Sara Smith</h6>
-                      <p class="mb-0">Founder of Continental</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="swiper-slide">
-                <div class="card h-100">
-                  <div class="card-body text-body d-flex flex-column justify-content-between text-center h-100">
-                    <div class="mb-3">
-                      <img
-                        src="../../assets/img/front-pages/branding/logo-5.png"
-                        alt="client logo"
-                        class="client-logo img-fluid" />
-                    </div>
-                    <p>
-                      “I've never used a theme as versatile and flexible as Vuexy. It's my go to for building dashboard
-                      sites on almost any project.”
-                    </p>
-                    <div class="text-warning mb-3">
-                      <i class="tf-icons mdi mdi-star mdi-24px"></i>
-                      <i class="tf-icons mdi mdi-star mdi-24px"></i>
-                      <i class="tf-icons mdi mdi-star mdi-24px"></i>
-                      <i class="tf-icons mdi mdi-star mdi-24px"></i>
-                      <i class="tf-icons mdi mdi-star mdi-24px"></i>
-                    </div>
-                    <div>
-                      <h6 class="mb-1">Eugenia Moore</h6>
-                      <p class="mb-0">Founder of Hubspot</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="swiper-slide">
-                <div class="card h-100">
-                  <div class="card-body text-body d-flex flex-column justify-content-between text-center">
-                    <div class="mb-3">
-                      <img
-                        src="../../assets/img/front-pages/branding/logo-4.png"
-                        alt="client logo"
-                        class="client-logo img-fluid" />
-                    </div>
-                    <p>
-                      “I've never used a theme as versatile and flexible as Vuexy. It's my go to for building dashboard
-                      sites on almost any project.”
-                    </p>
-                    <div class="text-warning mb-3">
-                      <i class="tf-icons mdi mdi-star mdi-24px"></i>
-                      <i class="tf-icons mdi mdi-star mdi-24px"></i>
-                      <i class="tf-icons mdi mdi-star mdi-24px"></i>
-                      <i class="tf-icons mdi mdi-star mdi-24px"></i>
-                      <i class="tf-icons mdi mdi-star mdi-24px"></i>
-                    </div>
-                    <div>
-                      <h6 class="mb-1">Eugenia Moore</h6>
-                      <p class="mb-0">Founder of Hubspot</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="swiper-slide">
-                <div class="card h-100">
-                  <div class="card-body text-body d-flex flex-column justify-content-between text-center">
-                    <div class="mb-3">
-                      <img
-                        src="../../assets/img/front-pages/branding/logo-1.png"
-                        alt="client logo"
-                        class="client-logo img-fluid" />
-                    </div>
-                    <p>Materio is awesome, and I particularly enjoy knowing that if I get stuck on something.</p>
-                    <div class="text-warning mb-3">
-                      <i class="tf-icons mdi mdi-star mdi-24px"></i>
-                      <i class="tf-icons mdi mdi-star mdi-24px"></i>
-                      <i class="tf-icons mdi mdi-star mdi-24px"></i>
-                      <i class="tf-icons mdi mdi-star mdi-24px"></i>
-                      <i class="tf-icons mdi mdi-star mdi-24px"></i>
-                    </div>
-                    <div>
-                      <h6 class="mb-1">Tommy haffman</h6>
-                      <p class="mb-0">Founder of Levis</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="swiper-slide">
-                <div class="card h-100">
-                  <div class="card-body text-body d-flex flex-column justify-content-between text-center">
-                    <div class="mb-3">
-                      <img
-                        src="../../assets/img/front-pages/branding/logo-3.png"
-                        alt="client logo"
-                        class="client-logo img-fluid" />
-                    </div>
-                    <p>
-                      This template is superior in so many ways. The code, the design, the regular updates, the
-                      support.. It’s the whole package. Excellent Work.
-                    </p>
-                    <div class="text-warning mb-3">
-                      <i class="tf-icons mdi mdi-star mdi-24px"></i>
-                      <i class="tf-icons mdi mdi-star mdi-24px"></i>
-                      <i class="tf-icons mdi mdi-star mdi-24px"></i>
-                      <i class="tf-icons mdi mdi-star mdi-24px"></i>
-                      <i class="tf-icons mdi mdi-star mdi-24px"></i>
-                    </div>
-                    <div>
-                      <h6 class="mb-1">Eugenia Moore</h6>
-                      <p class="mb-0">CTO of Airbnb</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="swiper-slide">
-                <div class="card h-100">
-                  <div class="card-body text-body d-flex flex-column justify-content-between text-center">
-                    <div class="mb-3">
-                      <img
-                        src="../../assets/img/front-pages/branding/logo-2.png"
-                        alt="client logo"
-                        class="client-logo img-fluid" />
-                    </div>
-                    <p>
-                      All the requirements for developers have been taken into consideration, so I’m able to build any
-                      interface I want.
-                    </p>
-                    <div class="text-warning mb-3">
-                      <i class="tf-icons mdi mdi-star mdi-24px"></i>
-                      <i class="tf-icons mdi mdi-star mdi-24px"></i>
-                      <i class="tf-icons mdi mdi-star mdi-24px"></i>
-                      <i class="tf-icons mdi mdi-star mdi-24px"></i>
-                      <i class="tf-icons mdi mdi-star mdi-24px"></i>
-                    </div>
-                    <div>
-                      <h6 class="mb-1">Sara Smith</h6>
-                      <p class="mb-0">Founder of Continental</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="swiper-slide">
-                <div class="card h-100">
-                  <div class="card-body text-body d-flex flex-column justify-content-between text-center">
-                    <div class="mb-3">
-                      <img
-                        src="../../assets/img/front-pages/branding/logo-5.png"
-                        alt="client logo"
-                        class="client-logo img-fluid" />
-                    </div>
-                    <p>
-                      “I've never used a theme as versatile and flexible as Vuexy. It's my go to for building dashboard
-                      sites on almost any project.”
-                    </p>
-                    <div class="text-warning mb-3">
-                      <i class="tf-icons mdi mdi-star mdi-24px"></i>
-                      <i class="tf-icons mdi mdi-star mdi-24px"></i>
-                      <i class="tf-icons mdi mdi-star mdi-24px"></i>
-                      <i class="tf-icons mdi mdi-star mdi-24px"></i>
-                      <i class="tf-icons mdi mdi-star mdi-24px"></i>
-                    </div>
-                    <div>
-                      <h6 class="mb-1">Eugenia Moore</h6>
-                      <p class="mb-0">Founder of Hubspot</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="swiper-pagination"></div>
-          </div>
-        </div>
-        <hr class="m-0" />
-        <div class="container">
-          <div class="swiper-logo-carousel py-4 my-lg-2">
-            <div class="swiper" id="swiper-clients-logos">
-              <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                  <img
-                    src="../../assets/img/front-pages/branding/logo-1-light.png"
-                    alt="client logo"
-                    class="client-logo"
-                    data-app-light-img="front-pages/branding/logo-1-light.png"
-                    data-app-dark-img="front-pages/branding/logo-1-dark.png" />
-                </div>
-                <div class="swiper-slide">
-                  <img
-                    src="../../assets/img/front-pages/branding/logo-2-light.png"
-                    alt="client logo"
-                    class="client-logo"
-                    data-app-light-img="front-pages/branding/logo-2-light.png"
-                    data-app-dark-img="front-pages/branding/logo-2-dark.png" />
-                </div>
-                <div class="swiper-slide">
-                  <img
-                    src="../../assets/img/front-pages/branding/logo-3-light.png"
-                    alt="client logo"
-                    class="client-logo"
-                    data-app-light-img="front-pages/branding/logo-3-light.png"
-                    data-app-dark-img="front-pages/branding/logo-3-dark.png" />
-                </div>
-                <div class="swiper-slide">
-                  <img
-                    src="../../assets/img/front-pages/branding/logo-4-light.png"
-                    alt="client logo"
-                    class="client-logo"
-                    data-app-light-img="front-pages/branding/logo-4-light.png"
-                    data-app-dark-img="front-pages/branding/logo-4-dark.png" />
-                </div>
-                <div class="swiper-slide">
-                  <img
-                    src="../../assets/img/front-pages/branding/logo-5-light.png"
-                    alt="client logo"
-                    class="client-logo"
-                    data-app-light-img="front-pages/branding/logo-5-light.png"
-                    data-app-dark-img="front-pages/branding/logo-5-dark.png" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <!-- Real customers reviews: End -->
 
       <!-- Our great team: Start -->
       <section id="landingTeam" class="section-py landing-team">
@@ -1848,7 +884,7 @@
             </div>
             <div class="col-lg-6 pt-lg-5">
               <img
-                src="../../assets/img/front-pages/landing-page/cta-dashboard.png"
+                src="{{ asset('assets/img/front-pages/landing-page/cta-dashboard.png') }}"
                 alt="cta dashboard"
                 class="img-fluid" />
             </div>
@@ -1862,7 +898,7 @@
         <div class="container bg-icon-left">
           <h6 class="text-center fw-semibold d-flex justify-content-center align-items-center mb-4">
             <img
-              src="../../assets/img/front-pages/icons/section-tilte-icon.png"
+              src="{{ asset('assets/img/front-pages/icons/section-tilte-icon.png') }}"
               alt="section title icon"
               class="me-2" />
             <span class="text-uppercase">contact us</span>
@@ -1876,8 +912,7 @@
                   <p class="fw-medium mb-1">Let’s contact with us</p>
                   <p class="display-6 mb-4">Share your ideas or requirement with our experts.</p>
                   <img
-                    src="../../assets/img/front-pages/landing-page/let’s-contact.png
-              "
+                    src="{{ asset('assets/img/front-pages/landing-page/let’s-contact.png') }}"
                     alt="let’s contact"
                     class="w-100 mb-2 pb-1" />
                   <p class="mb-0">
@@ -1934,190 +969,72 @@
     </div>
 
     <!-- / Sections:End -->
+    @endsection
 
-    <!-- Footer: Start -->
-    <footer class="landing-footer">
-      <div class="footer-top">
-        <div class="container">
-          <div class="row gx-0 gy-4 g-md-5">
-            <div class="col-lg-5">
-              <a href="landing-page.html" class="app-brand-link mb-4">
-                <span class="app-brand-logo demo me-2">
-                  <span style="color: #666cff">
-                    <svg width="268" height="150" viewBox="0 0 38 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M30.0944 2.22569C29.0511 0.444187 26.7508 -0.172113 24.9566 0.849138C23.1623 1.87039 22.5536 4.14247 23.5969 5.92397L30.5368 17.7743C31.5801 19.5558 33.8804 20.1721 35.6746 19.1509C37.4689 18.1296 38.0776 15.8575 37.0343 14.076L30.0944 2.22569Z"
-                        fill="currentColor" />
-                      <path
-                        d="M30.171 2.22569C29.1277 0.444187 26.8274 -0.172113 25.0332 0.849138C23.2389 1.87039 22.6302 4.14247 23.6735 5.92397L30.6134 17.7743C31.6567 19.5558 33.957 20.1721 35.7512 19.1509C37.5455 18.1296 38.1542 15.8575 37.1109 14.076L30.171 2.22569Z"
-                        fill="url(#paint0_linear_2989_100980)"
-                        fill-opacity="0.4" />
-                      <path
-                        d="M22.9676 2.22569C24.0109 0.444187 26.3112 -0.172113 28.1054 0.849138C29.8996 1.87039 30.5084 4.14247 29.4651 5.92397L22.5251 17.7743C21.4818 19.5558 19.1816 20.1721 17.3873 19.1509C15.5931 18.1296 14.9843 15.8575 16.0276 14.076L22.9676 2.22569Z"
-                        fill="currentColor" />
-                      <path
-                        d="M14.9558 2.22569C13.9125 0.444187 11.6122 -0.172113 9.818 0.849138C8.02377 1.87039 7.41502 4.14247 8.45833 5.92397L15.3983 17.7743C16.4416 19.5558 18.7418 20.1721 20.5361 19.1509C22.3303 18.1296 22.9391 15.8575 21.8958 14.076L14.9558 2.22569Z"
-                        fill="currentColor" />
-                      <path
-                        d="M14.9558 2.22569C13.9125 0.444187 11.6122 -0.172113 9.818 0.849138C8.02377 1.87039 7.41502 4.14247 8.45833 5.92397L15.3983 17.7743C16.4416 19.5558 18.7418 20.1721 20.5361 19.1509C22.3303 18.1296 22.9391 15.8575 21.8958 14.076L14.9558 2.22569Z"
-                        fill="url(#paint1_linear_2989_100980)"
-                        fill-opacity="0.4" />
-                      <path
-                        d="M7.82901 2.22569C8.87231 0.444187 11.1726 -0.172113 12.9668 0.849138C14.7611 1.87039 15.3698 4.14247 14.3265 5.92397L7.38656 17.7743C6.34325 19.5558 4.04298 20.1721 2.24875 19.1509C0.454514 18.1296 -0.154233 15.8575 0.88907 14.076L7.82901 2.22569Z"
-                        fill="currentColor" />
-                      <defs>
-                        <linearGradient
-                          id="paint0_linear_2989_100980"
-                          x1="5.36642"
-                          y1="0.849138"
-                          x2="10.532"
-                          y2="24.104"
-                          gradientUnits="userSpaceOnUse">
-                          <stop offset="0" stop-opacity="1" />
-                          <stop offset="1" stop-opacity="0" />
-                        </linearGradient>
-                        <linearGradient
-                          id="paint1_linear_2989_100980"
-                          x1="5.19475"
-                          y1="0.849139"
-                          x2="10.3357"
-                          y2="24.1155"
-                          gradientUnits="userSpaceOnUse">
-                          <stop offset="0" stop-opacity="1" />
-                          <stop offset="1" stop-opacity="0" />
-                        </linearGradient>
-                      </defs>
-                    </svg>
-                  </span>
-                </span>
-                <span class="app-brand-text demo footer-link fw-bold">Materialize</span>
-              </a>
-              <p class="footer-text footer-logo-description mb-4">
-                Most Powerful & Comprehensive 🤩 React NextJS Admin Template with Elegant Material Design & Unique
-                Layouts.
-              </p>
-              <form>
-                <div class="d-flex mt-2 gap-3">
-                  <div class="form-floating form-floating-outline w-px-250">
-                    <input
-                      type="text"
-                      class="form-control bg-transparent text-white"
-                      id="newsletter-1"
-                      placeholder="Your email" />
-                    <label for="newsletter-1">Subscribe to newsletter</label>
-                  </div>
-                  <button type="submit" class="btn btn-primary">Subscribe</button>
-                </div>
-              </form>
-            </div>
-            <div class="col-lg-2 col-md-4 col-sm-6">
-              <h6 class="footer-title mb-4">Demos</h6>
-              <ul class="list-unstyled mb-0">
-                <li class="mb-3">
-                  <a href="../vertical-menu-template/" target="_blank" class="footer-link">Vertical Layout</a>
-                </li>
-                <li class="mb-3">
-                  <a href="../horizontal-menu-template/" target="_blank" class="footer-link">Horizontal Layout</a>
-                </li>
-                <li class="mb-3">
-                  <a href="../vertical-menu-template-bordered/" target="_blank" class="footer-link">Bordered Layout</a>
-                </li>
-                <li class="mb-3">
-                  <a href="../vertical-menu-template-semi-dark/" target="_blank" class="footer-link"
-                    >Semi Dark Layout</a
-                  >
-                </li>
-                <li>
-                  <a href="../vertical-menu-template-dark/" target="_blank" class="footer-link">Dark Layout</a>
-                </li>
-              </ul>
-            </div>
-            <div class="col-lg-2 col-md-4 col-sm-6">
-              <h6 class="footer-title mb-4">Pages</h6>
-              <ul class="list-unstyled mb-0">
-                <li class="mb-3">
-                  <a href="pricing-page.html" class="footer-link">Pricing</a>
-                </li>
-                <li class="mb-3">
-                  <a href="payment-page.html" class="footer-link"
-                    >Payment<span class="badge rounded-pill bg-primary ms-2">New</span></a
-                  >
-                </li>
-                <li class="mb-3">
-                  <a href="checkout-page.html" class="footer-link">Checkout</a>
-                </li>
-                <li class="mb-3">
-                  <a href="help-center-landing.html" class="footer-link">Help Center</a>
-                </li>
-                <li>
-                  <a href="../vertical-menu-template/auth-login-cover.html" target="_blank" class="footer-link"
-                    >Login/Register</a
-                  >
-                </li>
-              </ul>
-            </div>
-            <div class="col-lg-3 col-md-4">
-              <h6 class="footer-title mb-4">Download our app</h6>
-              <a href="javascript:void(0);" class="d-block footer-link mb-3 pb-2"
-                ><img src="../../assets/img/front-pages/landing-page/apple-icon.png" alt="apple icon"
-              /></a>
-              <a href="javascript:void(0);" class="d-block footer-link"
-                ><img src="../../assets/img/front-pages/landing-page/google-play-icon.png" alt="google play icon"
-              /></a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="footer-bottom py-3">
-        <div
-          class="container d-flex flex-wrap justify-content-between flex-md-row flex-column text-center text-md-start">
-          <div class="mb-2 mb-md-0">
-            <span class="footer-text"
-              >©
-              <script>
-                document.write(new Date().getFullYear());
-              </script>
-              , Made with <i class="tf-icons mdi mdi-heart text-danger"></i> by
-            </span>
-            <a href="https://pixinvent.com" target="_blank" class="footer-link fw-medium footer-theme-link"
-              >Pixinvent</a
-            >
-          </div>
-          <div>
-            <a href="https://github.com/pixinvent" class="footer-link me-2" target="_blank"
-              ><i class="mdi mdi-github"></i
-            ></a>
-            <a href="https://www.facebook.com/pixinvents/" class="footer-link me-2" target="_blank"
-              ><i class="mdi mdi-facebook"></i
-            ></a>
-            <a href="https://twitter.com/pixinvents" class="footer-link me-2" target="_blank"
-              ><i class="mdi mdi-twitter"></i
-            ></a>
-            <a href="https://www.instagram.com/pixinvents/" class="footer-link" target="_blank"
-              ><i class="mdi mdi-instagram"></i
-            ></a>
-          </div>
-        </div>
-      </div>
-    </footer>
-    <!-- Footer: End -->
+<style>
+.hero-section{
+    background: linear-gradient(
+        180deg,
+        #f8f7ff 0%,
+        #ffffff 100%
+    );
+}
 
-    <!-- Core JS -->
-    <!-- build:js assets/vendor/js/core.js -->
-    <script src="../../assets/vendor/libs/popper/popper.js"></script>
-    <script src="../../assets/vendor/js/bootstrap.js"></script>
-    <script src="../../assets/vendor/libs/node-waves/node-waves.js"></script>
+.hero-blur{
+    position:absolute;
+    border-radius:50%;
+    filter:blur(120px);
+    z-index:0;
+}
 
-    <!-- endbuild -->
+.hero-blur-1{
+    width:500px;
+    height:500px;
+    background:rgba(115,103,240,.25);
+    top:-150px;
+    left:-150px;
+    animation: float1 8s ease-in-out infinite;
+}
 
-    <!-- Vendors JS -->
-    <script src="../../assets/vendor/libs/nouislider/nouislider.js"></script>
-    <script src="../../assets/vendor/libs/swiper/swiper.js"></script>
+.hero-blur-2{
+    width:450px;
+    height:450px;
+    background:rgba(255,76,81,.15);
+    bottom:-100px;
+    right:-100px;
+    animation: float2 10s ease-in-out infinite;
+}
 
-    <!-- Main JS -->
-    <script src="../../assets/js/front-main.js"></script>
+.hero-section .container{
+    position:relative;
+    z-index:2;
+}
 
-    <!-- Page JS -->
-    <script src="../../assets/js/front-page-landing.js"></script>
-  </body>
-</html>
+@keyframes float1{
+    0%,100%{
+        transform:translateY(0);
+    }
+    50%{
+        transform:translateY(30px);
+    }
+}
+
+@keyframes float2{
+    0%,100%{
+        transform:translateY(0);
+    }
+    50%{
+        transform:translateY(-30px);
+    }
+}
+
+.parking-card{
+    transition:all .3s ease;
+}
+
+.parking-card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 1rem 3rem rgba(0,0,0,.12)!important;
+}
+</style>
+
