@@ -7,7 +7,6 @@ Route::get('/', function () {
 });
 
 // ==================== CUSTOMER ROUTES ====================
-=======
 Route::get('/customer/denah', function () {
     return view('customers.denah');
 });
@@ -38,7 +37,7 @@ Route::prefix('AdminMitra')->name('adminmitra.')->group(function () {
     Route::view('/riwayat', 'customers.riwayat');
 
     Route::view('/profil', 'customers.profil');
-=======
+
     Route::view('/riwayat', 'customer.riwayat');
 
     Route::view('/profil', 'customer.profil');
