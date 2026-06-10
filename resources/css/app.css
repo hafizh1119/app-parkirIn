@@ -1,0 +1,16 @@
+.parking-card{
+    border-radius:20px;
+    overflow:hidden;
+    transition:all .3s ease;
+}
+
+.parking-card:hover{
+    transform:translateY(-10px);
+    box-shadow:0 1rem 3rem rgba(115,103,240,.15)!important;
+}
+
+.parking-section{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+}
