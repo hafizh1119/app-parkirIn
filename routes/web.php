@@ -2,22 +2,16 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('dashboard');
-});
+Route::view('/', 'dashboard')->name('dashboard');
 
 // ==================== CUSTOMER ROUTES ====================
-Route::get('/customer/denah', function () {
-    return view('customers.denah');
-});
-
 Route::view('/login', 'auth.login')->name('login');
 Route::view('/register', 'auth.register')->name('register');
 
 Route::prefix('customer')->group(function () {
     Route::view('/dashboard', 'customer.dashboard')->name('customer.dashboard');
     Route::view('/cari-parkir', 'customer.cari-parkir')->name('customer.cari-parkir');
-    Route::view('/denah', 'customer.denah')->name('customer.denah');
+    Route::view('/denah', 'customers.denah')->name('customer.denah');
     Route::view('/transaksi', 'customer.transaksi')->name('customer.transaksi');
     Route::view('/riwayat', 'customer.riwayat')->name('customer.riwayat');
     Route::view('/profil', 'customer.profil')->name('customer.profil');
