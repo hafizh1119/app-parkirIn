@@ -14,3 +14,68 @@
     display:flex;
     align-items:center;
 }
+
+.feature-slider{
+    overflow:hidden;
+    position:relative;
+}
+
+.feature-track{
+    display:flex;
+    width:max-content;
+    gap:24px;
+
+    animation: scrollLeft 25s linear infinite;
+}
+
+.feature-card{
+    width:350px;
+    flex-shrink:0;
+
+    background:#fff;
+    border-radius:20px;
+    padding:30px;
+
+    box-shadow:0 .25rem 1rem rgba(0,0,0,.08);
+}
+
+@keyframes scrollLeft{
+    from{
+        transform:translateX(0);
+    }
+
+    to{
+        transform:translateX(-50%);
+    }
+}
+
+.parking-grid{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:15px;
+}
+
+.slot{
+    border:none;
+    height:70px;
+    border-radius:14px;
+    color:white;
+    font-weight:700;
+}
+
+.available{
+    background:#28c76f;
+}
+
+.occupied{
+    background:#ea5455;
+}
+
+.reserved{
+    background:#ff9f43;
+}
+
+.selected{
+    background:#7367f0;
+    box-shadow:0 0 0 4px rgba(115,103,240,.25);
+}

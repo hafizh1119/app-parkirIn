@@ -53,80 +53,81 @@
                     </svg>
                   </span>
                 </span>
-                <span class="app-brand-text demo footer-link fw-bold">Materialize</span>
+                <span class="app-brand-text demo footer-link fw-bold">ParkirIn</span>
               </a>
               <p class="footer-text footer-logo-description mb-4">
-                Most Powerful & Comprehensive 🤩 React NextJS Admin Template with Elegant Material Design & Unique
-                Layouts.
+                  ParkirIn adalah platform pencarian dan reservasi parkir yang membantu pengguna menemukan slot parkir tersedia secara realtime dengan lebih cepat, mudah, dan efisien.
               </p>
-              <form>
-                <div class="d-flex mt-2 gap-3">
-                  <div class="form-floating form-floating-outline w-px-250">
-                    <input
-                      type="text"
-                      class="form-control bg-transparent text-white"
-                      id="newsletter-1"
-                      placeholder="Your email" />
-                    <label for="newsletter-1">Subscribe to newsletter</label>
-                  </div>
-                  <button type="submit" class="btn btn-primary">Subscribe</button>
-                </div>
-              </form>
             </div>
             <div class="col-lg-2 col-md-4 col-sm-6">
-              <h6 class="footer-title mb-4">Demos</h6>
+              <h6 class="footer-title mb-4">Navigasi</h6>
               <ul class="list-unstyled mb-0">
-                <li class="mb-3">
-                  <a href="../vertical-menu-template/" target="_blank" class="footer-link">Vertical Layout</a>
-                </li>
-                <li class="mb-3">
-                  <a href="../horizontal-menu-template/" target="_blank" class="footer-link">Horizontal Layout</a>
-                </li>
-                <li class="mb-3">
-                  <a href="../vertical-menu-template-bordered/" target="_blank" class="footer-link">Bordered Layout</a>
-                </li>
-                <li class="mb-3">
-                  <a href="../vertical-menu-template-semi-dark/" target="_blank" class="footer-link"
-                    >Semi Dark Layout</a
-                  >
-                </li>
-                <li>
-                  <a href="../vertical-menu-template-dark/" target="_blank" class="footer-link">Dark Layout</a>
-                </li>
+
+                  <li class="mb-3">
+                      <a href="#dashboard" class="footer-link">Beranda</a>
+                  </li>
+
+                  <li class="mb-3">
+                      <a href="#parkir-terdekat" class="footer-link">Area Parkir</a>
+                  </li>
+
+                  <li class="mb-3">
+                      <a href="#cara-kerja" class="footer-link">Cara Kerja</a>
+                  </li>
+
+                  <li class="mb-3">
+                      <a href="#membership" class="footer-link">Membership</a>
+                  </li>
+
+                  <li>
+                      <a href="#faq" class="footer-link">FAQ</a>
+                  </li>
+
               </ul>
             </div>
             <div class="col-lg-2 col-md-4 col-sm-6">
-              <h6 class="footer-title mb-4">Pages</h6>
+              <h6 class="footer-title mb-4">Layanan</h6>
               <ul class="list-unstyled mb-0">
-                <li class="mb-3">
-                  <a href="pricing-page.html" class="footer-link">Pricing</a>
-                </li>
-                <li class="mb-3">
-                  <a href="payment-page.html" class="footer-link"
-                    >Payment<span class="badge rounded-pill bg-primary ms-2">New</span></a
-                  >
-                </li>
-                <li class="mb-3">
-                  <a href="checkout-page.html" class="footer-link">Checkout</a>
-                </li>
-                <li class="mb-3">
-                  <a href="help-center-landing.html" class="footer-link">Help Center</a>
-                </li>
-                <li>
-                  <a href="../vertical-menu-template/auth-login-cover.html" target="_blank" class="footer-link"
-                    >Login/Register</a
-                  >
-                </li>
+
+                  <li class="mb-3">
+                      <span class="footer-link">
+                          Reservasi Parkir
+                      </span>
+                  </li>
+
+                  <li class="mb-3">
+                      <span class="footer-link">
+                          Denah Parkir Interaktif
+                      </span>
+                  </li>
+
+                  <li class="mb-3">
+                      <span class="footer-link">
+                          Slot Realtime
+                      </span>
+                  </li>
+
+                  <li>
+                      <span class="footer-link">
+                          Membership ParkirIn
+                      </span>
+                  </li>
+
               </ul>
             </div>
             <div class="col-lg-3 col-md-4">
-              <h6 class="footer-title mb-4">Download our app</h6>
-              <a href="javascript:void(0);" class="d-block footer-link mb-3 pb-2"
-                ><img src="../../assets/img/front-pages/landing-page/apple-icon.png" alt="apple icon"
-              /></a>
-              <a href="javascript:void(0);" class="d-block footer-link"
-                ><img src="../../assets/img/front-pages/landing-page/google-play-icon.png" alt="google play icon"
-              /></a>
+              <h6 class="footer-title mb-4">Hubungi Kami</h6>
+              <div class="footer-link mb-3">
+                  📍 Semarang, Indonesia
+              </div>
+
+              <div class="footer-link mb-3">
+                  📧 support@parkirin.com
+              </div>
+
+              <div class="footer-link">
+                  📞 +62 812-3456-7890
+              </div>
             </div>
           </div>
         </div>
@@ -140,11 +141,8 @@
               <script>
                 document.write(new Date().getFullYear());
               </script>
-              , Made with <i class="tf-icons mdi mdi-heart text-danger"></i> by
+              ParkirIn. All Rights Reserved.
             </span>
-            <a href="https://pixinvent.com" target="_blank" class="footer-link fw-medium footer-theme-link"
-              >Pixinvent</a
-            >
           </div>
           <div>
             <a href="https://github.com/pixinvent" class="footer-link me-2" target="_blank"

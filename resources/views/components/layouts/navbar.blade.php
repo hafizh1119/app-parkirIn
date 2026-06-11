@@ -63,7 +63,7 @@
                 </svg>
               </span>
             </span>
-            <span class="app-brand-text demo menu-text fw-bold ms-2 ps-1">Materialize</span>
+            <span class="app-brand-text demo menu-text fw-bold ms-2 ps-1">ParkirIn</span>
           </a>
         </div>
         <!-- Menu logo wrapper: End -->
@@ -96,13 +96,19 @@
                 </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link fw-medium text-nowrap" href="landing-page.html#landingContact">Keunggulan ParkirIn</a>
+                <a class="nav-link fw-medium text-nowrap" data-scroll href="#keunggulan-parkirin">
+                    Keunggulan
+                </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link fw-medium text-nowrap" href="landing-page.html#landingContact">Membership ParkirIn</a>
+                <a class="nav-link fw-medium" data-scroll href="#membership">
+                    Membership
+                </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link fw-medium text-nowrap" href="landing-page.html#landingContact">FAQ</a>
+                <a class="nav-link fw-medium" data-scroll href="#faq">
+                    FAQ
+                </a>
             </li>
           </ul>
         </div>

@@ -9,7 +9,10 @@
 
     <!-- Sections:Start -->
 
-    <section id="dashboard" class="hero-section position-relative overflow-hidden min-vh-100 d-flex align-items-center">
+    <section
+    id="dashboard"
+    class="hero-section position-relative overflow-hidden min-vh-100 d-flex align-items-center"
+    style="padding-top: 100px;">
 
           <!-- Background Blur -->
           <div class="hero-blur hero-blur-1"></div>
@@ -186,7 +189,7 @@
                                   <span>📍 1.2 km</span>
                                   <span class="text-success fw-semibold">25 Slot</span>
                               </div>
-                              <a href="/customer/denah" class="btn btn-primary w-100">
+                              <a href="{{ route('customer.denah') }}" class="btn btn-primary w-100">
                                   Lihat Denah
                               </a>
                           </div>
@@ -405,391 +408,461 @@
           </div>
 
       </section>
-    <!-- Reviews: Start -->
-<section id="landingReviews" class="section-py bg-body landing-reviews pb-0 min-vh-100 d-flex flex-column justify-content-center">
-  <div class="container">
-    <h6 class="text-center fw-semibold d-flex justify-content-center align-items-center mb-4">
-      <img src="{{ asset('assets/img/front-pages/icons/section-tilte-icon.png') }}"
-          alt="section title icon" class="me-2" />
-      <span class="text-uppercase">Ulasan Pengguna</span>
-    </h6>
-    <h3 class="text-center mb-2">
-      <span class="fw-bold">Pengalaman Nyata</span> dari Pengguna Parkirin
-    </h3>
-    <p class="text-center fw-medium mb-3 mb-md-5">
-      Ribuan pengguna sudah merasakan kemudahan reservasi parkir bersama Parkirin.
-    </p>
-  </div>
+      <!-- Cara Kerja: End -->
+      
+      <!-- Keunggulan Parkirin: Start -->
+      <section id="keunggulan-parkirin" class="min-vh-100 d-flex align-items-center overflow-hidden">
 
-  <div class="swiper-reviews-carousel overflow-hidden pt-4">
-    <div class="swiper" id="swiper-reviews">
-      <div class="swiper-wrapper">
+          <div class="container-fluid">
 
-        <!-- Slide 1 -->
-        <div class="swiper-slide">
-          <div class="card h-100">
-            <div class="card-body text-body d-flex flex-column justify-content-between text-center p-4">
-              <p class="mb-3">"Parkirin bikin saya nggak perlu muter-muter nyari parkir lagi. Tinggal buka app, pilih slot, langsung masuk!"</p>
-              <div class="text-warning mb-3">⭐⭐⭐⭐⭐</div>
-              <div>
-                <h6 class="mb-1">Rizky Pratama</h6>
-                <p class="mb-0 text-muted small">Pengguna di Semarang</p>
+              <!-- Heading -->
+              <div class="text-center mb-5">
+
+                  <h6 class="text-center fw-semibold d-flex justify-content-center align-items-center mb-4">
+                      <img
+                          src="{{ asset('assets/img/front-pages/icons/section-tilte-icon.png') }}"
+                          class="me-2">
+                      <span class="text-uppercase">
+                          Keunggulan ParkirIn
+                      </span>
+                  </h6>
+
+                  <h3 class="fw-bold">
+                      Solusi Parkir Modern yang Cepat dan Praktis
+                  </h3>
+
+                  <p class="text-body-secondary">
+                      Nikmati pengalaman mencari dan memesan parkir dengan lebih mudah.
+                  </p>
+
               </div>
-            </div>
-          </div>
-        </div>
 
-        <!-- Slide 2 -->
-        <div class="swiper-slide">
-          <div class="card h-100">
-            <div class="card-body text-body d-flex flex-column justify-content-between text-center p-4">
-              <p class="mb-3">"Denah parkir interaktifnya sangat membantu. Saya bisa lihat persis mana slot yang kosong sebelum berangkat."</p>
-              <div class="text-warning mb-3">⭐⭐⭐⭐⭐</div>
-              <div>
-                <h6 class="mb-1">Sari Dewi</h6>
-                <p class="mb-0 text-muted small">Pengguna di Yogyakarta</p>
+              <!-- Marquee -->
+              <div class="feature-slider">
+
+                  <div class="feature-track">
+
+                      <!-- Card 1 -->
+                      <div class="feature-card">
+
+                        <div class="text-center">
+
+                            <div class="mb-3">
+
+                                <span class="badge bg-label-primary rounded-pill p-3">
+
+                                    <i class="mdi mdi-map-marker-radius mdi-36px"></i>
+
+                                </span>
+
+                            </div>
+
+                            <h5 class="fw-semibold">
+                                Lokasi Parkir Terdekat
+                            </h5>
+
+                            <p class="mb-0 text-body-secondary">
+                                Menampilkan area parkir terdekat berdasarkan lokasi pengguna secara realtime.
+                            </p>
+
+                        </div>
+
+                      </div>
+              
+                      <!-- Card 2 -->
+                      <div class="feature-card">
+
+                        <div class="text-center">
+
+                            <div class="mb-3">
+
+                                <span class="badge bg-label-primary rounded-pill p-3">
+
+                                    <i class="mdi mdi-parking"></i>
+
+                                </span>
+
+                            </div>
+
+                            <h5 class="fw-semibold">
+                                Informasi Slot Tersedia
+                            </h5>
+
+                            <p class="mb-0 text-body-secondary">
+                              Mengetahui jumlah slot kosong yang tersedia sebelum tiba di lokasi.
+                            </p>
+
+                        </div>
+                      </div>
+
+                      <!-- Card 3 -->
+                      <div class="feature-card">
+                        <div class="text-center">
+
+                            <div class="mb-3">
+
+                                <span class="badge bg-label-primary rounded-pill p-3">
+
+                                    <i class="mdi mdi-car-search"></i>
+
+                                </span>
+
+                            </div>
+
+                            <h5 class="fw-semibold">
+                                Denah Parkir Interaktif
+                            </h5>
+
+                            <p class="mb-0 text-body-secondary">
+                              Melihat denah parkir secara realtime untuk memilih slot terbaik.
+                            </p>
+
+                        </div>
+                      </div>
+
+                      <!-- Card 4 -->
+                      <div class="feature-card">
+                        <div class="text-center">
+
+                            <div class="mb-3">
+
+                                <span class="badge bg-label-primary rounded-pill p-3">
+
+                                    <i class="mdi mdi-check-decagram"></i>
+
+                                </span>
+
+                            </div>
+
+                            <h5 class="fw-semibold">
+                                Reservasi Cepat
+                            </h5>
+
+                            <p class="mb-0 text-body-secondary">
+                              Melakukan reservasi dalam hitungan detik tanpa perlu mencari tempat kosong.
+                            </p>
+
+                        </div>
+                      </div>
+
+                      <!-- Card 5 -->
+                      <div class="feature-card">
+                        <div class="text-center">
+
+                            <div class="mb-3">
+
+                                <span class="badge bg-label-primary rounded-pill p-3">
+
+                                    <i class="mdi mdi-currency-usd"></i>
+
+                                </span>
+
+                            </div>
+
+                            <h5 class="fw-semibold">
+                                Tarif Transparan
+                            </h5>
+
+                            <p class="mb-0 text-body-secondary">
+                              Menampilkan tarif parkir secara jelas tanpa biaya tersembunyi.
+                            </p>
+
+                        </div>
+                      </div>
+
+                      <!-- Card 6 -->
+                      <div class="feature-card">
+
+                        <div class="text-center">
+
+                            <div class="mb-3">
+
+                                <span class="badge bg-label-primary rounded-pill p-3">
+
+                                    <i class="mdi mdi-parking"></i>
+
+                                </span>
+
+                            </div>
+
+                            <h5 class="fw-semibold">
+                                Informasi Slot Tersedia
+                            </h5>
+
+                            <p class="mb-0 text-body-secondary">
+                              Mengetahui jumlah slot kosong yang tersedia sebelum tiba di lokasi.
+                            </p>
+
+                        </div>
+                      </div>
+
+                  </div>
+
               </div>
-            </div>
+
           </div>
-        </div>
 
-        <!-- Slide 3 -->
-        <div class="swiper-slide">
-          <div class="card h-100">
-            <div class="card-body text-body d-flex flex-column justify-content-between text-center p-4">
-              <p class="mb-3">"Reservasi cuma butuh beberapa detik. Sangat praktis buat saya yang sering buru-buru ke kantor."</p>
-              <div class="text-warning mb-3">⭐⭐⭐⭐⭐</div>
-              <div>
-                <h6 class="mb-1">Budi Santoso</h6>
-                <p class="mb-0 text-muted small">Pengguna di Jakarta</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Slide 4 -->
-        <div class="swiper-slide">
-          <div class="card h-100">
-            <div class="card-body text-body d-flex flex-column justify-content-between text-center p-4">
-              <p class="mb-3">"Parkiran lebih aman karena sudah tercatat. Ada konfirmasi reservasi jadi nggak khawatir slot diambil orang lain."</p>
-              <div class="text-warning mb-3">⭐⭐⭐⭐⭐</div>
-              <div>
-                <h6 class="mb-1">Anita Rahayu</h6>
-                <p class="mb-0 text-muted small">Pengguna di Bandung</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Slide 5 -->
-        <div class="swiper-slide">
-          <div class="card h-100">
-            <div class="card-body text-body d-flex flex-column justify-content-between text-center p-4">
-              <p class="mb-3">"Harga parkir transparan, tidak ada biaya tersembunyi. Saya bisa bandingkan tarif antar lokasi sebelum memilih."</p>
-              <div class="text-warning mb-3">⭐⭐⭐⭐☆</div>
-              <div>
-                <h6 class="mb-1">Dimas Aditya</h6>
-                <p class="mb-0 text-muted small">Pengguna di Surabaya</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-      {{-- Pagination di dalam swiper, tepat di bawah wrapper --}}
-      <div class="swiper-pagination"></div>
-    </div>
-  </div>
-
-  {{-- Spacer agar pagination tidak nempel hr --}}
-  <div class="pb-4"></div>
-
-  <hr class="m-0" />
-</section>
-<!-- Reviews: End -->
-
+      </section>
+      <!-- Keunggulan Parkirin: End -->
+      
       <!-- Pricing plans: Start -->
-      <section id="landingPricing" class="section-py bg-body landing-pricing">
+      <section id="membership" class="section-py bg-body landing-pricing min-vh-100 d-flex align-items-center">
         <div class="container bg-icon-left">
           <h6 class="text-center fw-semibold d-flex justify-content-center align-items-center mb-4">
             <img
               src="../../assets/img/front-pages/icons/section-tilte-icon.png"
               alt="section title icon"
               class="me-2" />
-            <span class="text-uppercase">pricing plans</span>
+            <span class="text-uppercase">Membership ParkirIn</span>
           </h6>
-          <h3 class="text-center mb-2"><span class="fw-bold">Tailored pricing plans</span> designed for you</h3>
-          <p class="text-center fw-medium mb-5 pt-3 pb-lg-5">
-            All plans include 40+ advanced tools and features to boost your product.<br />
-            the best plan to fit your needs.
+          <h3 class="text-center mb-2"><span class="fw-bold">Pilih Membership yang Sesuai Kebutuhan Anda</span> </h3>
+          <p class="text-center fw-medium mb-2 pt-3">
+            Nikmati berbagai keuntungan eksklusif, diskon parkir,
+            dan akses prioritas di seluruh area parkir yang bermitra dengan ParkirIn.
           </p>
           <div id="slider-pricing" class="mb-5"></div>
-          <div class="row gy-4 pt-lg-3">
-            <!-- Basic Plan: Start -->
+          <div class="row gy-4 justify-content-center">
+            <!-- Free Plan: Start -->
             <div class="col-xl-4 col-lg-6">
-              <div class="card shadow-none">
-                <div class="card-header border-0">
-                  <h3 class="mb-2 pb-1">Basic Plan</h3>
+              <div class="card shadow-none h-100">
+                <div class="card-header border-0 pb-0">
+                  <h3 class="mb-2 pb-1">Free</h3>
                   <div class="d-flex align-items-center">
-                    <h5 class="d-flex mb-0"><sup class="h5 mt-3">$</sup><span class="display-3 fw-bold">20</span></h5>
+                    <h5 class="d-flex mb-0"><span class="display-3 fw-bold">0</span></h5>
                     <div class="ms-2 ps-1">
-                      <h6 class="mb-1">Per month</h6>
-                      <p class="small mb-0">10% off for yearly subscription</p>
+                      <h6 class="mb-1">Gratis</h6>
+                      <p class="small mb-0">Cocok untuk pengguna baru</p>
                     </div>
                   </div>
                   <img src="../../assets/img/front-pages/icons/smiling-icon.png" alt="smiling icon" />
                 </div>
-                <div class="card-body">
-                  <ul class="list-unstyled">
-                    <li>
-                      <h5>
-                        <img
-                          src="../../assets/img/front-pages/icons/list-arrow-icon.png"
-                          alt="list arrow icon"
-                          class="me-2 pe-1 scaleX-n1-rtl" />
-                        Timeline
-                      </h5>
+                <div class="card-body d-flex flex-column">
+                  <ul class="list-unstyled mb-0 flex-grow-1">
+                    <li class="mb-2">
+                      <h6 class="mb-0">
+                        <img src="../../assets/img/front-pages/icons/list-arrow-icon.png" alt="" class="me-2 scaleX-n1-rtl" style="width:16px;" />
+                        Cari lokasi parkir
+                      </h6>
                     </li>
-                    <li>
-                      <h5>
-                        <img
-                          src="../../assets/img/front-pages/icons/list-arrow-icon.png"
-                          alt="list arrow icon"
-                          class="me-2 pe-1 scaleX-n1-rtl" />
-                        Basic search
-                      </h5>
+                    <li class="mb-2">
+                      <h6 class="mb-0">
+                        <img src="../../assets/img/front-pages/icons/list-arrow-icon.png" alt="" class="me-2 scaleX-n1-rtl" style="width:16px;" />
+                        Lihat slot tersedia realtime
+                      </h6>
                     </li>
-                    <li>
-                      <h5>
-                        <img
-                          src="../../assets/img/front-pages/icons/list-arrow-icon.png"
-                          alt="list arrow icon"
-                          class="me-2 pe-1 scaleX-n1-rtl" />
-                        Live chat widget
-                      </h5>
+                    <li class="mb-2">
+                      <h6 class="mb-0">
+                        <img src="../../assets/img/front-pages/icons/list-arrow-icon.png" alt="" class="me-2 scaleX-n1-rtl" style="width:16px;" />
+                        Pilih slot parkir
+                      </h6>
                     </li>
-                    <li>
-                      <h5>
-                        <img
-                          src="../../assets/img/front-pages/icons/list-arrow-icon.png"
-                          alt="list arrow icon"
-                          class="me-2 pe-1 scaleX-n1-rtl" />
-                        Email marketing
-                      </h5>
+                    <li class="mb-2">
+                      <h6 class="mb-0">
+                        <img src="../../assets/img/front-pages/icons/list-arrow-icon.png" alt="" class="me-2 scaleX-n1-rtl" style="width:16px;" />
+                        Reservasi parkir
+                      </h6>
                     </li>
-                    <li>
-                      <h5>
-                        <img
-                          src="../../assets/img/front-pages/icons/list-arrow-icon.png"
-                          alt="list arrow icon"
-                          class="me-2 pe-1 scaleX-n1-rtl" />
-                        Custom Forms
-                      </h5>
+                    <li class="mb-2">
+                      <h6 class="mb-0">
+                        <img src="../../assets/img/front-pages/icons/list-arrow-icon.png" alt="" class="me-2 scaleX-n1-rtl" style="width:16px;" />
+                        Akses denah parkir
+                      </h6>
                     </li>
-                    <li>
-                      <h5>
-                        <img
-                          src="../../assets/img/front-pages/icons/list-arrow-icon.png"
-                          alt="list arrow icon"
-                          class="me-2 pe-1 scaleX-n1-rtl" />
-                        Traffic analytics
-                      </h5>
+                    <li class="mb-2">
+                      <h6 class="mb-0">
+                        <img src="../../assets/img/front-pages/icons/list-arrow-icon.png" alt="" class="me-2 scaleX-n1-rtl" style="width:16px;" />
+                        Riwayat reservasi
+                      </h6>
+                    </li>
+                  </ul>
+                  <hr />
+                  <div class="d-flex justify-content-between align-items-center flex-wrap">
+                    <div class="me-1">
+                      <h6 class="mb-1">Tanpa Biaya</h6>
+                      <p class="small mb-0">Langsung bisa digunakan</p>
+                    </div>
+                    <span class="badge bg-label-secondary rounded-pill">Gratis</span>
+                  </div>
+                  <div class="text-center mt-4 pt-2">
+                    <a href="register.html" class="btn btn-outline-secondary w-100">Mulai Gratis</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Free Plan: End -->
+
+            <!-- Basic Plan: Start -->
+            <div class="col-xl-4 col-lg-6">
+              <div class="card shadow-none h-100">
+                <div class="card-header border-0 pb-0">
+                  <h3 class="mb-2 pb-1">Basic Membership</h3>
+                  <div class="d-flex align-items-center">
+                    <h5 class="d-flex mb-0"><sup class="h5 mt-3">Rp</sup><span class="display-3 fw-bold">49</span><sub class="h5 mb-1 align-self-end">.000</sub></h5>
+                    <div class="ms-2 ps-1">
+                      <h6 class="mb-1">Per Bulan</h6>
+                      <p class="small mb-0">Berlaku di seluruh mitra ParkirIn</p>
+                    </div>
+                  </div>
+                  <img src="../../assets/img/front-pages/icons/smiling-icon.png" alt="smiling icon" />
+                </div>
+                <div class="card-body d-flex flex-column">
+                  <ul class="list-unstyled mb-0 flex-grow-1">
+                    <li class="mb-2">
+                      <h6 class="mb-0">
+                        <img src="../../assets/img/front-pages/icons/list-arrow-icon.png" alt="" class="me-2 scaleX-n1-rtl" style="width:16px;" />
+                        Semua fitur Pengguna Reguler
+                      </h6>
+                    </li>
+                    <li class="mb-2">
+                      <h6 class="mb-0">
+                        <img src="../../assets/img/front-pages/icons/list-arrow-icon.png" alt="" class="me-2 scaleX-n1-rtl" style="width:16px;" />
+                        Parkir gratis hingga 20 jam/bulan
+                      </h6>
+                    </li>
+                    <li class="mb-2">
+                      <h6 class="mb-0">
+                        <img src="../../assets/img/front-pages/icons/list-arrow-icon.png" alt="" class="me-2 scaleX-n1-rtl" style="width:16px;" />
+                        Diskon parkir di seluruh mitra ParkirIn
+                      </h6>
+                    </li>
+                    <li class="mb-2">
+                      <h6 class="mb-0">
+                        <img src="../../assets/img/front-pages/icons/list-arrow-icon.png" alt="" class="me-2 scaleX-n1-rtl" style="width:16px;" />
+                        Prioritas reservasi slot
+                      </h6>
+                    </li>
+                    <li class="mb-2">
+                      <h6 class="mb-0">
+                        <img src="../../assets/img/front-pages/icons/list-arrow-icon.png" alt="" class="me-2 scaleX-n1-rtl" style="width:16px;" />
+                        Fast Check-In
+                      </h6>
+                    </li>
+                    <li class="mb-2">
+                      <h6 class="mb-0">
+                        <img src="../../assets/img/front-pages/icons/list-arrow-icon.png" alt="" class="me-2 scaleX-n1-rtl" style="width:16px;" />
+                        Booking hingga 7 hari sebelumnya
+                      </h6>
                     </li>
                   </ul>
                   <hr />
                   <div class="d-flex justify-content-between align-items-center flex-wrap">
                     <div class="me-1">
                       <h6 class="mb-1">Basic Support</h6>
-                      <p class="small mb-0">Only Email</p>
+                      <p class="small mb-0">Email & Chat</p>
                     </div>
-                    <span class="badge bg-label-primary rounded-pill">AVG. Time: 24h</span>
+                    <span class="badge bg-label-primary rounded-pill">Member Aktif</span>
                   </div>
                   <div class="text-center mt-4 pt-2">
-                    <a href="payment-page.html" class="btn btn-outline-primary w-100">Get Started</a>
+                    <a href="payment-page.html" class="btn btn-outline-primary w-100">Pilih Paket</a>
                   </div>
                 </div>
               </div>
             </div>
             <!-- Basic Plan: End -->
-
-            <!-- Favourite Plan: Start -->
-            <div class="col-xl-4 col-lg-6">
-              <div class="card border-primary border-2 shadow-none">
-                <div class="card-header border-0">
-                  <h3 class="mb-2 pb-1">Favourite Plan</h3>
-                  <div class="d-flex align-items-center">
-                    <h5 class="d-flex mb-0"><sup class="h5 mt-3">$</sup><span class="display-3 fw-bold">51</span></h5>
-                    <div class="ms-2 ps-1">
-                      <h6 class="mb-1">Per month</h6>
-                      <p class="small mb-0">10% off for yearly subscription</p>
-                    </div>
-                  </div>
-                  <img src="../../assets/img/front-pages/icons/smiling-icon.png" alt="smiling icon" />
-                </div>
-                <div class="card-body">
-                  <ul class="list-unstyled">
-                    <li>
-                      <h5>
-                        <img
-                          src="../../assets/img/front-pages/icons/list-arrow-icon.png"
-                          alt="list arrow icon"
-                          class="me-2 pe-1 scaleX-n1-rtl" />
-                        Everything in basic
-                      </h5>
-                    </li>
-                    <li>
-                      <h5>
-                        <img
-                          src="../../assets/img/front-pages/icons/list-arrow-icon.png"
-                          alt="list arrow icon"
-                          class="me-2 pe-1 scaleX-n1-rtl" />
-                        Timeline with database
-                      </h5>
-                    </li>
-                    <li>
-                      <h5>
-                        <img
-                          src="../../assets/img/front-pages/icons/list-arrow-icon.png"
-                          alt="list arrow icon"
-                          class="me-2 pe-1 scaleX-n1-rtl" />
-                        Advanced search
-                      </h5>
-                    </li>
-                    <li>
-                      <h5>
-                        <img
-                          src="../../assets/img/front-pages/icons/list-arrow-icon.png"
-                          alt="list arrow icon"
-                          class="me-2 pe-1 scaleX-n1-rtl" />
-                        Marketing automation
-                      </h5>
-                    </li>
-                    <li>
-                      <h5>
-                        <img
-                          src="../../assets/img/front-pages/icons/list-arrow-icon.png"
-                          alt="list arrow icon"
-                          class="me-2 pe-1 scaleX-n1-rtl" />
-                        Advanced chatbot
-                      </h5>
-                    </li>
-                    <li>
-                      <h5>
-                        <img
-                          src="../../assets/img/front-pages/icons/list-arrow-icon.png"
-                          alt="list arrow icon"
-                          class="me-2 pe-1 scaleX-n1-rtl" />
-                        Campaign management
-                      </h5>
-                    </li>
-                  </ul>
-                  <hr />
-                  <div class="d-flex justify-content-between align-items-center flex-wrap">
-                    <div class="me-1">
-                      <h6 class="mb-1">Standard Support</h6>
-                      <p class="small mb-0">Email & Chat</p>
-                    </div>
-                    <span class="badge bg-label-primary rounded-pill">AVG. Time: 6h</span>
-                  </div>
-                  <div class="text-center mt-4 pt-2">
-                    <a href="payment-page.html" class="btn btn-primary w-100">Get Started</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- Favourite Plan: End -->
-
-            <!-- Standard Plan: Start -->
-            <div class="col-xl-4 col-lg-6">
-              <div class="card shadow-none">
-                <div class="card-header border-0">
-                  <h3 class="mb-2 pb-1">Standard Plan</h3>
-                  <div class="d-flex align-items-center">
-                    <h5 class="d-flex mb-0"><sup class="h5 mt-3">$</sup><span class="display-3 fw-bold">99</span></h5>
-                    <div class="ms-2 ps-1">
-                      <h6 class="mb-1">Per month</h6>
-                      <p class="small mb-0">10% off for yearly subscription</p>
-                    </div>
-                  </div>
-                  <img src="../../assets/img/front-pages/icons/smiling-icon.png" alt="smiling icon" />
-                </div>
-                <div class="card-body">
-                  <ul class="list-unstyled">
-                    <li>
-                      <h5>
-                        <img
-                          src="../../assets/img/front-pages/icons/list-arrow-icon.png"
-                          alt="list arrow icon"
-                          class="me-2 pe-1 scaleX-n1-rtl" />
-                        Everything in premium
-                      </h5>
-                    </li>
-                    <li>
-                      <h5>
-                        <img
-                          src="../../assets/img/front-pages/icons/list-arrow-icon.png"
-                          alt="list arrow icon"
-                          class="me-2 pe-1 scaleX-n1-rtl" />
-                        Timeline with database
-                      </h5>
-                    </li>
-                    <li>
-                      <h5>
-                        <img
-                          src="../../assets/img/front-pages/icons/list-arrow-icon.png"
-                          alt="list arrow icon"
-                          class="me-2 pe-1 scaleX-n1-rtl" />
-                        Fuzzy search
-                      </h5>
-                    </li>
-                    <li>
-                      <h5>
-                        <img
-                          src="../../assets/img/front-pages/icons/list-arrow-icon.png"
-                          alt="list arrow icon"
-                          class="me-2 pe-1 scaleX-n1-rtl" />
-                        A/B testing sanbox
-                      </h5>
-                    </li>
-                    <li>
-                      <h5>
-                        <img
-                          src="../../assets/img/front-pages/icons/list-arrow-icon.png"
-                          alt="list arrow icon"
-                          class="me-2 pe-1 scaleX-n1-rtl" />
-                        Custom permissions
-                      </h5>
-                    </li>
-                    <li>
-                      <h5>
-                        <img
-                          src="../../assets/img/front-pages/icons/list-arrow-icon.png"
-                          alt="list arrow icon"
-                          class="me-2 pe-1 scaleX-n1-rtl" />
-                        Social media automation
-                      </h5>
-                    </li>
-                  </ul>
-                  <hr />
-                  <div class="d-flex justify-content-between align-items-center flex-wrap">
-                    <div class="me-1">
-                      <h6 class="mb-1">Exclusive Support</h6>
-                      <p class="small mb-0">Email, Chat & Google Meet</p>
-                    </div>
-                    <span class="badge bg-label-primary rounded-pill">Live Support</span>
-                  </div>
-                  <div class="text-center mt-4 pt-2">
-                    <a href="payment-page.html" class="btn btn-outline-primary w-100">Get Started</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- Standard Plan: End -->
           </div>
         </div>
       </section>
       <!-- Pricing plans: End -->
+
+    <!-- Reviews: Start -->
+      <section id="ulasan-parkirin" class="section-py bg-white landing-reviews pb-0 min-vh-100 d-flex flex-column justify-content-center">
+        <div class="container">
+          <h6 class="text-center fw-semibold d-flex justify-content-center align-items-center mb-4">
+            <img src="{{ asset('assets/img/front-pages/icons/section-tilte-icon.png') }}"
+                alt="section title icon" class="me-2" />
+            <span class="text-uppercase">Ulasan Pengguna</span>
+          </h6>
+          <h3 class="text-center mb-2">
+            <span class="fw-bold">Pengalaman Nyata</span> dari Pengguna Parkirin
+          </h3>
+          <p class="text-center fw-medium mb-3 mb-md-5">
+            Ribuan pengguna sudah merasakan kemudahan reservasi parkir bersama Parkirin.
+          </p>
+        </div>
+
+        <div class="swiper-reviews-carousel overflow-hidden pt-4">
+          <div class="swiper" id="swiper-reviews">
+            <div class="swiper-wrapper">
+
+              <!-- Slide 1 -->
+              <div class="swiper-slide">
+                <div class="card h-100">
+                  <div class="card-body text-body d-flex flex-column justify-content-between text-center p-4">
+                    <p class="mb-3">"Parkirin bikin saya nggak perlu muter-muter nyari parkir lagi. Tinggal buka app, pilih slot, langsung masuk!"</p>
+                    <div class="text-warning mb-3">⭐⭐⭐⭐⭐</div>
+                    <div>
+                      <h6 class="mb-1">Rizky Pratama</h6>
+                      <p class="mb-0 text-muted small">Pengguna di Semarang</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Slide 2 -->
+              <div class="swiper-slide">
+                <div class="card h-100">
+                  <div class="card-body text-body d-flex flex-column justify-content-between text-center p-4">
+                    <p class="mb-3">"Denah parkir interaktifnya sangat membantu. Saya bisa lihat persis mana slot yang kosong sebelum berangkat."</p>
+                    <div class="text-warning mb-3">⭐⭐⭐⭐⭐</div>
+                    <div>
+                      <h6 class="mb-1">Sari Dewi</h6>
+                      <p class="mb-0 text-muted small">Pengguna di Yogyakarta</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Slide 3 -->
+              <div class="swiper-slide">
+                <div class="card h-100">
+                  <div class="card-body text-body d-flex flex-column justify-content-between text-center p-4">
+                    <p class="mb-3">"Reservasi cuma butuh beberapa detik. Sangat praktis buat saya yang sering buru-buru ke kantor."</p>
+                    <div class="text-warning mb-3">⭐⭐⭐⭐⭐</div>
+                    <div>
+                      <h6 class="mb-1">Budi Santoso</h6>
+                      <p class="mb-0 text-muted small">Pengguna di Jakarta</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Slide 4 -->
+              <div class="swiper-slide">
+                <div class="card h-100">
+                  <div class="card-body text-body d-flex flex-column justify-content-between text-center p-4">
+                    <p class="mb-3">"Parkiran lebih aman karena sudah tercatat. Ada konfirmasi reservasi jadi nggak khawatir slot diambil orang lain."</p>
+                    <div class="text-warning mb-3">⭐⭐⭐⭐⭐</div>
+                    <div>
+                      <h6 class="mb-1">Anita Rahayu</h6>
+                      <p class="mb-0 text-muted small">Pengguna di Bandung</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Slide 5 -->
+              <div class="swiper-slide">
+                <div class="card h-100">
+                  <div class="card-body text-body d-flex flex-column justify-content-between text-center p-4">
+                    <p class="mb-3">"Harga parkir transparan, tidak ada biaya tersembunyi. Saya bisa bandingkan tarif antar lokasi sebelum memilih."</p>
+                    <div class="text-warning mb-3">⭐⭐⭐⭐☆</div>
+                    <div>
+                      <h6 class="mb-1">Dimas Aditya</h6>
+                      <p class="mb-0 text-muted small">Pengguna di Surabaya</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            {{-- Pagination di dalam swiper, tepat di bawah wrapper --}}
+            <div class="swiper-pagination"></div>
+          </div>
+        </div>
+
+      </section>
+      <!-- Reviews: End -->
 
       <!-- Fun facts: Start -->
       <section id="landingFunFacts" class="section-py landing-fun-facts">
@@ -797,31 +870,31 @@
           <div class="row gx-0 gy-5 gx-sm-5">
             <div class="col-md-3 col-sm-6 text-center">
               <span class="badge badge-center rounded-pill bg-label-hover-primary fun-facts-icon mb-4"
-                ><i class="tf-icons mdi mdi-land-plots mdi-36px"></i
+                ><i class="tf-icons mdi mdi-map-marker-multiple mdi-36px"></i
               ></span>
-              <h2 class="fw-bold mb-1">137+</h2>
-              <p class="fw-medium mb-0">Completed Sites</p>
+              <h2 class="fw-bold mb-1">150+</h2>
+              <p class="fw-medium mb-0">Area Mitra Parkir</p>
             </div>
             <div class="col-md-3 col-sm-6 text-center">
               <span class="badge badge-center rounded-pill bg-label-hover-success fun-facts-icon mb-4"
-                ><i class="tf-icons mdi mdi-clock-outline mdi-36px"></i
+                ><i class="tf-icons mdi mdi-parking mdi-36px"></i
               ></span>
-              <h2 class="fw-bold mb-1">1,100+</h2>
-              <p class="fw-medium mb-0">Working Hours</p>
+              <h2 class="fw-bold mb-1">5,000+</h2>
+              <p class="fw-medium mb-0">Slot Tersedia</p>
             </div>
             <div class="col-md-3 col-sm-6 text-center">
               <span class="badge badge-center rounded-pill bg-label-hover-warning fun-facts-icon mb-4"
-                ><i class="tf-icons mdi mdi-emoticon-happy-outline mdi-36px"></i
+                ><i class="tf-icons mdi mdi-check-circle-outline mdi-36px"></i
               ></span>
-              <h2 class="fw-bold mb-1">137+</h2>
-              <p class="fw-medium mb-0">Happy Customers</p>
+              <h2 class="fw-bold mb-1">25,000+</h2>
+              <p class="fw-medium mb-0">Reservasi Berhasil</p>
             </div>
             <div class="col-md-3 col-sm-6 text-center">
               <span class="badge badge-center rounded-pill bg-label-hover-info fun-facts-icon mb-4"
                 ><i class="tf-icons mdi mdi-medal-outline mdi-36px"></i
               ></span>
-              <h2 class="fw-bold mb-1">23+</h2>
-              <p class="fw-medium mb-0">Awards Winning</p>
+              <h2 class="fw-bold mb-1">10,000+</h2>
+              <p class="fw-medium mb-0">Pengguna Aktif</p>
             </div>
           </div>
         </div>
@@ -829,7 +902,7 @@
       <!-- Fun facts: End -->
 
       <!-- FAQ: Start -->
-      <section id="landingFAQ" class="section-py bg-body landing-faq">
+      <section id="faq" class="section-py bg-body landing-faq">
         <div class="container bg-icon-right">
           <h6 class="text-center fw-semibold d-flex justify-content-center align-items-center mb-4">
             <img
@@ -838,9 +911,9 @@
               class="me-2" />
             <span class="text-uppercase">faq</span>
           </h6>
-          <h3 class="text-center mb-2">Frequently asked<span class="fw-bold"> questions</span></h3>
+          <h3 class="text-center mb-2">Pertanyaan yang<span class="fw-bold"> Sering Diajukan</span></h3>
           <p class="text-center fw-medium mb-3 mb-md-5 pb-3">
-            Browse through these FAQs to find answers to commonly asked questions.
+            Temukan jawaban atas pertanyaan yang paling sering ditanyakan mengenai layanan ParkirIn.
           </p>
           <div class="row gy-5">
             <div class="col-lg-5">
@@ -863,7 +936,7 @@
                       data-bs-target="#accordionOne"
                       aria-expanded="true"
                       aria-controls="accordionOne">
-                      Do you charge for each upgrade?
+                      Apakah saya harus menjadi Member untuk menggunakan ParkirIn?
                     </button>
                   </h2>
 
@@ -873,9 +946,7 @@
                     data-bs-parent="#accordionFront"
                     aria-labelledby="accordionOne">
                     <div class="accordion-body">
-                      Lemon drops chocolate cake gummies carrot cake chupa chups muffin topping. Sesame snaps icing
-                      marzipan gummi bears macaroon dragée danish caramels powder. Bear claw dragée pastry topping
-                      soufflé. Wafer gummi bears marshmallow pastry pie.
+                        Tidak. Semua pengguna dapat mencari lokasi parkir, melihat slot yang tersedia, dan melakukan reservasi secara gratis. Membership hanya memberikan keuntungan tambahan seperti diskon parkir, prioritas reservasi, dan jam parkir gratis.
                     </div>
                   </div>
                 </div>
@@ -888,7 +959,7 @@
                       data-bs-target="#accordionTwo"
                       aria-expanded="false"
                       aria-controls="accordionTwo">
-                      Do I need to purchase a license for each website?
+                      Bagaimana cara melakukan reservasi tempat parkir?
                     </button>
                   </h2>
                   <div
@@ -897,9 +968,7 @@
                     aria-labelledby="accordionTwo"
                     data-bs-parent="#accordionFront">
                     <div class="accordion-body">
-                      Dessert ice cream donut oat cake jelly-o pie sugar plum cheesecake. Bear claw dragée oat cake
-                      dragée ice cream halvah tootsie roll. Danish cake oat cake pie macaroon tart donut gummies. Jelly
-                      beans candy canes carrot cake. Fruitcake chocolate chupa chups.
+                      Pilih lokasi parkir yang diinginkan, lihat denah area parkir, pilih slot yang tersedia, lalu lakukan konfirmasi reservasi. Slot akan disimpan sesuai waktu yang telah ditentukan.
                     </div>
                   </div>
                 </div>
@@ -912,7 +981,7 @@
                       data-bs-target="#accordionThree"
                       aria-expanded="true"
                       aria-controls="accordionThree">
-                      What is regular license?
+                      Apakah informasi slot parkir diperbarui secara realtime?
                     </button>
                   </h2>
                   <div
@@ -921,12 +990,7 @@
                     aria-labelledby="accordionThree"
                     data-bs-parent="#accordionFront">
                     <div class="accordion-body">
-                      Regular license can be used for end products that do not charge users for access or service(access
-                      is free and there will be no monthly subscription fee). Single regular license can be used for
-                      single end product and end product can be used by you or your client. If you want to sell end
-                      product to multiple clients then you will need to purchase separate license for each client. The
-                      same rule applies if you want to use the same end product on multiple domains(unique setup). For
-                      more info on regular license you can check official description.
+                      Ya. ParkirIn menampilkan ketersediaan slot parkir secara realtime sehingga pengguna dapat mengetahui jumlah slot kosong sebelum tiba di lokasi.
                     </div>
                   </div>
                 </div>
@@ -939,7 +1003,7 @@
                       data-bs-target="#accordionFour"
                       aria-expanded="false"
                       aria-controls="accordionFour">
-                      What is extended license?
+                      Di mana saja layanan ParkirIn dapat digunakan?
                     </button>
                   </h2>
                   <div
@@ -948,9 +1012,7 @@
                     aria-labelledby="accordionFour"
                     data-bs-parent="#accordionFront">
                     <div class="accordion-body">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis et aliquid quaerat possimus maxime!
-                      Mollitia reprehenderit neque repellat deleniti delectus architecto dolorum maxime, blanditiis
-                      earum ea, incidunt quam possimus cumque.
+                      ParkirIn dapat digunakan di seluruh area parkir yang telah bekerja sama sebagai mitra resmi ParkirIn, seperti kampus, pusat perbelanjaan, perkantoran, dan lokasi publik lainnya.
                     </div>
                   </div>
                 </div>
@@ -963,7 +1025,7 @@
                       data-bs-target="#accordionFive"
                       aria-expanded="false"
                       aria-controls="accordionFive">
-                      Which license is applicable for SASS application?
+                      Apa keuntungan menjadi Member ParkirIn?
                     </button>
                   </h2>
                   <div
@@ -972,9 +1034,7 @@
                     aria-labelledby="accordionFive"
                     data-bs-parent="#accordionFront">
                     <div class="accordion-body">
-                      Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sequi molestias exercitationem ab cum
-                      nemo facere voluptates veritatis quia, eveniet veniam at et repudiandae mollitia ipsam quasi
-                      labore enim architecto non!
+                      Member ParkirIn mendapatkan berbagai keuntungan seperti diskon parkir di lokasi mitra, prioritas reservasi slot, akses booking lebih awal, serta kuota parkir gratis setiap bulan sesuai paket membership yang dipilih.
                     </div>
                   </div>
                 </div>
@@ -984,28 +1044,6 @@
         </div>
       </section>
       <!-- FAQ: End -->
-
-      <!-- CTA: Start -->
-      <section id="landingCTA" class="section-py border border-2 landing-cta p-lg-0 pb-0">
-        <div class="container">
-          <div class="row align-items-center gy-5 gy-lg-0">
-            <div class="col-lg-6 text-center text-lg-start">
-              <h6 class="h2 text-primary fw-bold mb-1">Ready to Get Started?</h6>
-              <p class="fw-medium mb-4">Start your project with a 14-day free trial</p>
-              <a href="payment-page.html" class="btn btn-primary"
-                >Get Started<i class="mdi mdi-arrow-right mdi-24px ms-3 scaleX-n1-rtl"></i
-              ></a>
-            </div>
-            <div class="col-lg-6 pt-lg-5">
-              <img
-                src="{{ asset('assets/img/front-pages/landing-page/cta-dashboard.png') }}"
-                alt="cta dashboard"
-                class="img-fluid" />
-            </div>
-          </div>
-        </div>
-      </section>
-      <!-- CTA: End -->
 
       <!-- Contact Us: Start -->
       <section id="landingContact" class="section-py bg-body landing-contact">
@@ -1095,6 +1133,7 @@ document.addEventListener('DOMContentLoaded', function () {
         slidesPerView: 1,
         spaceBetween: 24,
         loop: true,
+        centeredSlides: true,
         autoplay: {
             delay: 3000,
             disableOnInteraction: false,
@@ -1104,8 +1143,8 @@ document.addEventListener('DOMContentLoaded', function () {
             clickable: true,
         },
         breakpoints: {
-            576: { slidesPerView: 2 },
-            992: { slidesPerView: 3 },
+            576: { slidesPerView: 2, centeredSlides: true },
+            992: { slidesPerView: 3, centeredSlides: true },
         },
     });
 });
