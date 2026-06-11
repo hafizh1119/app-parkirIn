@@ -21,7 +21,6 @@ Route::prefix('customer')->group(function () {
 // ==================== ADMIN MITRA ROUTES ====================
 Route::prefix('AdminMitra')->name('adminmitra.')->group(function () {
     Route::view('/dashboard', 'AdminMitra.dashboard')->name('dashboard');
-    // Tambahkan route lain untuk AdminMitra jika perlu
     // Route::view('/kelola-parkir', 'AdminMitra.kelola-parkir')->name('kelola-parkir');
     // Route::view('/laporan', 'AdminMitra.laporan')->name('laporan');
 
