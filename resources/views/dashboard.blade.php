@@ -97,10 +97,9 @@
 
                 <!-- Kanan - Ilustrasi Parkir -->
                 <!-- Kanan -->
-                    <div class="col-lg-6 d-flex align-items-center justify-content-center">
+                    <div class="col-lg-5 offset-lg-1 d-flex align-items-center">
                         @include('partials.parking-illustration')
                     </div>
-
               </div>
 
           </div>
@@ -202,8 +201,9 @@
 
                           </div>
 
-                          <a href="{{ route('customer.atur-jadwal') }}"
-                            class="btn btn-primary w-100">
+                          <a
+                              href="{{ route('customer.atur-jadwal') }}"
+                              class="btn btn-primary w-100">
 
                               Reservasi
 

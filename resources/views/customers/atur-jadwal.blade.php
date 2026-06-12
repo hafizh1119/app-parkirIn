@@ -45,7 +45,7 @@
 
                     </div>
 
-                    <form>
+                    <form action="{{ route('customer.denah') }}" method="GET">
 
                         <!-- Lokasi -->
                         <div class="mb-4">
@@ -132,6 +132,7 @@
                                     class="btn-check"
                                     name="kendaraan"
                                     id="mobil"
+                                    value="mobil"
                                     checked>
 
                                 <label
@@ -146,8 +147,9 @@
                                     type="radio"
                                     class="btn-check"
                                     name="kendaraan"
-                                    id="motor">
-
+                                    id="motor"
+                                    value="motor">
+                                    
                                 <label
                                     class="btn btn-outline-primary"
                                     for="motor">
@@ -163,13 +165,13 @@
                         <!-- Button -->
                         <div class="mt-4">
 
-                            <a href="{{ route('customer.denah') }}"
-                               class="btn btn-primary btn-lg w-100">
+                            <button
+                                type="submit"
+                                class="btn btn-primary btn-lg w-100">
 
                                 Lihat Slot Tersedia
-                                <i class="mdi mdi-arrow-right ms-1"></i>
 
-                            </a>
+                            </button>
 
                         </div>
 
