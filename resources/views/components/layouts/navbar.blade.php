@@ -81,33 +81,18 @@
           </button>
           <ul class="navbar-nav me-auto p-3 p-lg-0">
             <li class="nav-item">
-                <a class="nav-link fw-medium" data-scroll href="#dashboard">
+                <a class="nav-link fw-medium" href="{{ route('dashboard') }}">
                     Dashboard
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link fw-medium" data-scroll href="#parkir-terdekat">
-                    Area Parkir Terdekat
+                <a class="nav-link fw-medium" href="{{ route('customer.cari-parkir') }}">
+                    Cari Parkir
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link fw-medium" data-scroll href="#cara-kerja">
-                    Cara Kerja
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link fw-medium text-nowrap" data-scroll href="#keunggulan-parkirin">
-                    Keunggulan
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link fw-medium" data-scroll href="#membership">
-                    Membership
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link fw-medium" data-scroll href="#faq">
-                    FAQ
+                    Riwayat
                 </a>
             </li>
           </ul>
