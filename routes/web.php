@@ -11,7 +11,7 @@ Route::view('/register', 'auth.register')->name('register');
 Route::prefix('customer')->group(function () {
     Route::view('/cari-parkir', 'customers.cari-parkir')->name('customer.cari-parkir');
     Route::view('/denah', 'customers.denah')->name('customer.denah');
-    Route::view('/transaksi', 'customers.transaksi')->name('customer.transaksi');
+    Route::view('/reservasi', 'customers.reservasi')->name('customer.reservasi');
     Route::view('/riwayat', 'customers.riwayat')->name('customer.riwayat');
     Route::view('/profil', 'customers.profil')->name('customer.profil');
 });
@@ -27,15 +27,15 @@ Route::prefix('AdminMitra')->name('adminmitra.')->group(function () {
 
     Route::view('/denah', 'customers.denah');
 
-    Route::view('/transaksi', 'customers.transaksi');
+    Route::view('/reservasi', 'customers.reservasi');
 
     Route::view('/riwayat', 'customers.riwayat');
 
     Route::view('/profil', 'customers.profil');
 
-    Route::view('/riwayat', 'customer.riwayat');
+    Route::view('/riwayat', 'customers.riwayat');
 
-    Route::view('/profil', 'customer.profil');
+    Route::view('/profil', 'customers.profil');
 
 });
 

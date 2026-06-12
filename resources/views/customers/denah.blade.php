@@ -6,6 +6,18 @@
 
     <div class="container">
 
+        <!-- Button Kembali -->
+        <div class="mb-4">
+
+            <a href="{{ route('customer.cari-parkir') }}" class="btn btn-outline-primary">
+
+                <i class="mdi mdi-arrow-left me-1"></i>
+                Kembali
+
+            </a>
+
+        </div>
+
         <!-- Denah + Detail -->
         <div class="row g-4">
 
@@ -94,52 +106,231 @@
                 </div>
             </div>
 
-            <!-- Detail Slot -->
             <div class="col-lg-4">
-                <div class="card border-0 shadow-sm">
-                    <div class="card-body p-4">
 
-                        <h5 class="fw-bold mb-4">Detail Slot</h5>
+            <!-- Detail Kendaraan -->
+            <div class="card border-0 shadow-sm mb-4">
 
-                        <div class="mb-3">
-                            <small class="text-body-secondary">Slot</small>
-                            <h6 class="mb-0" id="detailNamaSlot">— Pilih slot</h6>
+                <div class="card-body">
+
+                    <div class="d-flex justify-content-between align-items-center">
+
+                        <div>
+
+                            <small class="text-body-secondary">
+                                Kendaraan Terdaftar
+                            </small>
+
+                            <h6 class="fw-bold mb-0 mt-1">
+                                Toyota Avanza
+                            </h6>
+
+                            <small class="text-body-secondary">
+                                H 4567 WE
+                            </small>
+
                         </div>
 
-                        <div class="mb-3">
-                            <small class="text-body-secondary">Status</small>
-                            <h6 class="mb-0 fw-semibold" id="detailStatus">—</h6>
-                        </div>
+                        <button
+                            type="button"
+                            class="btn btn-sm btn-outline-primary"
+                            data-bs-toggle="modal"
+                            data-bs-target="#modalKendaraan">
 
-                        <div class="mb-3">
-                            <small class="text-body-secondary">Kendaraan</small>
-                            <h6 class="mb-0" id="detailKendaraan">—</h6>
-                        </div>
+                            <i class="mdi mdi-pencil-outline me-1"></i>
+                            Ubah
 
-                        <div class="mb-3">
-                            <small class="text-body-secondary">Area</small>
-                            <h6 class="mb-0" id="detailArea">—</h6>
-                        </div>
-
-                        <div class="mb-4">
-                            <small class="text-body-secondary">Tarif</small>
-                            <h5 class="fw-bold mb-0" id="detailTarif">—</h5>
-                        </div>
-
-                        <button class="btn btn-secondary w-100 mb-2" id="btnReservasi" disabled>
-                            Reservasi Sekarang
                         </button>
-                        <a href="{{ url()->previous() }}" class="btn btn-outline-secondary w-100">Kembali</a>
 
                     </div>
+
                 </div>
+
             </div>
+
+            <!-- Detail Parkir -->
+            <div class="card border-0 shadow-sm h-75">
+
+                <div class="card-body p-4 d-flex flex-column">
+
+                    <h5 class="fw-bold mb-4">
+                        Detail Parkir
+                    </h5>
+
+                    <div class="mb-3">
+                        <small class="text-body-secondary">Slot</small>
+                        <h6 class="mb-0" id="detailNamaSlot">— Pilih slot</h6>
+                    </div>
+
+                    <div class="mb-3">
+                        <small class="text-body-secondary">Status</small>
+                        <h6 class="mb-0 fw-semibold" id="detailStatus">—</h6>
+                    </div>
+
+                    <div class="mb-3">
+                        <small class="text-body-secondary">Kendaraan</small>
+                        <h6 class="mb-0" id="detailKendaraan">—</h6>
+                    </div>
+
+                    <div class="mb-3">
+                        <small class="text-body-secondary">Area</small>
+                        <h6 class="mb-0" id="detailArea">—</h6>
+                    </div>
+
+                    <div class="mb-4">
+                        <small class="text-body-secondary">Tarif</small>
+                        <h5 class="fw-bold mb-0" id="detailTarif">—</h5>
+                    </div>
+
+                    <div class="mt-auto">
+
+                        <a href="{{ route('customer.reservasi') }}"
+                        class="btn btn-primary w-100"
+                        id="btnReservasi">
+
+                            Lanjutkan Reservasi
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
 
         </div>
 
     </div>
 
 </section>
+
+<!-- Modal Detail Kendaraan -->
+<div
+    class="modal fade"
+    id="modalKendaraan"
+    tabindex="-1"
+    aria-labelledby="modalKendaraanLabel"
+    aria-hidden="true">
+
+    <div class="modal-dialog modal-bottom-sheet">
+
+        <div class="modal-content border-0">
+            <div class="text-center pt-3">
+
+                <div
+                    style="
+                        width:50px;
+                        height:5px;
+                        background:#dcdcdc;
+                        border-radius:20px;
+                        margin:auto;">
+                </div>
+
+            </div>
+
+            <div class="modal-header">
+
+                <h5
+                    class="modal-title fw-bold"
+                    id="modalKendaraanLabel">
+
+                    Detail Kendaraan
+
+                </h5>
+
+            </div>
+
+            <div class="modal-body">
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Nomor Polisi
+                    </label>
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        value="H 4567 WE">
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Merek Kendaraan
+                    </label>
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        value="Toyota Avanza">
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Warna Kendaraan
+                    </label>
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        value="Putih">
+
+                </div>
+
+                <div class="mb-0">
+
+                    <label class="form-label">
+                        Jenis Kendaraan
+                    </label>
+
+                    <select class="form-select">
+
+                        <option selected>
+                            Mobil
+                        </option>
+
+                        <option>
+                            Motor
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button
+                    type="button"
+                    class="btn btn-outline-secondary"
+                    data-bs-dismiss="modal">
+
+                    Batal
+
+                </button>
+
+                <button
+                    type="button"
+                    class="btn btn-primary">
+
+                    Simpan Perubahan
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
 
 @push('styles')
 <style>
@@ -176,6 +367,75 @@
     transform:translateY(-2px);
 }
 
+</style>
+
+<style>
+
+@media (max-width: 768px){
+
+    .modal-bottom-sheet{
+
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+
+        margin: 0;
+
+        max-width: 100%;
+        width: 100%;
+
+        transform: translateY(0);
+
+    }
+
+    .modal-bottom-sheet .modal-content{
+
+        border-radius: 24px 24px 0 0;
+
+        min-height: 70vh;
+        max-height: 85vh;
+
+        overflow-y: auto;
+
+    }
+
+}
+@media (max-width: 768px){
+
+    .modal.fade .modal-dialog.modal-bottom-sheet{
+        transform: translateY(100%);
+        transition: transform .35s ease-out;
+    }
+
+    .modal.show .modal-dialog.modal-bottom-sheet{
+        transform: translateY(0);
+    }
+
+    .modal-bottom-sheet{
+
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+
+        margin: 0;
+        width: 100%;
+        max-width: 100%;
+
+    }
+
+    .modal-bottom-sheet .modal-content{
+
+        border-radius: 24px 24px 0 0;
+        min-height: 70vh;
+        max-height: 85vh;
+
+        overflow-y: auto;
+
+    }
+
+}
 </style>
 @endpush
 
@@ -282,5 +542,7 @@
     areaSelect.addEventListener('change', generateSlots);
 </script>
 @endpush
+
+
 
 @endsection
