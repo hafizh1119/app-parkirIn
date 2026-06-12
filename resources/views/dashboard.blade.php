@@ -100,7 +100,6 @@
                     <div class="col-lg-5 offset-lg-1 d-flex align-items-center">
                         @include('partials.parking-illustration')
                     </div>
-
               </div>
 
           </div>
