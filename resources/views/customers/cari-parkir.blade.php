@@ -77,10 +77,10 @@
 
                 <form>
 
-                    <div class="row g-3 align-items-end">
+                    <div class="row g-3">
 
                         <!-- Lokasi -->
-                        <div class="col-lg-5">
+                        <div class="col-12">
 
                             <label class="form-label fw-semibold">
                                 Lokasi Parkir
@@ -101,56 +101,11 @@
 
                         </div>
 
-                        <!-- Tanggal -->
-                        <div class="col-lg-2">
-
-                            <label class="form-label fw-semibold">
-                                Tanggal
-                            </label>
-
-                            <input
-                                type="date"
-                                class="form-control form-control-lg">
-
-                        </div>
-
-                        <!-- Waktu -->
-                        <div class="col-lg-2">
-
-                            <label class="form-label fw-semibold">
-                                Waktu Masuk
-                            </label>
-
-                            <input
-                                type="time"
-                                class="form-control form-control-lg">
-
-                        </div>
-
-                        <!-- Durasi -->
-                        <div class="col-lg-3">
-
-                            <label class="form-label fw-semibold">
-                                Durasi Parkir
-                            </label>
-
-                            <select class="form-select form-select-lg">
-
-                                <option>1 Jam</option>
-                                <option>2 Jam</option>
-                                <option>3 Jam</option>
-                                <option>4 Jam</option>
-                                <option>5 Jam</option>
-
-                            </select>
-
-                        </div>
-
                     </div>
 
                     <div class="row mt-4">
 
-                        <div class="col-lg-12">
+                        <div class="col-12">
 
                             <button
                                 type="button"
@@ -166,7 +121,6 @@
                     </div>
 
                 </form>
-
             </div>
 
         </div>

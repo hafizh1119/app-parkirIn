@@ -115,19 +115,31 @@
 
               </ul>
             </div>
-            <div class="col-lg-3 col-md-4">
-              <h6 class="footer-title mb-4">Hubungi Kami</h6>
-              <div class="footer-link mb-3">
-                  📍 Semarang, Indonesia
-              </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <h6 class="footer-title mb-4">
+                    Hubungi Kami
+                </h6>
 
-              <div class="footer-link mb-3">
-                  📧 support@parkirin.com
-              </div>
+                <ul class="list-unstyled mb-0">
+                    <li class="mb-3">
+                        <span class="footer-link">
+                            📍 Semarang, Indonesia
+                        </span>
+                    </li>
 
-              <div class="footer-link">
-                  📞 +62 812-3456-7890
-              </div>
+                    <li class="mb-3">
+                        <span class="footer-link">
+                            📧 support@parkirin.com
+                        </span>
+                    </li>
+
+                    <li>
+                        <span class="footer-link">
+                            📞 +62 812-3456-7890
+                        </span>
+                    </li>
+                </ul>
+                
             </div>
           </div>
         </div>
