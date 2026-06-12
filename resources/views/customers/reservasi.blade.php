@@ -249,27 +249,12 @@
                             </strong>
 
                         </div>
-
-                        <h6 class="fw-bold mb-3">
-                            Metode Pembayaran
-                        </h6>
-
-                        <select class="form-select mb-4">
-
-                            <option>QRIS</option>
-                            <option>GoPay</option>
-                            <option>OVO</option>
-                            <option>DANA</option>
-                            <option>Virtual Account</option>
-
-                        </select>
-
-                        <button
+                        
+                        <a href="{{ route('customer.pembayaran') }}"
                             class="btn btn-primary w-100 mb-2">
 
                             Lanjutkan Pembayaran
-
-                        </button>
+                        </a>
 
                         <a href="{{ route('customer.denah') }}"
                            class="btn btn-outline-secondary w-100">
