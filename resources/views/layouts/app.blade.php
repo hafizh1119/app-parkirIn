@@ -27,7 +27,7 @@
     <link rel="stylesheet" href="{{ asset('assets/vendor/css/pages/front-page-landing.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/vendor/css/pages/front-page.css') }}" />
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-
+    @stack('styles')
 </head>
 
 <body>
@@ -55,6 +55,7 @@
 
     <!-- Page JS -->
     <script src="{{ asset('assets/js/front-page-landing.js') }}"></script>
+    @stack('scripts')
 </body>
 
 </html>

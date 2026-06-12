@@ -9,12 +9,11 @@ Route::view('/login', 'auth.login')->name('login');
 Route::view('/register', 'auth.register')->name('register');
 
 Route::prefix('customer')->group(function () {
-    Route::view('/dashboard', 'customer.dashboard')->name('customer.dashboard');
-    Route::view('/cari-parkir', 'customer.cari-parkir')->name('customer.cari-parkir');
+    Route::view('/cari-parkir', 'customers.cari-parkir')->name('customer.cari-parkir');
     Route::view('/denah', 'customers.denah')->name('customer.denah');
-    Route::view('/transaksi', 'customer.transaksi')->name('customer.transaksi');
-    Route::view('/riwayat', 'customer.riwayat')->name('customer.riwayat');
-    Route::view('/profil', 'customer.profil')->name('customer.profil');
+    Route::view('/transaksi', 'customers.transaksi')->name('customer.transaksi');
+    Route::view('/riwayat', 'customers.riwayat')->name('customer.riwayat');
+    Route::view('/profil', 'customers.profil')->name('customer.profil');
 });
 
 
