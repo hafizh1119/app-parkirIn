@@ -7,6 +7,44 @@
 
 @section('content')
 
+@php
+    $lokasiParkir = collect([
+        (object) [
+            'id' => 1,
+            'nama' => 'Parkir UDINUS',
+            'alamat' => 'Jl. Imam Bonjol No.207 Semarang',
+            'gambar' => 'https://blog.getandride.com/wp-content/uploads/2023/05/ukuran-parkiran-mobil.jpg',
+            'rating' => 4.8,
+            'jarak' => 1.2,
+            'motor' => 20,
+            'mobil' => 11,
+            'tarif_per_jam' => 5000,
+        ],
+        (object) [
+            'id' => 2,
+            'nama' => 'Paragon City Mall',
+            'alamat' => 'Jl. Pemuda No.118 Semarang',
+            'gambar' => 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1200',
+            'rating' => 4.7,
+            'jarak' => 2.1,
+            'motor' => 15,
+            'mobil' => 8,
+            'tarif_per_jam' => 6000,
+        ],
+        (object) [
+            'id' => 3,
+            'nama' => 'Simpang Lima',
+            'alamat' => 'Kawasan Simpang Lima Semarang',
+            'gambar' => 'https://images.unsplash.com/photo-1494526585095-c41746248156?q=80&w=1200',
+            'rating' => 4.9,
+            'jarak' => 0.8,
+            'motor' => 35,
+            'mobil' => 18,
+            'tarif_per_jam' => 7000,
+        ],
+    ]);
+@endphp
+
     <!-- Sections:Start -->
 
     <section
@@ -45,7 +83,7 @@
 
                       <div class="d-flex gap-3 flex-wrap">
 
-                          <a href="#cari-parkir" class="btn btn-primary btn-lg">
+                          <a href="{{ route('customer.cari-parkir') }}" class="btn btn-primary btn-lg">
                               Cari Parkir
                           </a>
 
@@ -164,99 +202,94 @@
               </div>
 
               <!-- Cards -->
-              <div class="row justify-content-center g-4">
+          <div class="row justify-content-center g-4">
 
-                  <div class="col-lg-4 col-md-6">
-                      <div class="card parking-card h-100 shadow-sm border-0">
-                          <div class="position-relative">
-                              <img
-                                  src="https://blog.getandride.com/wp-content/uploads/2023/05/ukuran-parkiran-mobil.jpg"
-                                  class="card-img-top"
-                                  style="height:220px;object-fit:cover;">
-                              <span class="badge bg-success position-absolute top-0 end-0 m-3">
-                                  Tersedia
-                              </span>
-                          </div>
-                          <div class="card-body">
-                              <div class="d-flex justify-content-between mb-2">
-                                  <h5 class="fw-semibold mb-0">Parkir UDINUS</h5>
-                                  <span class="text-warning">⭐ 4.8</span>
-                              </div>
-                              <p class="text-body-secondary mb-3">
-                                  Jl. Imam Bonjol No.207 Semarang
-                              </p>
-                              <div class="d-flex justify-content-between mb-3">
-                                  <span>📍 1.2 km</span>
-                                  <span class="text-success fw-semibold">25 Slot</span>
-                              </div>
-                              <a href="{{ route('customer.denah') }}" class="btn btn-primary w-100">
-                                  Lihat Denah
-                              </a>
-                          </div>
-                      </div>
-                  </div>
+              @foreach($lokasiParkir as $parkir)
 
-                  <div class="col-lg-4 col-md-6">
-                      <div class="card parking-card h-100 shadow-sm border-0">
-                          <div class="position-relative">
-                              <img
-                                  src="https://blog.getandride.com/wp-content/uploads/2023/05/ukuran-parkiran-mobil.jpg"
-                                  class="card-img-top"
-                                  style="height:220px;object-fit:cover;">
-                              <span class="badge bg-success position-absolute top-0 end-0 m-3">
-                                  Tersedia
-                              </span>
-                          </div>
-                          <div class="card-body">
-                              <div class="d-flex justify-content-between mb-2">
-                                  <h5 class="fw-semibold mb-0">Parkir UDINUS</h5>
-                                  <span class="text-warning">⭐ 4.8</span>
-                              </div>
-                              <p class="text-body-secondary mb-3">
-                                  Jl. Imam Bonjol No.207 Semarang
-                              </p>
-                              <div class="d-flex justify-content-between mb-3">
-                                  <span>📍 1.2 km</span>
-                                  <span class="text-success fw-semibold">25 Slot</span>
-                              </div>
-                              <a href="/customer/denah" class="btn btn-primary w-100">
-                                  Lihat Denah
-                              </a>
-                          </div>
-                      </div>
-                  </div>
+              <div class="col-lg-4 col-md-6">
 
-                  <div class="col-lg-4 col-md-6">
-                      <div class="card parking-card h-100 shadow-sm border-0">
-                          <div class="position-relative">
-                              <img
-                                  src="https://blog.getandride.com/wp-content/uploads/2023/05/ukuran-parkiran-mobil.jpg"
-                                  class="card-img-top"
-                                  style="height:220px;object-fit:cover;">
-                              <span class="badge bg-success position-absolute top-0 end-0 m-3">
-                                  Tersedia
-                              </span>
-                          </div>
-                          <div class="card-body">
-                              <div class="d-flex justify-content-between mb-2">
-                                  <h5 class="fw-semibold mb-0">Parkir UDINUS</h5>
-                                  <span class="text-warning">⭐ 4.8</span>
-                              </div>
-                              <p class="text-body-secondary mb-3">
-                                  Jl. Imam Bonjol No.207 Semarang
-                              </p>
-                              <div class="d-flex justify-content-between mb-3">
-                                  <span>📍 1.2 km</span>
-                                  <span class="text-success fw-semibold">25 Slot</span>
-                              </div>
-                              <a href="/customer/denah" class="btn btn-primary w-100">
-                                  Lihat Denah
-                              </a>
-                          </div>
+                  <div class="card parking-card h-100 shadow-sm border-0">
+
+                      <div class="position-relative">
+
+                          <img
+                              src="{{ $parkir->gambar }}"
+                              class="card-img-top"
+                              style="height:220px;object-fit:cover;">
+
+                          <span class="badge bg-success position-absolute top-0 end-0 m-3">
+                              Tersedia
+                          </span>
+
                       </div>
+
+                      <div class="card-body">
+
+                          <div class="d-flex justify-content-between mb-2">
+
+                              <h5 class="fw-semibold mb-0">
+                                  {{ $parkir->nama }}
+                              </h5>
+
+                              <span class="text-warning">
+                                  ⭐ {{ $parkir->rating }}
+                              </span>
+
+                          </div>
+
+                          <p class="text-body-secondary mb-3">
+                              {{ $parkir->alamat }}
+                          </p>
+
+                          <div class="d-flex justify-content-between mb-3">
+
+                              <span>
+                                  📍 {{ $parkir->jarak }} km
+                              </span>
+
+                              <span class="fw-semibold">
+
+                                  <i class="mdi mdi-motorbike text-primary"></i>
+                                  {{ $parkir->motor }}
+
+                                  &nbsp;
+
+                                  <i class="mdi mdi-car text-success"></i>
+                                  {{ $parkir->mobil }}
+
+                              </span>
+
+                          </div>
+
+                          <div class="border-top pt-3 mb-3">
+
+                              <small class="text-body-secondary">
+                                  Tarif
+                              </small>
+
+                              <h6 class="fw-bold text-primary mb-0">
+                                  Rp {{ number_format($parkir->tarif_per_jam, 0, ',', '.') }}/Jam
+                              </h6>
+
+                          </div>
+
+                          <a
+                              href="{{ route('customer.denah') }}"
+                              class="btn btn-primary w-100">
+
+                              Reservasi
+
+                          </a>
+
+                      </div>
+
                   </div>
 
               </div>
+
+              @endforeach
+
+          </div>
 
               <!-- Button -->
               <div class="text-center mt-5">

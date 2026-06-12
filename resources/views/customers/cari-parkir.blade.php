@@ -1,368 +1,262 @@
-@extends('layouts.customer')
+@extends('layouts.app')
 
 @section('content')
 
-<!-- Hero Section -->
-<section class="py-5 text-center text-white position-relative"
-    style="
-    background:url('https://images.unsplash.com/photo-1573348722427-f1d6819fdf98?q=80&w=1920');
-    background-size:cover;
-    background-position:center;
-    min-height:400px;
-    display:flex;
-    align-items:center;
-">
+@php
+    $lokasiParkir = collect([
+        (object) [
+            'id' => 1,
+            'nama' => 'Parkir UDINUS',
+            'alamat' => 'Jl. Imam Bonjol No.207 Semarang',
+            'gambar' => null,
+            'rating' => 4.8,
+            'jarak' => 1.2,
+            'slot_tersedia' => 25,
+            'tarif_per_jam' => 5000,
+        ],
+        (object) [
+            'id' => 2,
+            'nama' => 'DP Mall Semarang',
+            'alamat' => 'Jl. Pemuda No.150 Semarang',
+            'gambar' => null,
+            'rating' => 4.5,
+            'jarak' => 1.8,
+            'slot_tersedia' => 12,
+            'tarif_per_jam' => 6000,
+        ],
+        (object) [
+            'id' => 3,
+            'nama' => 'Lawang Sewu Park',
+            'alamat' => 'Jl. Pemuda No.160 Semarang',
+            'gambar' => null,
+            'rating' => 4.2,
+            'jarak' => 2.0,
+            'slot_tersedia' => 0,
+            'tarif_per_jam' => 4000,
+        ],
+    ]);
+@endphp
 
-    <div style="
-        position:absolute;
-        top:0;
-        left:0;
-        width:100%;
-        height:100%;
-        background:rgba(0,0,0,.6);
-    "></div>
+<section class="section-py bg-body">
+    <div class="container">
 
-    <div class="container position-relative">
+        <!-- Search Card -->
+        <div class="card border-0 shadow-lg mb-5 rounded-4">
 
-        <h1 class="text-white fw-bold mb-3">
-            Temukan Tempat Parkir Terbaik
-        </h1>
+            <div class="card-body p-4 p-lg-5">
 
-        <h4 class="text-white mb-4">
-            Cari lokasi parkir terdekat dan pesan slot dengan mudah
-        </h4>
+                <div class="d-flex justify-content-start mb-4">
 
-    </div>
+                    <a
+                        href="{{ route('dashboard') }}"
+                        class="btn btn-outline-primary rounded-pill">
 
-</section>
+                        <i class="mdi mdi-arrow-left me-1"></i>
 
-<!-- Search Box -->
-<div class="container">
-    <div class="card shadow-lg border-0"
-         style="margin-top:-50px; z-index:100; position:relative;">
-
-        <div class="card-body p-4">
-
-            <div class="row">
-
-                <div class="col-md-5">
-                    <input
-                        type="text"
-                        class="form-control"
-                        placeholder="Masukkan lokasi atau nama tempat">
-                </div>
-
-                <div class="col-md-3">
-                    <select class="form-select">
-                        <option>Semua Lokasi</option>
-                        <option>Mall</option>
-                        <option>Kampus</option>
-                        <option>Perkantoran</option>
-                    </select>
-                </div>
-
-                <div class="col-md-4">
-                    <button class="btn btn-primary w-100">
-                        Cari Lokasi
-                    </button>
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-</div>
-
-<!-- Lokasi Populer -->
-<section class="container py-5">
-
-    <div class="text-center mb-5">
-
-        <h2 class="fw-bold">
-            Lokasi Parkir Populer
-        </h2>
-
-        <p class="text-muted">
-            Pilih lokasi parkir yang tersedia di sekitar Anda
-        </p>
-
-    </div>
-
-    <div class="row">
-
-        <!-- UDINUS -->
-        <div class="col-lg-4 mb-4">
-
-            <div class="card h-100 shadow-sm">
-
-                <img
-                    src="https://images.unsplash.com/photo-1590674899484-d5640e854abe?q=80&w=800"
-                    class="card-img-top"
-                    style="height:220px; object-fit:cover;">
-
-                <div class="card-body">
-
-                    <h5 class="fw-bold">
-                        📍 Parkir UDINUS
-                    </h5>
-
-                    <p class="text-muted">
-                        Jl. Imam Bonjol No.207, Semarang
-                    </p>
-
-                    <div class="d-flex justify-content-between">
-
-                        <span class="text-success">
-                            🚗 25 Slot Tersedia
-                        </span>
-
-                        <span>
-                            📌 1.2 Km
-                        </span>
-
-                    </div>
-
-                    <a href="/customer/denah"
-                       class="btn btn-primary w-100 mt-3">
-
-                        Lihat Denah
+                        Kembali
 
                     </a>
 
                 </div>
 
-            </div>
+                <div class="text-center mb-4">
 
-        </div>
+                    <span class="badge bg-label-primary rounded-pill px-3 py-2 mb-3">
+                        🚗 Smart Parking Search
+                    </span>
 
-        <!-- Simpang Lima -->
-        <div class="col-lg-4 mb-4">
+                    <h4 class="fw-bold mb-1">
+                        Temukan Tempat Parkir Terbaik
+                    </h4>
 
-            <div class="card h-100 shadow-sm">
-
-                <img
-                    src="https://images.unsplash.com/photo-1519501025264-65ba15a82390?q=80&w=800"
-                    class="card-img-top"
-                    style="height:220px; object-fit:cover;">
-
-                <div class="card-body">
-
-                    <h5 class="fw-bold">
-                        📍 Parkir Simpang Lima
-                    </h5>
-
-                    <p class="text-muted">
-                        Simpang Lima, Semarang
+                    <p class="text-body-secondary mb-0">
+                        Cari lokasi parkir berdasarkan lokasi, waktu, dan durasi parkir.
                     </p>
-
-                    <div class="d-flex justify-content-between">
-
-                        <span class="text-success">
-                            🚗 12 Slot Tersedia
-                        </span>
-
-                        <span>
-                            📌 1.8 Km
-                        </span>
-
-                    </div>
-
-                    <a href="/customer/denah"
-                       class="btn btn-primary w-100 mt-3">
-
-                        Lihat Denah
-
-                    </a>
 
                 </div>
 
-            </div>
+                <form>
 
-        </div>
+                    <div class="row g-3 align-items-end">
 
-        <!-- Paragon -->
-        <div class="col-lg-4 mb-4">
+                        <!-- Lokasi -->
+                        <div class="col-lg-5">
 
-            <div class="card h-100 shadow-sm">
+                            <label class="form-label fw-semibold">
+                                Lokasi Parkir
+                            </label>
 
-                <img
-                    src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=800"
-                    class="card-img-top"
-                    style="height:220px; object-fit:cover;">
+                            <div class="input-group input-group-lg">
 
-                <div class="card-body">
+                                <span class="input-group-text bg-transparent">
+                                    <i class="mdi mdi-map-marker-radius"></i>
+                                </span>
 
-                    <h5 class="fw-bold">
-                        📍 Parkir Paragon Mall
-                    </h5>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    placeholder="Cari lokasi parkir...">
 
-                    <p class="text-muted">
-                        Jl. Pemuda No.118, Semarang
-                    </p>
+                            </div>
 
-                    <div class="d-flex justify-content-between">
+                        </div>
 
-                        <span class="text-success">
-                            🚗 40 Slot Tersedia
-                        </span>
+                        <!-- Tanggal -->
+                        <div class="col-lg-2">
 
-                        <span>
-                            📌 2.1 Km
-                        </span>
+                            <label class="form-label fw-semibold">
+                                Tanggal
+                            </label>
 
-                    </div>
+                            <input
+                                type="date"
+                                class="form-control form-control-lg">
 
-                    <a href="/customer/denah"
-                       class="btn btn-primary w-100 mt-3">
+                        </div>
 
-                        Lihat Denah
+                        <!-- Waktu -->
+                        <div class="col-lg-2">
 
-                    </a>
+                            <label class="form-label fw-semibold">
+                                Waktu Masuk
+                            </label>
 
-                </div>
+                            <input
+                                type="time"
+                                class="form-control form-control-lg">
 
-            </div>
+                        </div>
 
-        </div>
+                        <!-- Durasi -->
+                        <div class="col-lg-3">
 
-        <!-- DP Mall -->
-        <div class="col-lg-4 mb-4">
+                            <label class="form-label fw-semibold">
+                                Durasi Parkir
+                            </label>
 
-            <div class="card h-100 shadow-sm">
+                            <select class="form-select form-select-lg">
 
-                <img
-                    src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?q=80&w=800"
-                    class="card-img-top"
-                    style="height:220px; object-fit:cover;">
+                                <option>1 Jam</option>
+                                <option>2 Jam</option>
+                                <option>3 Jam</option>
+                                <option>4 Jam</option>
+                                <option>5 Jam</option>
 
-                <div class="card-body">
+                            </select>
 
-                    <h5 class="fw-bold">
-                        📍 Parkir DP Mall
-                    </h5>
-
-                    <p class="text-muted">
-                        Jl. Pemuda No.150, Semarang
-                    </p>
-
-                    <div class="d-flex justify-content-between">
-
-                        <span class="text-success">
-                            🚗 30 Slot Tersedia
-                        </span>
-
-                        <span>
-                            📌 2.5 Km
-                        </span>
+                        </div>
 
                     </div>
 
-                    <a href="/customer/denah"
-                       class="btn btn-primary w-100 mt-3">
+                    <div class="row mt-4">
 
-                        Lihat Denah
+                        <div class="col-lg-12">
 
-                    </a>
+                            <button
+                                type="button"
+                                class="btn btn-primary btn-lg w-100">
 
-                </div>
+                                <i class="mdi mdi-magnify me-2"></i>
+                                Cari Tempat Parkir
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </form>
 
             </div>
 
         </div>
 
-        <!-- Java Mall -->
-        <div class="col-lg-4 mb-4">
+        <!-- Results -->
+        <div class="row g-4">
 
-            <div class="card h-100 shadow-sm">
+            @forelse ($lokasiParkir as $parkir)
+            <div class="col-md-6 col-lg-4">
+                <div class="card border-0 shadow-sm h-100">
 
-                <img
-                    src="https://images.unsplash.com/photo-1460317442991-0ec209397118?q=80&w=800"
-                    class="card-img-top"
-                    style="height:220px; object-fit:cover;">
+                    <div class="position-relative">
+                        <img src="https://blog.getandride.com/wp-content/uploads/2023/05/ukuran-parkiran-mobil.jpg"
+                             alt="{{ $parkir->nama }}"
+                             class="card-img-top" style="height: 180px; object-fit: cover;">
 
-                <div class="card-body">
-
-                    <h5 class="fw-bold">
-                        📍 Parkir Java Mall
-                    </h5>
-
-                    <p class="text-muted">
-                        Jl. MT. Haryono, Semarang
-                    </p>
-
-                    <div class="d-flex justify-content-between">
-
-                        <span class="text-success">
-                            🚗 18 Slot Tersedia
-                        </span>
-
-                        <span>
-                            📌 3.0 Km
-                        </span>
-
+                        <div class="position-absolute top-0 end-0 m-3">
+                            @if ($parkir->slot_tersedia > 0)
+                                <span class="badge bg-label-success rounded-pill">
+                                    <i class="mdi mdi-circle-medium"></i> Tersedia
+                                </span>
+                            @else
+                                <span class="badge bg-label-danger rounded-pill">
+                                    <i class="mdi mdi-circle-medium"></i> Penuh
+                                </span>
+                            @endif
+                        </div>
                     </div>
 
-                    <a href="/customer/denah"
-                       class="btn btn-primary w-100 mt-3">
+                    <div class="card-body d-flex flex-column">
 
-                        Lihat Denah
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <h5 class="fw-bold mb-0">{{ $parkir->nama }}</h5>
+                            <div class="d-flex align-items-center gap-1 text-warning">
+                                <i class="mdi mdi-star"></i>
+                                <span class="fw-semibold text-body">{{ $parkir->rating ?? '4.5' }}</span>
+                            </div>
+                        </div>
 
-                    </a>
+                        <p class="text-body-secondary small d-flex align-items-center gap-1 mb-3">
+                            <i class="mdi mdi-map-marker"></i>
+                            {{ $parkir->alamat }}
+                        </p>
 
-                </div>
+                        <div class="d-flex gap-4 mb-3">
+                            <div class="d-flex align-items-center gap-1 text-body-secondary small">
+                                <i class="mdi mdi-map text-primary"></i>
+                                {{ $parkir->jarak ?? '-' }} km
+                            </div>
+                            <div class="d-flex align-items-center gap-1 text-body-secondary small">
+                                <i class="mdi mdi-car text-primary"></i>
+                                {{ $parkir->slot_tersedia }} Slot Tersedia
+                            </div>
+                        </div>
 
-            </div>
+                        <div class="mt-auto pt-3 border-top">
+                            <p class="text-body-secondary small mb-0">Harga</p>
+                            <p class="fw-bold text-primary fs-5 mb-0">
+                                Rp {{ number_format($parkir->tarif_per_jam, 0, ',', '.') }}
+                                <span class="fw-normal text-body-secondary small">/ Jam</span>
+                            </p>
+                        </div>
 
-        </div>
+                        <div class="mt-3">
 
-        <!-- Citraland -->
-        <div class="col-lg-4 mb-4">
+                            <a
+                                href="{{ route('customer.denah') }}"
+                                class="btn btn-primary w-100">
 
-            <div class="card h-100 shadow-sm">
+                                <i class="mdi mdi-calendar-check-outline me-1"></i>
 
-                <img
-                    src="https://images.unsplash.com/photo-1448630360428-65456885c650?q=80&w=800"
-                    class="card-img-top"
-                    style="height:220px; object-fit:cover;">
+                                Reservasi Sekarang
 
-                <div class="card-body">
+                            </a>
 
-                    <h5 class="fw-bold">
-                        📍 Parkir Citraland Mall
-                    </h5>
-
-                    <p class="text-muted">
-                        Jl. Siliwangi, Semarang
-                    </p>
-
-                    <div class="d-flex justify-content-between">
-
-                        <span class="text-success">
-                            🚗 22 Slot Tersedia
-                        </span>
-
-                        <span>
-                            📌 4.2 Km
-                        </span>
+                        </div>
 
                     </div>
-
-                    <a href="/customer/denah"
-                       class="btn btn-primary w-100 mt-3">
-
-                        Lihat Denah
-
-                    </a>
-
                 </div>
-
             </div>
+            @empty
+            <div class="col-12 text-center py-5">
+                <i class="mdi mdi-magnify-close" style="font-size: 4rem; color: #c8c4d6;"></i>
+                <p class="text-body-secondary mt-2">Tidak ada lokasi parkir ditemukan.</p>
+            </div>
+            @endforelse
 
         </div>
 
     </div>
-
 </section>
 
 @endsection
