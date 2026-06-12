@@ -12,6 +12,7 @@ Route::prefix('customer')->group(function () {
     Route::view('/cari-parkir', 'customers.cari-parkir')->name('customer.cari-parkir');
     Route::view('/denah', 'customers.denah')->name('customer.denah');
     Route::view('/reservasi', 'customers.reservasi')->name('customer.reservasi');
+    Route::view('/atur-jadwal', 'customers.atur-jadwal')->name('customer.atur-jadwal');
     Route::view('/riwayat', 'customers.riwayat')->name('customer.riwayat');
     Route::view('/profil', 'customers.profil')->name('customer.profil');
 });
