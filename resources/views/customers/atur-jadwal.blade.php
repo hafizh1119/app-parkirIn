@@ -4,19 +4,10 @@
 
 <section class="section-py bg-body">
 
-```
 <div class="container">
 
     <!-- Button Kembali -->
     <div class="mb-4">
-
-        <a href="{{ url()->previous() }}"
-           class="btn btn-outline-primary">
-
-            <i class="mdi mdi-arrow-left me-1"></i>
-            Kembali
-
-        </a>
 
     </div>
 
@@ -149,7 +140,7 @@
                                     name="kendaraan"
                                     id="motor"
                                     value="motor">
-                                    
+
                                 <label
                                     class="btn btn-outline-primary"
                                     for="motor">
@@ -167,11 +158,18 @@
 
                             <button
                                 type="submit"
-                                class="btn btn-primary btn-lg w-100">
+                                class="btn btn-primary btn-lg w-100 mb-2">
 
                                 Lihat Slot Tersedia
 
                             </button>
+
+                            <a href="{{ route('dashboard') }}"
+                                class="btn btn-outline-secondary w-100">
+
+                                Batal
+
+                            </a>
 
                         </div>
 

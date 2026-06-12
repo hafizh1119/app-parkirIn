@@ -7,15 +7,7 @@
     <div class="container">
 
         <!-- Button Kembali -->
-        <div class="mb-4">
-
-            <a href="{{ route('customer.atur-jadwal') }}" class="btn btn-outline-primary">
-
-                <i class="mdi mdi-arrow-left me-1"></i>
-                Kembali
-
-            </a>
-
+        <div class="mb-5">  
         </div>
 
         <!-- Denah + Detail -->
@@ -165,10 +157,17 @@
                     <div class="mt-auto">
 
                         <a href="{{ route('customer.reservasi') }}"
-                        class="btn btn-primary w-100"
+                        class="btn btn-primary w-100 mb-2"
                         id="btnReservasi">
 
                             Lanjutkan Reservasi
+
+                        </a>
+
+                        <a href="{{ route('customer.atur-jadwal') }}"
+                        class="btn btn-outline-secondary w-100">
+
+                            Batal
 
                         </a>
 
