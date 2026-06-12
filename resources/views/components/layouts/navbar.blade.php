@@ -131,7 +131,6 @@
             <a
               href="{{ route('login') }}"
               class="btn btn-primary px-2 px-sm-4 px-lg-2 px-xl-4"
-              target="_blank"
               ><span class="tf-icons mdi mdi-account me-md-1"></span
               ><span class="d-none d-md-block">Login/Register</span></a
             >
