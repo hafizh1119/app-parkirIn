@@ -254,11 +254,22 @@
                         </div>
 
                         <button
-                            class="btn btn-primary w-100">
+                            class="btn btn-primary w-100 mb-3">
 
                             Kirim Bukti Pembayaran
 
                         </button>
+
+                        <div class="text-center">
+
+                            <a href="{{ route('customer.qr-muncul') }}"
+                            class="btn btn-success px-5">
+
+                                Lihat Tiket Saya
+
+                            </a>
+
+                        </div>
 
                     </div>
 

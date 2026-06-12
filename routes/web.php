@@ -14,6 +14,7 @@ Route::prefix('customer')->group(function () {
     Route::view('/reservasi', 'customers.reservasi')->name('customer.reservasi');
     Route::view('/atur-jadwal', 'customers.atur-jadwal')->name('customer.atur-jadwal');
     Route::view('/pembayaran', 'customers.pembayaran')->name('customer.pembayaran');
+    Route::view('/qr-muncul', 'customers.qr-muncul')->name('customer.qr-muncul');
     Route::view('/riwayat', 'customers.riwayat')->name('customer.riwayat');
     Route::view('/profil', 'customers.profil')->name('customer.profil');
 });
