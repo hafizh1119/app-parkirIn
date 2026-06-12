@@ -7,16 +7,7 @@
     <div class="container">
 
         <!-- Button Kembali -->
-        <div class="mb-4">
-
-            <a href="{{ route('customer.denah') }}"
-               class="btn btn-outline-primary">
-
-                <i class="mdi mdi-arrow-left me-1"></i>
-                Kembali
-
-            </a>
-
+        <div class="mb-5">
         </div>
 
         <div class="row g-4">
@@ -29,70 +20,111 @@
 
                     <div class="card-body p-4">
 
-                        <h4 class="fw-bold mb-4">
-                            Ringkasan Reservasi
-                        </h4>
+                    <h4 class="fw-bold mb-4">
+                        Detail Reservasi
+                    </h4>
 
-                        <div class="row align-items-center">
+                    <!-- Foto Lokasi -->
+                    <div class="mb-4">
 
-                            <div class="col-md-4">
-
-                                <img
-                                    src="https://blog.getandride.com/wp-content/uploads/2023/05/ukuran-parkiran-mobil.jpg"
-                                    class="img-fluid rounded"
-                                    alt="Parkir">
-
-                            </div>
-
-                            <div class="col-md-8">
-
-                                <h5 class="fw-bold">
-                                    Parkir UDINUS
-                                </h5>
-
-                                <p class="text-body-secondary">
-                                    Jl. Imam Bonjol No.207 Semarang
-                                </p>
-
-                                <div class="row g-3">
-
-                                    <div class="col-6">
-                                        <small class="text-body-secondary">Slot</small>
-                                        <div class="fw-semibold">A-12</div>
-                                    </div>
-
-                                    <div class="col-6">
-                                        <small class="text-body-secondary">Kendaraan</small>
-                                        <div class="fw-semibold">Mobil</div>
-                                    </div>
-
-                                    <div class="col-6">
-                                        <small class="text-body-secondary">Area</small>
-                                        <div class="fw-semibold">Area A</div>
-                                    </div>
-
-                                    <div class="col-6">
-                                        <small class="text-body-secondary">Durasi</small>
-                                        <div class="fw-semibold">2 Jam</div>
-                                    </div>
-
-                                    <div class="col-6">
-                                        <small class="text-body-secondary">Tanggal</small>
-                                        <div class="fw-semibold">12 Juni 2026</div>
-                                    </div>
-
-                                    <div class="col-6">
-                                        <small class="text-body-secondary">Jam Masuk</small>
-                                        <div class="fw-semibold">10:00 WIB</div>
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                        </div>
+                        <img
+                            src="https://blog.getandride.com/wp-content/uploads/2023/05/ukuran-parkiran-mobil.jpg"
+                            class="img-fluid rounded-4 w-100"
+                            style="height:220px;object-fit:cover;"
+                            alt="Parkir">
 
                     </div>
+
+                    <!-- Informasi Lokasi -->
+                    <div class="mb-4">
+
+                        <h5 class="fw-bold mb-1">
+                            Parkir UDINUS
+                        </h5>
+
+                        <p class="text-body-secondary mb-0">
+                            Jl. Imam Bonjol No.207 Semarang
+                        </p>
+
+                    </div>
+
+                    <div class="row g-3">
+
+                    <div class="col-6">
+
+                        <small class="text-body-secondary">
+                            Slot Parkir
+                        </small>
+
+                        <h6 class="mb-0 fw-semibold">
+                            A-12
+                        </h6>
+
+                    </div>
+
+                    <div class="col-6">
+
+                        <small class="text-body-secondary">
+                            Kendaraan
+                        </small>
+
+                        <h6 class="mb-0 fw-semibold">
+                            Mobil
+                        </h6>
+
+                    </div>
+
+                    <div class="col-6">
+
+                        <small class="text-body-secondary">
+                            Area Parkir
+                        </small>
+
+                        <h6 class="mb-0 fw-semibold">
+                            Area A
+                        </h6>
+
+                    </div>
+
+                    <div class="col-6">
+
+                        <small class="text-body-secondary">
+                            Durasi Parkir
+                        </small>
+
+                        <h6 class="mb-0 fw-semibold">
+                            2 Jam
+                        </h6>
+
+                    </div>
+
+                    <div class="col-6">
+
+                        <small class="text-body-secondary">
+                            Tanggal Reservasi
+                        </small>
+
+                        <h6 class="mb-0 fw-semibold">
+                            12 Juni 2026
+                        </h6>
+
+                    </div>
+
+                    <div class="col-6">
+
+                        <small class="text-body-secondary">
+                            Jam Masuk
+                        </small>
+
+                        <h6 class="mb-0 fw-semibold">
+                            10:00 WIB
+                        </h6>
+
+                    </div>
+
+                </div>
+
+                </div>
 
                 </div>
 
@@ -101,104 +133,59 @@
 
                     <div class="card-body p-4">
 
-                        <h5 class="fw-bold mb-4">
-                            Detail Kendaraan
-                        </h5>
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+
+                            <h5 class="fw-bold mb-0">
+                                Detail Kendaraan
+                            </h5>
+
+                        </div>
 
                         <div class="mb-3">
 
-                            <label class="form-label">
+                            <small class="text-body-secondary">
                                 Nomor Polisi
-                            </label>
+                            </small>
 
-                            <input
-                                type="text"
-                                class="form-control"
-                                placeholder="Contoh: H 1234 AB">
+                            <h6 class="mb-0">
+                                H 4567 WE
+                            </h6>
 
                         </div>
 
                         <div class="mb-3">
 
-                            <label class="form-label">
+                            <small class="text-body-secondary">
+                                Kendaraan
+                            </small>
+
+                            <h6 class="mb-0">
+                                Toyota Avanza
+                            </h6>
+
+                        </div>
+
+                        <div class="mb-3">
+
+                            <small class="text-body-secondary">
+                                Warna
+                            </small>
+
+                            <h6 class="mb-0">
+                                Putih
+                            </h6>
+
+                        </div>
+
+                        <div>
+
+                            <small class="text-body-secondary">
                                 Jenis Kendaraan
-                            </label>
+                            </small>
 
-                            <input
-                                type="text"
-                                class="form-control"
-                                value="Mobil"
-                                readonly>
-
-                        </div>
-
-                        <div class="mb-3">
-
-                            <label class="form-label">
-                                Slot Parkir
-                            </label>
-
-                            <input
-                                type="text"
-                                class="form-control"
-                                value="A-12"
-                                readonly>
-
-                        </div>
-
-                        <div class="mb-3">
-
-                            <label class="form-label">
-                                Area Parkir
-                            </label>
-
-                            <input
-                                type="text"
-                                class="form-control"
-                                value="Area A"
-                                readonly>
-
-                        </div>
-
-                        <div class="mb-3">
-
-                            <label class="form-label">
-                                Durasi Parkir
-                            </label>
-
-                            <select class="form-select">
-
-                                <option>1 Jam</option>
-                                <option selected>2 Jam</option>
-                                <option>3 Jam</option>
-                                <option>4 Jam</option>
-                                <option>5 Jam</option>
-
-                            </select>
-
-                        </div>
-
-                        <div class="mb-3">
-
-                            <label class="form-label">
-                                Tanggal Masuk
-                            </label>
-
-                            <input
-                                type="date"
-                                class="form-control">
-
-                        </div>
-
-                        <div class="mb-4">
-
-                            <label class="form-label">
-                                Jam Masuk
-                            </label>
-
-                            <input
-                                type="time"
-                                class="form-control">
+                            <h6 class="mb-0">
+                                Mobil
+                            </h6>
 
                         </div>
 
