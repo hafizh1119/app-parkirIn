@@ -1083,11 +1083,6 @@
     <!-- / Sections:End -->
     @endsection
 
-    @push('scripts')
-        <script src="{{ asset('assets/vendor/libs/swiper/swiper.js') }}"></script>
-        <script src="{{ asset('assets/js/front-page-landing.js') }}"></script>
-    @endpush
-
 <script>
 document.addEventListener('DOMContentLoaded', function () {
     new Swiper('#swiper-reviews', {
