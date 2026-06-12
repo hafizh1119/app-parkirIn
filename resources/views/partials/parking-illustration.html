@@ -1,0 +1,274 @@
+<div class="parking-illustration-wrapper">
+<svg width="100%" viewBox="0 0 680 480" role="img" xmlns="http://www.w3.org/2000/svg">
+<title>Ilustrasi area parkir animasi</title>
+<desc>Animasi kendaraan masuk area parkir dengan slot tersedia</desc>
+<defs>
+  <style>
+    .pi-ground { fill: #0f0f1e; }
+    .pi-slot-filled { fill: #1a1a3e; stroke: #4f46e555; stroke-width: 1; }
+    .pi-slot-available { fill: #0d2a1a; stroke: #22c55e; stroke-width: 2; stroke-dasharray: 7 4; }
+    .pi-road { fill: #1e1e30; }
+    .pi-panel { fill: #0d0d1f; }
+    .pi-stat-card { fill: #1a1a3e; }
+    .pi-label { fill: #94a3b8; font-family: sans-serif; font-size: 10px; }
+
+    @keyframes pi-car-park {
+      0%   { transform: translateX(700px) translateY(0); }
+      55%  { transform: translateX(290px) translateY(0); }
+      70%  { transform: translateX(290px) translateY(0); }
+      85%  { transform: translateX(290px) translateY(-62px); }
+      90%  { transform: translateX(290px) translateY(-62px); }
+      95%  { transform: translateX(700px) translateY(-62px); }
+      100% { transform: translateX(700px) translateY(-62px); }
+    }
+    @keyframes pi-blink {
+      0%,100% { opacity: 1; }
+      50%     { opacity: 0.35; }
+    }
+    @keyframes pi-badge-float {
+      0%,100% { transform: translateY(0); }
+      50%     { transform: translateY(-5px); }
+    }
+    @keyframes pi-moto-idle {
+      0%,100% { transform: translateY(0px); }
+      50%     { transform: translateY(-2px); }
+    }
+    @keyframes pi-dot-pulse {
+      0%,100% { opacity: 1; transform: scale(1); }
+      50%     { opacity: 0.5; transform: scale(1.4); }
+    }
+    @keyframes pi-arrow-fade {
+      0%,100% { opacity: 0.6; }
+      50%     { opacity: 0.15; }
+    }
+
+    .pi-car-anim {
+      animation: pi-car-park 4s cubic-bezier(0.4,0,0.2,1) infinite;
+    }
+    .pi-slot-blink { animation: pi-blink 1.4s ease-in-out infinite; }
+    .pi-slot-blink-delay { animation: pi-blink 1.4s ease-in-out 0.7s infinite; }
+    .pi-badge-float { animation: pi-badge-float 2.5s ease-in-out infinite; }
+    .pi-moto-idle { animation: pi-moto-idle 2s ease-in-out infinite; }
+    .pi-dot-pulse { animation: pi-dot-pulse 1.8s ease-in-out infinite; }
+    .pi-arrow-fade { animation: pi-arrow-fade 2s ease-in-out infinite; }
+  </style>
+  <marker id="pi-arrow-green" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+    <path d="M2 1L8 5L2 9" fill="none" stroke="#22c55e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+  </marker>
+  <clipPath id="pi-clip">
+    <rect x="40" y="30" width="600" height="420" rx="16"/>
+  </clipPath>
+</defs>
+
+<!-- Card background -->
+<rect x="40" y="30" width="600" height="420" rx="16" fill="#0f0f1e"/>
+
+<g clip-path="url(#pi-clip)">
+
+<!-- Sky -->
+<rect x="40" y="30" width="600" height="165" fill="#12122a"/>
+
+<!-- Stars -->
+<circle cx="90"  cy="58" r="1.3" fill="#ffffff55"/>
+<circle cx="180" cy="48" r="1.0" fill="#ffffff44"/>
+<circle cx="310" cy="65" r="1.6" fill="#ffffff66"/>
+<circle cx="470" cy="52" r="1.0" fill="#ffffff44"/>
+<circle cx="555" cy="72" r="1.3" fill="#ffffff55"/>
+<circle cx="148" cy="88" r="1.0" fill="#ffffff33"/>
+<circle cx="420" cy="78" r="1.2" fill="#ffffff44"/>
+<circle cx="240" cy="44" r="0.9" fill="#ffffff33"/>
+<circle cx="520" cy="90" r="1.0" fill="#ffffff44"/>
+
+<!-- Gedung kiri -->
+<rect x="55" y="75" width="65" height="115" rx="3" fill="#1a1a3a"/>
+<rect x="63" y="88"  width="11" height="13" rx="1" fill="#6366f133"/>
+<rect x="80" y="88"  width="11" height="13" rx="1" fill="#6366f155"/>
+<rect x="97" y="88"  width="11" height="13" rx="1" fill="#6366f133"/>
+<rect x="63" y="108" width="11" height="13" rx="1" fill="#6366f155"/>
+<rect x="80" y="108" width="11" height="13" rx="1" fill="#6366f122"/>
+<rect x="97" y="108" width="11" height="13" rx="1" fill="#6366f144"/>
+<rect x="63" y="128" width="11" height="13" rx="1" fill="#6366f133"/>
+<rect x="80" y="128" width="11" height="13" rx="1" fill="#6366f155"/>
+<rect x="97" y="128" width="11" height="13" rx="1" fill="#6366f133"/>
+
+<!-- Gedung kanan -->
+<rect x="562" y="55" width="78" height="135" rx="3" fill="#1a1a3a"/>
+<rect x="570" y="68"  width="11" height="13" rx="1" fill="#6366f155"/>
+<rect x="587" y="68"  width="11" height="13" rx="1" fill="#6366f133"/>
+<rect x="604" y="68"  width="11" height="13" rx="1" fill="#6366f155"/>
+<rect x="570" y="88"  width="11" height="13" rx="1" fill="#6366f133"/>
+<rect x="587" y="88"  width="11" height="13" rx="1" fill="#6366f155"/>
+<rect x="604" y="88"  width="11" height="13" rx="1" fill="#6366f122"/>
+<rect x="570" y="108" width="11" height="13" rx="1" fill="#6366f144"/>
+<rect x="587" y="108" width="11" height="13" rx="1" fill="#6366f133"/>
+<rect x="604" y="108" width="11" height="13" rx="1" fill="#6366f155"/>
+<rect x="570" y="128" width="11" height="13" rx="1" fill="#6366f133"/>
+<rect x="587" y="128" width="11" height="13" rx="1" fill="#6366f155"/>
+<rect x="604" y="128" width="11" height="13" rx="1" fill="#6366f133"/>
+
+<!-- Aspal parkir -->
+<rect x="40" y="195" width="600" height="180" fill="#16162a"/>
+
+<!-- Garis pemisah slot -->
+<line x1="155" y1="195" x2="155" y2="315" stroke="#6366f122" stroke-width="1"/>
+<line x1="240" y1="195" x2="240" y2="315" stroke="#6366f122" stroke-width="1"/>
+<line x1="325" y1="195" x2="325" y2="315" stroke="#6366f122" stroke-width="1"/>
+<line x1="410" y1="195" x2="410" y2="315" stroke="#6366f122" stroke-width="1"/>
+<line x1="495" y1="195" x2="495" y2="315" stroke="#6366f122" stroke-width="1"/>
+
+<!-- Jalan masuk -->
+<rect x="40" y="310" width="600" height="65" fill="#1e1e30"/>
+<!-- Marka jalan -->
+<line x1="60"  y1="342" x2="105" y2="342" stroke="#ffffff1a" stroke-width="3" stroke-dasharray="22 16"/>
+<line x1="125" y1="342" x2="170" y2="342" stroke="#ffffff1a" stroke-width="3" stroke-dasharray="22 16"/>
+<line x1="190" y1="342" x2="235" y2="342" stroke="#ffffff1a" stroke-width="3" stroke-dasharray="22 16"/>
+<line x1="255" y1="342" x2="300" y2="342" stroke="#ffffff1a" stroke-width="3" stroke-dasharray="22 16"/>
+<line x1="320" y1="342" x2="365" y2="342" stroke="#ffffff1a" stroke-width="3" stroke-dasharray="22 16"/>
+<line x1="385" y1="342" x2="430" y2="342" stroke="#ffffff1a" stroke-width="3" stroke-dasharray="22 16"/>
+<line x1="450" y1="342" x2="495" y2="342" stroke="#ffffff1a" stroke-width="3" stroke-dasharray="22 16"/>
+<line x1="515" y1="342" x2="560" y2="342" stroke="#ffffff1a" stroke-width="3" stroke-dasharray="22 16"/>
+<line x1="580" y1="342" x2="625" y2="342" stroke="#ffffff1a" stroke-width="3" stroke-dasharray="22 16"/>
+<!-- Garis batas jalan -->
+<line x1="40" y1="310" x2="640" y2="310" stroke="#6366f133" stroke-width="1.5"/>
+
+<!-- ============ SLOT 1 - Mobil Merah ============ -->
+<rect x="55" y="205" width="95" height="105" rx="3" class="pi-slot-filled"/>
+<rect x="63" y="226" width="79" height="36" rx="6" fill="#dc2626"/>
+<rect x="73" y="218" width="58" height="24" rx="4" fill="#b91c1c"/>
+<rect x="77" y="222" width="24" height="14" rx="2" fill="#60a5fa33"/>
+<rect x="105" y="222" width="22" height="14" rx="2" fill="#60a5fa33"/>
+<rect x="134" y="228" width="6" height="9" rx="2" fill="#fbbf2499"/>
+<circle cx="73"  cy="268" r="8" fill="#111827" stroke="#374151" stroke-width="1.5"/>
+<circle cx="73"  cy="268" r="4.5" fill="#1f2937"/>
+<circle cx="134" cy="268" r="8" fill="#111827" stroke="#374151" stroke-width="1.5"/>
+<circle cx="134" cy="268" r="4.5" fill="#1f2937"/>
+<rect x="80" y="257" width="40" height="9" rx="2" fill="#f1f5f9"/>
+<text x="100" y="264" text-anchor="middle" fill="#1e293b" font-family="sans-serif" font-size="6" font-weight="700">H 4521 BA</text>
+<text x="102" y="300" text-anchor="middle" class="pi-label">S01</text>
+
+<!-- ============ SLOT 2 - Mobil Putih ============ -->
+<rect x="155" y="205" width="85" height="105" rx="3" class="pi-slot-filled"/>
+<rect x="161" y="226" width="73" height="36" rx="6" fill="#e2e8f0"/>
+<rect x="170" y="218" width="54" height="24" rx="4" fill="#cbd5e1"/>
+<rect x="173" y="222" width="22" height="14" rx="2" fill="#93c5fd33"/>
+<rect x="199" y="222" width="21" height="14" rx="2" fill="#93c5fd33"/>
+<rect x="227" y="228" width="5" height="9" rx="2" fill="#fbbf2499"/>
+<circle cx="170" cy="268" r="8" fill="#111827" stroke="#374151" stroke-width="1.5"/>
+<circle cx="170" cy="268" r="4.5" fill="#1f2937"/>
+<circle cx="224" cy="268" r="8" fill="#111827" stroke="#374151" stroke-width="1.5"/>
+<circle cx="224" cy="268" r="4.5" fill="#1f2937"/>
+<rect x="177" y="257" width="38" height="9" rx="2" fill="#f1f5f9"/>
+<text x="196" y="264" text-anchor="middle" fill="#1e293b" font-family="sans-serif" font-size="6" font-weight="700">H 1199 ZZ</text>
+<text x="197" y="300" text-anchor="middle" class="pi-label">S02</text>
+
+<!-- ============ SLOT 3 - TERSEDIA (animasi berkedip) ============ -->
+<g class="pi-slot-blink">
+  <rect x="240" y="205" width="85" height="105" rx="3" class="pi-slot-available"/>
+  <text x="282" y="260" text-anchor="middle" fill="#22c55e" font-family="sans-serif" font-size="28" font-weight="800">P</text>
+  <text x="282" y="278" text-anchor="middle" fill="#22c55e99" font-family="sans-serif" font-size="9">TERSEDIA</text>
+</g>
+<text x="282" y="300" text-anchor="middle" class="pi-label">S03</text>
+
+<!-- ============ SLOT 4 - Mobil Biru ============ -->
+<rect x="325" y="205" width="85" height="105" rx="3" class="pi-slot-filled"/>
+<rect x="331" y="226" width="73" height="36" rx="6" fill="#2563eb"/>
+<rect x="340" y="218" width="54" height="24" rx="4" fill="#1d4ed8"/>
+<rect x="343" y="222" width="22" height="14" rx="2" fill="#93c5fd33"/>
+<rect x="369" y="222" width="21" height="14" rx="2" fill="#93c5fd33"/>
+<rect x="397" y="228" width="5" height="9" rx="2" fill="#fbbf2499"/>
+<circle cx="340" cy="268" r="8" fill="#111827" stroke="#374151" stroke-width="1.5"/>
+<circle cx="340" cy="268" r="4.5" fill="#1f2937"/>
+<circle cx="394" cy="268" r="8" fill="#111827" stroke="#374151" stroke-width="1.5"/>
+<circle cx="394" cy="268" r="4.5" fill="#1f2937"/>
+<rect x="347" y="257" width="38" height="9" rx="2" fill="#f1f5f9"/>
+<text x="366" y="264" text-anchor="middle" fill="#1e293b" font-family="sans-serif" font-size="6" font-weight="700">H 8832 KA</text>
+<text x="367" y="300" text-anchor="middle" class="pi-label">S04</text>
+
+<!-- ============ SLOT 5 - TERSEDIA ============ -->
+<g class="pi-slot-blink-delay">
+  <rect x="410" y="205" width="85" height="105" rx="3" class="pi-slot-available"/>
+  <text x="452" y="260" text-anchor="middle" fill="#22c55e" font-family="sans-serif" font-size="28" font-weight="800">P</text>
+  <text x="452" y="278" text-anchor="middle" fill="#22c55e99" font-family="sans-serif" font-size="9">TERSEDIA</text>
+</g>
+<text x="452" y="300" text-anchor="middle" class="pi-label">S05</text>
+
+<!-- ============ SLOT 6 - Motor ============ -->
+<rect x="495" y="205" width="85" height="105" rx="3" class="pi-slot-filled"/>
+<g class="pi-moto-idle" style="transform-origin: 537px 255px">
+  <ellipse cx="537" cy="256" rx="24" ry="11" fill="#7c3aed"/>
+  <rect x="524" y="245" width="30" height="14" rx="5" fill="#6d28d9"/>
+  <rect x="530" y="238" width="14" height="6" rx="3" fill="#4c1d95"/>
+  <circle cx="558" cy="264" r="9" fill="#111827" stroke="#374151" stroke-width="1.5"/>
+  <circle cx="558" cy="264" r="5" fill="#1f2937"/>
+  <circle cx="520" cy="264" r="9" fill="#111827" stroke="#374151" stroke-width="1.5"/>
+  <circle cx="520" cy="264" r="5" fill="#1f2937"/>
+</g>
+<text x="537" y="300" text-anchor="middle" class="pi-label">S06</text>
+
+<!-- ============ ANIMASI MOBIL MASUK ============ -->
+<g class="pi-car-anim">
+  <rect x="-32" y="322" width="74" height="38" rx="7" fill="#1e293b" stroke="#6366f1" stroke-width="1.5"/>
+  <rect x="-24" y="313" width="56" height="26" rx="5" fill="#0f172a"/>
+  <rect x="-19" y="317" width="22" height="16" rx="2" fill="#60a5fa2a"/>
+  <rect x="8"   y="317" width="20" height="16" rx="2" fill="#60a5fa2a"/>
+  <!-- Lampu depan kuning -->
+  <rect x="39"  y="327" width="7" height="9" rx="2" fill="#fbbf24cc"/>
+  <!-- Lampu belakang merah -->
+  <rect x="-37" y="327" width="7" height="9" rx="2" fill="#ef444499"/>
+  <!-- Roda -->
+  <circle cx="-16" cy="362" r="10" fill="#0f172a" stroke="#374151" stroke-width="2"/>
+  <circle cx="-16" cy="362" r="5.5" fill="#1e293b"/>
+  <circle cx="44"  cy="362" r="10" fill="#0f172a" stroke="#374151" stroke-width="2"/>
+  <circle cx="44"  cy="362" r="5.5" fill="#1e293b"/>
+  <!-- Plat nomor -->
+  <rect x="-4" y="353" width="34" height="9" rx="2" fill="#f8fafc"/>
+  <text x="13" y="360" text-anchor="middle" fill="#1e293b" font-family="sans-serif" font-size="6.5" font-weight="700">H 2024 IN</text>
+</g>
+
+<!-- Badge SLOT S03 melayang -->
+<g class="pi-badge-float" style="transform-origin: 282px 178px">
+  <rect x="249" y="167" width="66" height="22" rx="11" fill="#6366f1"/>
+  <text x="282" y="182" text-anchor="middle" fill="#fff" font-family="sans-serif" font-size="10" font-weight="700">SLOT S03 ↓</text>
+</g>
+
+<!-- Garis putus ke slot 3 -->
+<g class="pi-arrow-fade">
+  <line x1="282" y1="310" x2="282" y2="200" stroke="#22c55e" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#pi-arrow-green)"/>
+</g>
+
+<!-- Tanda MASUK -->
+<rect x="55" y="178" width="60" height="22" rx="5" fill="#6366f1"/>
+<text x="85" y="193" text-anchor="middle" fill="#fff" font-family="sans-serif" font-size="10" font-weight="700">▶ MASUK</text>
+
+<!-- ============ PANEL INFO BAWAH ============ -->
+<rect x="40" y="375" width="600" height="75" fill="#0d0d1f"/>
+<line x1="40" y1="375" x2="640" y2="375" stroke="#6366f122" stroke-width="1"/>
+
+<!-- Stat: Tersedia -->
+<rect x="58" y="386" width="128" height="52" rx="8" class="pi-stat-card"/>
+<text x="122" y="407" text-anchor="middle" fill="#22c55e" font-family="sans-serif" font-size="22" font-weight="800">2</text>
+<text x="122" y="424" text-anchor="middle" fill="#94a3b8" font-family="sans-serif" font-size="10">Slot Tersedia</text>
+
+<!-- Stat: Terisi -->
+<rect x="196" y="386" width="128" height="52" rx="8" class="pi-stat-card"/>
+<text x="260" y="407" text-anchor="middle" fill="#ef4444" font-family="sans-serif" font-size="22" font-weight="800">4</text>
+<text x="260" y="424" text-anchor="middle" fill="#94a3b8" font-family="sans-serif" font-size="10">Slot Terisi</text>
+
+<!-- Stat: Harga -->
+<rect x="334" y="386" width="128" height="52" rx="8" class="pi-stat-card"/>
+<text x="398" y="407" text-anchor="middle" fill="#6366f1" font-family="sans-serif" font-size="18" font-weight="800">Rp 3.000</text>
+<text x="398" y="424" text-anchor="middle" fill="#94a3b8" font-family="sans-serif" font-size="10">Per jam</text>
+
+<!-- Stat: Real-time -->
+<rect x="472" y="386" width="152" height="52" rx="8" class="pi-stat-card"/>
+<circle cx="490" cy="410" r="5" fill="#22c55e" class="pi-dot-pulse"/>
+<text x="548" y="407" text-anchor="middle" fill="#22c55e" font-family="sans-serif" font-size="11" font-weight="700">REAL-TIME</text>
+<text x="548" y="424" text-anchor="middle" fill="#94a3b8" font-family="sans-serif" font-size="10">Update Otomatis</text>
+
+</g>
+
+<!-- Border luar -->
+<rect x="40" y="30" width="600" height="420" rx="16" fill="none" stroke="#6366f133" stroke-width="1.5"/>
+
+</svg>
+</div>

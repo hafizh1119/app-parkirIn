@@ -64,7 +64,7 @@
                   <div class="col-lg-6">
 
                       <span class="badge bg-label-primary rounded-pill px-4 py-2 mb-4">
-                          🚗 Smart Parking Platform
+                          Smart Parking Platform
                       </span>
 
                       <h1 class="display-3 fw-bold mb-4">
@@ -95,82 +95,11 @@
 
                   </div>
 
-                  <!-- Kanan -->
-                  <div class="col-lg-5 offset-lg-1">
-
-                      <div class="card border-0 shadow-lg rounded-4">
-
-                          <div class="card-body p-4 p-lg-5">
-
-                              <div class="text-center mb-4">
-
-                                  <div
-                                      class="avatar avatar-lg mx-auto mb-3 bg-label-primary rounded-circle">
-
-                                      <span class="mdi mdi-map-marker fs-2"></span>
-
-                                  </div>
-
-                                  <h4 class="fw-bold mb-1">
-                                      Cari Lokasi Parkir
-                                  </h4>
-
-                                  <p class="text-body-secondary mb-0">
-                                      Temukan area parkir terdekat dari lokasi Anda
-                                  </p>
-
-                              </div>
-
-                              <div class="mb-3">
-
-                                  <label class="form-label">
-                                      Lokasi Anda
-                                  </label>
-
-                                  <input
-                                      type="text"
-                                      class="form-control"
-                                      placeholder="Contoh: Semarang">
-
-                              </div>
-
-                              <div class="mb-4">
-
-                                  <label class="form-label">
-                                      Jenis Kendaraan
-                                  </label>
-
-                                  <select class="form-select">
-                                      <option>Mobil</option>
-                                      <option>Motor</option>
-                                  </select>
-
-                              </div>
-
-                              <button
-                                  class="btn btn-primary w-100 btn-lg">
-
-                                  <span class="mdi mdi-magnify me-1"></span>
-                                  Cari Sekarang
-
-                              </button>
-
-                              <div class="text-center mt-3">
-
-                                  <a href="#"
-                                      class="text-primary text-decoration-none">
-
-                                      📍 Gunakan Lokasi Saat Ini
-
-                                  </a>
-
-                              </div>
-
-                          </div>
-
-                      </div>
-
-                  </div>
+                <!-- Kanan - Ilustrasi Parkir -->
+                <!-- Kanan -->
+                    <div class="col-lg-6 d-flex align-items-center justify-content-center">
+                        @include('partials.parking-illustration')
+                    </div>
 
               </div>
 
@@ -186,7 +115,7 @@
               <div class="text-center mb-5">
 
                   <span class="badge bg-label-primary rounded-pill mb-3 px-3 py-2">
-                      📍 Nearby Parking
+                      Nearby Parking
                   </span>
 
                   <h2 class="fw-bold mb-3">
@@ -1184,12 +1113,29 @@ document.addEventListener('DOMContentLoaded', function () {
 </script>
 
 <style>
+/* ===== HERO SECTION ===== */
 .hero-section{
     background: linear-gradient(
-        180deg,
-        #f8f7ff 0%,
-        #ffffff 100%
+        135deg,
+        #1a1a2e 0%,
+        #16161f 50%,
+        #0d0d14 100%
     );
+}
+
+.hero-section h1,
+.hero-section .display-3{
+    color:#ffffff;
+}
+
+.hero-section .text-body-secondary{
+    color:#b8b8c5!important;
+}
+
+.hero-section .badge.bg-label-primary{
+    background:rgba(115,103,240,.2)!important;
+    color:#c4b8ff!important;
+    border:1px solid rgba(115,103,240,.3);
 }
 
 .hero-blur{
@@ -1202,7 +1148,7 @@ document.addEventListener('DOMContentLoaded', function () {
 .hero-blur-1{
     width:500px;
     height:500px;
-    background:rgba(115,103,240,.25);
+    background:rgba(115,103,240,.35);
     top:-150px;
     left:-150px;
     animation: float1 8s ease-in-out infinite;
@@ -1211,7 +1157,7 @@ document.addEventListener('DOMContentLoaded', function () {
 .hero-blur-2{
     width:450px;
     height:450px;
-    background:rgba(255,76,81,.15);
+    background:rgba(167,139,250,.25);
     bottom:-100px;
     right:-100px;
     animation: float2 10s ease-in-out infinite;
@@ -1222,22 +1168,19 @@ document.addEventListener('DOMContentLoaded', function () {
     z-index:2;
 }
 
+.hero-section .card{
+    background:#ffffff;
+    box-shadow: 0 1rem 4rem rgba(0,0,0,.4)!important;
+}
+
 @keyframes float1{
-    0%,100%{
-        transform:translateY(0);
-    }
-    50%{
-        transform:translateY(30px);
-    }
+    0%,100%{ transform:translateY(0); }
+    50%{ transform:translateY(30px); }
 }
 
 @keyframes float2{
-    0%,100%{
-        transform:translateY(0);
-    }
-    50%{
-        transform:translateY(-30px);
-    }
+    0%,100%{ transform:translateY(0); }
+    50%{ transform:translateY(-30px); }
 }
 
 .parking-card{
@@ -1249,13 +1192,12 @@ document.addEventListener('DOMContentLoaded', function () {
     box-shadow:0 1rem 3rem rgba(0,0,0,.12)!important;
 }
 
-/* Pastikan pagination muncul di tengah dan tidak overlap card */
 #swiper-reviews {
-  padding-bottom: 40px; /* beri ruang untuk pagination */
+  padding-bottom: 40px;
 }
 
 #swiper-reviews .swiper-pagination {
-  position: relative; /* keluar dari absolute agar tidak overlap */
+  position: relative;
   bottom: auto;
   margin-top: 16px;
   text-align: center;
@@ -1267,5 +1209,269 @@ document.addEventListener('DOMContentLoaded', function () {
   flex-direction: column;
   justify-content: center;
 }
-</style>
 
+/* ===== Background tambahan per section ===== */
+
+#parkir-terdekat{
+    background: linear-gradient(180deg, #0d0d14 0%, #16161f 100%) !important;
+    color:#fff;
+}
+
+#parkir-terdekat .badge.bg-label-primary{
+    background:rgba(115,103,240,.2)!important;
+    color:#c4b8ff!important;
+    border:1px solid rgba(115,103,240,.3);
+}
+
+#parkir-terdekat h2,
+#parkir-terdekat .text-body-secondary{
+    color:#b8b8c5!important;
+}
+
+#parkir-terdekat h2.fw-bold{
+    color:#ffffff!important;
+}
+
+#cara-kerja{
+    background: linear-gradient(180deg, #16161f 0%, #1a1a2e 100%) !important;
+    color:#fff;
+}
+
+#cara-kerja h6,
+#cara-kerja h3,
+#cara-kerja h5{
+    color:#ffffff!important;
+}
+
+#cara-kerja p{
+    color:#b8b8c5!important;
+}
+
+#keunggulan-parkirin{
+    background: linear-gradient(180deg, #1a1a2e 0%, #0d0d14 100%) !important;
+    position: relative;
+    color:#fff;
+}
+
+#keunggulan-parkirin h6,
+#keunggulan-parkirin h3,
+#keunggulan-parkirin h5{
+    color:#ffffff!important;
+}
+
+#keunggulan-parkirin .text-body-secondary,
+#keunggulan-parkirin p{
+    color:#b8b8c5!important;
+}
+
+#keunggulan-parkirin .feature-card{
+    background:rgba(255,255,255,.04);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:1rem;
+}
+
+#keunggulan-parkirin::before{
+    content:"";
+    position:absolute;
+    top:-100px;
+    left:50%;
+    transform:translateX(-50%);
+    width:600px;
+    height:600px;
+    background:rgba(115,103,240,.18);
+    border-radius:50%;
+    filter:blur(140px);
+    pointer-events:none;
+}
+
+/* ===== MEMBERSHIP ===== */
+#membership{
+    background: linear-gradient(135deg, #0d0d14 0%, #16161f 60%, #1a1a2e 100%) !important;
+    position: relative;
+    overflow: hidden;
+    color:#fff;
+}
+
+/* Judul section membership (di luar kartu) */
+#membership > .container > h6,
+#membership > .container > h3 {
+    color:#ffffff!important;
+}
+
+#membership .text-body-secondary,
+#membership > .container > p{
+    color:#b8b8c5!important;
+}
+
+#membership .card{
+    background:#ffffff;
+}
+
+/* Perbaikan: semua teks di dalam kartu membership → warna gelap */
+#membership .card h3,
+#membership .card h5,
+#membership .card h6,
+#membership .card .display-3,
+#membership .card .display-4,
+#membership .card .display-5,
+#membership .card .fw-bold {
+    color: #1a1a2e !important;
+}
+
+#membership .card p,
+#membership .card .small,
+#membership .card .text-muted,
+#membership .card .text-body-secondary {
+    color: #4a4a6a !important;
+}
+
+#membership .card .list-unstyled li h6,
+#membership .card ul li h6 {
+    color: #1a1a2e !important;
+}
+
+#membership .card hr {
+    border-color: rgba(0,0,0,.1);
+}
+
+#membership .card .btn-outline-secondary {
+    color: #4a4a6a !important;
+    border-color: #4a4a6a !important;
+}
+
+#membership .card .btn-outline-primary {
+    color: #7367f0 !important;
+    border-color: #7367f0 !important;
+}
+
+#membership .card .btn-primary {
+    background: #7367f0 !important;
+    color: #ffffff !important;
+    border-color: #7367f0 !important;
+}
+
+/* Badge di dalam kartu tetap berwarna */
+#membership .card .badge.bg-label-secondary {
+    background: rgba(0,0,0,.08) !important;
+    color: #4a4a6a !important;
+}
+
+#membership .card .badge.bg-label-primary {
+    background: rgba(115,103,240,.15) !important;
+    color: #7367f0 !important;
+}
+
+#membership::after{
+    content:"";
+    position:absolute;
+    bottom:-150px;
+    right:-150px;
+    width:400px;
+    height:400px;
+    background:rgba(167,139,250,.2);
+    border-radius:50%;
+    filter:blur(120px);
+    pointer-events:none;
+}
+
+/* ===== ULASAN ===== */
+#ulasan-parkirin{
+    background: linear-gradient(180deg, #1a1a2e 0%, #16161f 100%) !important;
+    color:#fff;
+}
+
+#ulasan-parkirin h6,
+#ulasan-parkirin h3{
+    color:#ffffff!important;
+}
+
+#ulasan-parkirin p{
+    color:#b8b8c5!important;
+}
+
+#ulasan-parkirin .card{
+    background:#ffffff;
+}
+
+/* ===== FUN FACTS ===== */
+#landingFunFacts{
+    background: linear-gradient(135deg, #7367f0 0%, #a78bfa 100%);
+    color:#fff;
+}
+
+#landingFunFacts h2,
+#landingFunFacts p{
+    color:#fff;
+}
+
+#landingFunFacts .fun-facts-icon{
+    background: rgba(255,255,255,.18)!important;
+    color:#fff;
+}
+
+/* ===== FAQ ===== */
+#faq{
+    background: linear-gradient(180deg, #16161f 0%, #0d0d14 100%) !important;
+    color:#fff;
+}
+
+#faq h6,
+#faq h3{
+    color:#ffffff!important;
+}
+
+#faq p{
+    color:#b8b8c5!important;
+}
+
+/* Perbaikan: accordion FAQ agar teks terbaca */
+#faq .accordion-item {
+    background: rgba(255,255,255,0.06) !important;
+    border: 1px solid rgba(115,103,240,.25) !important;
+    border-radius: 0.75rem !important;
+    margin-bottom: 0.75rem;
+}
+
+#faq .accordion-button {
+    background: rgba(255,255,255,0.06) !important;
+    color: #ffffff !important;
+    font-weight: 500;
+    border-radius: 0.75rem !important;
+}
+
+#faq .accordion-button::after {
+    filter: invert(1) brightness(2);
+}
+
+#faq .accordion-button:not(.collapsed) {
+    background: rgba(115,103,240,.2) !important;
+    color: #c4b8ff !important;
+    box-shadow: none !important;
+}
+
+#faq .accordion-body {
+    background: rgba(255,255,255,.02) !important;
+    color: #b8b8c5 !important;
+    border-top: 1px solid rgba(115,103,240,.2);
+    border-radius: 0 0 0.75rem 0.75rem;
+}
+
+/* ===== CONTACT ===== */
+#landingContact{
+    background: radial-gradient(circle at 80% 20%, rgba(115,103,240,.15) 0%, transparent 50%), #0d0d14 !important;
+    color:#fff;
+}
+
+#landingContact h6,
+#landingContact h3{
+    color:#ffffff!important;
+}
+
+#landingContact p{
+    color:#b8b8c5!important;
+}
+
+#landingContact .card{
+    background:#ffffff;
+}
+</style>
