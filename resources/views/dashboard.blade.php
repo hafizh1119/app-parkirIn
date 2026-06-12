@@ -202,7 +202,7 @@
                           </div>
 
                           <a
-                              href="{{ route('customer.denah') }}"
+                              href="{{ route('customer.atur-jadwal') }}"
                               class="btn btn-primary w-100">
 
                               Reservasi

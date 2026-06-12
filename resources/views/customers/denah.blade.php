@@ -9,7 +9,7 @@
         <!-- Button Kembali -->
         <div class="mb-4">
 
-            <a href="{{ route('customer.cari-parkir') }}" class="btn btn-outline-primary">
+            <a href="{{ route('customer.atur-jadwal') }}" class="btn btn-outline-primary">
 
                 <i class="mdi mdi-arrow-left me-1"></i>
                 Kembali
@@ -27,26 +27,6 @@
                     <div class="card-body p-4">
 
                         <div class="row mb-4">
-
-                            <div class="col-md-6">
-
-                                <label class="form-label fw-semibold">
-                                    Jenis Kendaraan
-                                </label>
-
-                                <select class="form-select" id="selectKendaraan">
-
-                                    <option value="mobil">
-                                        🚗 Mobil
-                                    </option>
-
-                                    <option value="motor">
-                                        🛵 Motor
-                                    </option>
-
-                                </select>
-
-                            </div>
 
                             <div class="col-md-6">
 
@@ -443,7 +423,6 @@
 <script>
     const parkingGrid = document.getElementById('parkingGrid');
 
-    const kendaraanSelect = document.getElementById('selectKendaraan');
     const areaSelect = document.getElementById('selectArea');
 
     let selectedSlot = null;
@@ -452,7 +431,9 @@
 
         parkingGrid.innerHTML = '';
 
-        const kendaraan = kendaraanSelect.value;
+        const kendaraan =
+        new URLSearchParams(window.location.search)
+            .get('kendaraan') || 'mobil';
         const area = areaSelect.value;
 
         for (let i = 1; i <= 25; i++) {
@@ -538,7 +519,6 @@
 
     generateSlots();
 
-    kendaraanSelect.addEventListener('change', generateSlots);
     areaSelect.addEventListener('change', generateSlots);
 </script>
 @endpush
