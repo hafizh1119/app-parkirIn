@@ -55,7 +55,6 @@
                 </span>
                 <span class="app-brand-text demo footer-link fw-bold">ParkirIn</span>
               </a>
-              <p class="footer-text footer-logo-description mb-4">
                   ParkirIn adalah platform pencarian dan reservasi parkir yang membantu pengguna menemukan slot parkir tersedia secara realtime dengan lebih cepat, mudah, dan efisien.
               </p>
             </div>

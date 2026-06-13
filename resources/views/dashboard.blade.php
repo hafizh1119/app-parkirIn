@@ -880,9 +880,8 @@
             <div class="col-lg-5">
               <div class="text-center">
                 <img
-                  src="../../assets/img/front-pages/landing-page/sitting-girl-with-laptop.png
-          "
-                  alt="sitting girl with laptop"
+                  src="{{ asset('assets/img/Faq/car-faq.png') }}"
+                  alt="FAQ ParkirIn"
                   class="faq-image" />
               </div>
             </div>
@@ -1025,12 +1024,12 @@
                   <p class="fw-medium mb-1">Let’s contact with us</p>
                   <p class="display-6 mb-4">Share your ideas or requirement with our experts.</p>
                   <img
-                    src="{{ asset('assets/img/front-pages/landing-page/let’s-contact.png') }}"
+                    src="{{ asset('assets/img/ContactUs/contactus.png') }}"
                     alt="let’s contact"
                     class="w-100 mb-2 pb-1" />
                   <p class="mb-0">
-                    Looking for more customisation, more features, and more anything? Don’t worry, We’ve provide you
-                    with an entire team of experienced professionals.
+                    <i class="mdi mdi-phone-outline me-2"></i>
+                    +62 812-3456-7890
                   </p>
                 </div>
               </div>
