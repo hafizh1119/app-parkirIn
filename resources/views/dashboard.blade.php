@@ -202,12 +202,12 @@
                           </div>
 
                           <a
-                              href="{{ route('customer.atur-jadwal') }}"
-                              class="btn btn-primary w-100">
+                            href="{{ route('customer.atur-jadwal', $parkir->id) }}"
+                            class="btn btn-primary w-100">
 
-                              Reservasi
+                            Reservasi
 
-                          </a>
+                        </a>
 
                       </div>
 

@@ -184,7 +184,7 @@
                         <div class="mt-3">
 
                             <a
-                                href="{{ route('customer.atur-jadwal') }}"
+                                href="{{ route('customer.atur-jadwal', $parkir->id) }}"
                                 class="btn btn-primary w-100">
 
                                 <i class="mdi mdi-calendar-check-outline me-1"></i>

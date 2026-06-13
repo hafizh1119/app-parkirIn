@@ -127,14 +127,70 @@
           <!-- / Style Switcher-->
 
           <!-- navbar button: Start -->
-          <li>
-            <a
-              href="{{ route('login') }}"
-              class="btn btn-primary px-2 px-sm-4 px-lg-2 px-xl-4"
-              ><span class="tf-icons mdi mdi-account me-md-1"></span
-              ><span class="d-none d-md-block">Login/Register</span></a
-            >
-          </li>
+@guest
+<li>
+    <a
+        href="{{ route('login') }}"
+        class="btn btn-primary px-2 px-sm-4 px-lg-2 px-xl-4">
+
+        <span class="tf-icons mdi mdi-account me-md-1"></span>
+
+        <span class="d-none d-md-block">
+            Login/Register
+        </span>
+
+    </a>
+</li>
+@endguest
+
+@auth
+<li class="nav-item dropdown">
+
+    <a
+        class="btn btn-primary dropdown-toggle px-2 px-sm-4 px-lg-2 px-xl-4"
+        href="#"
+        role="button"
+        data-bs-toggle="dropdown"
+        aria-expanded="false">
+
+        <span class="tf-icons mdi mdi-account me-md-1"></span>
+
+        <span class="d-none d-md-inline">
+            {{ Auth::user()->name }}
+        </span>
+
+    </a>
+
+    <ul class="dropdown-menu dropdown-menu-end">
+
+        <li>
+            <a class="dropdown-item" href="{{ route('customer.profil') }}">
+                Profil
+            </a>
+        </li>
+
+        <li>
+            <a class="dropdown-item" href="{{ route('customer.riwayat') }}">
+                Riwayat
+            </a>
+        </li>
+
+        <li><hr class="dropdown-divider"></li>
+
+        <li>
+            <form action="{{ route('logout') }}" method="POST">
+                @csrf
+
+                <button type="submit" class="dropdown-item text-danger">
+                    Logout
+                </button>
+            </form>
+        </li>
+
+    </ul>
+
+</li>
+@endauth
           <!-- navbar button: End -->
         </ul>
         <!-- Toolbar: End -->

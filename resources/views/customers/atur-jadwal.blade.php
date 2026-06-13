@@ -37,7 +37,10 @@
                     </div>
 
                     <form action="{{ route('customer.denah') }}" method="GET">
-
+                        <input
+                            type="hidden"
+                            name="lokasi_parkir_id"
+                            value="{{ $lokasi->id }}">
                         <!-- Lokasi -->
                         <div class="mb-4">
 
@@ -70,7 +73,9 @@
 
                                 <input
                                     type="date"
-                                    class="form-control">
+                                    class="form-control"
+                                    name="tanggal_parkir"
+                                    required>
 
                             </div>
 
@@ -83,7 +88,9 @@
 
                                 <input
                                     type="time"
-                                    class="form-control">
+                                    class="form-control"
+                                    name="jam_masuk"
+                                    required>
 
                             </div>
 
@@ -96,14 +103,16 @@
                                 Durasi Parkir
                             </label>
 
-                            <select class="form-select">
+                            <select
+                                class="form-select"
+                                name="durasi_jam">
 
-                                <option>1 Jam</option>
-                                <option>2 Jam</option>
-                                <option>3 Jam</option>
-                                <option>4 Jam</option>
-                                <option>5 Jam</option>
-                                <option>6 Jam</option>
+                                <option value="1">1 Jam</option>
+                                <option value="2">2 Jam</option>
+                                <option value="3">3 Jam</option>
+                                <option value="4">4 Jam</option>
+                                <option value="5">5 Jam</option>
+                                <option value="6">6 Jam</option>
 
                             </select>
 

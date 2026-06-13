@@ -72,6 +72,21 @@
 
                         <div id="parkingGrid" class="parking-grid">
 
+                            @foreach($slotParkir as $slot)
+
+                                <button
+                                    class="slot {{ $slot->status == 'tersedia' ? 'available' : 'occupied' }}"
+                                    data-kode="{{ $slot->kode_slot }}"
+                                    data-area="{{ $slot->area }}"
+                                    data-status="{{ $slot->status }}"
+                                    data-tarif="{{ $slot->tarif_per_jam }}">
+
+                                    {{ $slot->kode_slot }}
+
+                                </button>
+
+                            @endforeach
+
                         </div>
 
                     </div>
@@ -94,11 +109,11 @@
                             </small>
 
                             <h6 class="fw-bold mb-0 mt-1">
-                                Toyota Avanza
+                                {{ $kendaraan->merk }}
                             </h6>
 
                             <small class="text-body-secondary">
-                                H 4567 WE
+                                {{ $kendaraan->nomor_polisi }}
                             </small>
 
                         </div>
@@ -156,16 +171,17 @@
 
                     <div class="mt-auto">
 
-                        <a href="{{ route('customer.reservasi') }}"
-                        class="btn btn-primary w-100 mb-2"
-                        id="btnReservasi">
+                        <a
+                            href="{{ route('customer.atur-jadwal', $lokasi->id) }}"
+                            class="btn btn-primary w-100">
 
-                            Lanjutkan Reservasi
+                            Reservasi Sekarang
 
                         </a>
 
-                        <a href="{{ route('customer.atur-jadwal') }}"
-                        class="btn btn-outline-secondary w-100">
+                        <a
+                            href="{{ route('customer.atur-jadwal', $lokasi->id) }}"
+                            class="btn btn-outline-secondary w-100">
 
                             Batal
 
@@ -425,100 +441,43 @@
     const areaSelect = document.getElementById('selectArea');
 
     let selectedSlot = null;
+    
+    document.querySelectorAll('.slot').forEach(slot => {
 
-    function generateSlots() {
+        slot.addEventListener('click', function () {
 
-        parkingGrid.innerHTML = '';
+            document.querySelectorAll('.slot.selected')
+                .forEach(x => x.classList.remove('selected'));
 
-        const kendaraan =
-        new URLSearchParams(window.location.search)
-            .get('kendaraan') || 'mobil';
-        const area = areaSelect.value;
+            if (this.classList.contains('occupied')) {
 
-        for (let i = 1; i <= 25; i++) {
+                document.getElementById('detailStatus').textContent = 'Terisi';
+                document.getElementById('detailStatus').className =
+                    'mb-0 fw-semibold text-danger';
 
-            let slotName = '';
-
-            if (kendaraan === 'mobil') {
-                slotName = area + '-' + i;
-            } else {
-                slotName = 'M' + area + '-' + i;
+                return;
             }
 
-            const available = Math.random() > 0.35;
+            this.classList.add('selected');
 
-            const btn = document.createElement('button');
+            document.getElementById('detailNamaSlot').textContent =
+                this.dataset.kode;
 
-            btn.className =
-                'slot ' + (available ? 'available' : 'occupied');
+            document.getElementById('detailArea').textContent =
+                this.dataset.area;
 
-            btn.innerText = slotName;
+            document.getElementById('detailStatus').textContent =
+                this.dataset.status;
 
-            btn.addEventListener('click', function () {
+            document.getElementById('detailStatus').className =
+                'mb-0 fw-semibold text-success';
 
-                document.querySelectorAll('.slot.selected')
-                    .forEach(x => {
-                        x.classList.remove('selected');
-                        x.classList.add('available');
-                    });
+            document.getElementById('detailTarif').textContent =
+                'Rp ' + Number(this.dataset.tarif).toLocaleString('id-ID') + '/Jam';
 
-                document.getElementById('detailNamaSlot').textContent =
-                    slotName;
+        });
 
-                document.getElementById('detailKendaraan').textContent =
-                    kendaraan === 'mobil'
-                    ? 'Mobil'
-                    : 'Motor';
-
-                document.getElementById('detailArea').textContent =
-                    'Area ' + area;
-
-                document.getElementById('detailTarif').textContent =
-                    kendaraan === 'mobil'
-                    ? 'Rp 5.000/Jam'
-                    : 'Rp 2.000/Jam';
-
-                if (available) {
-
-                    btn.classList.remove('available');
-                    btn.classList.add('selected');
-
-                    document.getElementById('detailStatus')
-                        .textContent = 'Tersedia';
-
-                    document.getElementById('detailStatus')
-                        .className = 'mb-0 fw-semibold text-success';
-
-                    document.getElementById('btnReservasi')
-                        .disabled = false;
-
-                    document.getElementById('btnReservasi')
-                        .className = 'btn btn-primary w-100 mb-2';
-
-                } else {
-
-                    document.getElementById('detailStatus')
-                        .textContent = 'Terisi';
-
-                    document.getElementById('detailStatus')
-                        .className = 'mb-0 fw-semibold text-danger';
-
-                    document.getElementById('btnReservasi')
-                        .disabled = true;
-
-                    document.getElementById('btnReservasi')
-                        .className = 'btn btn-secondary w-100 mb-2';
-                }
-
-            });
-
-            parkingGrid.appendChild(btn);
-        }
-    }
-
-    generateSlots();
-
-    areaSelect.addEventListener('change', generateSlots);
+    });
 </script>
 @endpush
 
