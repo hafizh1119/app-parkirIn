@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Customer\LokasiParkirController;
 
 Route::view('/', 'dashboard')->name('dashboard');
 
@@ -9,7 +10,7 @@ Route::view('/login', 'auth.login')->name('login');
 Route::view('/register', 'auth.register')->name('register');
 
 Route::prefix('customer')->group(function () {
-    Route::view('/cari-parkir', 'customers.cari-parkir')->name('customer.cari-parkir');
+    Route::get('/cari-parkir',[LokasiParkirController::class, 'index'])->name('customer.cari-parkir');
     Route::view('/denah', 'customers.denah')->name('customer.denah');
     Route::view('/reservasi', 'customers.reservasi')->name('customer.reservasi');
     Route::view('/atur-jadwal', 'customers.atur-jadwal')->name('customer.atur-jadwal');
