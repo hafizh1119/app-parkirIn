@@ -2,41 +2,6 @@
 
 @section('content')
 
-@php
-    $lokasiParkir = collect([
-        (object) [
-            'id' => 1,
-            'nama' => 'Parkir UDINUS',
-            'alamat' => 'Jl. Imam Bonjol No.207 Semarang',
-            'gambar' => null,
-            'rating' => 4.8,
-            'jarak' => 1.2,
-            'slot_tersedia' => 25,
-            'tarif_per_jam' => 5000,
-        ],
-        (object) [
-            'id' => 2,
-            'nama' => 'DP Mall Semarang',
-            'alamat' => 'Jl. Pemuda No.150 Semarang',
-            'gambar' => null,
-            'rating' => 4.5,
-            'jarak' => 1.8,
-            'slot_tersedia' => 12,
-            'tarif_per_jam' => 6000,
-        ],
-        (object) [
-            'id' => 3,
-            'nama' => 'Lawang Sewu Park',
-            'alamat' => 'Jl. Pemuda No.160 Semarang',
-            'gambar' => null,
-            'rating' => 4.2,
-            'jarak' => 2.0,
-            'slot_tersedia' => 0,
-            'tarif_per_jam' => 4000,
-        ],
-    ]);
-@endphp
-
 <section class="section-py bg-body">
     <div class="container">
 
@@ -133,20 +98,40 @@
                 <div class="card border-0 shadow-sm h-100">
 
                     <div class="position-relative">
-                        <img src="https://blog.getandride.com/wp-content/uploads/2023/05/ukuran-parkiran-mobil.jpg"
-                             alt="{{ $parkir->nama }}"
+                        <img src="{{ asset('assets/img/lokasi/' . $parkir->gambar) }}"
+                            alt="{{ $parkir->nama }}"
                              class="card-img-top" style="height: 180px; object-fit: cover;">
 
+                        @php
+                            $slotMobil = $parkir->slotParkir
+                                ->where('jenis_kendaraan', 'mobil')
+                                ->where('status', 'tersedia')
+                                ->count();
+
+                            $slotMotor = $parkir->slotParkir
+                                ->where('jenis_kendaraan', 'motor')
+                                ->where('status', 'tersedia')
+                                ->count();
+                        @endphp
+
                         <div class="position-absolute top-0 end-0 m-3">
-                            @if ($parkir->slot_tersedia > 0)
+
+                            @if ($slotMobil > 0 || $slotMotor > 0)
+
                                 <span class="badge bg-label-success rounded-pill">
-                                    <i class="mdi mdi-circle-medium"></i> Tersedia
+                                    <i class="mdi mdi-circle-medium"></i>
+                                    Tersedia
                                 </span>
+
                             @else
+
                                 <span class="badge bg-label-danger rounded-pill">
-                                    <i class="mdi mdi-circle-medium"></i> Penuh
+                                    <i class="mdi mdi-circle-medium"></i>
+                                    Penuh
                                 </span>
+
                             @endif
+
                         </div>
                     </div>
 
@@ -168,26 +153,38 @@
                         <div class="d-flex gap-4 mb-3">
                             <div class="d-flex align-items-center gap-1 text-body-secondary small">
                                 <i class="mdi mdi-map text-primary"></i>
-                                {{ $parkir->jarak ?? '-' }} km
+                                -
                             </div>
-                            <div class="d-flex align-items-center gap-1 text-body-secondary small">
-                                <i class="mdi mdi-car text-primary"></i>
-                                {{ $parkir->slot_tersedia }} Slot Tersedia
+                            <div class="d-flex align-items-center gap-3 text-body-secondary small">
+
+                                <span>
+                                    🚗 {{ $slotMobil }} Mobil
+                                </span>
+
+                                <span>
+                                    🏍️ {{ $slotMotor }} Motor
+                                </span>
+
                             </div>
                         </div>
 
                         <div class="mt-auto pt-3 border-top">
-                            <p class="text-body-secondary small mb-0">Harga</p>
-                            <p class="fw-bold text-primary fs-5 mb-0">
-                                Rp {{ number_format($parkir->tarif_per_jam, 0, ',', '.') }}
-                                <span class="fw-normal text-body-secondary small">/ Jam</span>
+                            <p class="text-body-secondary small mb-1">
+                                Mulai Dari
                             </p>
+
+                            <h5 class="fw-bold text-primary mb-0">
+                                Rp {{ number_format($parkir->slotParkir->min('tarif_per_jam') ?? 0, 0, ',', '.') }}
+                                <span class="fs-6 fw-normal text-body-secondary">
+                                    / Jam
+                                </span>
+                            </h5>
                         </div>
 
                         <div class="mt-3">
 
                             <a
-                                href="{{ route('customer.atur-jadwal') }}"
+                                href="{{ route('customer.atur-jadwal', $parkir->id) }}"
                                 class="btn btn-primary w-100">
 
                                 <i class="mdi mdi-calendar-check-outline me-1"></i>

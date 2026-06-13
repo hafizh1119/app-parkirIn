@@ -140,35 +140,55 @@
             <h4 class="mb-2">Welcome to Materialize! 👋</h4>
             <p class="mb-4">Please sign-in to your account and start the adventure</p>
 
-            <form id="formAuthentication" class="mb-3" action="index.html" method="GET">
-              <div class="form-floating form-floating-outline mb-3">
-                <input
-                  type="text"
-                  class="form-control"
-                  id="email"
-                  name="email-username"
-                  placeholder="Enter your email or username"
-                  autofocus />
-                <label for="email">Email or Username</label>
-              </div>
-              <div class="mb-3">
-                <div class="form-password-toggle">
-                  <div class="input-group input-group-merge">
-                    <div class="form-floating form-floating-outline">
-                      <input
-                        type="password"
-                        id="password"
+            <form id="formAuthentication" class="mb-3" action="{{ url('/login') }}" method="POST">
+
+                @csrf
+
+                <div class="form-floating form-floating-outline mb-3">
+                    <input
+                        type="email"
                         class="form-control"
-                        name="password"
-                        placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-                        aria-describedby="password" />
-                      <label for="password">Password</label>
-                    </div>
-                    <span class="input-group-text cursor-pointer"><i class="mdi mdi-eye-off-outline"></i></span>
-                  </div>
+                        id="email"
+                        name="email"
+                        placeholder="Enter your email"
+                        autofocus />
+
+                    <label for="email">
+                        Email
+                    </label>
                 </div>
-              </div>
-              <div class="mb-3 d-flex justify-content-between">
+
+                <div class="mb-3">
+
+                    <div class="form-password-toggle">
+
+                        <div class="input-group input-group-merge">
+
+                            <div class="form-floating form-floating-outline">
+
+                                <input
+                                    type="password"
+                                    id="password"
+                                    class="form-control"
+                                    name="password"
+                                    placeholder="********">
+
+                                <label for="password">
+                                    Password
+                                </label>
+
+                            </div>
+
+                            <span class="input-group-text cursor-pointer">
+                                <i class="mdi mdi-eye-off-outline"></i>
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="mb-3 d-flex justify-content-between">
                 <div class="form-check">
                   <input class="form-check-input" type="checkbox" id="remember-me" />
                   <label class="form-check-label" for="remember-me"> Remember Me </label>
@@ -177,7 +197,11 @@
                   <span>Forgot Password?</span>
                 </a>
               </div>
-              <button class="btn btn-primary d-grid w-100">Sign in</button>
+
+                <button type="submit" class="btn btn-primary d-grid w-100">
+                    Sign In
+                </button>
+
             </form>
 
             <p class="text-center mt-2">

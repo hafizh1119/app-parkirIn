@@ -1,22 +1,37 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Customer\LokasiParkirController;
 
 Route::view('/', 'dashboard')->name('dashboard');
 
-// ==================== CUSTOMER ROUTES ====================
-Route::view('/login', 'auth.login')->name('login');
-Route::view('/register', 'auth.register')->name('register');
+Route::middleware('guest')->group(function () {
+    Route::get('/login', [LoginController::class, 'index'])->name('login');
+    Route::post('/login', [LoginController::class, 'authenticate']);
+    Route::get('/register', [RegisterController::class, 'index'])->name('register');
+    Route::post('/register', [RegisterController::class, 'store']);
+});
+
+Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth')->name('logout');
 
 Route::prefix('customer')->group(function () {
-    Route::view('/cari-parkir', 'customers.cari-parkir')->name('customer.cari-parkir');
-    Route::view('/denah', 'customers.denah')->name('customer.denah');
+
+    Route::get('/cari-parkir', [LokasiParkirController::class, 'index'])->name('customer.cari-parkir');
+    Route::get('/atur-jadwal/{id}', [LokasiParkirController::class, 'aturJadwal'])->name('customer.atur-jadwal');
+
+});
+
+Route::middleware(['auth', 'role:customer'])->prefix('customer')->group(function () {
+
+    Route::get('/denah', [LokasiParkirController::class, 'denah'])->name('customer.denah');
     Route::view('/reservasi', 'customers.reservasi')->name('customer.reservasi');
-    Route::view('/atur-jadwal', 'customers.atur-jadwal')->name('customer.atur-jadwal');
     Route::view('/pembayaran', 'customers.pembayaran')->name('customer.pembayaran');
     Route::view('/qr-muncul', 'customers.qr-muncul')->name('customer.qr-muncul');
     Route::view('/riwayat', 'customers.riwayat')->name('customer.riwayat');
     Route::view('/profil', 'customers.profil')->name('customer.profil');
+
 });
 
 
