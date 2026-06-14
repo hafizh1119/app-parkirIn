@@ -20,105 +20,107 @@
 
                     <div class="card-body p-4">
 
-                    <h4 class="fw-bold mb-4">
-                        Detail Reservasi
-                    </h4>
+                        <h4 class="fw-bold mb-4">
+                            Detail Reservasi
+                        </h4>
 
-                    <!-- Foto Lokasi -->
-                    <div class="mb-4">
+                        <div class="mb-4">
 
-                        <img
-                            src="https://blog.getandride.com/wp-content/uploads/2023/05/ukuran-parkiran-mobil.jpg"
-                            class="img-fluid rounded-4 w-100"
-                            style="height:220px;object-fit:cover;"
-                            alt="Parkir">
+                            <img
+                                src="{{ asset('assets/img/lokasi/' . $lokasi->gambar) }}"
+                                class="img-fluid rounded-4 w-100"
+                                style="height:220px;object-fit:cover;"
+                                alt="{{ $lokasi->nama }}">
 
-                    </div>
+                        </div>
 
-                    <!-- Informasi Lokasi -->
-                    <div class="mb-4">
+                        <div class="mb-4">
 
-                        <h5 class="fw-bold mb-1">
-                            Parkir UDINUS
-                        </h5>
+                            <h5 class="fw-bold mb-1">
+                                {{ $lokasi->nama }}
+                            </h5>
 
-                        <p class="text-body-secondary mb-0">
-                            Jl. Imam Bonjol No.207 Semarang
-                        </p>
+                            <p class="text-body-secondary mb-0">
+                                {{ $lokasi->alamat }}
+                            </p>
 
-                    </div>
+                        </div>
 
-                    <div class="row g-3">
+                        <div class="row g-3">
 
-                    <div class="col-6">
+                            <div class="col-6">
 
-                        <small class="text-body-secondary">
-                            Slot Parkir
-                        </small>
+                                <small class="text-body-secondary">
+                                    Slot Parkir
+                                </small>
 
-                        <h6 class="mb-0 fw-semibold">
-                            A-12
-                        </h6>
+                                <h6 class="mb-0 fw-semibold">
+                                    {{ $slot->kode_slot }}
+                                </h6>
 
-                    </div>
+                            </div>
 
-                    <div class="col-6">
+                            <div class="col-6">
 
-                        <small class="text-body-secondary">
-                            Kendaraan
-                        </small>
+                                <small class="text-body-secondary">
+                                    Kendaraan
+                                </small>
 
-                        <h6 class="mb-0 fw-semibold">
-                            Mobil
-                        </h6>
+                                <h6 class="mb-0 fw-semibold">
+                                    {{ ucfirst($slot->jenis_kendaraan) }}
+                                </h6>
 
-                    </div>
+                            </div>
 
-                    <div class="col-6">
+                            <div class="col-6">
 
-                        <small class="text-body-secondary">
-                            Area Parkir
-                        </small>
+                                <small class="text-body-secondary">
+                                    Area Parkir
+                                </small>
 
-                        <h6 class="mb-0 fw-semibold">
-                            Area A
-                        </h6>
+                                <h6 class="mb-0 fw-semibold">
+                                    Area {{ $slot->area }}
+                                </h6>
 
-                    </div>
+                            </div>
 
-                    <div class="col-6">
+                            <div class="col-6">
 
-                        <small class="text-body-secondary">
-                            Durasi Parkir
-                        </small>
+                                <small class="text-body-secondary">
+                                    Durasi Parkir
+                                </small>
 
-                        <h6 class="mb-0 fw-semibold">
-                            2 Jam
-                        </h6>
+                                <h6 class="mb-0 fw-semibold">
+                                    {{ $durasi }} Jam
+                                </h6>
 
-                    </div>
+                            </div>
 
-                    <div class="col-6">
+                            <div class="col-6">
 
-                        <small class="text-body-secondary">
-                            Tanggal Reservasi
-                        </small>
+                                <small class="text-body-secondary">
+                                    Tanggal Reservasi
+                                </small>
 
-                        <h6 class="mb-0 fw-semibold">
-                            12 Juni 2026
-                        </h6>
+                                <h6 class="mb-0 fw-semibold">
+                                    {{ \Carbon\Carbon::parse($tanggal)->format('d M Y') }}
+                                </h6>
 
-                    </div>
+                            </div>
 
-                    <div class="col-6">
+                            <div class="col-6">
 
-                        <small class="text-body-secondary">
-                            Jam Masuk
-                        </small>
+                                <small class="text-body-secondary">
+                                    Jam Masuk
+                                </small>
 
-                        <h6 class="mb-0 fw-semibold">
-                            10:00 WIB
-                        </h6>
+                                <h6 class="mb-0 fw-semibold">
+                                    {{ $jam_masuk }}
+                                </h6>
+
+                            </div>
+
+                        </div>
 
                     </div>
 
@@ -141,60 +143,72 @@
 
                         </div>
 
-                        <div class="mb-3">
+                        @if($kendaraan)
 
-                            <small class="text-body-secondary">
-                                Nomor Polisi
-                            </small>
+                            <div class="mb-3">
 
-                            <h6 class="mb-0">
-                                H 4567 WE
-                            </h6>
+                                <small class="text-body-secondary">
+                                    Nomor Polisi
+                                </small>
 
-                        </div>
+                                <h6 class="mb-0">
+                                    {{ $kendaraan->nomor_polisi }}
+                                </h6>
 
-                        <div class="mb-3">
+                            </div>
 
-                            <small class="text-body-secondary">
-                                Kendaraan
-                            </small>
+                            <div class="mb-3">
 
-                            <h6 class="mb-0">
-                                Toyota Avanza
-                            </h6>
+                                <small class="text-body-secondary">
+                                    Kendaraan
+                                </small>
 
-                        </div>
+                                <h6 class="mb-0">
+                                    {{ $kendaraan->merk }}
+                                </h6>
 
-                        <div class="mb-3">
+                            </div>
 
-                            <small class="text-body-secondary">
-                                Warna
-                            </small>
+                            <div class="mb-3">
 
-                            <h6 class="mb-0">
-                                Putih
-                            </h6>
+                                <small class="text-body-secondary">
+                                    Warna
+                                </small>
 
-                        </div>
+                                <h6 class="mb-0">
+                                    {{ $kendaraan->warna }}
+                                </h6>
 
-                        <div>
+                            </div>
 
-                            <small class="text-body-secondary">
-                                Jenis Kendaraan
-                            </small>
+                            <div>
 
-                            <h6 class="mb-0">
-                                Mobil
-                            </h6>
+                                <small class="text-body-secondary">
+                                    Jenis Kendaraan
+                                </small>
 
-                        </div>
+                                <h6 class="mb-0">
+                                    {{ ucfirst($kendaraan->jenis_kendaraan) }}
+                                </h6>
+
+                            </div>
+
+                        @else
+
+                            <div class="alert alert-warning mb-0">
+
+                                Anda belum memiliki data kendaraan.
+
+                            </div>
+
+                        @endif
 
                     </div>
 
                 </div>
 
                 <!-- Membership -->
-                <div class="card border-0 shadow-sm">
+                <div class="card border-0 shadow-sm mb-4">
 
                     <div class="card-body p-4">
 
@@ -215,59 +229,95 @@
 
                 </div>
 
-            </div>
+                <!-- KANAN -->
+                @php
+                    $biayaParkir = $slot->tarif_per_jam * $durasi;
+                    $biayaAdmin = 1000;
+                    $totalBayar = $biayaParkir + $biayaAdmin;
+                @endphp
+                <div class="col-lg-4">
 
-            <!-- KANAN -->
-            <div class="col-lg-4">
+                    <div class="card border-0 shadow-sm rounded-4 sticky-top">
 
-                <div class="card border-0 shadow-sm sticky-top">
+                        <div class="card-body p-4">
 
-                    <div class="card-body p-4">
+                            <h5 class="fw-bold mb-4">
+                                Ringkasan Pembayaran
+                            </h5>
 
-                        <h5 class="fw-bold mb-4">
-                            Ringkasan Pembayaran
-                        </h5>
+                            <div class="d-flex justify-content-between mb-2">
 
-                        <div class="d-flex justify-content-between mb-2">
-                            <span>Biaya Parkir</span>
-                            <span>Rp 10.000</span>
+                                <span>
+                                    Biaya Parkir
+                                </span>
+
+                                <span>
+                                    Rp {{ number_format($biayaParkir, 0, ',', '.') }}
+                                </span>
+
+                            </div>
+
+                            <div class="d-flex justify-content-between mb-3">
+
+                                <span>
+                                    Biaya Admin
+                                </span>
+
+                                <span>
+                                    Rp {{ number_format($biayaAdmin, 0, ',', '.') }}
+                                </span>
+
+                            </div>
+
+                            <hr>
+
+                            <div class="d-flex justify-content-between mb-4">
+
+                                <strong>
+                                    Total
+                                </strong>
+
+                                <strong class="text-primary">
+                                    Rp {{ number_format($totalBayar, 0, ',', '.') }}
+                                </strong>
+
+                            </div>
+                            
+                            <form action="{{ route('customer.reservasi.store') }}" method="POST">
+
+                                @csrf
+
+                                <input type="hidden" name="lokasi_parkir_id" value="{{ $lokasi->id }}">
+                                <input type="hidden" name="slot_parkir_id" value="{{ $slot->id }}">
+                                <input type="hidden" name="tanggal_masuk" value="{{ $tanggal }}">
+                                <input type="hidden" name="jam_masuk" value="{{ $jam_masuk }}">
+                                <input type="hidden" name="durasi_jam" value="{{ $durasi }}">
+                                <input type="hidden" name="total_bayar" value="{{ $totalBayar }}">
+
+                                <button type="submit" class="btn btn-primary w-100 mb-2">
+
+                                    Lanjutkan Pembayaran
+
+                                </button>
+
+                            </form>
+
+                            <a href="{{ route('customer.denah') }}"
+                            class="btn btn-outline-secondary w-100">
+
+                                Batal
+
+                            </a>
+
                         </div>
-
-                        <div class="d-flex justify-content-between mb-3">
-                            <span>Biaya Admin</span>
-                            <span>Rp 1.000</span>
-                        </div>
-
-                        <hr>
-
-                        <div class="d-flex justify-content-between mb-4">
-
-                            <strong>Total</strong>
-
-                            <strong class="text-primary">
-                                Rp 11.000
-                            </strong>
-
-                        </div>
-                        
-                        <a href="{{ route('customer.pembayaran') }}"
-                            class="btn btn-primary w-100 mb-2">
-
-                            Lanjutkan Pembayaran
-                        </a>
-
-                        <a href="{{ route('customer.denah') }}"
-                           class="btn btn-outline-secondary w-100">
-
-                            Batal
-
-                        </a>
 
                     </div>
 
                 </div>
 
             </div>
+
+            
 
         </div>
 

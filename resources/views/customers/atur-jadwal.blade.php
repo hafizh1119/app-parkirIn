@@ -50,13 +50,27 @@
 
                             <div class="border rounded-3 p-3 bg-body-tertiary">
 
-                                <div class="fw-semibold">
-                                    📍 Parkir UDINUS
-                                </div>
+                                <div class="d-flex align-items-center gap-3">
 
-                                <small class="text-body-secondary">
-                                    Jl. Imam Bonjol No.207 Semarang
-                                </small>
+                                    <img
+                                        src="{{ asset('assets/img/lokasi/' . $lokasi->gambar) }}"
+                                        alt="{{ $lokasi->nama }}"
+                                        class="rounded-3"
+                                        style="width:80px;height:80px;object-fit:cover;">
+
+                                    <div>
+
+                                        <div class="fw-semibold">
+                                            📍 {{ $lokasi->nama }}
+                                        </div>
+
+                                        <small class="text-body-secondary">
+                                            {{ $lokasi->alamat }}
+                                        </small>
+
+                                    </div>
+
+                                </div>
 
                             </div>
 

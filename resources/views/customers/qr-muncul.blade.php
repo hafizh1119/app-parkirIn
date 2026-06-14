@@ -40,7 +40,7 @@
                             </small>
 
                             <h4 class="fw-bold text-primary mb-0">
-                                PKR-20260001
+                                {{ $reservasi->kode_reservasi }}
                             </h4>
 
                         </div>
@@ -48,7 +48,7 @@
                         <div class="mb-4">
 
                             <img
-                                src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=PKR-20260001"
+                                src="{{ asset('assets/img/qrcode/' . $reservasi->qr_code) }}"
                                 class="img-fluid border rounded-3 p-3 bg-white"
                                 alt="QR Code">
 
@@ -74,7 +74,7 @@
                                         Lokasi
                                     </small>
                                     <div class="fw-semibold">
-                                        Parkir UDINUS
+                                        {{ $reservasi->lokasiParkir->nama }}
                                     </div>
                                 </div>
 
@@ -83,7 +83,7 @@
                                         Slot
                                     </small>
                                     <div class="fw-semibold">
-                                        A-12
+                                        {{ $reservasi->slotParkir->kode_slot }}
                                     </div>
                                 </div>
 
@@ -92,7 +92,7 @@
                                         Tanggal
                                     </small>
                                     <div class="fw-semibold">
-                                        12 Juni 2026
+                                        {{ \Carbon\Carbon::parse($reservasi->tanggal_masuk)->format('d M Y') }}
                                     </div>
                                 </div>
 
@@ -101,7 +101,7 @@
                                         Jam Masuk
                                     </small>
                                     <div class="fw-semibold">
-                                        10:00 WIB
+                                        {{ \Carbon\Carbon::parse($reservasi->jam_masuk)->format('H:i') }} WIB
                                     </div>
                                 </div>
 
@@ -111,12 +111,15 @@
 
                         <div class="d-grid gap-2">
 
-                            <button
+                            <a
+                                href="{{ asset('assets/img/qrcode/' . $reservasi->qr_code) }}"
+                                download="{{ $reservasi->kode_reservasi }}"
                                 class="btn btn-primary">
 
-                                Unduh Tiket
+                                <i class="mdi mdi-download me-1"></i>
+                                Unduh QR Code
 
-                            </button>
+                            </a>
 
                             <a
                                 href="{{ route('dashboard') }}"

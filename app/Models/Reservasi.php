@@ -10,6 +10,7 @@ class Reservasi extends Model
 
     protected $fillable = [
         'kode_reservasi',
+        'qr_code',
         'user_id',
         'kendaraan_id',
         'lokasi_parkir_id',

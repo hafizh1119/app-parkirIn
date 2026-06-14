@@ -69,6 +69,10 @@ class LokasiParkirController extends Controller
                 'slotParkir',
                 'kendaraan'
             )
-        );
+        )->with([
+            'tanggal' => $request->tanggal_parkir,
+            'jam_masuk' => $request->jam_masuk,
+            'durasi' => $request->durasi_jam
+        ]);
     }
 }

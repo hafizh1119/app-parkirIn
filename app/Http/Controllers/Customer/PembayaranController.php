@@ -17,9 +17,22 @@ class PembayaranController extends Controller
             'kendaraan'
         ])->findOrFail($id);
 
+        $pembayaran = Pembayaran::where(
+            'reservasi_id',
+            $reservasi->id
+        )->latest()->first();
+
+        $statusPembayaran = $pembayaran
+            ? $pembayaran->status
+            : 'belum_bayar';
+
         return view(
             'customers.pembayaran',
-            compact('reservasi')
+            compact(
+                'reservasi',
+                'pembayaran',
+                'statusPembayaran'
+            )
         );
     }
 
@@ -30,19 +43,26 @@ class PembayaranController extends Controller
             'bukti_pembayaran' => 'required|file|mimes:jpg,jpeg,png,pdf|max:2048'
         ]);
 
-        $file = $request
-            ->file('bukti_pembayaran')
-            ->store('bukti-pembayaran', 'public');
+        $namaFile = time() . '.' .
+            $request->file('bukti_pembayaran')->extension();
+
+        $request->file('bukti_pembayaran')->move(
+            public_path('assets/img/bukti-pembayaran'),
+            $namaFile
+        );
 
         Pembayaran::create([
             'reservasi_id' => $request->reservasi_id,
             'metode_pembayaran' => 'Transfer Bank',
-            'bukti_pembayaran' => $file,
+            'bukti_pembayaran' => $namaFile,
             'tanggal_upload' => now(),
             'status' => 'menunggu_verifikasi'
         ]);
 
-        return back()->with(
+        return redirect()->route(
+            'customer.pembayaran',
+            $request->reservasi_id
+        )->with(
             'success',
             'Bukti pembayaran berhasil dikirim'
         );

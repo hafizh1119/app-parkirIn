@@ -1013,72 +1013,136 @@
               src="{{ asset('assets/img/front-pages/icons/section-tilte-icon.png') }}"
               alt="section title icon"
               class="me-2" />
-            <span class="text-uppercase">contact us</span>
+            <span class="text-uppercase">Hubungi Kami</span>
           </h6>
-          <h3 class="text-center mb-2"><span class="fw-bold">Lets work</span> together</h3>
-          <p class="text-center fw-medium mb-3 mb-md-5 pb-3">Any question or remark? just write us a message</p>
+
+          <h3 class="text-center mb-2">
+            <span class="fw-bold">Butuh Bantuan?</span> Hubungi Kami
+          </h3>
+
+          <p class="text-center fw-medium mb-3 mb-md-5 pb-3">
+            Kami siap membantu terkait reservasi parkir, pembayaran, tiket QR, dan layanan ParkirIn.
+          </p>
+
           <div class="row gy-4">
+
             <div class="col-lg-5">
+
               <div class="card h-100">
+
                 <div class="bg-primary rounded text-white card-body">
-                  <p class="fw-medium mb-1">Let’s contact with us</p>
-                  <p class="display-6 mb-4">Share your ideas or requirement with our experts.</p>
+
+                  <p class="fw-medium mb-1">
+                    Tim Dukungan ParkirIn
+                  </p>
+
+                  <p class="display-6 mb-4">
+                    Sampaikan pertanyaan, kritik, atau kendala Anda kepada kami.
+                  </p>
+
                   <img
                     src="{{ asset('assets/img/ContactUs/contactus.png') }}"
-                    alt="let’s contact"
-                    class="w-100 mb-2 pb-1" />
-                  <p class="mb-0">
-                    <i class="mdi mdi-phone-outline me-2"></i>
-                    +62 812-3456-7890
-                  </p>
+                    alt="Hubungi Kami"
+                    class="w-100 mb-3 pb-1" />
+
                 </div>
+
               </div>
+
             </div>
+
             <div class="col-lg-7">
+
               <div class="card">
+
                 <div class="card-body">
-                  <h5 class="mb-4">Share your ideas</h5>
-                  <form>
-                    <div class="row g-3">
-                      <div class="col-md-6">
-                        <div class="form-floating form-floating-outline">
-                          <input type="text" class="form-control" id="basic-default-fullname" placeholder="John Doe" />
-                          <label for="basic-default-fullname">Full name</label>
-                        </div>
-                      </div>
 
-                      <div class="col-md-6">
-                        <div class="form-floating form-floating-outline">
-                          <input
-                            type="email"
-                            class="form-control"
-                            id="basic-default-email"
-                            placeholder="johndoe99@gmail.com" />
-                          <label for="basic-default-email">Email address</label>
-                        </div>
-                      </div>
+                  <h5 class="mb-4">
+                    Kirim Pesan
+                  </h5>
 
-                      <div class="col-12">
-                        <div class="form-floating form-floating-outline">
-                          <textarea
-                            class="form-control h-px-200"
-                            placeholder="Message"
-                            aria-label="Message"
-                            id="basic-default-message"></textarea>
-                          <label for="basic-default-message">Message</label>
+                  <form class="h-100 d-flex flex-column">
+
+                    <div class="row g-3 flex-grow-1">
+
+                        <div class="col-md-6">
+
+                            <div class="form-floating form-floating-outline">
+
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="basic-default-fullname"
+                                    placeholder="Masukkan nama lengkap" />
+
+                                <label for="basic-default-fullname">
+                                    Nama Lengkap
+                                </label>
+
+                            </div>
+
                         </div>
-                      </div>
+
+                        <div class="col-md-6">
+
+                            <div class="form-floating form-floating-outline">
+
+                                <input
+                                    type="email"
+                                    class="form-control"
+                                    id="basic-default-email"
+                                    placeholder="Masukkan email aktif" />
+
+                                <label for="basic-default-email">
+                                    Alamat Email
+                                </label>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-12">
+
+                            <div class="form-floating form-floating-outline h-100">
+
+                                <textarea
+                                    class="form-control h-100"
+                                    placeholder="Tuliskan pertanyaan atau kendala Anda"
+                                    aria-label="Pesan"
+                                    id="basic-default-message"
+                                    style="min-height:350px;"></textarea>
+
+                                <label for="basic-default-message">
+                                    Pesan
+                                </label>
+
+                            </div>
+
+                        </div>
+
                     </div>
-                    <button type="submit" class="btn btn-primary mt-3">Send inquiry</button>
-                  </form>
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary mt-3 align-self-start">
+
+                        Kirim Pesan
+
+                    </button>
+
+                </form>
+
                 </div>
+
               </div>
+
             </div>
+
           </div>
+
         </div>
       </section>
       <!-- Contact Us: End -->
-
     <!-- / Sections:End -->
     @endsection
 
