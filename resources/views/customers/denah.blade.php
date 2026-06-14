@@ -76,10 +76,12 @@
 
                                 <button
                                     class="slot {{ $slot->status == 'tersedia' ? 'available' : 'occupied' }}"
+                                    data-id="{{ $slot->id }}"
                                     data-kode="{{ $slot->kode_slot }}"
                                     data-area="{{ $slot->area }}"
                                     data-status="{{ $slot->status }}"
-                                    data-tarif="{{ $slot->tarif_per_jam }}">
+                                    data-tarif="{{ $slot->tarif_per_jam }}"
+                                    data-kendaraan="{{ $slot->jenis_kendaraan }}">
 
                                     {{ $slot->kode_slot }}
 
@@ -172,8 +174,9 @@
                     <div class="mt-auto">
 
                         <a
-                            href="{{ route('customer.atur-jadwal', $lokasi->id) }}"
-                            class="btn btn-primary w-100">
+                            href="#"
+                            id="btnReservasi"
+                            class="btn btn-primary w-100 mb-2">
 
                             Reservasi Sekarang
 
@@ -441,6 +444,30 @@
     const areaSelect = document.getElementById('selectArea');
 
     let selectedSlot = null;
+
+    function filterArea() {
+
+        const area = areaSelect.value;
+
+        document.querySelectorAll('.slot').forEach(slot => {
+
+            if (slot.dataset.area === area) {
+
+                slot.style.display = '';
+
+            } else {
+
+                slot.style.display = 'none';
+
+            }
+
+        });
+
+    }
+
+    filterArea();
+
+    areaSelect.addEventListener('change', filterArea);
     
     document.querySelectorAll('.slot').forEach(slot => {
 
@@ -466,6 +493,9 @@
             document.getElementById('detailArea').textContent =
                 this.dataset.area;
 
+            document.getElementById('detailKendaraan').textContent =
+                this.dataset.kendaraan;
+
             document.getElementById('detailStatus').textContent =
                 this.dataset.status;
 
@@ -478,6 +508,44 @@
         });
 
     });
+
+    let slotDipilih = null;
+
+    document.querySelectorAll('.slot').forEach(slot => {
+
+        slot.addEventListener('click', function () {
+
+            if (!this.classList.contains('occupied')) {
+
+                slotDipilih = this.dataset.id;
+
+                console.log(slotDipilih);
+
+            }
+
+        });
+
+    });
+
+    document.getElementById('btnReservasi')
+        .addEventListener('click', function (e) {
+
+            e.preventDefault();
+
+            if (!slotDipilih) {
+
+                alert('Silakan pilih slot parkir terlebih dahulu.');
+                return;
+
+            }
+
+            window.location.href =
+                '/customer/reservasi/' + slotDipilih +
+                '?tanggal={{ $tanggal }}' +
+                '&jam_masuk={{ $jam_masuk }}' +
+                '&durasi={{ $durasi }}';
+
+        });
 </script>
 @endpush
 

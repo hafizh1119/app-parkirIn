@@ -14,7 +14,7 @@
             <i class="tf-icons mdi mdi-menu mdi-24px align-middle"></i>
           </button>
           <!-- Mobile menu toggle: End-->
-          <a href="landing-page.html" class="app-brand-link">
+          <a href="{{ route('dashboard') }}" class="app-brand-link">
             <span class="app-brand-logo demo">
               <span style="color: #666cff">
                 <svg width="268" height="150" viewBox="0 0 38 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -63,7 +63,14 @@
                 </svg>
               </span>
             </span>
-            <span class="app-brand-text demo menu-text fw-bold ms-2 ps-1">ParkirIn</span>
+            <a href="{{ route('dashboard') }}"
+              class="app-brand-link text-decoration-none">
+
+                <span class="app-brand-text demo menu-text fw-bold ms-2 ps-1">
+                    ParkirIn
+                </span>
+
+            </a>
           </a>
         </div>
         <!-- Menu logo wrapper: End -->
@@ -127,70 +134,70 @@
           <!-- / Style Switcher-->
 
           <!-- navbar button: Start -->
-@guest
-<li>
-    <a
-        href="{{ route('login') }}"
-        class="btn btn-primary px-2 px-sm-4 px-lg-2 px-xl-4">
+          @guest
+          <li>
+              <a
+                  href="{{ route('login') }}"
+                  class="btn btn-primary px-2 px-sm-4 px-lg-2 px-xl-4">
 
-        <span class="tf-icons mdi mdi-account me-md-1"></span>
+                  <span class="tf-icons mdi mdi-account me-md-1"></span>
 
-        <span class="d-none d-md-block">
-            Login/Register
-        </span>
+                  <span class="d-none d-md-block">
+                      Login/Register
+                  </span>
 
-    </a>
-</li>
-@endguest
+              </a>
+          </li>
+          @endguest
 
-@auth
-<li class="nav-item dropdown">
+          @auth
+          <li class="nav-item dropdown">
 
-    <a
-        class="btn btn-primary dropdown-toggle px-2 px-sm-4 px-lg-2 px-xl-4"
-        href="#"
-        role="button"
-        data-bs-toggle="dropdown"
-        aria-expanded="false">
+              <a
+                  class="btn btn-primary dropdown-toggle px-2 px-sm-4 px-lg-2 px-xl-4"
+                  href="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false">
 
-        <span class="tf-icons mdi mdi-account me-md-1"></span>
+                  <span class="tf-icons mdi mdi-account me-md-1"></span>
 
-        <span class="d-none d-md-inline">
-            {{ Auth::user()->name }}
-        </span>
+                  <span class="d-none d-md-inline">
+                      {{ Auth::user()->name }}
+                  </span>
 
-    </a>
+              </a>
 
-    <ul class="dropdown-menu dropdown-menu-end">
+              <ul class="dropdown-menu dropdown-menu-end">
 
-        <li>
-            <a class="dropdown-item" href="{{ route('customer.profil') }}">
-                Profil
-            </a>
-        </li>
+                  <li>
+                      <a class="dropdown-item" href="{{ route('customer.profil') }}">
+                          Profil
+                      </a>
+                  </li>
 
-        <li>
-            <a class="dropdown-item" href="{{ route('customer.riwayat') }}">
-                Riwayat
-            </a>
-        </li>
+                  <li>
+                      <a class="dropdown-item" href="{{ route('customer.riwayat') }}">
+                          Riwayat
+                      </a>
+                  </li>
 
-        <li><hr class="dropdown-divider"></li>
+                  <li><hr class="dropdown-divider"></li>
 
-        <li>
-            <form action="{{ route('logout') }}" method="POST">
-                @csrf
+                  <li>
+                      <form action="{{ route('logout') }}" method="POST">
+                          @csrf
 
-                <button type="submit" class="dropdown-item text-danger">
-                    Logout
-                </button>
-            </form>
-        </li>
+                          <button type="submit" class="dropdown-item text-danger">
+                              Logout
+                          </button>
+                      </form>
+                  </li>
 
-    </ul>
+              </ul>
 
-</li>
-@endauth
+          </li>
+          @endauth
           <!-- navbar button: End -->
         </ul>
         <!-- Toolbar: End -->

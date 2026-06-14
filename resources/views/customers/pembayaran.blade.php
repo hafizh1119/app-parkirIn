@@ -2,10 +2,6 @@
 
 @section('content')
 
-@php
-    $statusPembayaran = 'belum_bayar';
-@endphp
-
 <section class="section-py bg-body">
 
     <div class="container">
@@ -34,7 +30,7 @@
                             </small>
 
                             <h2 class="fw-bold text-primary mb-0">
-                                Rp 10.000
+                                Rp {{ number_format($reservasi->total_bayar, 0, ',', '.') }}
                             </h2>
 
                         </div>
@@ -188,82 +184,95 @@
 
                         </div>
 
-                        <div class="mb-3">
+                        <form
+                            action="{{ route('customer.pembayaran.store') }}"
+                            method="POST"
+                            enctype="multipart/form-data">
 
-                            <label class="form-label fw-semibold">
-                                Upload Bukti Pembayaran
-                            </label>
+                            @csrf
 
                             <input
-                                type="file"
-                                class="form-control"
-                                id="buktiPembayaran">
+                                type="hidden"
+                                name="reservasi_id"
+                                value="{{ $reservasi->id }}">
 
-                        </div>
+                            <div class="mb-3">
 
-                        <div class="alert alert-warning d-flex align-items-start py-2 px-3 mb-3">
+                                <label class="form-label fw-semibold">
+                                    Upload Bukti Pembayaran
+                                </label>
 
-                            <i class="mdi mdi-alert-circle-outline me-2 mt-1"></i>
+                                <input
+                                    type="file"
+                                    name="bukti_pembayaran"
+                                    class="form-control"
+                                    required>
 
-                            <small>
+                            </div>
 
-                                <strong>Perhatian!</strong><br>
+                            <div class="alert alert-warning d-flex align-items-start py-2 px-3 mb-3">
 
-                                Format: JPG, PNG, PDF.
-                                Maksimal ukuran file 2 MB.
+                                <i class="mdi mdi-alert-circle-outline me-2 mt-1"></i>
 
-                            </small>
+                                <small>
 
-                        </div>
+                                    <strong>Perhatian!</strong><br>
 
-                        <div
-                            id="uploadResult"
-                            class="d-none">
+                                    Format: JPG, PNG, PDF.
+                                    Maksimal ukuran file 2 MB.
 
-                            <div class="border rounded-3 p-3 mb-3">
-
-                                <small class="text-body-secondary d-block">
-                                    Tanggal Upload
                                 </small>
 
-                                <div
-                                    class="fw-semibold text-success mt-1"
-                                    id="tanggalUpload">
+                            </div>
+
+                            @if($statusPembayaran == 'menunggu_verifikasi')
+
+                                <div class="d-flex justify-content-between align-items-center">
+
+                                    <small class="text-warning fw-semibold">
+
+                                        Menunggu Verifikasi Admin
+
+                                    </small>
+
+                                    <a
+                                        href="{{ asset('assets/img/bukti-pembayaran/' . $pembayaran->bukti_pembayaran) }}"
+                                        target="_blank"
+                                        class="fw-semibold text-primary text-decoration-none lihat-file">
+
+                                        Lihat File
+
+                                    </a>
+
                                 </div>
 
-                            </div>
+                            @elseif($statusPembayaran == 'dibayar')
 
-                            <div class="border rounded-3 p-3 mb-4">
+                                <div class="alert alert-success mb-3">
 
-                                <small class="text-body-secondary d-block">
-                                    Bukti Pembayaran
-                                </small>
+                                    Pembayaran telah diverifikasi.
 
-                                <a
-                                    href="#"
-                                    target="_blank"
-                                    id="namaFile"
-                                    class="fw-semibold text-primary text-decoration-none d-none lihat-file">
+                                </div>
 
-                                    Lihat File
+                            @else
 
-                                </a>
+                                <button
+                                    type="submit"
+                                    class="btn btn-primary w-100 mb-3">
 
-                            </div>
+                                    Kirim Bukti Pembayaran
 
-                        </div>
+                                </button>
 
-                        <button
-                            class="btn btn-primary w-100 mb-3">
+                            @endif
 
-                            Kirim Bukti Pembayaran
-
-                        </button>
+                        </form>
 
                         <div class="text-center">
 
-                            <a href="{{ route('customer.qr-muncul') }}"
-                            class="btn btn-success px-5">
+                            <a
+                                href="{{ route('customer.qr-muncul', $reservasi->id) }}"
+                                class="btn btn-success px-5">
 
                                 Lihat Tiket Saya
 
@@ -276,7 +285,6 @@
                 </div>
 
             </div>
-
         </div>
 
     </div>
@@ -369,7 +377,16 @@ function copyRekening() {
         text-decoration: underline !important;
     }
 
+    .lihat-file{
+        transition: .2s;
+    }
+
+    .lihat-file:hover{
+        opacity: .8;
+        text-decoration: underline !important;
+    }
     </style>
+
 @endpush
 
 @endsection
