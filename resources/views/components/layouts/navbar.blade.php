@@ -99,7 +99,7 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link fw-medium" data-scroll href="#cara-kerja">
-                    Riwayat
+                    Cara Kerja
                 </a>
             </li>
           </ul>

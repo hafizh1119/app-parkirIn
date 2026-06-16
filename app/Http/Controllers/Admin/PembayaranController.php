@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Pembayaran;
 use App\Models\Reservasi;
 use App\Models\SlotParkir;
+use Illuminate\Support\Facades\Auth;
 
 class PembayaranController extends Controller
 {
@@ -25,7 +26,7 @@ class PembayaranController extends Controller
 
         $pembayaran->update([
             'status' => 'dibayar',
-            'verified_by' => auth()->id(),
+            'verified_by' => Auth::id(),
             'verified_at' => now()
         ]);
 
