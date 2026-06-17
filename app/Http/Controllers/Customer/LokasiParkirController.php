@@ -15,6 +15,18 @@ class LokasiParkirController extends Controller
     {
         $lokasiParkir = LokasiParkir::with('slotParkir')->get();
 
+        foreach ($lokasiParkir as $lokasi) {
+            $lokasi->slot_mobil = $lokasi->slotParkir
+                ->where('jenis_kendaraan', 'mobil')
+                ->where('status', 'tersedia')
+                ->count();
+
+            $lokasi->slot_motor = $lokasi->slotParkir
+                ->where('jenis_kendaraan', 'motor')
+                ->where('status', 'tersedia')
+                ->count();
+        }
+        
         return view(
             'customers.cari-parkir',
             compact('lokasiParkir')
@@ -49,7 +61,7 @@ class LokasiParkirController extends Controller
 
         $kendaraan = Kendaraan::where(
             'user_id',
-            auth::id()
+            Auth::id()
         )->first();
 
         $slotParkir = SlotParkir::where(

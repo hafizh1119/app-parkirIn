@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Customer\LokasiParkirController as CustomerLokasiController;
@@ -23,14 +24,14 @@ Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth')->
 
 Route::prefix('customer')->group(function () {
 
-    Route::get('/cari-parkir', [LokasiParkirController::class, 'index'])->name('customer.cari-parkir');
-    Route::get('/atur-jadwal/{id}', [LokasiParkirController::class, 'aturJadwal'])->name('customer.atur-jadwal');
+    Route::get('/cari-parkir',[CustomerLokasiController::class, 'index'])->name('customer.cari-parkir');
+    Route::get('/atur-jadwal/{id}',[CustomerLokasiController::class, 'aturJadwal'])->name('customer.atur-jadwal');
 
 });
 
 Route::middleware(['auth', 'role:customer'])->prefix('customer')->group(function () {
 
-    Route::get('/denah', [LokasiParkirController::class, 'denah'])->name('customer.denah');
+    Route::get('/denah',[CustomerLokasiController::class, 'denah'])->name('customer.denah');
     Route::get('/reservasi/{id}', [ReservasiController::class, 'show'])->name('customer.reservasi');
     Route::post('/reservasi', [ReservasiController::class, 'store'])->name('customer.reservasi.store');
     Route::get('/pembayaran/{id}', [PembayaranController::class, 'show'])->name('customer.pembayaran');
@@ -40,8 +41,6 @@ Route::middleware(['auth', 'role:customer'])->prefix('customer')->group(function
     Route::view('/profil', 'customers.profil')->name('customer.profil');
 
 });
-
-
 
 // ==================== ADMIN ROUTES ====================
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->group(function () {
