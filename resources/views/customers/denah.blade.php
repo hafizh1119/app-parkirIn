@@ -1,147 +1,554 @@
-@extends('layouts.front')
+@extends('layouts.app')
 
 @section('content')
 
-<style>
-    .slot {
-        width: 80px;
-        height: 80px;
-        border-radius: 12px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        font-weight: bold;
-        cursor: pointer;
-        transition: 0.3s;
-    }
+<section class="section-py bg-body">
 
-    .slot:hover {
-        transform: scale(1.05);
-    }
+    <div class="container">
 
-    .available {
-        background: #28c76f;
-    }
-
-    .booked {
-        background: #ff9f43;
-    }
-
-    .filled {
-        background: #ea5455;
-        cursor: not-allowed;
-    }
-
-    .parking-row {
-        gap: 15px;
-        margin-bottom: 15px;
-    }
-
-    .road {
-        background: #f5f5f9;
-        border: 2px dashed #d9dee3;
-        padding: 15px;
-        border-radius: 10px;
-        margin: 25px 0;
-        font-weight: 600;
-        color: #666;
-    }
-</style>
-
-<div class="container py-5">
-
-    <div class="text-center mb-5">
-
-        <h2 class="fw-bold">
-            Denah Parkir UDINUS
-        </h2>
-
-        <p class="text-muted">
-            Pilih slot parkir yang tersedia
-        </p>
-
-    </div>
-
-    <!-- Keterangan -->
-
-    <div class="d-flex justify-content-center gap-4 mb-5">
-
-        <div>
-            🟩 Tersedia
+        <!-- Button Kembali -->
+        <div class="mb-5">  
         </div>
 
-        <div>
-            🟨 Dibooking
+        <!-- Denah + Detail -->
+        <div class="row g-4">
+
+            <!-- Denah -->
+            <div class="col-lg-8">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body p-4">
+
+                        <div class="row mb-4">
+
+                            <div class="col-md-6">
+
+                                <label class="form-label fw-semibold">
+                                    Area Parkir
+                                </label>
+
+                                <select class="form-select" id="selectArea">
+
+                                    <option value="A">
+                                        Area A
+                                    </option>
+
+                                    <option value="B">
+                                        Area B
+                                    </option>
+
+                                    <option value="C">
+                                        Area C
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+
+                            <h5 class="fw-bold mb-0">
+                                Denah Area Parkir
+                            </h5>
+
+                            <div class="d-flex gap-3 flex-wrap">
+
+                                <small>
+                                    🟩 Tersedia
+                                </small>
+
+                                <small>
+                                    🟥 Terisi
+                                </small>
+
+                                <small>
+                                    🟪 Dipilih
+                                </small>
+
+                            </div>
+
+                        </div>
+
+                        <div id="parkingGrid" class="parking-grid">
+
+                            @foreach($slotParkir as $slot)
+
+                                <button
+                                    class="slot {{ $slot->status == 'tersedia' ? 'available' : 'occupied' }}"
+                                    data-id="{{ $slot->id }}"
+                                    data-kode="{{ $slot->kode_slot }}"
+                                    data-area="{{ $slot->area }}"
+                                    data-status="{{ $slot->status }}"
+                                    data-tarif="{{ $slot->tarif_per_jam }}"
+                                    data-kendaraan="{{ $slot->jenis_kendaraan }}">
+
+                                    {{ $slot->kode_slot }}
+
+                                </button>
+
+                            @endforeach
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+
+            <!-- Detail Kendaraan -->
+            <div class="card border-0 shadow-sm mb-4">
+
+                <div class="card-body">
+
+                    <div class="d-flex justify-content-between align-items-center">
+
+                        <div>
+
+                            <small class="text-body-secondary">
+                                Kendaraan Terdaftar
+                            </small>
+
+                            <h6 class="fw-bold mb-0 mt-1">
+                                {{ $kendaraan->merk }}
+                            </h6>
+
+                            <small class="text-body-secondary">
+                                {{ $kendaraan->nomor_polisi }}
+                            </small>
+
+                        </div>
+
+                        <button
+                            type="button"
+                            class="btn btn-sm btn-outline-primary"
+                            data-bs-toggle="modal"
+                            data-bs-target="#modalKendaraan">
+
+                            <i class="mdi mdi-pencil-outline me-1"></i>
+                            Ubah
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Detail Parkir -->
+            <div class="card border-0 shadow-sm h-75">
+
+                <div class="card-body p-4 d-flex flex-column">
+
+                    <h5 class="fw-bold mb-4">
+                        Detail Parkir
+                    </h5>
+
+                    <div class="mb-3">
+                        <small class="text-body-secondary">Slot</small>
+                        <h6 class="mb-0" id="detailNamaSlot">— Pilih slot</h6>
+                    </div>
+
+                    <div class="mb-3">
+                        <small class="text-body-secondary">Status</small>
+                        <h6 class="mb-0 fw-semibold" id="detailStatus">—</h6>
+                    </div>
+
+                    <div class="mb-3">
+                        <small class="text-body-secondary">Kendaraan</small>
+                        <h6 class="mb-0" id="detailKendaraan">—</h6>
+                    </div>
+
+                    <div class="mb-3">
+                        <small class="text-body-secondary">Area</small>
+                        <h6 class="mb-0" id="detailArea">—</h6>
+                    </div>
+
+                    <div class="mb-4">
+                        <small class="text-body-secondary">Tarif</small>
+                        <h5 class="fw-bold mb-0" id="detailTarif">—</h5>
+                    </div>
+
+                    <div class="mt-auto">
+
+                        <a
+                            href="#"
+                            id="btnReservasi"
+                            class="btn btn-primary w-100 mb-2">
+
+                            Reservasi Sekarang
+
+                        </a>
+
+                        <a
+                            href="{{ route('customer.atur-jadwal', $lokasi->id) }}"
+                            class="btn btn-outline-secondary w-100">
+
+                            Batal
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
         </div>
 
-        <div>
-            🟥 Terisi
         </div>
 
     </div>
 
-    <!-- Entrance -->
+</section>
 
-    <div class="road text-center">
-        ⬇ ENTRANCE
-    </div>
+<!-- Modal Detail Kendaraan -->
+<div
+    class="modal fade"
+    id="modalKendaraan"
+    tabindex="-1"
+    aria-labelledby="modalKendaraanLabel"
+    aria-hidden="true">
 
-    <!-- Baris A -->
+    <div class="modal-dialog modal-bottom-sheet">
 
-    <div class="d-flex justify-content-center parking-row">
+        <div class="modal-content border-0">
+            <div class="text-center pt-3">
 
-        <div class="slot available">A1</div>
-        <div class="slot available">A2</div>
-        <div class="slot filled">A3</div>
-        <div class="slot available">A4</div>
+                <div
+                    style="
+                        width:50px;
+                        height:5px;
+                        background:#dcdcdc;
+                        border-radius:20px;
+                        margin:auto;">
+                </div>
 
-    </div>
+            </div>
 
-    <!-- Jalan -->
+            <div class="modal-header">
 
-    <div class="road text-center">
-        JALUR KENDARAAN
-    </div>
+                <h5
+                    class="modal-title fw-bold"
+                    id="modalKendaraanLabel">
 
-    <!-- Baris B -->
+                    Detail Kendaraan
 
-    <div class="d-flex justify-content-center parking-row">
+                </h5>
 
-        <div class="slot available">B1</div>
-        <div class="slot booked">B2</div>
-        <div class="slot filled">B3</div>
-        <div class="slot available">B4</div>
+            </div>
 
-    </div>
+            <div class="modal-body">
 
-    <!-- Jalan -->
+                <div class="mb-3">
 
-    <div class="road text-center">
-        JALUR KENDARAAN
-    </div>
+                    <label class="form-label">
+                        Nomor Polisi
+                    </label>
 
-    <!-- Baris C -->
+                    <input
+                        type="text"
+                        class="form-control"
+                        value="H 4567 WE">
 
-    <div class="d-flex justify-content-center parking-row">
+                </div>
 
-        <div class="slot available">C1</div>
-        <div class="slot available">C2</div>
-        <div class="slot available">C3</div>
-        <div class="slot available">C4</div>
+                <div class="mb-3">
 
-    </div>
+                    <label class="form-label">
+                        Merek Kendaraan
+                    </label>
 
-    <div class="text-center mt-5">
+                    <input
+                        type="text"
+                        class="form-control"
+                        value="Toyota Avanza">
 
-        <a href="/customer/transaksi" class="btn btn-primary btn-lg">
+                </div>
 
-            Lanjut Booking
+                <div class="mb-3">
 
-        </a>
+                    <label class="form-label">
+                        Warna Kendaraan
+                    </label>
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        value="Putih">
+
+                </div>
+
+                <div class="mb-0">
+
+                    <label class="form-label">
+                        Jenis Kendaraan
+                    </label>
+
+                    <select class="form-select">
+
+                        <option selected>
+                            Mobil
+                        </option>
+
+                        <option>
+                            Motor
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button
+                    type="button"
+                    class="btn btn-outline-secondary"
+                    data-bs-dismiss="modal">
+
+                    Batal
+
+                </button>
+
+                <button
+                    type="button"
+                    class="btn btn-primary">
+
+                    Simpan Perubahan
+
+                </button>
+
+            </div>
+
+        </div>
 
     </div>
 
 </div>
+
+@push('styles')
+<style>
+
+.parking-grid{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:12px;
+}
+
+.slot{
+    border:none;
+    border-radius:12px;
+    padding:15px;
+    font-weight:600;
+    color:#fff;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.available{
+    background:#28c76f;
+}
+
+.occupied{
+    background:#ea5455;
+}
+
+.selected{
+    background:#7367f0;
+}
+
+.slot:hover{
+    transform:translateY(-2px);
+}
+
+</style>
+
+<style>
+
+@media (max-width: 768px){
+
+    .modal-bottom-sheet{
+
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+
+        margin: 0;
+
+        max-width: 100%;
+        width: 100%;
+
+        transform: translateY(0);
+
+    }
+
+    .modal-bottom-sheet .modal-content{
+
+        border-radius: 24px 24px 0 0;
+
+        min-height: 70vh;
+        max-height: 85vh;
+
+        overflow-y: auto;
+
+    }
+
+}
+@media (max-width: 768px){
+
+    .modal.fade .modal-dialog.modal-bottom-sheet{
+        transform: translateY(100%);
+        transition: transform .35s ease-out;
+    }
+
+    .modal.show .modal-dialog.modal-bottom-sheet{
+        transform: translateY(0);
+    }
+
+    .modal-bottom-sheet{
+
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+
+        margin: 0;
+        width: 100%;
+        max-width: 100%;
+
+    }
+
+    .modal-bottom-sheet .modal-content{
+
+        border-radius: 24px 24px 0 0;
+        min-height: 70vh;
+        max-height: 85vh;
+
+        overflow-y: auto;
+
+    }
+
+}
+</style>
+@endpush
+
+@push('scripts')
+<script>
+    const parkingGrid = document.getElementById('parkingGrid');
+
+    const areaSelect = document.getElementById('selectArea');
+
+    let selectedSlot = null;
+
+    function filterArea() {
+
+        const area = areaSelect.value;
+
+        document.querySelectorAll('.slot').forEach(slot => {
+
+            if (slot.dataset.area === area) {
+
+                slot.style.display = '';
+
+            } else {
+
+                slot.style.display = 'none';
+
+            }
+
+        });
+
+    }
+
+    filterArea();
+
+    areaSelect.addEventListener('change', filterArea);
+    
+    document.querySelectorAll('.slot').forEach(slot => {
+
+        slot.addEventListener('click', function () {
+
+            document.querySelectorAll('.slot.selected')
+                .forEach(x => x.classList.remove('selected'));
+
+            if (this.classList.contains('occupied')) {
+
+                document.getElementById('detailStatus').textContent = 'Terisi';
+                document.getElementById('detailStatus').className =
+                    'mb-0 fw-semibold text-danger';
+
+                return;
+            }
+
+            this.classList.add('selected');
+
+            document.getElementById('detailNamaSlot').textContent =
+                this.dataset.kode;
+
+            document.getElementById('detailArea').textContent =
+                this.dataset.area;
+
+            document.getElementById('detailKendaraan').textContent =
+                this.dataset.kendaraan;
+
+            document.getElementById('detailStatus').textContent =
+                this.dataset.status;
+
+            document.getElementById('detailStatus').className =
+                'mb-0 fw-semibold text-success';
+
+            document.getElementById('detailTarif').textContent =
+                'Rp ' + Number(this.dataset.tarif).toLocaleString('id-ID') + '/Jam';
+
+        });
+
+    });
+
+    let slotDipilih = null;
+
+    document.querySelectorAll('.slot').forEach(slot => {
+
+        slot.addEventListener('click', function () {
+
+            if (!this.classList.contains('occupied')) {
+
+                slotDipilih = this.dataset.id;
+
+                console.log(slotDipilih);
+
+            }
+
+        });
+
+    });
+
+    document.getElementById('btnReservasi')
+        .addEventListener('click', function (e) {
+
+            e.preventDefault();
+
+            if (!slotDipilih) {
+
+                alert('Silakan pilih slot parkir terlebih dahulu.');
+                return;
+
+            }
+
+            window.location.href =
+                '/customer/reservasi/' + slotDipilih +
+                '?tanggal={{ $tanggal }}' +
+                '&jam_masuk={{ $jam_masuk }}' +
+                '&durasi={{ $durasi }}';
+
+        });
+</script>
+@endpush
+
+
 
 @endsection
