@@ -1,12 +1,14 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\Customer\LokasiParkirController;
+use App\Http\Controllers\Customer\LokasiParkirController as CustomerLokasiController;
 use App\Http\Controllers\Customer\ReservasiController;
 use App\Http\Controllers\Customer\PembayaranController;
 use App\Http\Controllers\Customer\RiwayatController;
+
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\LokasiParkirController;
 
 Route::view('/', 'dashboard')->name('dashboard');
 
@@ -40,42 +42,32 @@ Route::middleware(['auth', 'role:customer'])->prefix('customer')->group(function
 });
 
 
-// ==================== ADMIN MITRA ROUTES ====================
-Route::prefix('AdminMitra')->name('adminmitra.')->group(function () {
-    Route::view('/dashboard', 'AdminMitra.dashboard')->name('dashboard');
-    // Route::view('/kelola-parkir', 'AdminMitra.kelola-parkir')->name('kelola-parkir');
-    // Route::view('/laporan', 'AdminMitra.laporan')->name('laporan');
 
-    Route::view('/cari-parkir', 'customers.cari-parkir');
+// ==================== ADMIN ROUTES ====================
+Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->group(function () {
 
-    Route::view('/denah', 'customers.denah');
-
-    Route::view('/reservasi', 'customers.reservasi');
-
-    Route::view('/riwayat', 'customers.riwayat');
-
-    Route::view('/profil', 'customers.profil');
-
-    Route::view('/riwayat', 'customers.riwayat');
-
-    Route::view('/profil', 'customers.profil');
-
-});
-
-// ==================== SUPER ADMIN ROUTES ====================
-Route::prefix('SuperAdmin')->name('superadmin.')->group(function () {
-    // Dashboard Super Admin
-    Route::view('/dashboard', 'SuperAdmin.dashboard')->name('dashboard');
     
-    // Kelola Mitra
-    Route::view('/kelola-mitra', 'SuperAdmin.kelolamitra')->name('kelola-mitra');
+    // Dashboard
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     
-    // Kelola User (Mitra)
-    Route::view('/kelola-user-mitra', 'SuperAdmin.kelolauser-mitra')->name('kelola-user-mitra');
+    // ========== LOKASI PARKIR ==========
+    Route::resource('lokasi-parkir', LokasiParkirController::class);
     
-    // Keuangan
-    Route::view('/keuangan', 'SuperAdmin.keuangan')->name('keuangan');
+    // Slot Parkir
+    Route::get('lokasi-parkir/{id}/kelola-slot', [LokasiParkirController::class, 'kelolaSlot'])->name('lokasi-parkir.kelola-slot');
+    Route::post('lokasi-parkir/{id}/slot', [LokasiParkirController::class, 'storeSlot'])->name('lokasi-parkir.store-slot');
+    Route::delete('lokasi-parkir/{id}/slot/{slotId}', [LokasiParkirController::class, 'destroySlot'])->name('lokasi-parkir.destroy-slot');
+    Route::put('lokasi-parkir/{id}/slot/{slotId}/status', [LokasiParkirController::class, 'updateSlotStatus'])->name('lokasi-parkir.update-slot-status');
     
-    // Laporan
-    Route::view('/laporan', 'SuperAdmin.laporan')->name('laporan');
+    // BULK CREATE SLOT
+    Route::post('lokasi-parkir/{id}/slot/bulk', [LokasiParkirController::class, 'bulkStoreSlot'])->name('lokasi-parkir.bulk-store-slot');
+    
+    // TOGGLE STATUS SLOT (TAMBAHKAN INI!)
+    Route::put('lokasi-parkir/{id}/slot/{slotId}/toggle-status', [LokasiParkirController::class, 'toggleSlotStatus'])->name('lokasi-parkir.toggle-slot-status');
+    
+    // Create Area
+    Route::get('lokasi-parkir/{id}/create-area', [LokasiParkirController::class, 'createArea'])->name('lokasi-parkir.create-area');
+    Route::post('lokasi-parkir/{id}/store-area', [LokasiParkirController::class, 'storeArea'])->name('lokasi-parkir.store-area');
+
 });
