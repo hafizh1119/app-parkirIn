@@ -94,9 +94,6 @@
                     </td>
                     <td class="p-lg">
                         <div class="flex items-center justify-center gap-2">
-                            <a href="{{ route('admin.lokasi-parkir.kelola-slot', $item->id) }}" class="p-2 rounded-lg text-secondary hover:bg-primary-container/20 hover:text-primary transition-all" title="Kelola Slot">
-                                <span class="material-symbols-outlined text-[20px]">settings_accessibility</span>
-                            </a>
                             <a href="{{ route('admin.lokasi-parkir.show', $item->id) }}" class="p-2 rounded-lg text-secondary hover:bg-primary-container/20 hover:text-primary transition-all" title="Detail">
                                 <span class="material-symbols-outlined text-[20px]">visibility</span>
                             </a>

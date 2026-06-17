@@ -10,6 +10,8 @@ use App\Http\Controllers\Customer\RiwayatController;
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\LokasiParkirController;
+use App\Http\Controllers\Admin\SlotAreaController;
+use App\Http\Controllers\Admin\SlotParkirController;
 
 Route::view('/', 'dashboard')->name('dashboard');
 
@@ -52,7 +54,46 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
     
     // ========== LOKASI PARKIR ==========
     Route::resource('lokasi-parkir', LokasiParkirController::class);
+
+    Route::get(
+    'lokasi-parkir/{lokasi}/area',
+    [SlotAreaController::class,'index']
+)->name('admin.slot-area.index');
+
+Route::get(
+    'lokasi-parkir/{lokasi}/area/create',
+    [SlotAreaController::class,'create']
+)->name('admin.slot-area.create');
+
+Route::post(
+    'lokasi-parkir/{lokasi}/area',
+    [SlotAreaController::class,'store']
+)->name('admin.slot-area.store');
     
+Route::get(
+    'lokasi-parkir/{lokasi}/slot',
+    [SlotParkirController::class,'index']
+)->name('admin.slot-parkir.index');
+
+Route::post(
+    'lokasi-parkir/{lokasi}/slot',
+    [SlotParkirController::class,'store']
+)->name('admin.slot-parkir.store');
+
+Route::post(
+    'lokasi-parkir/{lokasi}/slot/bulk',
+    [SlotParkirController::class,'bulkStore']
+)->name('admin.slot-parkir.bulk-store');
+
+Route::delete(
+    'lokasi-parkir/{lokasi}/slot/{slot}',
+    [SlotParkirController::class,'destroy']
+)->name('admin.slot-parkir.destroy');
+
+Route::put(
+    'lokasi-parkir/{lokasi}/slot/{slot}/toggle',
+    [SlotParkirController::class,'toggleStatus']
+)->name('admin.slot-parkir.toggle');
     // Slot Parkir
     Route::get('lokasi-parkir/{id}/kelola-slot', [LokasiParkirController::class, 'kelolaSlot'])->name('lokasi-parkir.kelola-slot');
     Route::post('lokasi-parkir/{id}/slot', [LokasiParkirController::class, 'storeSlot'])->name('lokasi-parkir.store-slot');

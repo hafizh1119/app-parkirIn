@@ -155,6 +155,10 @@ class LokasiParkirController extends Controller
         $lokasi = LokasiParkir::findOrFail($id);
         
         $query = SlotParkir::where('lokasi_parkir_id', $id);
+
+        if ($request->filled('area')) {
+            $query->where('area', $request->area);
+        }
         
         if ($request->search) {
             $query->where(function($q) use ($request) {
@@ -172,8 +176,8 @@ class LokasiParkirController extends Controller
         }
         
         $slots = $query->paginate(15);
-        
-        return view('admin.lokasi-parkir.kelola-slot', compact('lokasi', 'slots'));
+        $currentArea = $request->area;
+        return view('admin.lokasi-parkir.kelola-slot', compact('lokasi', 'slots', 'currentArea'));
     }
 
     public function storeSlot(Request $request, $id)
