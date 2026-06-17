@@ -1,5 +1,16 @@
     @extends('layouts.app')
 
+    @push('styles')
+    <style>
+
+    .authentication-wrapper{
+        padding-top: 85px;
+        min-height: calc(100vh - 85px);
+    }
+
+    </style>
+    @endpush
+
     @section('content')
     <!-- Content -->
 
