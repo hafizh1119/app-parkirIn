@@ -17,9 +17,28 @@
     <div class="authentication-wrapper authentication-cover">
       <div class="authentication-inner row m-0">
         <!-- /Left Section -->
-        <div class="d-none d-lg-flex col-lg-7 col-xl-8 align-items-center justify-content-center p-5 pb-2">
-          
+        <div class="d-none d-lg-flex col-lg-7 col-xl-8 align-items-center justify-content-center p-5 pb-2 login-left">
+
+        <div class="login-brand">
+
+            <span class="badge bg-label-primary mb-3">
+                Smart Parking Platform
+            </span>
+
+            <h1 class="display-4 mb-3">
+                Selamat Datang di ParkirIn
+            </h1>
+
+            <p class="fs-5 mb-5">
+                Temukan slot parkir secara realtime, reservasi lebih cepat,
+                dan nikmati pengalaman parkir yang modern.
+            </p>
+
+            @include('partials.parking-illustration')
+
         </div>
+
+    </div>
         <!-- /Left Section -->
 
         <!-- Login -->
@@ -130,3 +149,108 @@
     <!-- / Content -->
 
     @endsection
+
+
+<style>
+.authentication-wrapper{
+    padding-top:85px;
+    min-height:calc(100vh - 85px);
+    background:linear-gradient(
+        135deg,
+        #1a1a2e 0%,
+        #16161f 50%,
+        #0d0d14 100%
+    );
+}
+
+.login-left{
+    position:relative;
+    overflow:hidden;
+}
+
+.login-left::before{
+    content:'';
+    position:absolute;
+    width:500px;
+    height:500px;
+    background:rgba(115,103,240,.25);
+    border-radius:50%;
+    filter:blur(120px);
+    top:-150px;
+    left:-150px;
+}
+
+.login-left::after{
+    content:'';
+    position:absolute;
+    width:400px;
+    height:400px;
+    background:rgba(167,139,250,.18);
+    border-radius:50%;
+    filter:blur(120px);
+    bottom:-150px;
+    right:-100px;
+}
+
+.login-brand{
+    position:relative;
+    z-index:2;
+    max-width:550px;
+}
+
+.login-brand h1{
+    color:#fff;
+    font-weight:800;
+}
+
+.login-brand p{
+    color:#b8b8c5;
+}
+
+.authentication-bg{
+    background:transparent;
+}
+
+.login-card{
+    background:rgba(255,255,255,.08);
+    backdrop-filter:blur(20px);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:24px;
+    padding:40px;
+    box-shadow:0 20px 60px rgba(0,0,0,.35);
+}
+
+.login-card h4,
+.login-card p,
+.login-card label,
+.login-card span{
+    color:#fff;
+}
+
+.form-control{
+    background:rgba(255,255,255,.05)!important;
+    border-color:rgba(255,255,255,.1)!important;
+    color:#fff!important;
+}
+
+.form-control::placeholder{
+    color:#9ca3af;
+}
+
+.btn-primary{
+    background:#7367f0!important;
+    border:none!important;
+}
+
+.btn-primary:hover{
+    background:#6254eb!important;
+}
+
+.divider-text{
+    color:#b8b8c5!important;
+}
+
+a{
+    color:#a78bfa;
+}
+</style>

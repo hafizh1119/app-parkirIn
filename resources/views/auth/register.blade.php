@@ -17,17 +17,39 @@
     <div class="authentication-wrapper authentication-cover">
       <div class="authentication-inner row m-0">
         <!-- /Left Text -->
-        <div class="d-none d-lg-flex col-lg-7 col-xl-8 align-items-center justify-content-center p-5 pb-2">
+        <div class="d-none d-lg-flex col-lg-7 col-xl-8 align-items-center justify-content-center p-5 pb-2 login-left">
           
         </div>
         <!-- /Left Text -->
+            <div class="login-brand">
 
+                <span class="badge bg-label-primary mb-3">
+                    Smart Parking Platform
+                </span>
+
+                <h1 class="display-4 mb-3">
+                    Bergabung dengan ParkirIn
+                </h1>
+
+                <p class="fs-5 mb-5">
+                    Buat akun sekarang dan nikmati kemudahan mencari serta
+                    memesan slot parkir secara realtime.
+                </p>
+
+                @include('partials.parking-illustration')
+
+            </div>
+
+        </div>
         <!-- Register -->
         <div
           class="d-flex col-12 col-lg-5 col-xl-4 align-items-center authentication-bg position-relative py-sm-5 px-4 py-4">
-          <div class="w-px-400 mx-auto pt-5 pt-lg-0">
-            <h4 class="mb-2">Adventure starts here 🚀</h4>
-            <p class="mb-4">Make your app management easy and fun!</p>
+          <div class="w-px-400 mx-auto pt-5 pt-lg-0 login-card">
+            <h4 class="mb-2">Buat Akun ParkirIn</h4>
+            <p class="mb-4">
+                Daftar sekarang untuk menikmati fitur pencarian,
+                reservasi, dan monitoring parkir secara realtime.
+            </p>
 
             <form id="formAuthentication" class="mb-3" action="index.html" method="GET">
               <div class="form-floating form-floating-outline mb-3">
@@ -72,10 +94,11 @@
             </form>
 
             <p class="text-center mt-2">
-              <span>Already have an account?</span>
-              <a href="auth-login-cover.html">
-                <span>Sign in instead</span>
-              </a>
+                <span>Sudah punya akun?</span>
+
+                <a href="{{ route('login') }}">
+                    <span>Masuk sekarang</span>
+                </a>
             </p>
 
             <div class="divider my-4">
@@ -104,3 +127,105 @@
         <!-- /Register -->
       </div>
     </div>
+
+<style>
+
+.authentication-wrapper{
+    padding-top:85px;
+    min-height:calc(100vh - 85px);
+    background:linear-gradient(
+        135deg,
+        #1a1a2e 0%,
+        #16161f 50%,
+        #0d0d14 100%
+    );
+    overflow:hidden;
+    position:relative;
+}
+
+.authentication-wrapper::before{
+    content:"";
+    position:absolute;
+    top:-200px;
+    left:-200px;
+    width:500px;
+    height:500px;
+    background:rgba(115,103,240,.25);
+    border-radius:50%;
+    filter:blur(120px);
+}
+
+.authentication-wrapper::after{
+    content:"";
+    position:absolute;
+    bottom:-200px;
+    right:-200px;
+    width:500px;
+    height:500px;
+    background:rgba(167,139,250,.15);
+    border-radius:50%;
+    filter:blur(120px);
+}
+
+.login-left{
+    position:relative;
+    z-index:2;
+    color:#fff;
+}
+
+.login-left h1{
+    color:#fff;
+    font-weight:800;
+}
+
+.login-left p{
+    color:#b8b8c5;
+}
+
+.login-brand{
+    max-width:700px;
+}
+
+.login-card{
+    background:rgba(255,255,255,.95);
+    backdrop-filter:blur(15px);
+    border-radius:24px;
+    padding:40px;
+    box-shadow:0 20px 60px rgba(0,0,0,.25);
+}
+
+.login-card h4{
+    font-weight:700;
+}
+
+.btn-primary{
+    background:#7367f0;
+    border:none;
+}
+
+.btn-primary:hover{
+    background:#685dd8;
+}
+
+.badge.bg-label-primary{
+    background:rgba(115,103,240,.2)!important;
+    color:#c4b8ff!important;
+    border:1px solid rgba(115,103,240,.3);
+}
+
+.login-brand{
+    max-width: 650px;
+    margin: 0 auto;
+}
+
+.login-brand .parking-illustration-wrapper{
+    max-width: 520px;
+    margin: 0 auto;
+}
+
+.login-brand .parking-illustration-wrapper svg{
+    width: 100%;
+    height: auto;
+}
+
+</style>
