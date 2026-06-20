@@ -8,6 +8,14 @@ use App\Http\Controllers\Customer\ReservasiController;
 use App\Http\Controllers\Customer\PembayaranController;
 use App\Http\Controllers\Customer\RiwayatController;
 
+<<<<<<< Updated upstream
+=======
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\LokasiParkirController;
+use App\Http\Controllers\Admin\AreaParkirController;
+use App\Http\Controllers\Admin\SlotParkirController;
+
+>>>>>>> Stashed changes
 Route::view('/', 'dashboard')->name('dashboard');
 
 Route::middleware('guest')->group(function () {
@@ -39,6 +47,7 @@ Route::middleware(['auth', 'role:customer'])->prefix('customer')->group(function
 
 });
 
+<<<<<<< Updated upstream
 
 // ==================== ADMIN MITRA ROUTES ====================
 Route::prefix('AdminMitra')->name('adminmitra.')->group(function () {
@@ -78,4 +87,28 @@ Route::prefix('SuperAdmin')->name('superadmin.')->group(function () {
     
     // Laporan
     Route::view('/laporan', 'SuperAdmin.laporan')->name('laporan');
+=======
+Route::prefix('admin')->name('admin.')->group(function () {
+
+    // Dashboard
+    Route::view('/dashboard', 'Admin.dashboard.index')->name('dashboard');
+
+    // Lokasi Parkir
+    Route::resource('lokasi-parkir', LokasiParkirController::class);
+
+    // Slot Area
+    Route::get('/slot-area/{lokasi}',                [AreaParkirController::class, 'index'])->name('slot-area.index');
+    Route::get('/slot-area/{lokasi}/create',         [AreaParkirController::class, 'create'])->name('slot-area.create');
+    Route::post('/slot-area/{lokasi}',               [AreaParkirController::class, 'store'])->name('slot-area.store');
+    Route::get('/slot-area/{lokasi}/{area}/edit',    [AreaParkirController::class, 'edit'])->name('slot-area.edit');
+    Route::put('/slot-area/{lokasi}/{area}',         [AreaParkirController::class, 'update'])->name('slot-area.update');
+    Route::delete('/slot-area/{lokasi}/{area}',      [AreaParkirController::class, 'destroy'])->name('slot-area.destroy');
+
+    // Slot Parkir
+    Route::get('/slot-parkir/{area}',              [SlotParkirController::class, 'index'])->name('slot-parkir.index');
+    Route::post('/slot-parkir/{area}',             [SlotParkirController::class, 'store'])->name('slot-parkir.store');
+    Route::put('/slot-parkir/{area}/{slot}',       [SlotParkirController::class, 'update'])->name('slot-parkir.update');
+    Route::delete('/slot-parkir/{area}/{slot}',    [SlotParkirController::class, 'destroy'])->name('slot-parkir.destroy');
+
+>>>>>>> Stashed changes
 });
