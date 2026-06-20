@@ -10,6 +10,7 @@ class SlotParkir extends Model
 
     protected $fillable = [
         'lokasi_parkir_id',
+        'area_parkir_id',
         'kode_slot',
         'area',
         'jenis_kendaraan',
@@ -25,5 +26,9 @@ class SlotParkir extends Model
     public function reservasi()
     {
         return $this->hasMany(Reservasi::class);
+    }
+    public function areaParkir()
+    {
+        return $this->belongsTo(AreaParkir::class);
     }
 }

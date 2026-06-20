@@ -1,165 +1,313 @@
-@extends('admin.layouts.main')
+@extends('Admin.layouts.app')
 
 @section('title', 'Kelola Lokasi Parkir')
-@section('bg-icon', 'local_parking')
 
 @section('content')
-<!-- Header -->
-<div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-xl">
+
+<div class="p-6 flex-1 overflow-y-auto">
+
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+
     <div>
-        <nav class="flex items-center gap-2 text-secondary mb-1">
-            <a class="font-label-md text-label-md hover:text-primary" href="{{ route('admin.dashboard') }}">Dashboard</a>
-            <span class="material-symbols-outlined text-[16px]">chevron_right</span>
-            <span class="font-label-md text-label-md font-bold text-on-surface">Lokasi Parkir</span>
+        <nav class="flex items-center gap-2 text-gray-500 text-sm mb-1">
+            <a href="{{ route('admin.dashboard') }}" class="hover:text-primary">
+                Dashboard
+            </a>
+
+            <span class="material-symbols-outlined text-sm">
+                chevron_right
+            </span>
+
+            <span class="font-semibold text-gray-900">
+                Lokasi Parkir
+            </span>
         </nav>
-        <h2 class="font-headline-xl text-headline-xl text-on-surface">Kelola Lokasi Parkir</h2>
+
+        <h2 class="text-2xl font-bold text-gray-900">
+            Kelola Lokasi Parkir
+        </h2>
     </div>
-    <a href="{{ route('admin.lokasi-parkir.create') }}" class="bg-brand-purple hover:bg-brand-purple/90 text-white px-lg py-md rounded-lg flex items-center gap-2 shadow-lg shadow-brand-purple/20 transition-all transform active:scale-95">
-        <span class="material-symbols-outlined">add</span>
-        <span class="font-label-md text-label-md font-bold">+ Tambah Lokasi</span>
+
+    <a href="{{ route('admin.lokasi-parkir.create') }}"
+        class="bg-primary hover:opacity-90 text-white px-5 py-3 rounded-xl flex items-center gap-2 shadow-lg">
+
+        <span class="material-symbols-outlined">
+            add
+        </span>
+
+        <span>
+            Tambah Lokasi
+        </span>
+
     </a>
+
 </div>
 
-<!-- Alert Success -->
-@if(session('success'))
-<div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg mb-4 flex items-center justify-between">
-    <span>{{ session('success') }}</span>
-    <button onclick="this.parentElement.remove()" class="text-green-700">
-        <span class="material-symbols-outlined">close</span>
-    </button>
-</div>
-@endif
-
-<!-- Main Content -->
+<!-- Main Content Card -->
 <section class="bg-white rounded-2xl shadow-elevation-1 overflow-hidden border border-outline-variant/20">
     <!-- Toolbar -->
-    <div class="p-lg flex flex-col md:flex-row items-center justify-between gap-md border-b border-outline-variant/10">
+    <div class="p-5 flex flex-col md:flex-row items-center justify-between gap-4 border-b border-gray-200">
+
         <div class="relative w-full md:w-80">
-            <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
-            <input id="searchInput" class="w-full pl-10 pr-4 py-2 border border-outline-variant rounded-lg focus:ring-1 focus:ring-primary focus:border-primary transition-all font-body-md text-body-md" placeholder="Cari nama lokasi..." type="text"/>
+
+            <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
+                search
+            </span>
+
+            <input
+                type="text"
+                placeholder="Cari nama lokasi..."
+                class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary/10 focus:border-primary">
+
         </div>
-        <div class="flex items-center gap-sm w-full md:w-auto">
-            <select id="statusFilter" class="pl-md pr-xl py-2 border border-outline-variant rounded-lg focus:ring-1 focus:ring-primary focus:border-primary transition-all font-label-md text-label-md bg-white">
-                <option value="">Semua Status</option>
-                <option value="aktif">Aktif</option>
-                <option value="non-aktif">Non-Aktif</option>
+
+        <div class="flex items-center gap-3">
+
+            <select class="px-4 py-2 border border-gray-300 rounded-xl">
+                <option>Semua Status</option>
+                <option>Aktif</option>
+                <option>Non Aktif</option>
             </select>
-            <button class="flex items-center gap-2 px-md py-2 border border-outline-variant rounded-lg hover:bg-surface-container transition-colors text-on-surface-variant font-label-md">
-                <span class="material-symbols-outlined text-[20px]">ios_share</span>
+
+            <button class="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-xl hover:bg-gray-50">
+                <span class="material-symbols-outlined text-sm">
+                    ios_share
+                </span>
                 Export
             </button>
+
         </div>
+
     </div>
 
-    <!-- Data Table -->
+    <!-- Table -->
     <div class="overflow-x-auto">
-        <table class="w-full text-left border-collapse">
+
+        <table class="w-full">
+
             <thead>
-                <tr class="bg-surface-container/50 border-b border-outline-variant/20">
-                    <th class="p-lg w-12">
-                        <input class="rounded border-outline-variant text-primary focus:ring-primary h-4 w-4" type="checkbox"/>
-                    </th>
-                    <th class="p-lg font-label-md text-label-md text-secondary uppercase tracking-wider">Nama Lokasi</th>
-                    <th class="p-lg font-label-md text-label-md text-secondary uppercase tracking-wider">Alamat</th>
-                    <th class="p-lg font-label-md text-label-md text-secondary uppercase tracking-wider">Total Slot</th>
-                    <th class="p-lg font-label-md text-label-md text-secondary uppercase tracking-wider">Status</th>
-                    <th class="p-lg font-label-md text-label-md text-secondary uppercase tracking-wider text-center">Aksi</th>
+
+                <tr class="bg-gray-50 border-b">
+
+                    <th class="p-4 text-left">Gambar</th>
+                    <th class="p-4 text-left">Nama Lokasi</th>
+                    <th class="p-4 text-left">Jumlah Area</th>
+                    <th class="p-4 text-left">Total Slot</th>
+                    <th class="p-4 text-left">Deskripsi</th>
+                    <th class="p-4 text-center">Aksi</th>
+
                 </tr>
+
             </thead>
-            <tbody id="tableBody" class="divide-y divide-outline-variant/10">
-                @forelse($lokasiParkir as $item)
-                <tr class="hover:bg-primary/5 transition-colors group" data-name="{{ strtolower($item->nama) }}" data-status="{{ $item->status ?? 'aktif' }}">
-                    <td class="p-lg">
-                        <input class="rounded border-outline-variant text-primary focus:ring-primary h-4 w-4" type="checkbox"/>
-                    </td>
-                    <td class="p-lg">
-                        <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 rounded-lg bg-primary-container/20 flex items-center justify-center text-primary overflow-hidden">
-                                @if($item->gambar)
-                                    <img src="{{ asset($item->gambar) }}" alt="{{ $item->nama }}" class="w-full h-full object-cover"/>
-                                @else
-                                    <span class="material-symbols-outlined">apartment</span>
-                                @endif
+
+            <tbody>
+
+                @forelse($lokasiParkir as $lokasi)
+
+                    <tr class="border-b hover:bg-gray-50 transition">
+
+                        {{-- Gambar --}}
+                        <td class="p-4">
+
+                            @if(!empty($lokasi->gambar))
+
+                                <img
+                                    src="{{ asset($lokasi->gambar) }}"
+                                    alt="{{ $lokasi->nama }}"
+                                    class="w-20 h-20 object-cover rounded-xl border border-gray-200 shadow-sm">
+
+                            @else
+
+                                <div
+                                    class="w-20 h-20 rounded-xl bg-gray-100 border border-gray-200 flex items-center justify-center">
+
+                                    <span class="material-symbols-outlined text-gray-400 text-3xl">
+                                        image
+                                    </span>
+
+                                </div>
+
+                            @endif
+
+                        </td>
+
+                        {{-- Nama Lokasi --}}
+                        <td class="p-4">
+
+                            <div>
+
+                                <p class="font-semibold text-gray-900">
+                                    {{ $lokasi->nama }}
+                                </p>
+
+                                <p class="text-sm text-gray-500 mt-1">
+                                    {{ $lokasi->alamat }}
+                                </p>
+
                             </div>
-                            <span class="font-body-md text-body-md font-bold text-on-surface">{{ $item->nama }}</span>
-                        </div>
-                    </td>
-                    <td class="p-lg font-body-md text-body-md text-on-surface-variant max-w-xs truncate">{{ $item->alamat }}</td>
-                    <td class="p-lg font-body-md text-body-md text-on-surface-variant">{{ $item->slot_parkir_count ?? 0 }} Slot</td>
-                    <td class="p-lg">
-                        <span class="inline-flex items-center px-3 py-1 rounded-full bg-green-100 text-green-700 font-label-sm text-label-sm border border-green-200">
-                            <span class="w-1.5 h-1.5 rounded-full bg-green-500 mr-2"></span>
-                            Aktif
-                        </span>
-                    </td>
-                    <td class="p-lg">
-                        <div class="flex items-center justify-center gap-2">
-                            <a href="{{ route('admin.lokasi-parkir.show', $item->id) }}" class="p-2 rounded-lg text-secondary hover:bg-primary-container/20 hover:text-primary transition-all" title="Detail">
-                                <span class="material-symbols-outlined text-[20px]">visibility</span>
-                            </a>
-                            <a href="{{ route('admin.lokasi-parkir.edit', $item->id) }}" class="p-2 rounded-lg text-secondary hover:bg-primary-container/20 hover:text-primary transition-all" title="Edit">
-                                <span class="material-symbols-outlined text-[20px]">edit</span>
-                            </a>
-                            <form action="{{ route('admin.lokasi-parkir.destroy', $item->id) }}" method="POST" class="inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus lokasi parkir ini?')">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="p-2 rounded-lg text-secondary hover:bg-error/10 hover:text-error transition-all" title="Hapus">
-                                    <span class="material-symbols-outlined text-[20px]">delete</span>
-                                </button>
-                            </form>
-                        </div>
-                    </td>
-                </tr>
+
+                        </td>
+
+                        <td class="p-4">
+
+                            <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm">
+                                {{ $lokasi->area_parkir_count }} Area
+                            </span>
+
+                        </td>
+
+                        <td class="p-4">
+
+                            <span class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm">
+                                0 Slot
+                            </span>
+
+                        </td>
+
+                        <td class="p-4 max-w-xs">
+
+                            <p class="line-clamp-2 text-gray-600">
+                                {{ $lokasi->deskripsi ?? '-' }}
+                            </p>
+
+                        </td>
+
+                        <td class="p-4">
+
+                            <div class="flex items-center justify-center gap-2">
+
+                                {{-- Kelola Area --}}
+                                <a
+                                    href="{{ route('admin.slot-area.index', $lokasi->id)}}"
+                                    class="w-9 h-9 rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-100 flex items-center justify-center"
+                                    title="Kelola Area">
+
+                                    <span class="material-symbols-outlined text-[18px]">
+                                        grid_view
+                                    </span>
+
+                                </a>
+
+                                {{-- Edit --}}
+                                <a
+                                    href="#"
+                                    class="w-9 h-9 rounded-lg bg-amber-50 text-amber-600 hover:bg-amber-100 flex items-center justify-center"
+                                    title="Edit Lokasi">
+
+                                    <span class="material-symbols-outlined text-[18px]">
+                                        edit
+                                    </span>
+
+                                </a>
+
+                                {{-- Hapus --}}
+                                <form
+                                    action="{{ route('admin.lokasi-parkir.destroy', $lokasi->id) }}"
+                                    method="POST"
+                                    onsubmit="return confirm('Yakin ingin menghapus lokasi ini?')">
+
+                                    @csrf
+                                    @method('DELETE')
+
+                                    <button
+                                        type="submit"
+                                        class="w-9 h-9 rounded-lg bg-red-50 text-red-600 hover:bg-red-100 flex items-center justify-center"
+                                        title="Hapus Lokasi">
+
+                                        <span class="material-symbols-outlined text-[18px]">
+                                            delete
+                                        </span>
+
+                                    </button>
+
+                                </form>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
                 @empty
-                <tr>
-                    <td colspan="6" class="p-lg text-center text-secondary py-8">
-                        <span class="material-symbols-outlined text-4xl block mb-2">inbox</span>
-                        Belum ada data lokasi parkir
-                    </td>
-                </tr>
+
+                    <tr>
+
+                        <td colspan="5" class="p-10 text-center text-gray-500">
+
+                            Belum ada data lokasi parkir
+
+                        </td>
+
+                    </tr>
+
                 @endforelse
+
             </tbody>
+
         </table>
+
     </div>
 
     <!-- Pagination -->
-    <div class="p-lg border-t border-outline-variant/10 flex flex-col md:flex-row items-center justify-between gap-md">
-        <p class="font-label-md text-label-md text-secondary">
-            Menampilkan <span class="text-on-surface font-bold">{{ $lokasiParkir->firstItem() ?? 0 }} - {{ $lokasiParkir->lastItem() ?? 0 }}</span> dari <span class="text-on-surface font-bold">{{ $lokasiParkir->total() }}</span> lokasi
-        </p>
-        <div class="flex items-center gap-sm">
-            {{ $lokasiParkir->links() }}
+        <div class="p-5 border-t border-outline-variant/10 flex flex-col md:flex-row items-center justify-between gap-4">
+
+            <p class="text-secondary">
+                Menampilkan
+                <span class="font-bold text-on-surface">1 - 3</span>
+                dari
+                <span class="font-bold text-on-surface">12</span>
+                lokasi
+            </p>
+
+            <div class="flex items-center gap-2">
+
+                <button
+                    class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant/30 text-secondary hover:bg-surface-container transition-colors disabled:opacity-50"
+                    disabled>
+
+                    <span class="material-symbols-outlined">
+                        chevron_left
+                    </span>
+
+                </button>
+
+                <button
+                    class="w-10 h-10 flex items-center justify-center rounded-lg bg-primary text-white font-bold shadow-md shadow-primary/20">
+                    1
+                </button>
+
+                <button
+                    class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant/30">
+                    2
+                </button>
+
+                <button
+                    class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant/30">
+                    3
+                </button>
+
+                <button
+                    class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant/30">
+                    4
+                </button>
+
+                <button
+                    class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant/30">
+
+                    <span class="material-symbols-outlined">
+                        chevron_right
+                    </span>
+
+                </button>
+
+            </div>
+
         </div>
-    </div>
+
 </section>
+
+
+</div>
+
 @endsection
-
-@push('scripts')
-<script>
-    // Search
-    document.getElementById('searchInput')?.addEventListener('input', function(e) {
-        const query = e.target.value.toLowerCase();
-        document.querySelectorAll('#tableBody tr').forEach(row => {
-            const name = row.dataset.name || '';
-            if (name.includes(query)) {
-                row.style.display = 'table-row';
-            } else {
-                row.style.display = 'none';
-            }
-        });
-    });
-
-    // Status Filter
-    document.getElementById('statusFilter')?.addEventListener('change', function(e) {
-        const selectedStatus = e.target.value.toLowerCase();
-        document.querySelectorAll('#tableBody tr').forEach(row => {
-            const status = row.dataset.status || '';
-            if (selectedStatus === '' || status === selectedStatus) {
-                row.style.display = 'table-row';
-            } else {
-                row.style.display = 'none';
-            }
-        });
-    });
-</script>
-@endpush

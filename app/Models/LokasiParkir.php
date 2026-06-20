@@ -25,4 +25,9 @@ class LokasiParkir extends Model
     {
         return $this->hasMany(Reservasi::class);
     }
+
+    public function areaParkir()
+    {
+        return $this->hasMany(AreaParkir::class);
+    }
 }

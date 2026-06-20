@@ -10,6 +10,12 @@ use App\Http\Controllers\Customer\RiwayatController;
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\LokasiParkirController;
+use App\Http\Controllers\Admin\AreaParkirController;
+use App\Http\Controllers\Admin\SlotParkirController;
+
+
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\LokasiParkirController;
 use App\Http\Controllers\Admin\SlotAreaController;
 use App\Http\Controllers\Admin\SlotParkirController;
 
@@ -100,6 +106,32 @@ Route::put(
     Route::delete('lokasi-parkir/{id}/slot/{slotId}', [LokasiParkirController::class, 'destroySlot'])->name('lokasi-parkir.destroy-slot');
     Route::put('lokasi-parkir/{id}/slot/{slotId}/status', [LokasiParkirController::class, 'updateSlotStatus'])->name('lokasi-parkir.update-slot-status');
     
+    // Laporan
+    Route::view('/laporan', 'SuperAdmin.laporan')->name('laporan');
+
+Route::prefix('admin')->name('admin.')->group(function () {
+
+    // Dashboard
+    Route::view('/dashboard', 'Admin.dashboard.index')->name('dashboard');
+
+    // Lokasi Parkir
+    Route::resource('lokasi-parkir', LokasiParkirController::class);
+
+    // Slot Area
+    Route::get('/slot-area/{lokasi}',                [AreaParkirController::class, 'index'])->name('slot-area.index');
+    Route::get('/slot-area/{lokasi}/create',         [AreaParkirController::class, 'create'])->name('slot-area.create');
+    Route::post('/slot-area/{lokasi}',               [AreaParkirController::class, 'store'])->name('slot-area.store');
+    Route::get('/slot-area/{lokasi}/{area}/edit',    [AreaParkirController::class, 'edit'])->name('slot-area.edit');
+    Route::put('/slot-area/{lokasi}/{area}',         [AreaParkirController::class, 'update'])->name('slot-area.update');
+    Route::delete('/slot-area/{lokasi}/{area}',      [AreaParkirController::class, 'destroy'])->name('slot-area.destroy');
+
+    // Slot Parkir
+    Route::get('/slot-parkir/{area}',              [SlotParkirController::class, 'index'])->name('slot-parkir.index');
+    Route::post('/slot-parkir/{area}',             [SlotParkirController::class, 'store'])->name('slot-parkir.store');
+    Route::put('/slot-parkir/{area}/{slot}',       [SlotParkirController::class, 'update'])->name('slot-parkir.update');
+    Route::delete('/slot-parkir/{area}/{slot}',    [SlotParkirController::class, 'destroy'])->name('slot-parkir.destroy');
+
+
     // BULK CREATE SLOT
     Route::post('lokasi-parkir/{id}/slot/bulk', [LokasiParkirController::class, 'bulkStoreSlot'])->name('lokasi-parkir.bulk-store-slot');
     
@@ -109,5 +141,6 @@ Route::put(
     // Create Area
     Route::get('lokasi-parkir/{id}/create-area', [LokasiParkirController::class, 'createArea'])->name('lokasi-parkir.create-area');
     Route::post('lokasi-parkir/{id}/store-area', [LokasiParkirController::class, 'storeArea'])->name('lokasi-parkir.store-area');
+
 
 });
