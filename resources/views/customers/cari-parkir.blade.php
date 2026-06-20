@@ -168,7 +168,7 @@
                             </p>
 
                             <h5 class="fw-bold text-primary mb-0">
-                                Rp {{ number_format($parkir->slotParkir->min('tarif_per_jam') ?? 0, 0, ',', '.') }}
+                                Rp {{ number_format($parkir->areaParkir->min('tarif_per_jam') ?? 0, 0, ',', '.') }}
                                 <span class="fs-6 fw-normal text-body-secondary">
                                     / Jam
                                 </span>

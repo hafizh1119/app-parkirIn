@@ -14,39 +14,30 @@ class ReservasiController extends Controller
 {
     public function show(Request $request, string $id)
     {
-        $slot = SlotParkir::with('lokasiParkir')
+        $slot = SlotParkir::with('areaParkir.lokasiParkir')
             ->findOrFail($id);
 
-        $lokasi = $slot->lokasiParkir;
-
-        $kendaraan = Kendaraan::where(
-            'user_id',
-            Auth::id()
-        )->first();
-
-        $tanggal = $request->tanggal;
+        $lokasi    = $slot->areaParkir->lokasiParkir;
+        $kendaraan = Kendaraan::where('user_id', Auth::id())->first();
+        $tanggal   = $request->tanggal_parkir;
         $jam_masuk = $request->jam_masuk;
-        $durasi = $request->durasi;
+        $durasi    = $request->durasi_jam;
 
-        return view(
-            'customers.reservasi',
-            compact(
-                'lokasi',
-                'slot',
-                'kendaraan',
-                'tanggal',
-                'jam_masuk',
-                'durasi'
-            )
-        );
+        return view('customers.reservasi', compact('lokasi', 'slot', 'kendaraan', 'tanggal', 'jam_masuk', 'durasi'));
     }
 
     public function store(Request $request)
     {
-        $kendaraan = Kendaraan::where(
-            'user_id',
-            Auth::id()
-        )->first();
+        // Cek apakah slot sudah direservasi pending
+        $existing = Reservasi::where('slot_parkir_id', $request->slot_parkir_id)
+            ->whereIn('status', ['pending', 'dibayar'])
+            ->exists();
+
+        if ($existing) {
+            return back()->with('error', 'Slot sudah direservasi');
+        }
+
+        $kendaraan = Kendaraan::where('user_id', Auth::id())->first();
 
         $kodeReservasi =
             'RSV-' .

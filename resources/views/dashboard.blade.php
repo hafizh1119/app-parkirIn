@@ -7,44 +7,6 @@
 
 @section('content')
 
-@php
-    $lokasiParkir = collect([
-        (object) [
-            'id' => 1,
-            'nama' => 'Parkir UDINUS',
-            'alamat' => 'Jl. Imam Bonjol No.207 Semarang',
-            'gambar' => 'https://blog.getandride.com/wp-content/uploads/2023/05/ukuran-parkiran-mobil.jpg',
-            'rating' => 4.8,
-            'jarak' => 1.2,
-            'motor' => 20,
-            'mobil' => 11,
-            'tarif_per_jam' => 5000,
-        ],
-        (object) [
-            'id' => 2,
-            'nama' => 'Paragon City Mall',
-            'alamat' => 'Jl. Pemuda No.118 Semarang',
-            'gambar' => 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1200',
-            'rating' => 4.7,
-            'jarak' => 2.1,
-            'motor' => 15,
-            'mobil' => 8,
-            'tarif_per_jam' => 6000,
-        ],
-        (object) [
-            'id' => 3,
-            'nama' => 'Simpang Lima',
-            'alamat' => 'Kawasan Simpang Lima Semarang',
-            'gambar' => 'https://images.unsplash.com/photo-1494526585095-c41746248156?q=80&w=1200',
-            'rating' => 4.9,
-            'jarak' => 0.8,
-            'motor' => 35,
-            'mobil' => 18,
-            'tarif_per_jam' => 7000,
-        ],
-    ]);
-@endphp
-
     <!-- Sections:Start -->
 
     <section
@@ -114,17 +76,16 @@
               <div class="text-center mb-5">
 
                   <span class="badge bg-label-primary rounded-pill mb-3 px-3 py-2">
-                      Nearby Parking
+                      ParkirIn Recommendation
                   </span>
 
                   <h2 class="fw-bold mb-3">
-                      Area Parkir Terdekat
+                      Rekomendasi Lokasi Parkir
                   </h2>
 
-                  <p class="text-body-secondary fs-6 mx-auto"
-                      style="max-width:700px;">
-                      Temukan lokasi parkir yang tersedia di sekitar Anda secara real-time,
-                      pilih area terbaik, dan lakukan reservasi langsung dari aplikasi.
+                  <p class="text-body-secondary fs-6 mx-auto" style="max-width:700px;">
+                      Temukan lokasi parkir favorit dengan kapasitas tersedia,
+                      tarif transparan, dan akses yang mudah dijangkau.
                   </p>
 
               </div>
@@ -134,88 +95,54 @@
 
               @foreach($lokasiParkir as $parkir)
 
-              <div class="col-lg-4 col-md-6">
+                @php
+                    $tersedia = $parkir->slot_mobil > 0 || $parkir->slot_motor > 0;
+                @endphp
 
-                  <div class="card parking-card h-100 shadow-sm border-0">
+                <div class="col-lg-4 col-md-6">
+                    <div class="card parking-card h-100 shadow-sm border-0">
 
-                      <div class="position-relative">
+                        <div class="position-relative">
+                            <img src="{{ asset($parkir->gambar) }}" class="card-img-top" style="height:220px;object-fit:cover;">
+                            <span class="badge position-absolute top-0 end-0 m-3 {{ $tersedia ? 'bg-success' : 'bg-danger' }}">
+                                {{ $tersedia ? 'Tersedia' : 'Penuh' }}
+                            </span>
+                        </div>
 
-                          <img
-                              src="{{ $parkir->gambar }}"
-                              class="card-img-top"
-                              style="height:220px;object-fit:cover;">
+                        <div class="card-body">
 
-                          <span class="badge bg-success position-absolute top-0 end-0 m-3">
-                              Tersedia
-                          </span>
+                            <div class="d-flex justify-content-between mb-2">
+                                <h5 class="fw-semibold mb-0">{{ $parkir->nama }}</h5>
+                                <span class="text-warning">⭐ {{ $parkir->rating ?? '4.5' }}</span>
+                            </div>
 
-                      </div>
+                            <p class="text-body-secondary mb-3">{{ $parkir->alamat }}</p>
 
-                      <div class="card-body">
+                            <div class="d-flex justify-content-between mb-3">
+                                <span>📍 -</span>
+                                <span class="fw-semibold">
+                                    <i class="mdi mdi-motorbike text-primary"></i> {{ $parkir->slot_motor }}
+                                    &nbsp;
+                                    <i class="mdi mdi-car text-success"></i> {{ $parkir->slot_mobil }}
+                                </span>
+                            </div>
 
-                          <div class="d-flex justify-content-between mb-2">
+                            <div class="border-top pt-3 mb-3">
+                                <small class="text-body-secondary">Tarif</small>
+                                <h6 class="fw-bold text-primary mb-0">
+                                    Rp {{ number_format($parkir->tarif_per_jam, 0, ',', '.') }}/Jam
+                                </h6>
+                            </div>
 
-                              <h5 class="fw-semibold mb-0">
-                                  {{ $parkir->nama }}
-                              </h5>
+                            <a href="{{ route('customer.atur-jadwal', $parkir->id) }}" class="btn btn-primary w-100">
+                                Reservasi
+                            </a>
 
-                              <span class="text-warning">
-                                  ⭐ {{ $parkir->rating }}
-                              </span>
+                        </div>
+                    </div>
+                </div>
 
-                          </div>
-
-                          <p class="text-body-secondary mb-3">
-                              {{ $parkir->alamat }}
-                          </p>
-
-                          <div class="d-flex justify-content-between mb-3">
-
-                              <span>
-                                  📍 {{ $parkir->jarak }} km
-                              </span>
-
-                              <span class="fw-semibold">
-
-                                  <i class="mdi mdi-motorbike text-primary"></i>
-                                  {{ $parkir->motor }}
-
-                                  &nbsp;
-
-                                  <i class="mdi mdi-car text-success"></i>
-                                  {{ $parkir->mobil }}
-
-                              </span>
-
-                          </div>
-
-                          <div class="border-top pt-3 mb-3">
-
-                              <small class="text-body-secondary">
-                                  Tarif
-                              </small>
-
-                              <h6 class="fw-bold text-primary mb-0">
-                                  Rp {{ number_format($parkir->tarif_per_jam, 0, ',', '.') }}/Jam
-                              </h6>
-
-                          </div>
-
-                          <a
-                            href="{{ route('customer.atur-jadwal', $parkir->id) }}"
-                            class="btn btn-primary w-100">
-
-                            Reservasi
-
-                        </a>
-
-                      </div>
-
-                  </div>
-
-              </div>
-
-              @endforeach
+            @endforeach
 
           </div>
 

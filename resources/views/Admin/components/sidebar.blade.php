@@ -39,7 +39,10 @@
     </a>
 
     <a href="{{ route('admin.lokasi-parkir.index') }}"
-        class="flex items-center gap-3 rounded-xl bg-primary/10 px-4 py-3 font-semibold text-primary border-r-4 border-primary">
+        class="flex items-center gap-3 rounded-xl px-4 py-3 transition-all duration-200
+        {{ request()->routeIs('admin.lokasi-parkir.*')
+            ? 'bg-primary/10 font-semibold text-primary border-r-4 border-primary'
+            : 'text-gray-600 hover:bg-primary/10 hover:text-primary' }}">
 
         <span class="material-symbols-outlined">
             local_parking
@@ -50,8 +53,11 @@
         </span>
     </a>
 
-    <a href="#"
-    class="flex items-center gap-3 rounded-xl px-4 py-3 text-gray-600 hover:bg-primary/10 hover:text-primary transition-all duration-200">
+    <a href="{{ route('admin.scan.index') }}"
+        class="flex items-center gap-3 rounded-xl px-4 py-3 transition-all duration-200
+        {{ request()->routeIs('admin.scan.*')
+            ? 'bg-primary/10 font-semibold text-primary border-r-4 border-primary'
+            : 'text-gray-600 hover:bg-primary/10 hover:text-primary' }}">
 
         <span class="material-symbols-outlined">
             qr_code_scanner
@@ -59,6 +65,22 @@
 
         <span>
             Gate System
+        </span>
+
+    </a>
+
+    <a href="{{ route('admin.pembayaran.index') }}"
+        class="flex items-center gap-3 rounded-xl px-4 py-3 transition-all duration-200
+        {{ request()->routeIs('admin.pembayaran.*')
+            ? 'bg-primary/10 font-semibold text-primary border-r-4 border-primary'
+            : 'text-gray-600 hover:bg-primary/10 hover:text-primary' }}">
+
+        <span class="material-symbols-outlined">
+            payments
+        </span>
+
+        <span>
+            Verifikasi Pembayaran
         </span>
 
     </a>

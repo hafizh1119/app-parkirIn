@@ -16,9 +16,9 @@ class LokasiParkir extends Model
         'deskripsi'
     ];
 
-    public function slotParkir()
+    public function lokasiParkir()
     {
-        return $this->hasMany(SlotParkir::class);
+        return $this->belongsTo(LokasiParkir::class);
     }
 
     public function reservasi()
