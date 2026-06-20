@@ -98,24 +98,18 @@
                 <div class="card border-0 shadow-sm h-100">
 
                     <div class="position-relative">
-                        <img src="{{ asset('assets/img/lokasi/' . $parkir->gambar) }}"
+                        <img
+                            src="{{ asset($parkir->gambar) }}"
                             alt="{{ $parkir->nama }}"
-                             class="card-img-top" style="height: 180px; object-fit: cover;">
-
-                        @php
-                            $slotMobil = $parkir->slotParkir
-                                ->where('jenis_kendaraan', 'mobil')
-                                ->where('status', 'tersedia')
-                                ->count();
-
-                            $slotMotor = $parkir->slotParkir
-                                ->where('jenis_kendaraan', 'motor')
-                                ->where('status', 'tersedia')
-                                ->count();
-                        @endphp
+                            class="card-img-top" style="height: 180px; object-fit: cover;">
 
                         <div class="position-absolute top-0 end-0 m-3">
-
+                            
+                            @php
+                                $slotMobil = $parkir->slot_mobil;
+                                $slotMotor = $parkir->slot_motor;
+                            @endphp
+                            
                             @if ($slotMobil > 0 || $slotMotor > 0)
 
                                 <span class="badge bg-label-success rounded-pill">

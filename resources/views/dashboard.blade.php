@@ -221,8 +221,12 @@
 
               <!-- Button -->
               <div class="text-center mt-5">
-                  <a href="/customer/cari-parkir" class="btn btn-outline-primary btn-lg px-5">
+                  <a
+                      href="{{ route('customer.cari-parkir') }}"
+                      class="btn btn-outline-primary btn-lg px-5">
+
                       Lihat Semua Lokasi
+
                   </a>
               </div>
 
