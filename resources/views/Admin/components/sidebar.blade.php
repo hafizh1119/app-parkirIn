@@ -27,15 +27,19 @@
 <nav class="flex-1 overflow-y-auto p-4 space-y-2">
 
     <a href="{{ route('admin.dashboard') }}"
-        class="flex items-center gap-3 rounded-xl px-4 py-3 text-gray-700 transition hover:bg-gray-100">
+        class="flex items-center gap-3 rounded-xl px-4 py-3 transition-all duration-200
+        {{ request()->routeIs('admin.dashboard')
+            ? 'bg-primary/10 font-semibold text-primary border-r-4 border-primary'
+            : 'text-gray-600 hover:bg-primary/10 hover:text-primary' }}">
 
         <span class="material-symbols-outlined">
             dashboard
         </span>
 
-        <span class="font-medium">
+        <span>
             Dashboard
         </span>
+
     </a>
 
     <a href="{{ route('admin.lokasi-parkir.index') }}"
@@ -81,6 +85,54 @@
 
         <span>
             Verifikasi Pembayaran
+        </span>
+
+    </a>
+
+    <a href="{{ route('admin.history.index') }}"
+        class="flex items-center gap-3 rounded-xl px-4 py-3 transition-all duration-200
+        {{ request()->routeIs('admin.history.*')
+            ? 'bg-primary/10 font-semibold text-primary border-r-4 border-primary'
+            : 'text-gray-600 hover:bg-primary/10 hover:text-primary' }}">
+
+        <span class="material-symbols-outlined">
+            history
+        </span>
+
+        <span>
+            History Parkir
+        </span>
+
+    </a>
+
+    <a href="{{ route('admin.kelola-user.index') }}"
+        class="flex items-center gap-3 rounded-xl px-4 py-3 transition-all duration-200
+        {{ request()->routeIs('admin.kelola-user.*')
+            ? 'bg-primary/10 font-semibold text-primary border-r-4 border-primary'
+            : 'text-gray-600 hover:bg-primary/10 hover:text-primary' }}">
+
+        <span class="material-symbols-outlined">
+            group
+        </span>
+
+        <span>
+            Kelola User
+        </span>
+
+    </a>
+
+    <a href="#"
+        class="flex items-center gap-3 rounded-xl px-4 py-3 transition-all duration-200
+        {{ request()->routeIs('admin.membership.*')
+            ? 'bg-primary/10 font-semibold text-primary border-r-4 border-primary'
+            : 'text-gray-600 hover:bg-primary/10 hover:text-primary' }}">
+
+        <span class="material-symbols-outlined">
+            workspace_premium
+        </span>
+
+        <span>
+            Membership
         </span>
 
     </a>

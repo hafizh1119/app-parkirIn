@@ -39,6 +39,23 @@ class ScanController extends Controller
                 'message' => 'Reservasi tidak ditemukan'
             ]);
         }
+        // Validasi check-in maksimal 15 menit sebelum jadwal
+        if ($reservasi->status === 'dibayar') {
+
+            $waktuReservasi = Carbon::parse(
+                $reservasi->tanggal_masuk . ' ' . $reservasi->jam_masuk
+            );
+
+            $batasCheckin = $waktuReservasi->copy()->subMinutes(15);
+
+            if (now()->lt($batasCheckin)) {
+
+                return response()->json([
+                    'status'  => 'error',
+                    'message' => 'Check-in hanya dapat dilakukan 15 menit sebelum waktu reservasi'
+                ]);
+            }
+        }
 
         // CHECK-IN
         if ($reservasi->status === 'dibayar') {
@@ -69,17 +86,17 @@ class ScanController extends Controller
 
         // CHECK-OUT
         if ($reservasi->status === 'checkin') {
-            $jamMasuk  = Carbon::parse($reservasi->jam_masuk_aktual);
-            $jamKeluar = now();
-            $durasiAktual = ceil($jamMasuk->diffInMinutes($jamKeluar) / 60); // jam, dibulatkan ke atas
+            $jamMasuk     = Carbon::parse($reservasi->jam_masuk_aktual);
+            $jamKeluar    = now();
+            $durasiAktual = ceil($jamMasuk->diffInMinutes($jamKeluar) / 60);
 
-            $tarifPerJam   = $reservasi->slotParkir->areaParkir->tarif_per_jam ?? 0;
-            $totalDibayar  = $reservasi->total_bayar;
-            $totalAktual   = $durasiAktual * $tarifPerJam;
-            $kekurangan    = max(0, $totalAktual - $totalDibayar);
+            $tarifPerJam  = $reservasi->slotParkir->areaParkir->tarif_per_jam ?? 0;
+            $totalDibayar = $reservasi->total_bayar;
+            $totalAktual  = $durasiAktual * $tarifPerJam;
+            $kekurangan   = max(0, $totalAktual - $totalDibayar);
 
             $reservasi->update([
-                'status'           => 'selesai',
+                'status'            => 'selesai',
                 'jam_keluar_aktual' => $jamKeluar,
                 'kekurangan_bayar'  => $kekurangan,
             ]);

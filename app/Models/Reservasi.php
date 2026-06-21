@@ -17,8 +17,11 @@ class Reservasi extends Model
         'slot_parkir_id',
         'tanggal_masuk',
         'jam_masuk',
+        'jam_masuk_aktual',
+        'jam_keluar_aktual',
         'durasi_jam',
         'total_bayar',
+        'kekurangan_bayar',
         'status'
     ];
 

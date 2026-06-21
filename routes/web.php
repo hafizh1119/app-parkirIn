@@ -18,7 +18,8 @@ use App\Http\Controllers\Admin\AreaParkirController;
 use App\Http\Controllers\Admin\SlotParkirController;
 use App\Http\Controllers\Admin\PembayaranController as AdminPembayaranController;
 use App\Http\Controllers\Admin\ScanController;
-
+use App\Http\Controllers\Admin\HistoryController;
+use App\Http\Controllers\Admin\KelolaUserController;
 
 Route::get('/', [HomeController::class, 'index'])->name('dashboard');
 
@@ -40,6 +41,7 @@ Route::middleware(['auth', 'role:customer'])->prefix('customer')->group(function
     Route::get('/denah', [CustomerLokasiParkirController::class, 'denah'])->name('customer.denah');
     Route::get('/reservasi/{id}', [ReservasiController::class, 'show'])->name('customer.reservasi');
     Route::post('/reservasi', [ReservasiController::class, 'store'])->name('customer.reservasi.store');
+    Route::get('/reservasi/{reservasi}/download-ticket', [ReservasiController::class, 'downloadTicket'])->name('reservasi.download-ticket');
     Route::get('/pembayaran/{id}', [CustomerPembayaranController::class, 'show'])->name('customer.pembayaran');
     Route::post('/pembayaran', [CustomerPembayaranController::class, 'store'])->name('customer.pembayaran.store');
     Route::get('/qr-muncul/{id}', [ReservasiController::class, 'tiket'])->name('customer.qr-muncul');
@@ -49,6 +51,7 @@ Route::middleware(['auth', 'role:customer'])->prefix('customer')->group(function
 });
 
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+    //Scan
     Route::get('/scan', [ScanController::class, 'index'])->name('scan.index');
     Route::post('/scan', [ScanController::class, 'scan'])->name('scan.process');
 
@@ -72,12 +75,20 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::put('/slot-parkir/{area}/{slot}',    [SlotParkirController::class, 'update'])->name('slot-parkir.update');
     Route::delete('/slot-parkir/{area}/{slot}', [SlotParkirController::class, 'destroy'])->name('slot-parkir.destroy');
 
+    //pembayaran
     Route::get('/pembayaran', [AdminPembayaranController::class, 'index'])->name('pembayaran.index');
     Route::post('/pembayaran/{id}/verifikasi', [AdminPembayaranController::class, 'verifikasi'])->name('pembayaran.verifikasi');
     Route::post('/pembayaran/{id}/tolak', [AdminPembayaranController::class, 'tolak'])->name('pembayaran.tolak');
 
-    //Scan
-
-    //Pembayaran
+    //history
+    Route::get('/history',[HistoryController::class, 'index'])->name('history.index');
     
+    //kelola user
+    Route::get('/kelola-user',[KelolaUserController::class, 'index'])->name('kelola-user.index');
+    Route::get('/kelola-user/{user}',[KelolaUserController::class, 'show'])->name('kelola-user.show');
+    Route::get('/kelola-user/{user}/edit',[KelolaUserController::class, 'edit'])->name('kelola-user.edit');
+    Route::put('/kelola-user/{user}',[KelolaUserController::class, 'update'])->name('kelola-user.update');
+    Route::get('/kelola-user/{user}/reset-password',[KelolaUserController::class, 'resetPasswordForm'])->name('kelola-user.reset-password');
+    Route::put('/kelola-user/{user}/reset-password',[KelolaUserController::class, 'resetPassword'])->name('kelola-user.reset-password.update');
+    Route::put('/kelola-user/{user}/toggle-status',[KelolaUserController::class, 'toggleStatus'])->name('kelola-user.toggle-status');
 });
