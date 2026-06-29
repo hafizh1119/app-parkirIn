@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
             LokasiParkirSeeder::class,
             SlotParkirSeeder::class,
             KendaraanSeeder::class,
+            AreaParkirSeeder::class,
         ]);
     }
 }

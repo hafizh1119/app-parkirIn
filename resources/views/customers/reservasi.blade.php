@@ -27,7 +27,7 @@
                         <div class="mb-4">
 
                             <img
-                                src="{{ asset('assets/img/lokasi/' . $lokasi->gambar) }}"
+                                src="{{ asset($lokasi->gambar) }}"
                                 class="img-fluid rounded-4 w-100"
                                 style="height:220px;object-fit:cover;"
                                 alt="{{ $lokasi->nama }}">
@@ -67,7 +67,7 @@
                                 </small>
 
                                 <h6 class="mb-0 fw-semibold">
-                                    {{ ucfirst($slot->jenis_kendaraan) }}
+                                    {{ ucfirst($slot->areaParkir->jenis_kendaraan) }}
                                 </h6>
 
                             </div>
@@ -79,7 +79,7 @@
                                 </small>
 
                                 <h6 class="mb-0 fw-semibold">
-                                    Area {{ $slot->area }}
+                                   {{ $slot->areaParkir->nama_area }}
                                 </h6>
 
                             </div>
@@ -128,7 +128,6 @@
 
                 </div>
 
-                </div>
 
                 <!-- Detail Kendaraan -->
                 <div class="card border-0 shadow-sm mb-4">
@@ -216,13 +215,31 @@
                             Membership ParkirIn
                         </h5>
 
-                        <ul class="mb-0">
-
-                            <li>Prioritas Reservasi</li>
-                            <li>Diskon Tarif Parkir</li>
-                            <li>Akses Area Premium</li>
-                            <li>Berlaku di Semua Mitra ParkirIn</li>
-
+                        <ul class="list-unstyled mb-0">
+                            <li class="d-flex align-items-center gap-2 mb-2">
+                                <span class="badge bg-label-primary rounded-pill p-1">
+                                    <i class="mdi mdi-check mdi-18px"></i>
+                                </span>
+                                Prioritas Reservasi
+                            </li>
+                            <li class="d-flex align-items-center gap-2 mb-2">
+                                <span class="badge bg-label-success rounded-pill p-1">
+                                    <i class="mdi mdi-check mdi-18px"></i>
+                                </span>
+                                Diskon Tarif Parkir
+                            </li>
+                            <li class="d-flex align-items-center gap-2 mb-2">
+                                <span class="badge bg-label-warning rounded-pill p-1">
+                                    <i class="mdi mdi-check mdi-18px"></i>
+                                </span>
+                                Akses Area Premium
+                            </li>
+                            <li class="d-flex align-items-center gap-2">
+                                <span class="badge bg-label-info rounded-pill p-1">
+                                    <i class="mdi mdi-check mdi-18px"></i>
+                                </span>
+                                Berlaku di Semua Mitra ParkirIn
+                            </li>
                         </ul>
 
                     </div>
@@ -231,7 +248,7 @@
 
                 <!-- KANAN -->
                 @php
-                    $biayaParkir = $slot->tarif_per_jam * $durasi;
+                    $biayaParkir = $slot->areaParkir->tarif_per_jam * $durasi;
                     $biayaAdmin = 1000;
                     $totalBayar = $biayaParkir + $biayaAdmin;
                 @endphp
@@ -294,20 +311,29 @@
                                 <input type="hidden" name="durasi_jam" value="{{ $durasi }}">
                                 <input type="hidden" name="total_bayar" value="{{ $totalBayar }}">
 
+                                <div class="alert alert-info border-0 mb-4">
+                                    <div class="d-flex align-items-start">
+                                        <i class="mdi mdi-information-outline mdi-24px me-2"></i>
+                                        <div>
+                                            <strong>Pembayaran melalui Midtrans</strong>
+                                            <br>
+                                            Setelah menekan tombol <b>Lanjutkan Pembayaran</b>,
+                                            Anda akan diarahkan ke halaman pembayaran Midtrans untuk memilih metode pembayaran seperti QRIS, Virtual Account, GoPay, ShopeePay, dan lainnya.
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <button type="submit" class="btn btn-primary w-100 mb-2">
-
                                     Lanjutkan Pembayaran
-
                                 </button>
 
                             </form>
 
                             <a href="{{ route('customer.denah') }}"
                             class="btn btn-outline-secondary w-100">
-
                                 Batal
-
                             </a>
+
 
                         </div>
 
@@ -324,5 +350,37 @@
     </div>
 
 </section>
+
+@push('styles')
+<style>
+    .payment-card{
+    transition:.25s;
+    cursor:pointer;
+    background:#fff;
+    border:2px solid #e6e6e6 !important;
+}
+
+.payment-card:hover{
+    border-color:#7367F0 !important;
+}
+
+.payment-radio:checked + .payment-card{
+    background:#F1EEFF;
+    border-color:#7367F0 !important;
+    box-shadow:0 4px 15px rgba(115,103,240,.15);
+}
+</style>
+
+<script>
+    document.querySelectorAll('.payment-radio').forEach(function(radio) {
+        radio.addEventListener('change', function() {
+            document.querySelectorAll('.payment-radio').forEach(function(r) {
+                r.nextElementSibling.style.borderColor = '';
+                r.nextElementSibling.style.backgroundColor = '';
+            });
+        });
+    });
+</script>
+@endpush
 
 @endsection

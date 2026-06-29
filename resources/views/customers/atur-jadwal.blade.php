@@ -53,7 +53,7 @@
                                 <div class="d-flex align-items-center gap-3">
 
                                     <img
-                                        src="{{ asset('assets/img/lokasi/' . $lokasi->gambar) }}"
+                                        src="{{ asset($lokasi->gambar) }}"
                                         alt="{{ $lokasi->nama }}"
                                         class="rounded-3"
                                         style="width:80px;height:80px;object-fit:cover;">

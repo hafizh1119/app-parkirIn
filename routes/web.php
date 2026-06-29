@@ -1,16 +1,17 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\Customer\LokasiParkirController as CustomerLokasiController;
-use App\Http\Controllers\Customer\ReservasiController;
-use App\Http\Controllers\Customer\PembayaranController;
-use App\Http\Controllers\Customer\RiwayatController;
+use App\Http\Controllers\HomeController;
 
-<<<<<<< Updated upstream
-use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\LokasiParkirController;
-=======
+// Customer
+use App\Http\Controllers\Customer\LokasiParkirController as CustomerLokasiParkirController;
+use App\Http\Controllers\Customer\ReservasiController;
+use App\Http\Controllers\Customer\PembayaranController as CustomerPembayaranController;
+use App\Http\Controllers\Customer\RiwayatController;
+use App\Http\Controllers\Customer\DokuController;
+
 // Admin
 use App\Http\Controllers\Admin\LokasiParkirController as AdminLokasiParkirController;
 use App\Http\Controllers\Admin\AreaParkirController;
@@ -21,9 +22,8 @@ use App\Http\Controllers\Admin\HistoryController;
 use App\Http\Controllers\Admin\KelolaUserController;
 use App\Http\Controllers\Admin\EventController;
 use App\Http\Controllers\Admin\MembershipController;
->>>>>>> Stashed changes
 
-Route::view('/', 'dashboard')->name('dashboard');
+Route::get('/', [HomeController::class, 'index'])->name('dashboard');
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', [LoginController::class, 'index'])->name('login');
@@ -35,62 +35,56 @@ Route::middleware('guest')->group(function () {
 Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth')->name('logout');
 
 Route::prefix('customer')->group(function () {
-
-    Route::get('/cari-parkir', [LokasiParkirController::class, 'index'])->name('customer.cari-parkir');
-    Route::get('/atur-jadwal/{id}', [LokasiParkirController::class, 'aturJadwal'])->name('customer.atur-jadwal');
-
+    Route::get('/cari-parkir', [CustomerLokasiParkirController::class, 'index'])->name('customer.cari-parkir');
+    Route::get('/atur-jadwal/{id}', [CustomerLokasiParkirController::class, 'aturJadwal'])->name('customer.atur-jadwal');
 });
 
 Route::middleware(['auth', 'role:customer'])->prefix('customer')->group(function () {
-
-    Route::get('/denah', [LokasiParkirController::class, 'denah'])->name('customer.denah');
+    Route::get('/denah', [CustomerLokasiParkirController::class, 'denah'])->name('customer.denah');
     Route::get('/reservasi/{id}', [ReservasiController::class, 'show'])->name('customer.reservasi');
     Route::post('/reservasi', [ReservasiController::class, 'store'])->name('customer.reservasi.store');
-    Route::get('/pembayaran/{id}', [PembayaranController::class, 'show'])->name('customer.pembayaran');
-    Route::post('/pembayaran', [PembayaranController::class, 'store'])->name('customer.pembayaran.store');
+    Route::get('/reservasi/{reservasi}/download-ticket', [ReservasiController::class, 'downloadTicket'])->name('reservasi.download-ticket');
+    Route::get('/pembayaran/{id}', [CustomerPembayaranController::class, 'show'])->name('customer.pembayaran');
+    Route::post('/pembayaran', [CustomerPembayaranController::class, 'store'])->name('customer.pembayaran.store');
     Route::get('/qr-muncul/{id}', [ReservasiController::class, 'tiket'])->name('customer.qr-muncul');
     Route::get('/riwayat', [RiwayatController::class, 'index'])->name('customer.riwayat');
     Route::view('/profil', 'customers.profil')->name('customer.profil');
-
+    Route::get('/reservasi/{reservasi}/bayar',[DokuController::class, 'createPayment'])->name('doku.pay');
 });
 
-<<<<<<< Updated upstream
-=======
-Route::prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
     //Scan
     Route::get('/scan', [ScanController::class, 'index'])->name('scan.index');
     Route::post('/scan', [ScanController::class, 'scan'])->name('scan.process');
->>>>>>> Stashed changes
 
-
-// ==================== ADMIN ROUTES ====================
-Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->group(function () {
-
-    
-<<<<<<< Updated upstream
     // Dashboard
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
-    
-    // ========== LOKASI PARKIR ==========
-    Route::resource('lokasi-parkir', LokasiParkirController::class);
-    
+    Route::view('/dashboard', 'Admin.dashboard.index')->name('dashboard');
+
+    // Lokasi Parkir
+    Route::resource('lokasi-parkir', AdminLokasiParkirController::class);
+
+    // Slot Area
+    Route::get('/slot-area/{lokasi}',             [AreaParkirController::class, 'index'])->name('slot-area.index');
+    Route::get('/slot-area/{lokasi}/create',      [AreaParkirController::class, 'create'])->name('slot-area.create');
+    Route::post('/slot-area/{lokasi}',            [AreaParkirController::class, 'store'])->name('slot-area.store');
+    Route::get('/slot-area/{lokasi}/{area}/edit', [AreaParkirController::class, 'edit'])->name('slot-area.edit');
+    Route::put('/slot-area/{lokasi}/{area}',      [AreaParkirController::class, 'update'])->name('slot-area.update');
+    Route::delete('/slot-area/{lokasi}/{area}',   [AreaParkirController::class, 'destroy'])->name('slot-area.destroy');
+
     // Slot Parkir
-    Route::get('lokasi-parkir/{id}/kelola-slot', [LokasiParkirController::class, 'kelolaSlot'])->name('lokasi-parkir.kelola-slot');
-    Route::post('lokasi-parkir/{id}/slot', [LokasiParkirController::class, 'storeSlot'])->name('lokasi-parkir.store-slot');
-    Route::delete('lokasi-parkir/{id}/slot/{slotId}', [LokasiParkirController::class, 'destroySlot'])->name('lokasi-parkir.destroy-slot');
-    Route::put('lokasi-parkir/{id}/slot/{slotId}/status', [LokasiParkirController::class, 'updateSlotStatus'])->name('lokasi-parkir.update-slot-status');
+    Route::get('/slot-parkir/{area}',           [SlotParkirController::class, 'index'])->name('slot-parkir.index');
+    Route::post('/slot-parkir/{area}',          [SlotParkirController::class, 'store'])->name('slot-parkir.store');
+    Route::put('/slot-parkir/{area}/{slot}',    [SlotParkirController::class, 'update'])->name('slot-parkir.update');
+    Route::delete('/slot-parkir/{area}/{slot}', [SlotParkirController::class, 'destroy'])->name('slot-parkir.destroy');
+
+    //pembayaran
+    Route::get('/pembayaran', [AdminPembayaranController::class, 'index'])->name('pembayaran.index');
+    Route::post('/pembayaran/{id}/verifikasi', [AdminPembayaranController::class, 'verifikasi'])->name('pembayaran.verifikasi');
+    Route::post('/pembayaran/{id}/tolak', [AdminPembayaranController::class, 'tolak'])->name('pembayaran.tolak');
+
+    //history
+    Route::get('/history',[HistoryController::class, 'index'])->name('history.index');
     
-    // BULK CREATE SLOT
-    Route::post('lokasi-parkir/{id}/slot/bulk', [LokasiParkirController::class, 'bulkStoreSlot'])->name('lokasi-parkir.bulk-store-slot');
-    
-    // TOGGLE STATUS SLOT (TAMBAHKAN INI!)
-    Route::put('lokasi-parkir/{id}/slot/{slotId}/toggle-status', [LokasiParkirController::class, 'toggleSlotStatus'])->name('lokasi-parkir.toggle-slot-status');
-    
-    // Create Area
-    Route::get('lokasi-parkir/{id}/create-area', [LokasiParkirController::class, 'createArea'])->name('lokasi-parkir.create-area');
-    Route::post('lokasi-parkir/{id}/store-area', [LokasiParkirController::class, 'storeArea'])->name('lokasi-parkir.store-area');
-=======
     //kelola user
     Route::get('/kelola-user',[KelolaUserController::class, 'index'])->name('kelola-user.index');
     Route::get('/kelola-user/{user}',[KelolaUserController::class, 'show'])->name('kelola-user.show');
@@ -99,12 +93,12 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
     Route::get('/kelola-user/{user}/reset-password',[KelolaUserController::class, 'resetPasswordForm'])->name('kelola-user.reset-password');
     Route::put('/kelola-user/{user}/reset-password',[KelolaUserController::class, 'resetPassword'])->name('kelola-user.reset-password.update');
     Route::put('/kelola-user/{user}/toggle-status',[KelolaUserController::class, 'toggleStatus'])->name('kelola-user.toggle-status');
-
-     // Event Management
+  
+   // Event Management
     Route::resource('events', EventController::class);
     Route::post('/events/{event}/toggle-status', [EventController::class, 'toggleStatus'])->name('events.toggle-status');
 
-      /// Membership & Points
+    // Membership & Points
     Route::get('/membership', [MembershipController::class, 'index'])->name('membership.index');
     Route::get('/membership/export', [MembershipController::class, 'export'])->name('membership.export');
     Route::get('/membership/{id}/detail', [MembershipController::class, 'detail'])->name('membership.detail');
@@ -115,6 +109,5 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
     Route::put('/membership/point-settings', [MembershipController::class, 'updatePointSettings'])->name('membership.point-settings');
     Route::post('/membership/tier', [MembershipController::class, 'addTier'])->name('membership.add-tier');
     Route::delete('/membership/tier/{id}', [MembershipController::class, 'deleteTier'])->name('membership.delete-tier');
->>>>>>> Stashed changes
 
 });
