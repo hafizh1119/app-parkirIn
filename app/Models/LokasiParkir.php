@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class LokasiParkir extends Model
 {
+    use HasFactory;
+
     protected $table = 'lokasi_parkir';
 
     protected $fillable = [
@@ -16,18 +19,23 @@ class LokasiParkir extends Model
         'deskripsi'
     ];
 
-    public function lokasiParkir()
+    public function events()
     {
-        return $this->belongsTo(LokasiParkir::class);
-    }
-
-    public function reservasi()
-    {
-        return $this->hasMany(Reservasi::class);
+        return $this->belongsToMany(Event::class, 'event_lokasi_parkir');
     }
 
     public function areaParkir()
     {
-        return $this->hasMany(AreaParkir::class);
+        return $this->hasMany(AreaParkir::class, 'lokasi_parkir_id'); 
+    }
+
+    public function reservasi()
+    {
+        return $this->hasMany(Reservasi::class, 'lokasi_parkir_id'); 
+    }
+
+    public function getNamaLengkapAttribute()
+    {
+        return $this->nama . ' - ' . $this->alamat;
     }
 }
