@@ -6,140 +6,79 @@
 
     <div class="container">
 
-        <!-- Header -->
-        <div class="mb-4">
-        </div>
+        <div class="row g-4 justify-content-center">
 
-        <div class="row g-4">
+            <!-- Card 1: Informasi Pembayaran -->
+            <div class="col-lg-5">
 
-            <!-- Detail Pembayaran -->
-            <div class="col-lg-7">
-
-                <div class="card border-0 shadow-sm">
+                <div class="card border-0 shadow-sm mb-4">
 
                     <div class="card-body p-4">
 
                         <h4 class="fw-bold mb-4">
-                            Detail Pembayaran
+                            Pembayaran
                         </h4>
 
-                        <div class="bg-label-primary rounded-3 p-4 text-center mb-4">
+                        @if($statusPembayaran == 'belum_bayar')
 
+                            <div class="alert alert-warning rounded-3">
+                                <div class="fw-semibold mb-1">
+                                    🟡 Menunggu Pembayaran
+                                </div>
+                                Silakan selesaikan pembayaran melalui Midtrans.
+                            </div>
+
+                        @elseif($statusPembayaran == 'dibayar')
+
+                            <div class="alert alert-success rounded-3">
+                                <div class="fw-semibold mb-1">
+                                    🟢 Pembayaran Berhasil
+                                </div>
+                                Tiket parkir sudah dapat digunakan.
+                            </div>
+
+                        @endif
+
+                        <div class="bg-label-primary rounded-3 p-4 text-center mb-4">
                             <small class="text-body-secondary d-block">
                                 Total Pembayaran
                             </small>
-
                             <h2 class="fw-bold text-primary mb-0">
                                 Rp {{ number_format($reservasi->total_bayar, 0, ',', '.') }}
                             </h2>
-
                         </div>
 
-                        <div class="row g-3">
+                        <div class="list-group list-group-flush">
 
-                            <div class="col-md-6">
-
-                                <div class="border rounded-3 p-3 d-flex align-items-center">
-
-                                    <div class="rounded-3 bg-label-primary p-3 me-3">
-
-                                        <i class="mdi mdi-bank text-primary fs-2"></i>
-
-                                    </div>
-
-                                    <div>
-
-                                        <small class="text-body-secondary">
-                                            Bank Tujuan
-                                        </small>
-
-                                        <h6 class="fw-bold mb-0 mt-1">
-                                            Bank BCA
-                                        </h6>
-
-                                    </div>
-
-                                </div>
-
+                            <div class="list-group-item d-flex justify-content-between px-0">
+                                <span class="text-body-secondary">Kode Reservasi</span>
+                                <strong>{{ $reservasi->kode_reservasi }}</strong>
                             </div>
 
-                            <div class="col-md-6">
-
-                                <div class="border rounded-3 p-3 d-flex align-items-center">
-
-                                    <div class="rounded-3 bg-label-info p-3 me-3">
-
-                                        <i class="mdi mdi-credit-card-outline text-info fs-2"></i>
-
-                                    </div>
-
-                                    <div>
-
-                                        <small class="text-body-secondary">
-                                            Nomor Rekening
-                                        </small>
-
-                                        <div class="d-flex align-items-center justify-content-between mt-1">
-
-                                            <h6
-                                                class="fw-bold mb-0"
-                                                id="nomorRekening">
-
-                                                1234567890
-
-                                            </h6>
-
-                                            <button
-                                                type="button"
-                                                id="btnCopy"
-                                                class="btn btn-sm btn-icon btn-text-secondary"
-                                                onclick="copyRekening()">
-
-                                                <i class="mdi mdi-content-copy"></i>
-
-                                            </button>
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
+                            <div class="list-group-item d-flex justify-content-between px-0">
+                                <span class="text-body-secondary">Lokasi</span>
+                                <strong>{{ $reservasi->lokasiParkir->nama }}</strong>
                             </div>
 
-                            <div class="col-12">
-
-                                <div class="border rounded-3 p-3 d-flex align-items-center">
-
-                                    <div class="rounded-3 bg-label-success p-3 me-3">
-
-                                        <i class="mdi mdi-account-outline text-success fs-2"></i>
-
-                                    </div>
-
-                                    <div>
-
-                                        <small class="text-body-secondary">
-                                            Atas Nama
-                                        </small>
-
-                                        <h6 class="fw-bold mb-0 mt-1">
-                                            ParkirIn
-                                        </h6>
-
-                                    </div>
-
-                                </div>
-
+                            <div class="list-group-item d-flex justify-content-between px-0">
+                                <span class="text-body-secondary">Slot</span>
+                                <strong>{{ $reservasi->slotParkir->kode_slot }}</strong>
                             </div>
 
-                        </div>
-                        <div class="alert alert-warning mt-4 mb-0">
+                            <div class="list-group-item d-flex justify-content-between px-0">
+                                <span class="text-body-secondary">Tanggal</span>
+                                <strong>{{ \Carbon\Carbon::parse($reservasi->tanggal_masuk)->format('d M Y') }}</strong>
+                            </div>
 
-                            <strong>Penting!</strong><br>
+                            <div class="list-group-item d-flex justify-content-between px-0">
+                                <span class="text-body-secondary">Jam Masuk</span>
+                                <strong>{{ substr($reservasi->jam_masuk, 0, 5) }} WIB</strong>
+                            </div>
 
-                            Pastikan nominal transfer sesuai dengan total
-                            pembayaran agar proses verifikasi lebih cepat.
+                            <div class="list-group-item d-flex justify-content-between px-0">
+                                <span class="text-body-secondary">Durasi</span>
+                                <strong>{{ $reservasi->durasi_jam }} Jam</strong>
+                            </div>
 
                         </div>
 
@@ -149,25 +88,32 @@
 
             </div>
 
-            <!-- Upload Bukti -->
-            <div class="col-lg-5">
+            <!-- Card 2: Aksi Pembayaran -->
+            <div class="col-lg-4">
 
                 <div class="card border-0 shadow-sm">
 
                     <div class="card-body p-4">
 
-                        <h4 class="fw-bold mb-4">
-                            Upload Bukti Pembayaran
-                        </h4>
+                        <h5 class="fw-bold mb-2">
+                            Aksi Pembayaran
+                        </h5>
 
-                        <div class="mb-4">
+                        <p class="text-muted mb-4">
+                            Pembayaran dilakukan melalui Midtrans.
+                            Klik tombol di bawah untuk memilih metode pembayaran.
+                        </p>
 
-                            @if($statusPembayaran == 'belum_bayar')
+                        @if($statusPembayaran == 'belum_bayar')
 
-                                <span class="badge bg-label-danger">
-                                    🔴 Belum Bayar
-                                </span>
+                            <button
+                                type="button"
+                                onclick="bayarSekarang()"
+                                class="btn btn-primary w-100 mb-3">
+                                Bayar Sekarang
+                            </button>
 
+<<<<<<< Updated upstream
                             @elseif($statusPembayaran == 'menunggu_verifikasi')
 
                                 <span class="badge bg-label-warning">
@@ -277,16 +223,19 @@
                         @if($statusPembayaran == 'dibayar')
 
                         <div class="text-center">
+=======
+                        @endif
 
-                            <a
-                                href="{{ route('customer.qr-muncul', $reservasi->id) }}"
-                                class="btn btn-success px-5">
+                        @if($statusPembayaran == 'dibayar')
 
-                                Lihat Tiket Saya
+                        <a
+                            href="{{ route('customer.qr-muncul', $reservasi->id) }}"
+                            class="btn btn-success w-100 d-block mt-3">
+>>>>>>> Stashed changes
 
-                            </a>
+                            Lihat Tiket Parkir
 
-                        </div>
+                        </a>
 
                         @endif
 
@@ -295,6 +244,7 @@
                 </div>
 
             </div>
+
         </div>
 
     </div>
@@ -302,100 +252,82 @@
 </section>
 
 @push('scripts')
-<script>
-document
-    .getElementById('buktiPembayaran')
-    .addEventListener('change', function() {
 
-        if (!this.files.length) return;
-
-        const file = this.files[0];
-
-        const lihatFile =
-            document.getElementById('namaFile');
-
-        lihatFile.href =
-            URL.createObjectURL(file);
-
-        lihatFile.classList.remove('d-none');
-
-        const sekarang = new Date();
-
-        document
-            .getElementById('tanggalUpload')
-            .textContent =
-            sekarang.toLocaleDateString('id-ID', {
-                day: 'numeric',
-                month: 'long',
-                year: 'numeric'
-            }) +
-            ' • ' +
-            sekarang.toLocaleTimeString('id-ID', {
-                hour: '2-digit',
-                minute: '2-digit'
-            }) +
-            ' WIB';
-
-        document
-            .getElementById('uploadResult')
-            .classList.remove('d-none');
-
-    });
+<script
+    src="https://app.sandbox.midtrans.com/snap/snap.js"
+    data-client-key="{{ config('midtrans.client_key') }}">
 </script>
 
 <script>
 
-function copyRekening() {
+function bayarSekarang() {
 
-    const rekening =
-        document.getElementById('nomorRekening')
-            .textContent.trim();
+    snap.pay('{{ $pembayaran->snap_token }}', {
 
-    const btn =
-        document.getElementById('btnCopy');
+        onSuccess: function(result) {
 
-    navigator.clipboard.writeText(rekening);
+            fetch("{{ route('customer.finish',$reservasi->id) }}",{
 
-    btn.innerHTML =
-        '<i class="mdi mdi-check text-success"></i>';
+                method:'POST',
 
-    btn.classList.add('text-success');
+                headers:{
+                    'X-CSRF-TOKEN':'{{ csrf_token() }}',
+                    'Accept':'application/json'
+                }
 
-    setTimeout(() => {
+            })
 
-        btn.innerHTML =
-            '<i class="mdi mdi-content-copy"></i>';
+            .then(res => res.json())
 
-        btn.classList.remove('text-success');
+            .then(data => {
 
-    }, 2000);
+                console.log(data);
+
+                if(data.success){
+
+                    location.reload();
+
+                }else{
+
+                    alert(data.message ?? "Status pembayaran belum settlement.");
+
+                }
+
+            })
+
+            .catch(err=>{
+
+                console.log(err);
+
+                alert("Finish Error");
+
+            });
+
+        },
+
+        onPending:function(result){
+
+            window.location.reload();
+
+        },
+
+        onError:function(result){
+
+            alert('Pembayaran gagal');
+
+        },
+
+        onClose:function(){
+
+            console.log('Popup ditutup');
+
+        }
+
+    });
 
 }
 
 </script>
-@endpush
-
-@push('styles')
-    <style>
-
-    .lihat-file{
-        transition: .3s;
-    }
-
-    .lihat-file:hover{
-        color: #7367f0 !important;
-        text-decoration: underline !important;
-    }
-
-    .lihat-file{
-        transition: .2s;
-    }
-
-    .lihat-file:hover{
-        opacity: .8;
-        text-decoration: underline !important;
-    }
-    </style>
 
 @endpush
 

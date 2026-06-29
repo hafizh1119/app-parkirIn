@@ -111,7 +111,7 @@
 
                     @forelse($slots as $slot)
 
-                        @if($slot->status == 'tersedia')
+                        @if($slot->status_tampil == 'tersedia')
                             <div class="h-24 rounded-xl border-2 border-green-500 bg-green-50 flex flex-col items-center justify-center hover:bg-green-100 transition cursor-pointer">
                                 <span class="font-bold text-xl">{{ $slot->kode_slot }}</span>
                                 <span class="text-sm text-green-600 font-medium">TERSEDIA</span>
@@ -164,14 +164,18 @@
                             <td class="p-4 font-semibold">{{ $slot->kode_slot }}</td>
 
                             <td class="p-4">
-                                @if($slot->status == 'tersedia')
+                                @if($slot->status_tampil == 'tersedia')
                                     <span class="bg-green-100 text-green-700 px-2 py-1 rounded-full text-xs">TERSEDIA</span>
                                 @else
                                     <span class="bg-red-100 text-red-700 px-2 py-1 rounded-full text-xs">TERISI</span>
                                 @endif
                             </td>
 
-                            @php $reservasiAktif = $slot->reservasi->first(); @endphp
+                            @php
+                            $reservasiAktif = $slot->reservasi
+                                ->whereIn('status', ['dibayar', 'checkin'])
+                                ->first();
+                            @endphp
 
                             <td class="p-4">
                                 @if($reservasiAktif)
