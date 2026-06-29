@@ -12,11 +12,42 @@ class PembayaranController extends Controller
 {
     public function index()
     {
-        $pembayaran = Pembayaran::latest()->get();
+        $pembayaran = Pembayaran::with([
+            'reservasi.user',
+            'reservasi.lokasiParkir',
+            'reservasi.slotParkir',
+            'reservasi.kendaraan'
+        ])->latest()->get();
+
+        $totalPendapatan = Pembayaran::where('status', 'dibayar')
+            ->with('reservasi')
+            ->get()
+            ->sum(fn ($item) => $item->reservasi->total_bayar ?? 0);
+
+        $parkirMobil = Pembayaran::where('status', 'dibayar')
+            ->whereHas('reservasi.kendaraan', function ($q) {
+                $q->where('jenis_kendaraan', 'Mobil');
+            })
+            ->count();
+
+        $parkirMotor = Pembayaran::where('status', 'dibayar')
+            ->whereHas('reservasi.kendaraan', function ($q) {
+                $q->where('jenis_kendaraan', 'Motor');
+            })
+            ->count();
+
+        $totalTransaksi = Pembayaran::where('status', 'dibayar')
+            ->count();
 
         return view(
-            'admin.kelola-pembayaran',
-            compact('pembayaran')
+            'Admin.pembayaran.index',
+            compact(
+                'pembayaran',
+                'totalPendapatan',
+                'parkirMobil',
+                'parkirMotor',
+                'totalTransaksi'
+            )
         );
     }
 
@@ -42,6 +73,14 @@ class PembayaranController extends Controller
             ->update([
                 'status' => 'terisi'
             ]);
+
+        return back();
+    }
+
+    public function tolak($id)
+    {
+        $pembayaran = Pembayaran::findOrFail($id);
+        $pembayaran->update(['status' => 'ditolak']);
 
         return back();
     }

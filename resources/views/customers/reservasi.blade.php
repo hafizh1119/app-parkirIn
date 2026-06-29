@@ -27,7 +27,7 @@
                         <div class="mb-4">
 
                             <img
-                                src="{{ asset('assets/img/lokasi/' . $lokasi->gambar) }}"
+                                src="{{ asset($lokasi->gambar) }}"
                                 class="img-fluid rounded-4 w-100"
                                 style="height:220px;object-fit:cover;"
                                 alt="{{ $lokasi->nama }}">
@@ -67,7 +67,7 @@
                                 </small>
 
                                 <h6 class="mb-0 fw-semibold">
-                                    {{ ucfirst($slot->jenis_kendaraan) }}
+                                    {{ ucfirst($slot->areaParkir->jenis_kendaraan) }}
                                 </h6>
 
                             </div>
@@ -79,7 +79,7 @@
                                 </small>
 
                                 <h6 class="mb-0 fw-semibold">
-                                    Area {{ $slot->area }}
+                                   {{ $slot->areaParkir->nama_area }}
                                 </h6>
 
                             </div>
@@ -215,13 +215,31 @@
                             Membership ParkirIn
                         </h5>
 
-                        <ul class="mb-0">
-
-                            <li>Prioritas Reservasi</li>
-                            <li>Diskon Tarif Parkir</li>
-                            <li>Akses Area Premium</li>
-                            <li>Berlaku di Semua Mitra ParkirIn</li>
-
+                        <ul class="list-unstyled mb-0">
+                            <li class="d-flex align-items-center gap-2 mb-2">
+                                <span class="badge bg-label-primary rounded-pill p-1">
+                                    <i class="mdi mdi-check mdi-18px"></i>
+                                </span>
+                                Prioritas Reservasi
+                            </li>
+                            <li class="d-flex align-items-center gap-2 mb-2">
+                                <span class="badge bg-label-success rounded-pill p-1">
+                                    <i class="mdi mdi-check mdi-18px"></i>
+                                </span>
+                                Diskon Tarif Parkir
+                            </li>
+                            <li class="d-flex align-items-center gap-2 mb-2">
+                                <span class="badge bg-label-warning rounded-pill p-1">
+                                    <i class="mdi mdi-check mdi-18px"></i>
+                                </span>
+                                Akses Area Premium
+                            </li>
+                            <li class="d-flex align-items-center gap-2">
+                                <span class="badge bg-label-info rounded-pill p-1">
+                                    <i class="mdi mdi-check mdi-18px"></i>
+                                </span>
+                                Berlaku di Semua Mitra ParkirIn
+                            </li>
                         </ul>
 
                     </div>
@@ -230,7 +248,7 @@
 
                 <!-- KANAN -->
                 @php
-                    $biayaParkir = $slot->tarif_per_jam * $durasi;
+                    $biayaParkir = $slot->areaParkir->tarif_per_jam * $durasi;
                     $biayaAdmin = 1000;
                     $totalBayar = $biayaParkir + $biayaAdmin;
                 @endphp

@@ -8,55 +8,29 @@ use App\Models\SlotParkir;
 use App\Models\Kendaraan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-<<<<<<< Updated upstream
-use SimpleSoftwareIO\QrCode\Facades\QrCode;
-=======
-use App\Models\Pembayaran;
->>>>>>> Stashed changes
+use Endroid\QrCode\Builder\Builder;
+use Endroid\QrCode\Writer\PngWriter;
 
 class ReservasiController extends Controller
 {
     public function show(Request $request, string $id)
     {
-        $slot = SlotParkir::with('lokasiParkir')
+        $slot = SlotParkir::with('areaParkir.lokasiParkir')
             ->findOrFail($id);
 
-        $lokasi = $slot->lokasiParkir;
-
-        $kendaraan = Kendaraan::where(
-            'user_id',
-            Auth::id()
-        )->first();
-
-        $tanggal = $request->tanggal;
+        $lokasi    = $slot->areaParkir->lokasiParkir;
+        $kendaraan = Kendaraan::where('user_id', Auth::id())->first();
+        $tanggal   = $request->tanggal_parkir;
         $jam_masuk = $request->jam_masuk;
-        $durasi = $request->durasi;
+        $durasi    = $request->durasi_jam;
 
-        return view(
-            'customers.reservasi',
-            compact(
-                'lokasi',
-                'slot',
-                'kendaraan',
-                'tanggal',
-                'jam_masuk',
-                'durasi'
-            )
-        );
+        return view('customers.reservasi', compact('lokasi', 'slot', 'kendaraan', 'tanggal', 'jam_masuk', 'durasi'));
     }
 
     public function store(Request $request)
     {
-<<<<<<< Updated upstream
-        $kendaraan = Kendaraan::where(
-            'user_id',
-            Auth::id()
-        )->first();
-=======
-
+        // Cek apakah slot sudah direservasi pending
         $existing = Reservasi::where('slot_parkir_id', $request->slot_parkir_id)
-            ->whereDate('tanggal_masuk', $request->tanggal_masuk)
-            ->where('jam_masuk', $request->jam_masuk)
             ->whereIn('status', ['pending', 'dibayar'])
             ->exists();
 
@@ -65,7 +39,6 @@ class ReservasiController extends Controller
         }
 
         $kendaraan = Kendaraan::where('user_id', Auth::id())->first();
->>>>>>> Stashed changes
 
         $kodeReservasi =
             'RSV-' .
@@ -86,8 +59,9 @@ class ReservasiController extends Controller
             'status' => 'pending'
         ]);
 
-<<<<<<< Updated upstream
-        $namaQr = $reservasi->kode_reservasi . '.svg';
+        $namaQr = $reservasi->kode_reservasi . '.png';
+
+        $namaQr = $reservasi->kode_reservasi . '.png';
 
         $dataQr = json_encode([
             'kode_reservasi' => $reservasi->kode_reservasi,
@@ -96,24 +70,19 @@ class ReservasiController extends Controller
             'jam' => $reservasi->jam_masuk
         ]);
 
-        $qrCode = QrCode::format('svg')
-            ->size(300)
-            ->generate($dataQr);
+        $result = Builder::create()
+            ->writer(new PngWriter())
+            ->data($dataQr)
+            ->size(500)
+            ->margin(10)
+            ->build();
 
-        file_put_contents(
-            public_path('assets/img/qrcode/' . $namaQr),
-            $qrCode
+        $result->saveToFile(
+            public_path('assets/img/qrcode/' . $namaQr)
         );
         
         $reservasi->update([
             'qr_code' => $namaQr
-=======
-        Pembayaran::create([
-            'reservasi_id' => $reservasi->id,
-            'order_id' => 'ORD-' . $reservasi->kode_reservasi,
-            'gross_amount' => $reservasi->total_bayar,
-            'status' => 'belum_bayar'
->>>>>>> Stashed changes
         ]);
 
         return redirect()->route(
@@ -130,23 +99,11 @@ class ReservasiController extends Controller
             'kendaraan'
         ])->findOrFail($id);
 
-        if ($reservasi->status != 'dibayar') {
-
-            return redirect()
-                ->route('customer.pembayaran', $reservasi->id)
-                ->with(
-                    'error',
-                    'Silakan selesaikan pembayaran terlebih dahulu.'
-                );
-        }
-
         return view(
             'customers.qr-muncul',
             compact('reservasi')
         );
     }
-<<<<<<< Updated upstream
-=======
 
     public function downloadTicket(Reservasi $reservasi)
     {
@@ -177,51 +134,51 @@ class ReservasiController extends Controller
         );
 
       // Judul Detail Reservasi
-        imagestring($canvas, 5, 190, 540, 'DETAIL RESERVASI', $black);
+imagestring($canvas, 5, 190, 540, 'DETAIL RESERVASI', $black);
 
-        // Baris 1
-        imagestring($canvas, 4, 140, 600, 'Lokasi', $black);
-        imagestring($canvas, 4, 350, 600, 'Slot', $black);
+// Baris 1
+imagestring($canvas, 4, 140, 600, 'Lokasi', $black);
+imagestring($canvas, 4, 350, 600, 'Slot', $black);
 
-        imagestring(
-            $canvas,
-            4,
-            140,
-            625,
-            $reservasi->lokasiParkir->nama,
-            $blue
-        );
+imagestring(
+    $canvas,
+    4,
+    140,
+    625,
+    $reservasi->lokasiParkir->nama,
+    $blue
+);
 
-        imagestring(
-            $canvas,
-            4,
-            350,
-            625,
-            $reservasi->slotParkir->kode_slot,
-            $blue
-        );
+imagestring(
+    $canvas,
+    4,
+    350,
+    625,
+    $reservasi->slotParkir->kode_slot,
+    $blue
+);
 
-        // Baris 2
-        imagestring($canvas, 4, 140, 700, 'Tanggal', $black);
-        imagestring($canvas, 4, 350, 700, 'Jam Masuk', $black);
+// Baris 2
+imagestring($canvas, 4, 140, 700, 'Tanggal', $black);
+imagestring($canvas, 4, 350, 700, 'Jam Masuk', $black);
 
-        imagestring(
-            $canvas,
-            4,
-            140,
-            725,
-            date('d M Y', strtotime($reservasi->tanggal_masuk)),
-            $blue
-        );
+imagestring(
+    $canvas,
+    4,
+    140,
+    725,
+    date('d M Y', strtotime($reservasi->tanggal_masuk)),
+    $blue
+);
 
-        imagestring(
-            $canvas,
-            4,
-            350,
-            725,
-            substr($reservasi->jam_masuk, 0, 5) . ' WIB',
-            $blue
-        );
+imagestring(
+    $canvas,
+    4,
+    350,
+    725,
+    substr($reservasi->jam_masuk, 0, 5) . ' WIB',
+    $blue
+);
 
         ob_start();
         imagejpeg($canvas, null, 100);
@@ -237,5 +194,4 @@ class ReservasiController extends Controller
                 'attachment; filename=tiket-' . $reservasi->kode_reservasi . '.jpg'
             );
     }
->>>>>>> Stashed changes
 }

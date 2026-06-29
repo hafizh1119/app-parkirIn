@@ -45,12 +45,13 @@
 
                         </div>
 
-                        <div class="mb-4">
+                        <div class="mb-4 d-flex justify-content-center">
 
                             <img
                                 src="{{ asset('assets/img/qrcode/' . $reservasi->qr_code) }}"
-                                class="img-fluid border rounded-3 p-3 bg-white"
-                                alt="QR Code">
+                                class="border rounded-3 p-3 bg-white"
+                                alt="QR Code"
+                                style="width: 400px; max-width: 100%;">
 
                         </div>
 
@@ -112,8 +113,7 @@
                         <div class="d-grid gap-2">
 
                             <a
-                                href="{{ asset('assets/img/qrcode/' . $reservasi->qr_code) }}"
-                                download="{{ $reservasi->kode_reservasi }}"
+                                href="{{ route('reservasi.download-ticket', $reservasi->id) }}"
                                 class="btn btn-primary">
 
                                 <i class="mdi mdi-download me-1"></i>

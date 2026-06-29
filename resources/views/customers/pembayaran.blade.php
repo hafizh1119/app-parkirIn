@@ -173,24 +173,30 @@
 
                             @if($statusPembayaran == 'menunggu_verifikasi')
 
-                                <div class="d-flex justify-content-between align-items-center">
+                            <div class="d-flex justify-content-between align-items-center">
 
-                                    <small class="text-warning fw-semibold">
+                                <small class="text-warning fw-semibold">
 
-                                        Menunggu Verifikasi Admin
+                                    Menunggu Verifikasi Admin
 
-                                    </small>
+                                </small>
 
-                                    <a
-                                        href="{{ asset('assets/img/bukti-pembayaran/' . $pembayaran->bukti_pembayaran) }}"
-                                        target="_blank"
-                                        class="fw-semibold text-primary text-decoration-none lihat-file">
+                                <a
+                                    href="{{ asset('assets/img/bukti-pembayaran/' . $pembayaran->bukti_pembayaran) }}"
+                                    target="_blank"
+                                    class="fw-semibold text-primary text-decoration-none lihat-file">
 
-                                        Lihat File
+                                    Lihat File
 
-                                    </a>
+                                </a>
 
-                                </div>
+                            </div>
+
+                            <div class="alert alert-warning mt-3 mb-0">
+
+                                Tiket parkir akan tersedia setelah pembayaran diverifikasi oleh admin.
+
+                            </div>
 
                             @elseif($statusPembayaran == 'dibayar')
 
@@ -214,6 +220,8 @@
 
                         </form>
 
+                        @if($statusPembayaran == 'dibayar')
+
                         <div class="text-center">
 =======
                         @endif
@@ -228,6 +236,8 @@
                             Lihat Tiket Parkir
 
                         </a>
+
+                        @endif
 
                     </div>
 

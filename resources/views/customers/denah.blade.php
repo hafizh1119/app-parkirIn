@@ -27,19 +27,13 @@
                                 </label>
 
                                 <select class="form-select" id="selectArea">
-
-                                    <option value="A">
-                                        Area A
-                                    </option>
-
-                                    <option value="B">
-                                        Area B
-                                    </option>
-
-                                    <option value="C">
-                                        Area C
-                                    </option>
-
+                                    @forelse($areas as $area)
+                                        <option value="{{ $area->id }}">
+                                            {{ $area->nama_area }}
+                                        </option>
+                                    @empty
+                                        <option disabled>Tidak ada area tersedia</option>
+                                    @endforelse
                                 </select>
 
                             </div>
@@ -75,20 +69,13 @@
                             @foreach($slotParkir as $slot)
 
                                 <button
-                                    class="slot {{ $slot->status_tampil == 'tersedia' ? 'available' : 'occupied' }}"
+                                    class="slot {{ $slot->status == 'tersedia' ? 'available' : 'occupied' }}"
                                     data-id="{{ $slot->id }}"
                                     data-kode="{{ $slot->kode_slot }}"
-<<<<<<< Updated upstream
-                                    data-area="{{ $slot->area }}"
-                                    data-status="{{ $slot->status }}"
-                                    data-tarif="{{ $slot->tarif_per_jam }}"
-                                    data-kendaraan="{{ $slot->jenis_kendaraan }}">
-=======
                                     data-area="{{ $slot->area_parkir_id }}"
-                                    data-status="{{ $slot->status_tampil }}"
+                                    data-status="{{ $slot->status }}"
                                     data-tarif="{{ $slot->areaParkir->tarif_per_jam }}"
                                     data-kendaraan="{{ $jenis_kendaraan }}">
->>>>>>> Stashed changes
 
                                     {{ $slot->kode_slot }}
 
@@ -446,113 +433,67 @@
 
 @push('scripts')
 <script>
-    const parkingGrid = document.getElementById('parkingGrid');
-
-    const areaSelect = document.getElementById('selectArea');
-
-    let selectedSlot = null;
-
-    function filterArea() {
-
-        const area = areaSelect.value;
-
-        document.querySelectorAll('.slot').forEach(slot => {
-
-            if (slot.dataset.area === area) {
-
-                slot.style.display = '';
-
-            } else {
-
-                slot.style.display = 'none';
-
-            }
-
+    // Filter slot by area
+    function filterSlotByArea(areaId) {
+        document.querySelectorAll('#parkingGrid .slot').forEach(slot => {
+            slot.style.display = slot.dataset.area == areaId ? '' : 'none';
         });
-
     }
 
-    filterArea();
+    const selectArea = document.getElementById('selectArea');
+    if (selectArea) {
+        filterSlotByArea(selectArea.value);
+        selectArea.addEventListener('change', function () {
+            filterSlotByArea(this.value);
+        });
+    }
 
-    areaSelect.addEventListener('change', filterArea);
-    
-    document.querySelectorAll('.slot').forEach(slot => {
-
+    // Klik slot → update detail
+    document.querySelectorAll('#parkingGrid .slot').forEach(slot => {
         slot.addEventListener('click', function () {
+            if (this.classList.contains('occupied')) return;
 
-            document.querySelectorAll('.slot.selected')
-                .forEach(x => x.classList.remove('selected'));
-
-            if (this.classList.contains('occupied')) {
-
-                document.getElementById('detailStatus').textContent = 'Terisi';
-                document.getElementById('detailStatus').className =
-                    'mb-0 fw-semibold text-danger';
-
-                return;
-            }
-
+            document.querySelectorAll('#parkingGrid .slot').forEach(s => s.classList.remove('selected'));
             this.classList.add('selected');
 
-            document.getElementById('detailNamaSlot').textContent =
-                this.dataset.kode;
+            const kodeSlot  = this.dataset.kode;
+            const status    = this.dataset.status;
+            const kendaraan = this.dataset.kendaraan;
+            const tarif     = parseInt(this.dataset.tarif);
+            const slotId    = this.dataset.id;
+            const namaArea  = selectArea.options[selectArea.selectedIndex].text;
 
-            document.getElementById('detailArea').textContent =
-                this.dataset.area;
+            document.getElementById('detailNamaSlot').innerText  = kodeSlot;
+            document.getElementById('detailStatus').innerText     = status === 'tersedia' ? ' Tersedia' : ' Terisi';
+            document.getElementById('detailKendaraan').innerText  = kendaraan.toUpperCase();
+            document.getElementById('detailArea').innerText       = namaArea;
+            document.getElementById('detailTarif').innerText      = 'Rp ' + tarif.toLocaleString('id-ID') + '/Jam';
 
-            document.getElementById('detailKendaraan').textContent =
-                this.dataset.kendaraan;
+            const tanggal  = "{{ $tanggal }}";
+            const jamMasuk = "{{ $jam_masuk }}";
+            const durasi   = "{{ $durasi }}";
+            const lokasiId = "{{ $lokasi->id }}";
 
-            document.getElementById('detailStatus').textContent =
-                this.dataset.status;
-
-            document.getElementById('detailStatus').className =
-                'mb-0 fw-semibold text-success';
-
-            document.getElementById('detailTarif').textContent =
-                'Rp ' + Number(this.dataset.tarif).toLocaleString('id-ID') + '/Jam';
-
+            document.getElementById('btnReservasi').href =
+                `/customer/reservasi/${slotId}?tanggal_parkir=${tanggal}&jam_masuk=${jamMasuk}&durasi_jam=${durasi}&lokasi_parkir_id=${lokasiId}`;
         });
-
     });
+</script>
 
-    let slotDipilih = null;
-
-    document.querySelectorAll('.slot').forEach(slot => {
-
-        slot.addEventListener('click', function () {
-
-            if (!this.classList.contains('occupied')) {
-
-                slotDipilih = this.dataset.id;
-
-                console.log(slotDipilih);
-
-            }
-
+<script>
+    function filterSlotByArea(areaId) {
+        document.querySelectorAll('#parkingGrid .slot').forEach(slot => {
+            slot.style.display = slot.dataset.area == areaId ? '' : 'none';
         });
+    }
 
-    });
-
-    document.getElementById('btnReservasi')
-        .addEventListener('click', function (e) {
-
-            e.preventDefault();
-
-            if (!slotDipilih) {
-
-                alert('Silakan pilih slot parkir terlebih dahulu.');
-                return;
-
-            }
-
-            window.location.href =
-                '/customer/reservasi/' + slotDipilih +
-                '?tanggal={{ $tanggal }}' +
-                '&jam_masuk={{ $jam_masuk }}' +
-                '&durasi={{ $durasi }}';
-
+    const selectArea = document.getElementById('selectArea');
+    if (selectArea) {
+        filterSlotByArea(selectArea.value);
+        selectArea.addEventListener('change', function () {
+            filterSlotByArea(this.value);
         });
+    }
 </script>
 @endpush
 

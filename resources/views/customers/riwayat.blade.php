@@ -14,7 +14,7 @@
 
         {{-- Gambar Lokasi --}}
         <img
-            src="{{ asset('assets/img/lokasi/' . $item->lokasiParkir->gambar) }}"
+            src="{{ asset($item->lokasiParkir->gambar) }}"
             class="card-img-top"
             style="height:180px; object-fit:cover;"
         >
@@ -25,28 +25,36 @@
 
                 <div>
                     <h5 class="fw-bold mb-1">
-                        {{ $item->lokasiParkir->nama_lokasi }}
+                        {{ $item->lokasiParkir->nama }}
                     </h5>
 
                     <small class="text-muted">
-                        {{ $item->kode_reservasi }}
+                        {{ $item->slotParkir->kode_slot }}
                     </small>
                 </div>
 
-                @if($item->status == 'pending')
-                    <span class="badge bg-warning">
-                        Pending
+                    @if($item->status == 'pending')
+                    <span class="status-badge bg-label-warning">
+                        Menunggu Pembayaran
                     </span>
-                @elseif($item->status == 'aktif')
-                    <span class="badge bg-primary">
-                        Aktif
+
+                @elseif($item->status == 'dibayar')
+                    <span class="status-badge bg-label-info">
+                        Dibayar
                     </span>
+
+                @elseif($item->status == 'checkin')
+                    <span class="status-badge bg-label-primary">
+                        Sedang Parkir
+                    </span>
+
                 @elseif($item->status == 'selesai')
-                    <span class="badge bg-success">
+                    <span class="status-badge bg-label-success">
                         Selesai
                     </span>
+
                 @else
-                    <span class="badge bg-danger">
+                    <span class="status-badge bg-label-danger">
                         Batal
                     </span>
                 @endif
@@ -114,18 +122,11 @@
                     Detail
                 </a>
 
-                @if(
-                    $item->status == 'pending' ||
-                    $item->status == 'aktif'
-                )
-
-                <a
-                    href="{{ route('customer.qr-muncul', $item->id) }}"
-                    class="btn btn-primary flex-fill"
-                >
-                    QR Code
-                </a>
-
+                {{-- Tombol QR — sesuaikan kondisi --}}
+                @if($item->status == 'dibayar' || $item->status == 'checkin')
+                    <a href="{{ route('customer.qr-muncul', $item->id) }}" class="btn btn-primary flex-fill">
+                        QR Code
+                    </a>
                 @endif
 
             </div>
@@ -151,4 +152,21 @@
 
 </div>
 
+@push('styles')
+<style>
+.status-badge{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: auto !important;
+    min-width: unset !important;
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1;
+    white-space: nowrap;
+}
+</style>
+@endpush
 @endsection
