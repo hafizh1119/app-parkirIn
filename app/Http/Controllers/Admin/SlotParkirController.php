@@ -11,18 +11,34 @@ class SlotParkirController extends Controller
 {
     public function index(AreaParkir $area)
     {
-        $slots = SlotParkir::with(['reservasi' => function($query) {
-                $query->whereHas('pembayaran')
-                    ->with('kendaraan');
-            }])
-            ->where('area_parkir_id', $area->id)
-            ->get();
+        $slots = SlotParkir::with([
+            'reservasi' => function ($query) {
+                $query->with('kendaraan');
+            }
+        ])
+        ->where('area_parkir_id', $area->id)
+        ->get();
 
         $totalSlot = $slots->count();
-        $slotTerisi = $slots->where('status', 'terisi')->count();
-        $kapasitas = $totalSlot > 0 ? round(($slotTerisi / $totalSlot) * 100) : 0;
 
-        return view('Admin.slot-parkir.index', compact('area', 'slots', 'totalSlot', 'slotTerisi', 'kapasitas'));
+        $slotTerisi = $slots->filter(function ($slot) {
+            return $slot->status_tampil === 'terisi';
+        })->count();
+
+        $kapasitas = $totalSlot > 0
+            ? round(($slotTerisi / $totalSlot) * 100)
+            : 0;
+
+        return view(
+            'Admin.slot-parkir.index',
+            compact(
+                'area',
+                'slots',
+                'totalSlot',
+                'slotTerisi',
+                'kapasitas'
+            )
+        );
     }
 
     public function store(Request $request, AreaParkir $area)

@@ -8,7 +8,11 @@ use App\Models\SlotParkir;
 use App\Models\Kendaraan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+<<<<<<< Updated upstream
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
+=======
+use App\Models\Pembayaran;
+>>>>>>> Stashed changes
 
 class ReservasiController extends Controller
 {
@@ -43,10 +47,25 @@ class ReservasiController extends Controller
 
     public function store(Request $request)
     {
+<<<<<<< Updated upstream
         $kendaraan = Kendaraan::where(
             'user_id',
             Auth::id()
         )->first();
+=======
+
+        $existing = Reservasi::where('slot_parkir_id', $request->slot_parkir_id)
+            ->whereDate('tanggal_masuk', $request->tanggal_masuk)
+            ->where('jam_masuk', $request->jam_masuk)
+            ->whereIn('status', ['pending', 'dibayar'])
+            ->exists();
+
+        if ($existing) {
+            return back()->with('error', 'Slot sudah direservasi');
+        }
+
+        $kendaraan = Kendaraan::where('user_id', Auth::id())->first();
+>>>>>>> Stashed changes
 
         $kodeReservasi =
             'RSV-' .
@@ -67,6 +86,7 @@ class ReservasiController extends Controller
             'status' => 'pending'
         ]);
 
+<<<<<<< Updated upstream
         $namaQr = $reservasi->kode_reservasi . '.svg';
 
         $dataQr = json_encode([
@@ -87,6 +107,13 @@ class ReservasiController extends Controller
         
         $reservasi->update([
             'qr_code' => $namaQr
+=======
+        Pembayaran::create([
+            'reservasi_id' => $reservasi->id,
+            'order_id' => 'ORD-' . $reservasi->kode_reservasi,
+            'gross_amount' => $reservasi->total_bayar,
+            'status' => 'belum_bayar'
+>>>>>>> Stashed changes
         ]);
 
         return redirect()->route(
@@ -103,9 +130,112 @@ class ReservasiController extends Controller
             'kendaraan'
         ])->findOrFail($id);
 
+        if ($reservasi->status != 'dibayar') {
+
+            return redirect()
+                ->route('customer.pembayaran', $reservasi->id)
+                ->with(
+                    'error',
+                    'Silakan selesaikan pembayaran terlebih dahulu.'
+                );
+        }
+
         return view(
             'customers.qr-muncul',
             compact('reservasi')
         );
     }
+<<<<<<< Updated upstream
+=======
+
+    public function downloadTicket(Reservasi $reservasi)
+    {
+        $canvas = imagecreatetruecolor(600, 900);
+
+        $white = imagecolorallocate($canvas, 255, 255, 255);
+        $black = imagecolorallocate($canvas, 0, 0, 0);
+        $blue  = imagecolorallocate($canvas, 79, 70, 229);
+
+        imagefill($canvas, 0, 0, $white);
+
+        imagestring($canvas, 5, 240, 30, 'PARKIRIN', $blue);
+    
+        $qrPath = public_path('assets/img/qrcode/' . $reservasi->qr_code);
+        $qr = imagecreatefrompng($qrPath);
+
+        imagecopyresampled(
+            $canvas,
+            $qr,
+            100,
+            80,
+            0,
+            0,
+            400,
+            400,
+            imagesx($qr),
+            imagesy($qr)
+        );
+
+      // Judul Detail Reservasi
+        imagestring($canvas, 5, 190, 540, 'DETAIL RESERVASI', $black);
+
+        // Baris 1
+        imagestring($canvas, 4, 140, 600, 'Lokasi', $black);
+        imagestring($canvas, 4, 350, 600, 'Slot', $black);
+
+        imagestring(
+            $canvas,
+            4,
+            140,
+            625,
+            $reservasi->lokasiParkir->nama,
+            $blue
+        );
+
+        imagestring(
+            $canvas,
+            4,
+            350,
+            625,
+            $reservasi->slotParkir->kode_slot,
+            $blue
+        );
+
+        // Baris 2
+        imagestring($canvas, 4, 140, 700, 'Tanggal', $black);
+        imagestring($canvas, 4, 350, 700, 'Jam Masuk', $black);
+
+        imagestring(
+            $canvas,
+            4,
+            140,
+            725,
+            date('d M Y', strtotime($reservasi->tanggal_masuk)),
+            $blue
+        );
+
+        imagestring(
+            $canvas,
+            4,
+            350,
+            725,
+            substr($reservasi->jam_masuk, 0, 5) . ' WIB',
+            $blue
+        );
+
+        ob_start();
+        imagejpeg($canvas, null, 100);
+        $imageData = ob_get_clean();
+
+        imagedestroy($canvas);
+        imagedestroy($qr);
+
+        return response($imageData)
+            ->header('Content-Type', 'image/jpeg')
+            ->header(
+                'Content-Disposition',
+                'attachment; filename=tiket-' . $reservasi->kode_reservasi . '.jpg'
+            );
+    }
+>>>>>>> Stashed changes
 }

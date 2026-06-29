@@ -16,6 +16,7 @@ class LokasiParkirController extends Controller
         $lokasiParkir = LokasiParkir::with('slotParkir')->get();
 
         foreach ($lokasiParkir as $lokasi) {
+<<<<<<< Updated upstream
             $lokasi->slot_mobil = $lokasi->slotParkir
                 ->where('jenis_kendaraan', 'mobil')
                 ->where('status', 'tersedia')
@@ -24,6 +25,23 @@ class LokasiParkirController extends Controller
             $lokasi->slot_motor = $lokasi->slotParkir
                 ->where('jenis_kendaraan', 'motor')
                 ->where('status', 'tersedia')
+=======
+            // Ambil semua slot dari semua area di lokasi ini
+            $semuaSlot = $lokasi->areaParkir->flatMap->slotParkir;
+
+            $lokasi->slot_mobil = $semuaSlot
+                ->filter(function ($slot) {
+                    return $slot->jenis_kendaraan == 'mobil'
+                        && $slot->status_tampil == 'tersedia';
+                })
+                ->count();
+
+            $lokasi->slot_motor = $semuaSlot
+                ->filter(function ($slot) {
+                    return $slot->jenis_kendaraan == 'motor'
+                        && $slot->status_tampil == 'tersedia';
+                })
+>>>>>>> Stashed changes
                 ->count();
         }
         
@@ -74,6 +92,7 @@ class LokasiParkirController extends Controller
             )
             ->get();
 
+<<<<<<< Updated upstream
         return view(
             'customers.denah',
             compact(
@@ -86,5 +105,26 @@ class LokasiParkirController extends Controller
             'jam_masuk' => $request->jam_masuk,
             'durasi' => $request->durasi_jam
         ]);
+=======
+        $slotParkir = SlotParkir::with([
+            'areaParkir',
+            'reservasi'
+        ])
+        ->whereHas('areaParkir', function ($q) use ($request) {
+
+            $q->where('lokasi_parkir_id', $request->lokasi_parkir_id)
+            ->where('jenis_kendaraan', $request->kendaraan);
+
+        })
+        ->get();
+
+        return view('customers.denah', compact('lokasi', 'slotParkir', 'kendaraan', 'areas'))
+            ->with([
+                'tanggal'   => $request->tanggal_parkir,
+                'jam_masuk' => $request->jam_masuk,
+                'durasi'    => $request->durasi_jam,
+                'jenis_kendaraan' => $request->kendaraan,
+            ]);
+>>>>>>> Stashed changes
     }
 }

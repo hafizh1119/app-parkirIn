@@ -42,6 +42,7 @@ Route::middleware(['auth', 'role:customer'])->prefix('customer')->group(function
     Route::get('/denah',[CustomerLokasiController::class, 'denah'])->name('customer.denah');
     Route::get('/reservasi/{id}', [ReservasiController::class, 'show'])->name('customer.reservasi');
     Route::post('/reservasi', [ReservasiController::class, 'store'])->name('customer.reservasi.store');
+<<<<<<< Updated upstream
     Route::get('/pembayaran/{id}', [PembayaranController::class, 'show'])->name('customer.pembayaran');
     Route::post('/pembayaran', [PembayaranController::class, 'store'])->name('customer.pembayaran.store');
     Route::get('/qr-muncul/{id}', [ReservasiController::class, 'tiket'])->name('customer.qr-muncul');
@@ -110,6 +111,23 @@ Route::put(
     Route::view('/laporan', 'SuperAdmin.laporan')->name('laporan');
 
 Route::prefix('admin')->name('admin.')->group(function () {
+=======
+    Route::get('/reservasi/{reservasi}/download-ticket', [ReservasiController::class, 'downloadTicket'])->name('reservasi.download-ticket');
+    Route::get('/pembayaran/{id}', [CustomerPembayaranController::class, 'show'])->name('customer.pembayaran');
+    Route::post('/pembayaran/{id}/finish', [CustomerPembayaranController::class, 'finish'])->name('customer.finish');
+    Route::post('/pembayaran', [CustomerPembayaranController::class, 'store'])->name('customer.pembayaran.store');
+    Route::post('/pembayaran/{reservasi}/snap-token',[CustomerPembayaranController::class, 'getSnapToken'])->name('customer.midtrans.snap');
+    Route::get('/qr-muncul/{id}', [ReservasiController::class, 'tiket'])->name('customer.qr-muncul');
+    Route::get('/riwayat', [RiwayatController::class, 'index'])->name('customer.riwayat');
+    Route::view('/profil', 'customers.profil')->name('customer.profil');
+});
+
+Route::prefix('admin')->name('admin.')->group(function () {
+
+    //Scan
+    Route::get('/scan', [ScanController::class, 'index'])->name('scan.index');
+    Route::post('/scan', [ScanController::class, 'scan'])->name('scan.process');
+>>>>>>> Stashed changes
 
     // Dashboard
     Route::view('/dashboard', 'Admin.dashboard.index')->name('dashboard');

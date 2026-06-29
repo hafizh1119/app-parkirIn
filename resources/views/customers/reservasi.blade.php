@@ -128,7 +128,6 @@
 
                 </div>
 
-                </div>
 
                 <!-- Detail Kendaraan -->
                 <div class="card border-0 shadow-sm mb-4">
@@ -294,20 +293,29 @@
                                 <input type="hidden" name="durasi_jam" value="{{ $durasi }}">
                                 <input type="hidden" name="total_bayar" value="{{ $totalBayar }}">
 
+                                <div class="alert alert-info border-0 mb-4">
+                                    <div class="d-flex align-items-start">
+                                        <i class="mdi mdi-information-outline mdi-24px me-2"></i>
+                                        <div>
+                                            <strong>Pembayaran melalui Midtrans</strong>
+                                            <br>
+                                            Setelah menekan tombol <b>Lanjutkan Pembayaran</b>,
+                                            Anda akan diarahkan ke halaman pembayaran Midtrans untuk memilih metode pembayaran seperti QRIS, Virtual Account, GoPay, ShopeePay, dan lainnya.
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <button type="submit" class="btn btn-primary w-100 mb-2">
-
                                     Lanjutkan Pembayaran
-
                                 </button>
 
                             </form>
 
                             <a href="{{ route('customer.denah') }}"
                             class="btn btn-outline-secondary w-100">
-
                                 Batal
-
                             </a>
+
 
                         </div>
 
@@ -324,5 +332,37 @@
     </div>
 
 </section>
+
+@push('styles')
+<style>
+    .payment-card{
+    transition:.25s;
+    cursor:pointer;
+    background:#fff;
+    border:2px solid #e6e6e6 !important;
+}
+
+.payment-card:hover{
+    border-color:#7367F0 !important;
+}
+
+.payment-radio:checked + .payment-card{
+    background:#F1EEFF;
+    border-color:#7367F0 !important;
+    box-shadow:0 4px 15px rgba(115,103,240,.15);
+}
+</style>
+
+<script>
+    document.querySelectorAll('.payment-radio').forEach(function(radio) {
+        radio.addEventListener('change', function() {
+            document.querySelectorAll('.payment-radio').forEach(function(r) {
+                r.nextElementSibling.style.borderColor = '';
+                r.nextElementSibling.style.backgroundColor = '';
+            });
+        });
+    });
+</script>
+@endpush
 
 @endsection

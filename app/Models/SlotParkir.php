@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class SlotParkir extends Model
@@ -27,8 +28,29 @@ class SlotParkir extends Model
     {
         return $this->hasMany(Reservasi::class);
     }
+
     public function areaParkir()
     {
         return $this->belongsTo(AreaParkir::class);
+    }
+
+    public function getStatusTampilAttribute()
+    {
+        $now = now();
+
+        $reservasi = $this->reservasi()
+            ->whereIn('status', ['dibayar', 'checkin'])
+            ->get()
+            ->first(function ($reservasi) use ($now) {
+
+                $mulai = Carbon::parse(
+                    $reservasi->tanggal_masuk . ' ' . $reservasi->jam_masuk
+                );
+
+                return $now->greaterThanOrEqualTo($mulai)
+                    && is_null($reservasi->jam_keluar_aktual);
+            });
+
+        return $reservasi ? 'terisi' : 'tersedia';
     }
 }
