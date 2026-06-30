@@ -20,7 +20,7 @@ class LoginController extends Controller
             'password' => ['required']
         ]);
 
-        if (Auth::attempt($credentials)) {
+        if (Auth::attempt($credentials, $request->remember ?? false)) {
 
             $request->session()->regenerate();
 
@@ -33,7 +33,7 @@ class LoginController extends Controller
 
         return back()->withErrors([
             'email' => 'Email atau password salah.'
-        ]);
+        ])->onlyInput('email');
     }
 
     public function logout(Request $request)

@@ -1,0 +1,1 @@
+// front-main.js loaded
