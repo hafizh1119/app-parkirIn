@@ -10,6 +10,7 @@ use App\Http\Controllers\Customer\LokasiParkirController as CustomerLokasiParkir
 use App\Http\Controllers\Customer\ReservasiController;
 use App\Http\Controllers\Customer\PembayaranController as CustomerPembayaranController;
 use App\Http\Controllers\Customer\RiwayatController;
+use App\Http\Controllers\Customer\KendaraanController;
 
 // Admin
 use App\Http\Controllers\Admin\LokasiParkirController as AdminLokasiParkirController;
@@ -40,6 +41,7 @@ Route::prefix('customer')->group(function () {
 
 Route::middleware(['auth', 'role:customer'])->prefix('customer')->group(function () {
     Route::get('/denah', [CustomerLokasiParkirController::class, 'denah'])->name('customer.denah');
+    Route::post('/kendaraan',[KendaraanController::class, 'store'])->name('customer.kendaraan.store');
     Route::get('/reservasi/{id}', [ReservasiController::class, 'show'])->name('customer.reservasi');
     Route::post('/reservasi', [ReservasiController::class, 'store'])->name('customer.reservasi.store');
     Route::get('/reservasi/{reservasi}/download-ticket', [ReservasiController::class, 'downloadTicket'])->name('reservasi.download-ticket');
