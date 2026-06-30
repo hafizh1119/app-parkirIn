@@ -10,7 +10,6 @@ use App\Http\Controllers\Customer\LokasiParkirController as CustomerLokasiParkir
 use App\Http\Controllers\Customer\ReservasiController;
 use App\Http\Controllers\Customer\PembayaranController as CustomerPembayaranController;
 use App\Http\Controllers\Customer\RiwayatController;
-use App\Http\Controllers\Customer\DokuController;
 
 // Admin
 use App\Http\Controllers\Admin\LokasiParkirController as AdminLokasiParkirController;
@@ -45,14 +44,16 @@ Route::middleware(['auth', 'role:customer'])->prefix('customer')->group(function
     Route::post('/reservasi', [ReservasiController::class, 'store'])->name('customer.reservasi.store');
     Route::get('/reservasi/{reservasi}/download-ticket', [ReservasiController::class, 'downloadTicket'])->name('reservasi.download-ticket');
     Route::get('/pembayaran/{id}', [CustomerPembayaranController::class, 'show'])->name('customer.pembayaran');
+    Route::post('/pembayaran/{id}/finish', [CustomerPembayaranController::class, 'finish'])->name('customer.finish');
     Route::post('/pembayaran', [CustomerPembayaranController::class, 'store'])->name('customer.pembayaran.store');
+    Route::post('/pembayaran/{reservasi}/snap-token',[CustomerPembayaranController::class, 'getSnapToken'])->name('customer.midtrans.snap');
     Route::get('/qr-muncul/{id}', [ReservasiController::class, 'tiket'])->name('customer.qr-muncul');
     Route::get('/riwayat', [RiwayatController::class, 'index'])->name('customer.riwayat');
     Route::view('/profil', 'customers.profil')->name('customer.profil');
-    Route::get('/reservasi/{reservasi}/bayar',[DokuController::class, 'createPayment'])->name('doku.pay');
 });
 
-Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+Route::prefix('admin')->name('admin.')->group(function () {
+
     //Scan
     Route::get('/scan', [ScanController::class, 'index'])->name('scan.index');
     Route::post('/scan', [ScanController::class, 'scan'])->name('scan.process');
@@ -93,8 +94,8 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::get('/kelola-user/{user}/reset-password',[KelolaUserController::class, 'resetPasswordForm'])->name('kelola-user.reset-password');
     Route::put('/kelola-user/{user}/reset-password',[KelolaUserController::class, 'resetPassword'])->name('kelola-user.reset-password.update');
     Route::put('/kelola-user/{user}/toggle-status',[KelolaUserController::class, 'toggleStatus'])->name('kelola-user.toggle-status');
-  
-   // Event Management
+
+     // Event Management
     Route::resource('events', EventController::class);
     Route::post('/events/{event}/toggle-status', [EventController::class, 'toggleStatus'])->name('events.toggle-status');
 
@@ -109,5 +110,4 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::put('/membership/point-settings', [MembershipController::class, 'updatePointSettings'])->name('membership.point-settings');
     Route::post('/membership/tier', [MembershipController::class, 'addTier'])->name('membership.add-tier');
     Route::delete('/membership/tier/{id}', [MembershipController::class, 'deleteTier'])->name('membership.delete-tier');
-
 });

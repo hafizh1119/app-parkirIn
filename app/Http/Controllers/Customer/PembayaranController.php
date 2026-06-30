@@ -32,14 +32,18 @@ class PembayaranController extends Controller
             $reservasi->id
         )->firstOrFail();
 
-        if (!$pembayaran->snap_token) {
+        if (
+            !$pembayaran->snap_token
+            &&
+            $pembayaran->status == 'belum_bayar'
+        ) {
 
             $params = [
 
                 'transaction_details' => [
 
                     'order_id' => $pembayaran->order_id,
-                    'gross_amount' => (int) $reservasi->total_bayar
+                    'gross_amount' => (int)$reservasi->total_bayar
 
                 ],
 
@@ -54,7 +58,7 @@ class PembayaranController extends Controller
                 'item_details' => [[
 
                     'id' => $reservasi->slotParkir->id,
-                    'price' => (int) $reservasi->total_bayar,
+                    'price' => (int)$reservasi->total_bayar,
                     'quantity' => 1,
                     'name' => 'Reservasi Parkir - '.$reservasi->slotParkir->kode_slot
 
@@ -65,7 +69,9 @@ class PembayaranController extends Controller
             $snapToken = Snap::getSnapToken($params);
 
             $pembayaran->update([
-                'snap_token' => $snapToken
+
+                'snap_token'=>$snapToken
+
             ]);
 
             $pembayaran->refresh();
@@ -91,30 +97,10 @@ class PembayaranController extends Controller
         Config::$isSanitized = config('midtrans.is_sanitized');
         Config::$is3ds = config('midtrans.is_3ds');
 
-        $orderId = 'PARKIRIN-' .
-            $reservasi->kode_reservasi .
-            '-' .
-            time();
-
-        $pembayaran = Pembayaran::firstOrCreate(
-            [
-                'reservasi_id' => $reservasi->id
-            ],
-            [
-                'order_id' => $orderId,
-                'gross_amount' => $reservasi->total_bayar,
-                'status' => 'belum_bayar'
-            ]
-        );
-
-        if (!$pembayaran->order_id) {
-
-            $pembayaran->update([
-                'order_id' => $orderId,
-                'gross_amount' => $reservasi->total_bayar
-            ]);
-
-        }
+        $pembayaran = Pembayaran::where(
+            'reservasi_id',
+            $reservasi->id
+        )->firstOrFail();
 
         $params = [
 
@@ -180,10 +166,14 @@ class PembayaranController extends Controller
                     'paid_at' => now()
                 ]);
 
+                $pembayaran->refresh();
+
                 // Update reservasi
                 $reservasi->update([
                     'status' => 'dibayar'
                 ]);
+
+                $reservasi->refresh();
 
                 // Generate QR jika belum ada
                 if (!$reservasi->qr_code) {
@@ -226,6 +216,7 @@ class PembayaranController extends Controller
 
             return response()->json([
                 'success' => false,
+                'status' => $status->transaction_status,
                 'message' => $e->getMessage()
             ], 500);
 

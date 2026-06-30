@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Reservasi;
-use App\Models\SlotParkir;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
@@ -29,9 +28,13 @@ class ScanController extends Controller
             ]);
         }
 
-        $reservasi = Reservasi::with(['slotParkir', 'kendaraan', 'user'])
-            ->where('kode_reservasi', $kodeReservasi)
-            ->first();
+        $reservasi = Reservasi::with([
+            'slotParkir.areaParkir',
+            'kendaraan',
+            'user'
+        ])
+        ->where('kode_reservasi', $kodeReservasi)
+        ->first();
 
         if (!$reservasi) {
             return response()->json([
@@ -60,12 +63,10 @@ class ScanController extends Controller
         // CHECK-IN
         if ($reservasi->status === 'dibayar') {
             $reservasi->update([
-                'status'           => 'checkin',
+                'status' => 'checkin',
                 'jam_masuk_aktual' => now(),
             ]);
-
-            SlotParkir::find($reservasi->slot_parkir_id)
-                ?->update(['status' => 'terisi']);
+            $reservasi->refresh();
 
             return response()->json([
                 'status' => 'success',
@@ -90,19 +91,17 @@ class ScanController extends Controller
             $jamKeluar    = now();
             $durasiAktual = ceil($jamMasuk->diffInMinutes($jamKeluar) / 60);
 
-            $tarifPerJam  = $reservasi->slotParkir->areaParkir->tarif_per_jam ?? 0;
+            $tarifPerJam = $reservasi->slotParkir->tarif_per_jam;
             $totalDibayar = $reservasi->total_bayar;
             $totalAktual  = $durasiAktual * $tarifPerJam;
             $kekurangan   = max(0, $totalAktual - $totalDibayar);
 
             $reservasi->update([
-                'status'            => 'selesai',
+                'status' => 'selesai',
                 'jam_keluar_aktual' => $jamKeluar,
-                'kekurangan_bayar'  => $kekurangan,
+                'kekurangan_bayar' => $kekurangan,
             ]);
-
-            SlotParkir::find($reservasi->slot_parkir_id)
-                ?->update(['status' => 'tersedia']);
+            $reservasi->refresh();
 
             return response()->json([
                 'status'  => 'success',

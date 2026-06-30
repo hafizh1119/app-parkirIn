@@ -69,11 +69,11 @@
                             @foreach($slotParkir as $slot)
 
                                 <button
-                                    class="slot {{ $slot->status == 'tersedia' ? 'available' : 'occupied' }}"
+                                    class="slot {{ $slot->status_tampil == 'tersedia' ? 'available' : 'occupied' }}"
                                     data-id="{{ $slot->id }}"
                                     data-kode="{{ $slot->kode_slot }}"
                                     data-area="{{ $slot->area_parkir_id }}"
-                                    data-status="{{ $slot->status }}"
+                                    data-status="{{ $slot->status_tampil }}"
                                     data-tarif="{{ $slot->areaParkir->tarif_per_jam }}"
                                     data-kendaraan="{{ $jenis_kendaraan }}">
 

@@ -8,8 +8,7 @@ use App\Models\SlotParkir;
 use App\Models\Kendaraan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Endroid\QrCode\Builder\Builder;
-use Endroid\QrCode\Writer\PngWriter;
+use App\Models\Pembayaran;
 
 class ReservasiController extends Controller
 {
@@ -29,9 +28,10 @@ class ReservasiController extends Controller
 
     public function store(Request $request)
     {
-        // Cek apakah slot sudah direservasi pending
-        $existing = Reservasi::where('slot_parkir_id', $request->slot_parkir_id)
-            ->whereIn('status', ['pending', 'dibayar'])
+       $existing = Reservasi::where('slot_parkir_id', $request->slot_parkir_id)
+            ->whereDate('tanggal_masuk', $request->tanggal_masuk)
+            ->where('jam_masuk', $request->jam_masuk)
+            ->whereIn('status', ['dibayar', 'checkin'])
             ->exists();
 
         if ($existing) {
@@ -59,30 +59,11 @@ class ReservasiController extends Controller
             'status' => 'pending'
         ]);
 
-        $namaQr = $reservasi->kode_reservasi . '.png';
-
-        $namaQr = $reservasi->kode_reservasi . '.png';
-
-        $dataQr = json_encode([
-            'kode_reservasi' => $reservasi->kode_reservasi,
-            'slot' => $reservasi->slot_parkir_id,
-            'tanggal' => $reservasi->tanggal_masuk,
-            'jam' => $reservasi->jam_masuk
-        ]);
-
-        $result = Builder::create()
-            ->writer(new PngWriter())
-            ->data($dataQr)
-            ->size(500)
-            ->margin(10)
-            ->build();
-
-        $result->saveToFile(
-            public_path('assets/img/qrcode/' . $namaQr)
-        );
-        
-        $reservasi->update([
-            'qr_code' => $namaQr
+        Pembayaran::create([
+            'reservasi_id' => $reservasi->id,
+            'order_id' => 'ORD-' . $reservasi->kode_reservasi,
+            'gross_amount' => $reservasi->total_bayar,
+            'status' => 'belum_bayar'
         ]);
 
         return redirect()->route(
@@ -98,6 +79,17 @@ class ReservasiController extends Controller
             'lokasiParkir',
             'kendaraan'
         ])->findOrFail($id);
+
+        if ($reservasi->status != 'dibayar') {
+
+            return redirect()
+                ->route('customer.pembayaran', $reservasi->id)
+                ->with(
+                    'error',
+                    'Silakan selesaikan pembayaran terlebih dahulu.'
+                );
+
+        }
 
         return view(
             'customers.qr-muncul',

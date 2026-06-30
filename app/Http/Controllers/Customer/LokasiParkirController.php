@@ -1,88 +1,105 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Models\LokasiParkir;
+use App\Models\SlotParkir;
 use Illuminate\Http\Request;
+use App\Models\Kendaraan;
+use App\Models\AreaParkir;
 
 class LokasiParkirController extends Controller
 {
     public function index()
     {
-        $lokasiParkir = LokasiParkir::withCount('areaParkir')->latest()->get();
+        $lokasiParkir = LokasiParkir::with('areaParkir.slotParkir')->get();
 
-        return view('Admin.lokasi-parkir.index', compact('lokasiParkir'));
-    }
+        foreach ($lokasiParkir as $lokasi) {
 
-    public function create()
-    {
-        return view('Admin.lokasi-parkir.create');
-    }
+            $semuaSlot = $lokasi->areaParkir->flatMap->slotParkir;
 
-    public function store(Request $request)
-    {
-        $data = $request->validate([
-            'nama' => 'required',
-            'alamat' => 'required',
-            'link_maps' => 'nullable',
-            'gambar' => 'nullable|image',
-            'deskripsi' => 'nullable',
-        ]);
+            $lokasi->slot_mobil = $semuaSlot
+                ->filter(function ($slot) {
+                    return $slot->jenis_kendaraan == 'mobil'
+                        && $slot->status_tampil == 'tersedia';
+                })
+                ->count();
 
-        if ($request->hasFile('gambar')) {
-            $data['gambar'] = $request
-                ->file('gambar')
-                ->store('lokasi-parkir', 'public');
+            $lokasi->slot_motor = $semuaSlot
+                ->filter(function ($slot) {
+                    return $slot->jenis_kendaraan == 'motor'
+                        && $slot->status_tampil == 'tersedia';
+                })
+                ->count();
         }
 
-        LokasiParkir::create($data);
-
-        return redirect()
-            ->route('admin.lokasi-parkir.index')
-            ->with('success', 'Lokasi parkir berhasil ditambahkan');
+        return view('customers.cari-parkir', compact('lokasiParkir'));
     }
 
-    public function edit($id)
+    public function show(string $id)
     {
         $lokasi = LokasiParkir::findOrFail($id);
 
-        return view('Admin.lokasi-parkir.edit', compact('lokasi'));
+        return view(
+            'customers.denah',
+            compact('lokasi')
+        );
     }
 
-    public function update(Request $request, $id)
+    public function aturJadwal($id)
     {
         $lokasi = LokasiParkir::findOrFail($id);
 
-        $data = $request->validate([
-            'nama' => 'required',
-            'alamat' => 'required',
-            'link_maps' => 'nullable',
-            'gambar' => 'nullable|image',
-            'deskripsi' => 'nullable',
+        return view(
+            'customers.atur-jadwal',
+            compact('lokasi')
+        );
+    }
+
+    public function denah(Request $request)
+    {
+        $lokasi = LokasiParkir::findOrFail(
+            $request->lokasi_parkir_id
+        );
+
+        $kendaraan = Kendaraan::where(
+            'user_id',
+            Auth::id()
+        )->first();
+
+        // TAMBAHKAN INI
+       $areas = AreaParkir::where(
+            'lokasi_parkir_id',
+            $request->lokasi_parkir_id
+        )
+        ->where(
+            'jenis_kendaraan',
+            $request->kendaraan
+        )
+        ->get();
+
+        $slotParkir = SlotParkir::with('areaParkir')
+            ->whereHas('areaParkir', function ($q) use ($request) {
+                $q->where('lokasi_parkir_id', $request->lokasi_parkir_id)
+                ->where('jenis_kendaraan', $request->kendaraan);
+            })
+            ->get();
+
+        return view(
+            'customers.denah',
+            compact(
+                'lokasi',
+                'slotParkir',
+                'kendaraan',
+                'areas' // TAMBAHKAN INI
+            )
+        )->with([
+            'tanggal' => $request->tanggal_parkir,
+            'jam_masuk' => $request->jam_masuk,
+            'durasi' => $request->durasi_jam,
+            'jenis_kendaraan' => $request->kendaraan,
         ]);
-
-        if ($request->hasFile('gambar')) {
-            $data['gambar'] = $request
-                ->file('gambar')
-                ->store('lokasi-parkir', 'public');
-        }
-
-        $lokasi->update($data);
-
-        return redirect()
-            ->route('admin.lokasi-parkir.index')
-            ->with('success', 'Lokasi parkir berhasil diperbarui');
-    }
-
-    public function destroy($id)
-    {
-        $lokasi = LokasiParkir::findOrFail($id);
-
-        $lokasi->delete();
-
-        return redirect()
-            ->route('admin.lokasi-parkir.index')
-            ->with('success', 'Lokasi parkir berhasil dihapus');
     }
 }
