@@ -91,44 +91,26 @@
 
             <div class="col-lg-4">
 
-            <!-- Detail Kendaraan -->
             <div class="card border-0 shadow-sm mb-4">
-
                 <div class="card-body">
-
                     <div class="d-flex justify-content-between align-items-center">
-
                         <div>
-
-                            <small class="text-body-secondary">
-                                Kendaraan Terdaftar
-                            </small>
-
-                            <h6 class="fw-bold mb-0 mt-1">
-                                {{ $kendaraan->merk }}
-                            </h6>
-
-                            <small class="text-body-secondary">
-                                {{ $kendaraan->nomor_polisi }}
-                            </small>
-
+                            <small class="text-body-secondary">Kendaraan Terdaftar</small>
+                            <h6 class="fw-bold mb-0 mt-1" id="selectedMerk">{{ $kendaraan->merk }}</h6>
+                            <small class="text-body-secondary" id="selectedNopol">{{ $kendaraan->nomor_polisi }}</small>
                         </div>
 
-                        <button
-                            type="button"
-                            class="btn btn-sm btn-outline-primary"
-                            data-bs-toggle="modal"
-                            data-bs-target="#modalKendaraan">
-
-                            <i class="mdi mdi-pencil-outline me-1"></i>
-                            Ubah
-
+                        <button type="button" class="btn btn-sm btn-outline-primary"
+                            data-bs-toggle="modal" data-bs-target="#modalKendaraan">
+                            <i class="mdi mdi-pencil-outline me-1"></i> Ubah
                         </button>
-
                     </div>
 
+                    {{-- PENTING: ini yang sebelumnya tidak ada.
+                        Dipakai untuk tahu kendaraan mana yang benar-benar terpilih
+                        saat user klik "Reservasi Sekarang" --}}
+                    <input type="hidden" id="selectedKendaraanId" value="{{ $kendaraan->id }}">
                 </div>
-
             </div>
 
             <!-- Detail Parkir -->
@@ -198,141 +180,115 @@
 
 </section>
 
-<!-- Modal Detail Kendaraan -->
-<div
-    class="modal fade"
-    id="modalKendaraan"
-    tabindex="-1"
-    aria-labelledby="modalKendaraanLabel"
-    aria-hidden="true">
-
+<!-- Modal Kendaraan -->
+<div class="modal fade" id="modalKendaraan" tabindex="-1" aria-labelledby="modalKendaraanLabel" aria-hidden="true">
     <div class="modal-dialog modal-bottom-sheet">
+        <div class="modal-content">
+            <div class="sheet-handle"></div>
 
-        <div class="modal-content border-0">
-            <div class="text-center pt-3">
-
-                <div
-                    style="
-                        width:50px;
-                        height:5px;
-                        background:#dcdcdc;
-                        border-radius:20px;
-                        margin:auto;">
-                </div>
-
-            </div>
-
-            <div class="modal-header">
-
-                <h5
-                    class="modal-title fw-bold"
-                    id="modalKendaraanLabel">
-
-                    Detail Kendaraan
-
-                </h5>
-
+            <div class="modal-header border-0 pb-2">
+                <h5 class="modal-title fw-bold" id="modalKendaraanLabel">Pilih Kendaraan</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
 
             <div class="modal-body">
+                <label class="fw-semibold mb-3 d-block">Kendaraan Terdaftar</label>
 
-                <div class="mb-3">
+                <div class="list-group">
+                    @foreach($kendaraanList as $item)
+                        <label class="vehicle-item">
+                            <div class="d-flex align-items-center">
+                                <input
+                                    class="form-check-input me-3 kendaraan-radio"
+                                    type="radio"
+                                    name="kendaraan_id"
+                                    value="{{ $item->id }}"
+                                    data-merk="{{ $item->merk }}"
+                                    data-nopol="{{ $item->nomor_polisi }}"
+                                    data-warna="{{ $item->warna }}"
+                                    data-jenis="{{ $item->jenis_kendaraan }}"
+                                    {{ $item->id == $kendaraan->id ? 'checked' : '' }}>
 
-                    <label class="form-label">
-                        Nomor Polisi
-                    </label>
-
-                    <input
-                        type="text"
-                        class="form-control"
-                        value="H 4567 WE">
-
+                                <div>
+                                    <div class="vehicle-title">{{ $item->nomor_polisi }}</div>
+                                    <div class="vehicle-sub">{{ $item->merk }}</div>
+                                    <small class="text-muted">
+                                        {{ ucfirst($item->jenis_kendaraan) }} • {{ $item->warna }}
+                                    </small>
+                                </div>
+                            </div>
+                        </label>
+                    @endforeach
                 </div>
 
-                <div class="mb-3">
-
-                    <label class="form-label">
-                        Merek Kendaraan
-                    </label>
-
-                    <input
-                        type="text"
-                        class="form-control"
-                        value="Toyota Avanza">
-
-                </div>
-
-                <div class="mb-3">
-
-                    <label class="form-label">
-                        Warna Kendaraan
-                    </label>
-
-                    <input
-                        type="text"
-                        class="form-control"
-                        value="Putih">
-
-                </div>
-
-                <div class="mb-0">
-
-                    <label class="form-label">
-                        Jenis Kendaraan
-                    </label>
-
-                    <select class="form-select">
-
-                        <option selected>
-                            Mobil
-                        </option>
-
-                        <option>
-                            Motor
-                        </option>
-
-                    </select>
-
-                </div>
-
+                <button type="button" class="btn btn-primary w-100 mt-3"
+                    data-bs-target="#modalTambahKendaraan" data-bs-toggle="modal">
+                    <i class="ti ti-plus me-1"></i> Tambah Kendaraan
+                </button>
             </div>
 
-            <div class="modal-footer">
-
-                <button
-                    type="button"
-                    class="btn btn-outline-secondary"
-                    data-bs-dismiss="modal">
-
-                    Batal
-
-                </button>
-
-                <button
-                    type="button"
-                    class="btn btn-primary">
-
-                    Simpan Perubahan
-
-                </button>
-
+            <div class="modal-footer border-0">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Batal</button>
+                <button type="button" id="btnSimpanKendaraan" class="btn btn-primary">Simpan</button>
             </div>
-
         </div>
-
     </div>
+</div>
 
+<div class="modal fade" id="modalTambahKendaraan" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-bottom-sheet">
+        <div class="modal-content">
+            <div class="sheet-handle"></div>
+
+            <div class="modal-header border-0">
+                <h5 class="fw-bold">Tambah Kendaraan</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <form action="{{ route('customer.kendaraan.store') }}" method="POST">
+                @csrf
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Jenis Kendaraan</label>
+                        <select name="jenis_kendaraan" class="form-select" required>
+                            <option value="">Pilih</option>
+                            <option value="mobil">Mobil</option>
+                            <option value="motor">Motor</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Nomor Polisi</label>
+                        <input type="text" name="nomor_polisi" class="form-control" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Merk Kendaraan</label>
+                        <input type="text" name="merk" class="form-control" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Warna</label>
+                        <input type="text" name="warna" class="form-control" required>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">Simpan Kendaraan</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 
 @push('styles')
 <style>
-
 .parking-grid{
     display:grid;
     grid-template-columns:repeat(5,1fr);
     gap:12px;
 }
-
 .slot{
     border:none;
     border-radius:12px;
@@ -342,98 +298,87 @@
     cursor:pointer;
     transition:.3s;
 }
+.available{ background:#28c76f; }
+.occupied{ background:#ea5455; }
+.selected{ background:#7367f0; }
+.slot:hover{ transform:translateY(-2px); }
 
-.available{
-    background:#28c76f;
+.sheet-handle{
+    width:55px;
+    height:6px;
+    background:#d9d9d9;
+    border-radius:20px;
+    margin:12px auto 6px;
 }
 
-.occupied{
-    background:#ea5455;
+.vehicle-item{
+    border:1px solid #ebeef2;
+    border-radius:16px;
+    padding:16px;
+    margin-bottom:14px;
+    cursor:pointer;
+    transition:.25s;
+    background:#fff;
 }
-
-.selected{
-    background:#7367f0;
+.vehicle-item:hover{
+    border-color:#696cff;
+    background:#f8f8ff;
 }
-
-.slot:hover{
-    transform:translateY(-2px);
+.vehicle-item input{ margin-top:3px; }
+.vehicle-item:has(input:checked){
+    border:2px solid #696cff;
+    background:#eef1ff;
+    box-shadow:0 8px 20px rgba(105,108,255,.12);
 }
+.vehicle-title{ font-size:15px; font-weight:700; }
+.vehicle-sub{ font-size:13px; color:#7a7a7a; }
 
-</style>
-
-<style>
-
-@media (max-width: 768px){
-
-    .modal-bottom-sheet{
-
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-
-        margin: 0;
-
-        max-width: 100%;
-        width: 100%;
-
-        transform: translateY(0);
-
-    }
-
-    .modal-bottom-sheet .modal-content{
-
-        border-radius: 24px 24px 0 0;
-
-        min-height: 70vh;
-        max-height: 85vh;
-
-        overflow-y: auto;
-
-    }
-
-}
-@media (max-width: 768px){
-
+@media (max-width:768px){
     .modal.fade .modal-dialog.modal-bottom-sheet{
         transform: translateY(100%);
-        transition: transform .35s ease-out;
+        transition: transform .35s ease;
+        margin:0;
     }
-
     .modal.show .modal-dialog.modal-bottom-sheet{
         transform: translateY(0);
     }
-
     .modal-bottom-sheet{
-
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-
-        margin: 0;
-        width: 100%;
-        max-width: 100%;
-
+        position:fixed;
+        left:0; right:0; bottom:0;
+        width:100%; max-width:100%;
+        margin:0;
+        display:flex;
+        align-items:flex-end;
     }
-
     .modal-bottom-sheet .modal-content{
-
-        border-radius: 24px 24px 0 0;
-        min-height: 70vh;
-        max-height: 85vh;
-
-        overflow-y: auto;
-
+        width:100%;
+        border:0;
+        border-radius:28px 28px 0 0;
+        min-height:70vh;
+        max-height:85vh;
+        overflow:hidden;
+        overflow-y:auto;
+        box-shadow:0 -10px 40px rgba(0,0,0,.18);
+        animation:sheetUp .35s ease;
     }
+    .modal-backdrop.show{
+        opacity:.45;
+        backdrop-filter:blur(2px);
+    }
+}
 
+@keyframes sheetUp{
+    from{ transform:translateY(80px); opacity:.4; }
+    to{ transform:translateY(0); opacity:1; }
 }
 </style>
 @endpush
 
+
 @push('scripts')
 <script>
-    // Filter slot by area
+(function () {
+    // ---------- Filter slot by area ----------
     function filterSlotByArea(areaId) {
         document.querySelectorAll('#parkingGrid .slot').forEach(slot => {
             slot.style.display = slot.dataset.area == areaId ? '' : 'none';
@@ -448,7 +393,7 @@
         });
     }
 
-    // Klik slot → update detail
+    // ---------- Klik slot parkir -> update detail ----------
     document.querySelectorAll('#parkingGrid .slot').forEach(slot => {
         slot.addEventListener('click', function () {
             if (this.classList.contains('occupied')) return;
@@ -459,41 +404,64 @@
             const kodeSlot  = this.dataset.kode;
             const status    = this.dataset.status;
             const kendaraan = this.dataset.kendaraan;
-            const tarif     = parseInt(this.dataset.tarif);
+            const tarif     = parseInt(this.dataset.tarif, 10);
             const slotId    = this.dataset.id;
             const namaArea  = selectArea.options[selectArea.selectedIndex].text;
 
-            document.getElementById('detailNamaSlot').innerText  = kodeSlot;
-            document.getElementById('detailStatus').innerText     = status === 'tersedia' ? ' Tersedia' : ' Terisi';
-            document.getElementById('detailKendaraan').innerText  = kendaraan.toUpperCase();
-            document.getElementById('detailArea').innerText       = namaArea;
-            document.getElementById('detailTarif').innerText      = 'Rp ' + tarif.toLocaleString('id-ID') + '/Jam';
+            document.getElementById('detailNamaSlot').innerText = kodeSlot;
+            document.getElementById('detailStatus').innerText   = status === 'tersedia' ? 'Tersedia' : 'Terisi';
+            document.getElementById('detailKendaraan').innerText = kendaraan.toUpperCase();
+            document.getElementById('detailArea').innerText      = namaArea;
+            document.getElementById('detailTarif').innerText     = 'Rp ' + tarif.toLocaleString('id-ID') + '/Jam';
 
             const tanggal  = "{{ $tanggal }}";
             const jamMasuk = "{{ $jam_masuk }}";
             const durasi   = "{{ $durasi }}";
             const lokasiId = "{{ $lokasi->id }}";
+            // ikutkan kendaraan_id yang sedang aktif ke link reservasi
+            const kendaraanId = document.getElementById('selectedKendaraanId').value;
 
             document.getElementById('btnReservasi').href =
-                `/customer/reservasi/${slotId}?tanggal_parkir=${tanggal}&jam_masuk=${jamMasuk}&durasi_jam=${durasi}&lokasi_parkir_id=${lokasiId}`;
+                `/customer/reservasi/${slotId}?tanggal_parkir=${tanggal}&jam_masuk=${jamMasuk}&durasi_jam=${durasi}&lokasi_parkir_id=${lokasiId}&kendaraan_id=${kendaraanId}`;
         });
     });
-</script>
 
-<script>
-    function filterSlotByArea(areaId) {
-        document.querySelectorAll('#parkingGrid .slot').forEach(slot => {
-            slot.style.display = slot.dataset.area == areaId ? '' : 'none';
+    // ---------- Modal kendaraan <-> modal tambah kendaraan ----------
+    const modalKendaraanEl = document.getElementById('modalKendaraan');
+    const modalTambahEl    = document.getElementById('modalTambahKendaraan');
+
+    if (modalKendaraanEl && modalTambahEl) {
+        modalTambahEl.addEventListener('show.bs.modal', function () {
+            const instance = bootstrap.Modal.getInstance(modalKendaraanEl);
+            if (instance) instance.hide();
+        });
+
+        modalTambahEl.addEventListener('hidden.bs.modal', function () {
+            // hanya tampilkan lagi modalKendaraan kalau form tambah TIDAK baru saja submit
+            new bootstrap.Modal(modalKendaraanEl).show();
         });
     }
 
-    const selectArea = document.getElementById('selectArea');
-    if (selectArea) {
-        filterSlotByArea(selectArea.value);
-        selectArea.addEventListener('change', function () {
-            filterSlotByArea(this.value);
+    // ---------- Simpan kendaraan terpilih (FIX UTAMA) ----------
+    const btnSimpan = document.getElementById('btnSimpanKendaraan');
+    if (btnSimpan) {
+        btnSimpan.addEventListener('click', function () {
+            const radio = document.querySelector('.kendaraan-radio:checked');
+
+            if (!radio) {
+                alert('Pilih salah satu kendaraan terlebih dahulu.');
+                return;
+            }
+
+            document.getElementById('selectedMerk').innerText  = radio.dataset.merk;
+            document.getElementById('selectedNopol').innerText = radio.dataset.nopol;
+            document.getElementById('selectedKendaraanId').value = radio.value;
+
+            const instance = bootstrap.Modal.getInstance(modalKendaraanEl);
+            if (instance) instance.hide();
         });
     }
+})();
 </script>
 @endpush
 

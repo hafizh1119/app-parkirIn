@@ -19,11 +19,12 @@ class ReservasiController extends Controller
 
         $lokasi    = $slot->areaParkir->lokasiParkir;
         $kendaraan = Kendaraan::where('user_id', Auth::id())->first();
+        $kendaraanList = Kendaraan::where('user_id', Auth::id())->get();
         $tanggal   = $request->tanggal_parkir;
         $jam_masuk = $request->jam_masuk;
         $durasi    = $request->durasi_jam;
 
-        return view('customers.reservasi', compact('lokasi', 'slot', 'kendaraan', 'tanggal', 'jam_masuk', 'durasi'));
+        return view('customers.reservasi', compact('lokasi', 'slot', 'kendaraan', 'kendaraanList', 'tanggal', 'jam_masuk', 'durasi'));
     }
 
     public function store(Request $request)

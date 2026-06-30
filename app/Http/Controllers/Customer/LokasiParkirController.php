@@ -64,13 +64,12 @@ class LokasiParkirController extends Controller
             $request->lokasi_parkir_id
         );
 
-        $kendaraan = Kendaraan::where(
-            'user_id',
-            Auth::id()
-        )->first();
+        $kendaraanList = Kendaraan::where('user_id', Auth::id())
+            ->where('jenis_kendaraan', $request->kendaraan)
+            ->get();
+        $kendaraan = $kendaraanList->first();
 
-        // TAMBAHKAN INI
-       $areas = AreaParkir::where(
+        $areas = AreaParkir::where(
             'lokasi_parkir_id',
             $request->lokasi_parkir_id
         )
@@ -93,7 +92,8 @@ class LokasiParkirController extends Controller
                 'lokasi',
                 'slotParkir',
                 'kendaraan',
-                'areas' // TAMBAHKAN INI
+                'areas',
+                'kendaraanList'
             )
         )->with([
             'tanggal' => $request->tanggal_parkir,
