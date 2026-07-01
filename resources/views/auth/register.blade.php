@@ -431,6 +431,54 @@ hr {
 </style>
 @endpush
 
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    function animateIn(el, delay) {
+        if (!el) return;
+
+        // Step 1: set posisi awal TANPA transition dulu
+        el.style.transition = 'none';
+        el.style.opacity = '0';
+        el.style.transform = el.dataset.fromX;
+
+        // Step 2: paksa browser commit posisi awal (reflow)
+        void el.offsetWidth;
+
+        // Step 3: baru aktifkan transition & animasikan ke posisi akhir
+        requestAnimationFrame(() => {
+            el.style.transition = 'all 1s cubic-bezier(0.4, 0, 0.2, 1)';
+            setTimeout(() => {
+                el.style.opacity = '1';
+                el.style.transform = 'translateX(0)';
+            }, delay);
+        });
+    }
+
+    // Hero/Left section - dari luar kiri masuk ke tengah
+    const heroSection = document.querySelector('.login-left');
+    if (heroSection) {
+        heroSection.dataset.fromX = 'translateX(-100%)';
+        animateIn(heroSection, 100);
+    }
+
+    // Form/Right section - dari luar kanan masuk ke tengah
+    const formSection = document.querySelector('.authentication-bg');
+    if (formSection) {
+        formSection.dataset.fromX = 'translateX(100%)';
+        animateIn(formSection, 300);
+    }
+
+    // Card register - dari luar kanan masuk ke tengah
+    const loginCard = document.querySelector('.login-card');
+    if (loginCard) {
+        loginCard.dataset.fromX = 'translateX(100%)';
+        animateIn(loginCard, 350);
+    }
+});
+</script>
+@endpush
+
 @section('content')
 <div class="authentication-wrapper">
     <div class="orb-2"></div>
