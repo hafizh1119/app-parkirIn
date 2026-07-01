@@ -13,7 +13,7 @@
         <title>ParkirIn</title>
 
         <!-- Favicon -->
-        <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon/favicon.ico') }}" />
+        <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/icon/logo.svg') }}" />
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -45,7 +45,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
         @stack('styles')
-
+        <link href="https://fonts.cdnfonts.com/css/gilroy-bold" rel="stylesheet">
     </head>
 
     <body>
