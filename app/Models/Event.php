@@ -100,11 +100,11 @@ class Event extends Model
         ];
     }
 
-    //  URL gambar
+    //  URL gambar - FIXED
     public function getImageUrlAttribute()
     {
         if ($this->image) {
-            return asset('storage/events/' . $this->image);
+            return asset($this->image);
         }
         return null;
     }
