@@ -124,7 +124,7 @@
                         <th class="px-4 py-3 text-left font-semibold text-gray-600">Lokasi Parkir</th>
                         <th class="px-4 py-3 text-left font-semibold text-gray-600">Tanggal</th>
                         <th class="px-4 py-3 text-left font-semibold text-gray-600">Kapasitas</th>
-                        <th class="px-4 py-3 text-center font-semibold text-gray-600">Diskon</th> <!-- ✅ TAMBAH -->
+                        <th class="px-4 py-3 text-center font-semibold text-gray-600">Diskon</th>
                         <th class="px-4 py-3 text-center font-semibold text-gray-600">Status</th>
                         <th class="px-4 py-3 text-center font-semibold text-gray-600">Aksi</th>
                     </tr>
@@ -135,7 +135,7 @@
                         <td class="px-4 py-3">
                             <div class="flex items-center gap-3">
                                 @if($event->image)
-                                    <img src="{{ $event->image_url }}" alt="{{ $event->name }}" class="w-10 h-10 rounded-lg object-cover">
+                                    <img src="{{ asset($event->image) }}" alt="{{ $event->name }}" class="w-10 h-10 rounded-lg object-cover">
                                 @else
                                     <div class="w-10 h-10 rounded-lg bg-[#5445cf]/10 flex items-center justify-center">
                                         <span class="material-symbols-outlined text-[#5445cf] text-sm">event</span>

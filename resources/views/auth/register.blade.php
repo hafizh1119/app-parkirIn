@@ -204,9 +204,9 @@ main[class*="bg-"] {
 
 .form-group label {
     display: block;
-    color: #4b5563;
+    color: #1a1a2e !important;
     font-size: 0.7rem;
-    font-weight: 600;
+    font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     margin-bottom: 4px;
@@ -220,8 +220,9 @@ main[class*="bg-"] {
     border-radius: 10px !important;
     padding: 10px 14px !important;
     height: 42px !important;
-    color: #1a1a2e !important;
+    color: #111827 !important;
     font-size: 0.85rem !important;
+    font-weight: 500 !important;
     transition: all 0.3s ease !important;
     outline: none !important;
 }
@@ -234,8 +235,9 @@ main[class*="bg-"] {
 }
 
 .form-group .form-control::placeholder {
-    color: #94a3b8;
+    color: #6b7280 !important;
     font-size: 0.8rem;
+    font-weight: 400;
 }
 
 .form-group .is-invalid {
@@ -254,23 +256,38 @@ main[class*="bg-"] {
 
 .password-group .form-control {
     padding-right: 44px !important;
+    height: 42px !important;
 }
 
 .password-toggle {
     position: absolute;
     right: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    background: none;
-    border: none;
-    color: #94a3b8;
+    top: 0;
+    bottom: 0;
+    background: none !important;
+    border: none !important;
+    color: #6b7280 !important;
     cursor: pointer;
-    padding: 4px;
+    padding: 0 !important;
+    margin: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 42px !important;
+    height: 130% !important;
     transition: color 0.3s ease;
 }
 
+.password-toggle i {
+    font-size: 20px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    line-height: 1 !important;
+}
+
 .password-toggle:hover {
-    color: #4f46e5;
+    color: #4f46e5 !important;
 }
 
 .form-check {
@@ -308,7 +325,7 @@ main[class*="bg-"] {
 }
 
 .form-check-label {
-    color: #4b5563 !important;
+    color: #1a1a2e !important;
     font-size: 0.75rem !important;
     cursor: pointer;
 }
@@ -364,9 +381,9 @@ hr {
 }
 
 .label-section {
-    color: #4b5563;
+    color: #1a1a2e !important;
     font-size: 0.7rem;
-    font-weight: 600;
+    font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     margin-bottom: 8px;
@@ -378,7 +395,6 @@ hr {
     gap: 10px;
 }
 
-/* FORM 2 KOLOM UNTUK BAGIAN ATAS */
 .form-row-2 {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -386,46 +402,171 @@ hr {
 }
 
 @media (max-width: 768px) {
-    .form-row-2 {
-        grid-template-columns: 1fr;
-    }
-    .row-2col {
-        grid-template-columns: 1fr;
-    }
-}
-
-@media (max-width: 992px) {
-    .login-brand h1 {
-        font-size: 2.4rem;
-    }
-    
-    .login-brand {
-        max-width: 100%;
-        text-align: center;
-    }
-    
-    .login-left {
-        padding: 30px 20px !important;
-    }
-}
-
-@media (max-width: 576px) {
     .authentication-wrapper {
-        padding: 70px 10px 10px 10px;
+        padding: 85px 15px 20px 15px !important;
+        align-items: flex-start !important;
+        justify-content: center !important;
     }
-    
+
+    .authentication-inner {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 100% !important;
+        margin-top: 0 !important;
+    }
+
+    .authentication-bg {
+        width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
     .login-card {
-        padding: 20px 16px 16px !important;
-        border-radius: 20px !important;
         max-width: 100% !important;
+        width: 100% !important;
+        margin: 0 auto !important;
+        margin-left: 0 !important;
+        padding: 20px 16px 18px !important;
+        border-radius: 16px !important;
+        margin-top: 0 !important;
     }
-    
+
+    .login-left {
+        display: none !important;
+    }
+
+    .login-brand {
+        text-align: center !important;
+        margin: 0 auto !important;
+    }
+
     .login-brand h1 {
-        font-size: 1.8rem;
+        font-size: 1.8rem !important;
     }
-    
+
     .login-brand p {
-        font-size: 0.9rem;
+        font-size: 0.9rem !important;
+    }
+
+    .form-row-2 {
+        grid-template-columns: 1fr !important;
+        gap: 6px !important;
+    }
+
+    .row-2col {
+        grid-template-columns: 1fr !important;
+        gap: 6px !important;
+    }
+
+    .login-card h4 {
+        font-size: 1rem !important;
+        text-align: center !important;
+        margin-bottom: 2px !important;
+    }
+
+    .login-card .sub-text {
+        font-size: 0.65rem !important;
+        text-align: center !important;
+        margin-bottom: 12px !important;
+    }
+
+    .form-group {
+        margin-bottom: 8px !important;
+    }
+
+    .form-group .form-control,
+    .form-group .form-select {
+        height: 38px !important;
+        font-size: 0.8rem !important;
+        padding: 6px 12px !important;
+        border-radius: 8px !important;
+    }
+
+    .form-group label {
+        font-size: 0.6rem !important;
+        margin-bottom: 3px !important;
+    }
+
+    .btn-login {
+        height: 38px !important;
+        font-size: 0.8rem !important;
+        padding: 6px !important;
+        border-radius: 8px !important;
+    }
+
+    .register-link {
+        font-size: 0.7rem !important;
+        text-align: center !important;
+        margin-top: 8px !important;
+    }
+
+    .form-check-label {
+        font-size: 0.65rem !important;
+    }
+
+    .password-toggle {
+        width: 38px !important;
+        height: 130% !important;
+    }
+
+    .password-toggle i {
+        font-size: 20px !important;
+    }
+
+    .password-group .form-control {
+        padding-right: 38px !important;
+        height: 38px !important;
+    }
+
+    hr {
+        margin: 8px 0 !important;
+    }
+
+    .navbar-toggler {
+        display: block !important;
+        border: none !important;
+        color: #333 !important;
+    }
+
+    .navbar-toggler i {
+        font-size: 24px !important;
+    }
+
+    .navbar-collapse {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 280px !important;
+        height: 100vh !important;
+        background: #ffffff !important;
+        padding: 20px !important;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.15) !important;
+        z-index: 9999 !important;
+        overflow-y: auto !important;
+        transform: translateX(-100%) !important;
+        transition: transform 0.3s ease !important;
+        border-radius: 0 !important;
+    }
+
+    .navbar-collapse.show {
+        transform: translateX(0) !important;
+    }
+
+    .landing-menu-overlay {
+        display: none !important;
+    }
+
+    .navbar-nav .nav-link {
+        color: #333 !important;
+        padding: 10px 16px !important;
+        border-radius: 8px !important;
+    }
+
+    .navbar-nav .nav-link:hover {
+        background: #f0f0ff !important;
+        color: #666cff !important;
     }
 }
 </style>
@@ -436,16 +577,10 @@ hr {
 document.addEventListener('DOMContentLoaded', function() {
     function animateIn(el, delay) {
         if (!el) return;
-
-        // Step 1: set posisi awal TANPA transition dulu
         el.style.transition = 'none';
         el.style.opacity = '0';
         el.style.transform = el.dataset.fromX;
-
-        // Step 2: paksa browser commit posisi awal (reflow)
         void el.offsetWidth;
-
-        // Step 3: baru aktifkan transition & animasikan ke posisi akhir
         requestAnimationFrame(() => {
             el.style.transition = 'all 1s cubic-bezier(0.4, 0, 0.2, 1)';
             setTimeout(() => {
@@ -455,21 +590,18 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Hero/Left section - dari luar kiri masuk ke tengah
     const heroSection = document.querySelector('.login-left');
     if (heroSection) {
         heroSection.dataset.fromX = 'translateX(-100%)';
         animateIn(heroSection, 100);
     }
 
-    // Form/Right section - dari luar kanan masuk ke tengah
     const formSection = document.querySelector('.authentication-bg');
     if (formSection) {
         formSection.dataset.fromX = 'translateX(100%)';
         animateIn(formSection, 300);
     }
 
-    // Card register - dari luar kanan masuk ke tengah
     const loginCard = document.querySelector('.login-card');
     if (loginCard) {
         loginCard.dataset.fromX = 'translateX(100%)';
@@ -486,8 +618,7 @@ document.addEventListener('DOMContentLoaded', function() {
     <div class="authentication-inner row m-0 align-items-center">
         <div class="d-none d-lg-flex col-lg-6 col-xl-6 login-left">
             <div class="login-brand">
-                <span class="badge-top">✦ Smart Parking Platform</span>
-                <h1>Bergabung dengan ParkirIn</h1>
+                <span class="badge-top">Smart Parking Platform</span>
                 <p>
                     Buat akun sekarang dan nikmati kemudahan mencari serta<br>
                     memesan slot parkir secara realtime.
@@ -498,14 +629,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
         <div class="d-flex col-12 col-lg-6 col-xl-6 authentication-bg">
             <div class="login-card">
-                <div class="welcome-badge"> Daftar Sekarang</div>
                 <h4>Buat Akun ParkirIn</h4>
                 <p class="sub-text">Daftar untuk menikmati fitur pencarian, reservasi, dan monitoring parkir.</p>
 
                 <form action="{{ route('register') }}" method="POST">
                     @csrf
 
-                    
                     <div class="form-row-2">
                         <div class="form-group">
                             <label for="name">Nama Lengkap</label>
@@ -539,7 +668,6 @@ document.addEventListener('DOMContentLoaded', function() {
                         </div>
                     </div>
 
-                    
                     <div class="form-row-2">
                         <div class="form-group">
                             <label for="nomor_hp">Nomor HP</label>
@@ -577,9 +705,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     <hr>
 
-                    <div class="label-section">Data Kendaraan</div>
-
-                    
                     <div class="form-group">
                         <label for="jenis_kendaraan">Jenis Kendaraan</label>
                         <select class="form-select @error('jenis_kendaraan') is-invalid @enderror" id="jenis_kendaraan" name="jenis_kendaraan" required>
@@ -592,7 +717,6 @@ document.addEventListener('DOMContentLoaded', function() {
                         @enderror
                     </div>
 
-                    
                     <div class="row-2col">
                         <div class="form-group">
                             <label for="nomor_polisi">Nomor Polisi</label>
@@ -625,7 +749,6 @@ document.addEventListener('DOMContentLoaded', function() {
                         </div>
                     </div>
 
-                    <!-- WARNA -->
                     <div class="form-group">
                         <label for="warna">Warna</label>
                         <input

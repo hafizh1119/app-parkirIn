@@ -2,7 +2,7 @@
 
 @push('styles')
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/swiper/swiper.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/vendor/css/pages/front-page-landing.css') }}" />
+    {{-- <link rel="stylesheet" href="{{ asset('assets/vendor/css/pages/front-page-landing.css') }}" /> --}}
 @endpush
 
 @section('content')
@@ -177,129 +177,80 @@
       <!-- Lokasi: End -->
 
       <!-- Cara Kerja -->
-      <div class="container pb-5">
+        <section id="cara-kerja" class="container pb-5">
 
-        <!-- Heading -->
-        <div class="text-center mt-5 mb-5">
+            <!-- Heading -->
+            <div class="text-center mt-5 mb-5">
+                <h6 class="text-center fw-semibold d-flex justify-content-center align-items-center mb-3">
+                    <img src="{{ asset('assets/img/front-pages/icons/section-tilte-icon.png') }}" alt="section title icon" class="me-2">
+                    <span class="text-uppercase">Cara Kerja</span>
+                </h6>
+                <h3 class="fw-bold mb-3">
+                    Reservasi Parkir Dalam
+                    <span class="text-primary">4 Langkah Mudah</span>
+                </h3>
+                <p class="text-body-secondary mx-auto" style="max-width:650px;">
+                    Cari lokasi parkir, pilih area dan slot yang tersedia,
+                    kemudian lakukan reservasi dengan cepat melalui aplikasi
+                    <strong>ParkirIn</strong>.
+                </p>
+            </div>
 
-            <h6 class="text-center fw-semibold d-flex justify-content-center align-items-center mb-3">
-                <img
-                    src="{{ asset('assets/img/front-pages/icons/section-tilte-icon.png') }}"
-                    alt="section title icon"
-                    class="me-2">
-
-                <span class="text-uppercase">
-                    Cara Kerja
-                </span>
-            </h6>
-
-            <h3 class="fw-bold mb-3">
-                Reservasi Parkir Dalam
-                <span class="text-primary">4 Langkah Mudah</span>
-            </h3>
-
-            <p class="text-body-secondary mx-auto" style="max-width:650px;">
-                Cari lokasi parkir, pilih area dan slot yang tersedia,
-                kemudian lakukan reservasi dengan cepat melalui aplikasi
-                <strong>ParkirIn</strong>.
-            </p>
-
-        </div>
-
-          <div class="row justify-content-center gy-4 gx-2">
-
-              <!-- Step 1 -->
-              <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 d-flex justify-content-center">
-                  <div class="cara-card">
-                      <div class="step-header">
-                          <div class="step-number">
-                              1
-                          </div>
-                      </div>
-
-                      <img
-                          src="{{ asset('assets/img/cara-kerja/cari-lokasi.svg') }}"
-                          class="cara-img"
-                          alt="Cari Lokasi">
-
-                      <div class="cara-body">
-                          <h5>Cari Lokasi</h5>
-                          <p>
-                              Gunakan lokasi saat ini atau cari area parkir tujuan Anda.
-                          </p>
-                      </div>
-                  </div>
-              </div>
-
-              <!-- Step 2 -->
-              <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 d-flex justify-content-center">
-                  <div class="cara-card">
-                      <div class="step-header">
-                          <div class="step-number step-green">
-                              2
-                          </div>
-                      </div>
-
-                      <img
-                          src="{{ asset('assets/img/cara-kerja/pilih-area.svg') }}"
-                          class="cara-img"
-                          alt="Pilih Area">
-
-                      <div class="cara-body">
-                          <h5>Pilih Area</h5>
-                          <p>
-                              Lihat lokasi parkir terdekat beserta jumlah slot yang tersedia.
-                          </p>
-                      </div>
-                  </div>
-              </div>
-
-              <!-- Step 3 -->
-              <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 d-flex justify-content-center">
-                  <div class="cara-card">
-                      <div class="step-header">
-                          <div class="step-number step-orange">
-                              3
-                          </div>
-                      </div>
-
-                      <img
-                          src="{{ asset('assets/img/cara-kerja/pilih-slot.svg') }}"
-                          class="cara-img"
-                          alt="Pilih Slot">
-
-                      <div class="cara-body">
-                          <h5>Pilih Slot</h5>
-                          <p>
-                              Tentukan slot parkir melalui denah parkir interaktif secara realtime.
-                          </p>
-                      </div>
-                  </div>
-              </div>
-
-              <!-- Step 4 -->
-              <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 d-flex justify-content-center">
-                  <div class="cara-card">
-                      <div class="step-header">
-                          <div class="step-number step-blue">
-                              4
-                          </div>
-                      </div>
-
-                      <img
-                          src="{{ asset('assets/img/cara-kerja/reservasi.svg') }}"
-                          class="cara-img"
-                          alt="Reservasi">
-                      <div class="cara-body">
-                          <h5>Reservasi</h5>
-                          <p>
-                              Konfirmasi pemesanan dan langsung parkir tanpa mencari tempat kosong.
-                          </p>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
+            <div class="row justify-content-center gy-4 gx-2">
+                <!-- Step 1 -->
+                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 d-flex justify-content-center">
+                    <div class="cara-card">
+                        <div class="step-header">
+                            <div class="step-number">1</div>
+                        </div>
+                        <img src="{{ asset('assets/img/cara-kerja/cari-lokasi.svg') }}" class="cara-img" alt="Cari Lokasi">
+                        <div class="cara-body">
+                            <h5>Cari Lokasi</h5>
+                            <p>Gunakan lokasi saat ini atau cari area parkir tujuan Anda.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Step 2 -->
+                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 d-flex justify-content-center">
+                    <div class="cara-card">
+                        <div class="step-header">
+                            <div class="step-number step-green">2</div>
+                        </div>
+                        <img src="{{ asset('assets/img/cara-kerja/pilih-area.svg') }}" class="cara-img" alt="Pilih Area">
+                        <div class="cara-body">
+                            <h5>Pilih Area</h5>
+                            <p>Lihat lokasi parkir terdekat beserta jumlah slot yang tersedia.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Step 3 -->
+                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 d-flex justify-content-center">
+                    <div class="cara-card">
+                        <div class="step-header">
+                            <div class="step-number step-orange">3</div>
+                        </div>
+                        <img src="{{ asset('assets/img/cara-kerja/pilih-slot.svg') }}" class="cara-img" alt="Pilih Slot">
+                        <div class="cara-body">
+                            <h5>Pilih Slot</h5>
+                            <p>Tentukan slot parkir melalui denah parkir interaktif secara realtime.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Step 4 -->
+                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 d-flex justify-content-center">
+                    <div class="cara-card">
+                        <div class="step-header">
+                            <div class="step-number step-blue">4</div>
+                        </div>
+                        <img src="{{ asset('assets/img/cara-kerja/reservasi.svg') }}" class="cara-img" alt="Reservasi">
+                        <div class="cara-body">
+                            <h5>Reservasi</h5>
+                            <p>Konfirmasi pemesanan dan langsung parkir tanpa mencari tempat kosong.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
       
       <!-- Pricing plans: Start -->
       <section id="membership" class="bg-body landing-pricing pt-5 pb-5">
@@ -1226,7 +1177,12 @@
         #cara-kerja .container{
 
             max-width:1200px;
+            scroll-margin-top: 80px;
 
+        }
+
+        #cara-kerja {
+            scroll-margin-top: 100px !important;
         }
 
         .cara-card{

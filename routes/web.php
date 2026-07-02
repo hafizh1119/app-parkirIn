@@ -11,6 +11,7 @@ use App\Http\Controllers\Customer\ReservasiController;
 use App\Http\Controllers\Customer\PembayaranController as CustomerPembayaranController;
 use App\Http\Controllers\Customer\RiwayatController;
 use App\Http\Controllers\Customer\KendaraanController;
+use App\Http\Controllers\Customer\EventController as CustomerEventController;
 
 // Admin
 use App\Http\Controllers\Admin\LokasiParkirController as AdminLokasiParkirController;
@@ -52,6 +53,7 @@ Route::middleware(['auth', 'role:customer'])->prefix('customer')->group(function
     Route::get('/qr-muncul/{id}', [ReservasiController::class, 'tiket'])->name('customer.qr-muncul');
     Route::get('/riwayat', [RiwayatController::class, 'index'])->name('customer.riwayat');
     Route::view('/profil', 'customers.profil')->name('customer.profil');
+    Route::get('/events', [CustomerEventController::class, 'index'])->name('customers.events');
 });
 
 Route::prefix('admin')->name('admin.')->group(function () {
