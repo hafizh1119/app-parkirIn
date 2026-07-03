@@ -77,6 +77,34 @@
     <div class="navbar navbar-expand-lg landing-navbar border-top-0 px-3 px-md-4">
         <!-- Menu logo wrapper: Start -->
         <div class="navbar-brand app-brand demo d-flex py-0 my-0 me-4" style="padding-top: 0 !important; padding-bottom: 0 !important; margin-top: 0 !important; margin-bottom: 0 !important;">
+          <!-- Mobile menu toggle: Start-->
+          <button
+            class="navbar-toggler border-0 px-0 me-2"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
+            <i class="tf-icons mdi mdi-menu mdi-24px align-middle"></i>
+          </button>
+          <!-- Mobile menu toggle: End-->
+          <a href="{{ route('dashboard') }}" class="app-brand-link d-flex align-items-center" style="padding: 0 !important; gap: 6px; margin: 0 !important;">
+              <img 
+                  src="{{ asset('assets/img/icon/logo.svg') }}" 
+                  alt="ParkirIn Logo"
+                  style="height: 50px; width: auto; display: block; margin: 0 !important; padding: 0 !important;"
+              />
+              <div class="d-flex flex-column" style="margin: 0 !important; padding: 0 !important; line-height: 1;">
+                  <span class="app-brand-text demo menu-text" style="font-size: 1rem; line-height: 1.1; margin: 0 !important; padding: 0 !important; font-family: 'Gilroy', 'Gilroy ExtraBold', sans-serif; font-weight: 800; color: #000000;">
+                      Parkir<span style="color: #666cff; font-family: 'Gilroy', 'Gilroy ExtraBold', sans-serif; font-weight: 800;">In</span>
+                  </span>
+                  <span style="font-size: 0.45rem; color: #a0a0a0; line-height: 1.1; margin: 0 !important; padding: 0 !important; letter-spacing: 0.3px; font-family: 'Gilroy', 'Gilroy ExtraBold', sans-serif; font-weight: 500;">
+                      Reservasi Parkir Mudah dan Aman
+                  </span>
+              </div>
+          </a>
+=======
             <!-- Mobile menu toggle: Start-->
             <button class="navbar-toggler border-0 px-0 me-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <i class="tf-icons mdi mdi-menu mdi-24px align-middle"></i>
@@ -144,6 +172,40 @@
                     <span class="tf-icons mdi mdi-account me-md-1"></span>
                     <span class="d-none d-md-block">Login/Register</span>
                 </a>
+              </li>
+            </ul>
+          </li>
+          <!-- / Style Switcher-->
+
+          <!-- navbar button: Start -->
+          @guest
+          <li>
+              <a
+                  href="{{ route('login') }}"
+                  class="btn btn-primary px-2 px-sm-4 px-lg-2 px-xl-4">
+
+                  <span class="tf-icons mdi mdi-account me-md-1"></span>
+
+                  <span class="d-none d-md-block">
+                      Login/Register
+                  </span>
+
+              </a>
+          </li>
+          @endguest
+
+          @auth
+          <li>
+              <a
+                  href="{{ route('customer.profil') }}"
+                  class="btn btn-primary px-2 px-sm-4 px-lg-2 px-xl-4"
+                  style="border-radius: 8px;">
+
+                  <span class="tf-icons mdi mdi-account me-md-1"></span>
+              </a>
+          </li>
+          @endauth
+          <!-- navbar button: End -->
             </li>
             @endguest
 
