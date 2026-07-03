@@ -203,9 +203,9 @@ main[class*="bg-"] {
 
 .form-group label {
     display: block;
-    color: #4b5563;
+    color: #1a1a2e !important;
     font-size: 0.75rem;
-    font-weight: 600;
+    font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     margin-bottom: 6px;
@@ -218,8 +218,9 @@ main[class*="bg-"] {
     border-radius: 12px !important;
     padding: 12px 16px !important;
     height: 48px !important;
-    color: #1a1a2e !important;
+    color: #111827 !important;
     font-size: 0.9rem !important;
+    font-weight: 500 !important;
     transition: all 0.3s ease !important;
     outline: none !important;
 }
@@ -231,7 +232,8 @@ main[class*="bg-"] {
 }
 
 .form-group .form-control::placeholder {
-    color: #94a3b8;
+    color: #6b7280 !important;
+    font-weight: 400;
 }
 
 .form-group .is-invalid {
@@ -250,23 +252,38 @@ main[class*="bg-"] {
 
 .password-group .form-control {
     padding-right: 48px !important;
+    height: 48px !important;
 }
 
 .password-toggle {
     position: absolute;
-    right: 14px;
-    top: 50%;
-    transform: translateY(-50%);
-    background: none;
-    border: none;
-    color: #94a3b8;
+    right: 12px;
+    top: 0;
+    bottom: 0;
+    background: none !important;
+    border: none !important;
+    color: #6b7280 !important;
     cursor: pointer;
-    padding: 4px;
+    padding: 0 !important;
+    margin: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 38px !important;
+    height: 135% !important;
     transition: color 0.3s ease;
 }
 
+.password-toggle i {
+    font-size: 20px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    line-height: 1 !important;
+}
+
 .password-toggle:hover {
-    color: #4f46e5;
+    color: #4f46e5 !important;
 }
 
 .form-check {
@@ -304,20 +321,20 @@ main[class*="bg-"] {
 }
 
 .form-check-label {
-    color: #4b5563 !important;
+    color: #1a1a2e !important;
     font-size: 0.8rem !important;
     cursor: pointer;
 }
 
 .forgot-link {
-    color: #6b7280 !important;
+    color: #4f46e5 !important;
     font-size: 0.8rem !important;
     text-decoration: none !important;
     transition: color 0.3s ease;
 }
 
 .forgot-link:hover {
-    color: #4f46e5 !important;
+    color: #4338ca !important;
 }
 
 .btn-login {
@@ -413,6 +430,21 @@ main[class*="bg-"] {
     .login-brand p {
         font-size: 0.9rem;
     }
+
+    .password-group .form-control {
+        height: 42px !important;
+        padding-right: 42px !important;
+    }
+
+    .password-toggle {
+        width: 38px !important;
+        height: 135% !important;
+    }
+
+    .password-toggle i {
+        font-size: 20px !important;
+    }
+    
 }
 </style>
 @endpush
@@ -422,16 +454,10 @@ main[class*="bg-"] {
 document.addEventListener('DOMContentLoaded', function() {
     function animateIn(el, delay) {
         if (!el) return;
-
-        // Step 1: set posisi awal TANPA transition dulu
         el.style.transition = 'none';
         el.style.opacity = '0';
         el.style.transform = el.dataset.fromX + '';
-
-        // Step 2: paksa browser commit posisi awal (reflow)
         void el.offsetWidth;
-
-        // Step 3: baru aktifkan transition & animasikan ke posisi akhir
         requestAnimationFrame(() => {
             el.style.transition = 'all 1s cubic-bezier(0.4, 0, 0.2, 1)';
             setTimeout(() => {
@@ -441,21 +467,18 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Hero/Left section - dari luar kiri masuk ke tengah
     const heroSection = document.querySelector('.login-left');
     if (heroSection) {
         heroSection.dataset.fromX = 'translateX(-100%)';
         animateIn(heroSection, 100);
     }
 
-    // Form/Right section - dari luar kanan masuk ke tengah
     const formSection = document.querySelector('.authentication-bg');
     if (formSection) {
         formSection.dataset.fromX = 'translateX(100%)';
         animateIn(formSection, 300);
     }
 
-    // Card login - dari luar kanan masuk ke tengah
     const loginCard = document.querySelector('.login-card');
     if (loginCard) {
         loginCard.dataset.fromX = 'translateX(100%)';
@@ -473,7 +496,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <div class="d-none d-lg-flex col-lg-7 col-xl-8 login-left">
             <div class="login-brand">
                 <span class="badge-top">Smart Parking Platform</span>
-                <h1>Selamat Datang di ParkirIn</h1>
+                
                 <p>
                     Temukan slot parkir secara realtime, reservasi lebih cepat,<br>
                     dan nikmati pengalaman parkir yang modern.
@@ -484,9 +507,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
         <div class="d-flex col-12 col-lg-5 col-xl-4 authentication-bg">
             <div class="login-card">
-                <div class="welcome-badge">Selamat Datang Di parkirin</div>
-                <h4>Masuk ke Akun Anda</h4>
-                <p class="sub-text">Silakan melanjutkan</p>
+                
+                <h4>Selamat Datang di ParkirIn</h4>
+                <p class="sub-text">Silakan masukkan akun anda</p>
 
                 @if(session('success'))
                     <div class="alert alert-success alert-dismissible fade show" role="alert">

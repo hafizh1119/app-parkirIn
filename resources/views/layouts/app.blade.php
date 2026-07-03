@@ -34,7 +34,8 @@
         <link rel="stylesheet" href="{{ asset('assets/vendor/css/pages/page-auth.css') }}" />
 
         <link rel="stylesheet" href="{{ asset('assets/vendor/css/pages/front-page.css') }}" />
-        <link rel="stylesheet" href="{{ asset('assets/vendor/css/pages/front-page-landing.css') }}" />
+    {{-- <link rel="stylesheet" href="{{ asset('assets/vendor/css/pages/front-page-landing.css') }}" /> --}}
+
 
         <!-- Helpers -->
         <script src="{{ asset('assets/vendor/js/helpers.js') }}"></script>

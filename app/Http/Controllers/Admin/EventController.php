@@ -15,24 +15,20 @@ class EventController extends Controller
     {
         $query = Event::with('lokasiParkirs');
 
-        // Filter status
         if ($request->filled('status')) {
             $query->where('status', $request->status);
         }
 
-        // Search
         if ($request->filled('search')) {
             $query->where('name', 'like', '%' . $request->search . '%');
         }
 
         $events = $query->orderBy('start_date', 'desc')->paginate(10);
         
-        // Auto update status
         foreach ($events as $event) {
             $event->updateStatus();
         }
 
-        // Statistik
         $stats = [
             'total' => Event::count(),
             'active' => Event::where('status', 'active')->count(),
@@ -45,7 +41,6 @@ class EventController extends Controller
 
     public function create()
     {
-        // Ambil semua lokasi parkir untuk ditampilkan
         $lokasiParkirs = LokasiParkir::orderBy('nama')->get();
         return view('Admin.events.create', compact('lokasiParkirs'));
     }
@@ -65,19 +60,18 @@ class EventController extends Controller
         $data = $request->all();
         
         if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $filename = time() . '_' . Str::slug($request->name) . '.' . $image->getClientOriginalExtension();
-            $image->storeAs('events', $filename, 'public');
-            $data['image'] = $filename;
+            $file = $request->file('image');
+            $filename = time() . '_' . Str::slug($request->name) . '.' . $file->getClientOriginalExtension();
+            // SIMPAN KE public/assets/img/events/
+            $file->move(public_path('assets/img/events'), $filename);
+            $data['image'] = 'assets/img/events/' . $filename;
         }
 
         $data['status'] = 'upcoming';
         $data['is_active'] = true;
 
-        // Create event
         $event = Event::create($data);
 
-        // Attach semua lokasi parkir yang ada ke event
         $allLokasiIds = LokasiParkir::pluck('id')->toArray();
         $event->lokasiParkirs()->attach($allLokasiIds);
 
@@ -115,19 +109,19 @@ class EventController extends Controller
         $data = $request->all();
 
         if ($request->hasFile('image')) {
-            if ($event->image) {
-                Storage::disk('public')->delete('events/' . $event->image);
+            // Hapus gambar lama
+            if ($event->image && file_exists(public_path($event->image))) {
+                unlink(public_path($event->image));
             }
             
-            $image = $request->file('image');
-            $filename = time() . '_' . Str::slug($request->name) . '.' . $image->getClientOriginalExtension();
-            $image->storeAs('events', $filename, 'public');
-            $data['image'] = $filename;
+            $file = $request->file('image');
+            $filename = time() . '_' . Str::slug($request->name) . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('assets/img/events'), $filename);
+            $data['image'] = 'assets/img/events/' . $filename;
         }
 
         $event->update($data);
 
-        // Update relasi lokasi parkir
         if ($request->has('lokasi_parkir_ids')) {
             $event->lokasiParkirs()->sync($request->lokasi_parkir_ids);
         }
@@ -138,11 +132,11 @@ class EventController extends Controller
 
     public function destroy(Event $event)
     {
-        if ($event->image) {
-            Storage::disk('public')->delete('events/' . $event->image);
+        // Hapus gambar
+        if ($event->image && file_exists(public_path($event->image))) {
+            unlink(public_path($event->image));
         }
         
-        // Detach semua relasi
         $event->lokasiParkirs()->detach();
         $event->delete();
 
