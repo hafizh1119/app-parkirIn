@@ -21,7 +21,7 @@
                   style="height: 50px; width: auto; display: block; margin: 0 !important; padding: 0 !important;"
               />
               <div class="d-flex flex-column" style="margin: 0 !important; padding: 0 !important; line-height: 1;">
-                  <span class="app-brand-text demo menu-text" style="font-size: 1 rem; line-height: 1.1; margin: 0 !important; padding: 0 !important; font-family: 'Gilroy', 'Gilroy ExtraBold', sans-serif; font-weight: 800; color: #000000;">
+                  <span class="app-brand-text demo menu-text" style="font-size: 1rem; line-height: 1.1; margin: 0 !important; padding: 0 !important; font-family: 'Gilroy', 'Gilroy ExtraBold', sans-serif; font-weight: 800; color: #000000;">
                       Parkir<span style="color: #666cff; font-family: 'Gilroy', 'Gilroy ExtraBold', sans-serif; font-weight: 800;">In</span>
                   </span>
                   <span style="font-size: 0.45rem; color: #a0a0a0; line-height: 1.1; margin: 0 !important; padding: 0 !important; letter-spacing: 0.3px; font-family: 'Gilroy', 'Gilroy ExtraBold', sans-serif; font-weight: 500;">
@@ -108,51 +108,14 @@
           @endguest
 
           @auth
-          <li class="nav-item dropdown">
-
+          <li>
               <a
-                  class="btn btn-primary dropdown-toggle px-2 px-sm-4 px-lg-2 px-xl-4"
-                  href="#"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false">
+                  href="{{ route('customer.profil') }}"
+                  class="btn btn-primary px-2 px-sm-4 px-lg-2 px-xl-4"
+                  style="border-radius: 8px;">
 
                   <span class="tf-icons mdi mdi-account me-md-1"></span>
-
-                  <span class="d-none d-md-inline">
-                      {{ Auth::user()->name }}
-                  </span>
-
               </a>
-
-              <ul class="dropdown-menu dropdown-menu-end">
-
-                  <li>
-                      <a class="dropdown-item" href="{{ route('customer.profil') }}">
-                          Profil
-                      </a>
-                  </li>
-
-                  <li>
-                      <a class="dropdown-item" href="{{ route('customer.riwayat') }}">
-                          Riwayat
-                      </a>
-                  </li>
-
-                  <li><hr class="dropdown-divider"></li>
-
-                  <li>
-                      <form action="{{ route('logout') }}" method="POST">
-                          @csrf
-
-                          <button type="submit" class="dropdown-item text-danger">
-                              Logout
-                          </button>
-                      </form>
-                  </li>
-
-              </ul>
-
           </li>
           @endauth
           <!-- navbar button: End -->

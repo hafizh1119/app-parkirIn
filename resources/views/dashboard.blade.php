@@ -70,7 +70,7 @@
 
       <section id="parkir-terdekat" class="bg-body position-relative d-flex align-items-center pt-4 pb-5">
 
-          <div class="container">
+        <div class="container">
 
             <!-- Heading -->
             <div class="text-center mt-5 mb-5">
@@ -104,76 +104,90 @@
                 </p>
 
             </div>
-              <!-- Cards -->
-                <div class="row justify-content-center g-4">
 
-                    @foreach($lokasiParkir as $parkir)
+            <!-- Cards -->
+            <div class="row justify-content-center g-4">
 
-                        @php
-                            $tersedia = $parkir->slot_mobil > 0 || $parkir->slot_motor > 0;
-                        @endphp
+                @foreach($lokasiParkir as $parkir)
 
-                        <div class="col-lg-4 col-md-6">
-                            <div class="card parking-card h-100 shadow-sm border-0">
+                    @php
+                        $tersedia = $parkir->slot_mobil > 0 || $parkir->slot_motor > 0;
+                    @endphp
 
-                                <div class="position-relative">
-                                    <img src="{{ asset($parkir->gambar) }}" class="card-img-top" style="height:220px;object-fit:cover;">
-                                    <span class="badge position-absolute top-0 end-0 m-3 {{ $tersedia ? 'bg-success' : 'bg-danger' }}">
-                                        {{ $tersedia ? 'Tersedia' : 'Penuh' }}
-                                    </span>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card parking-card h-100 border-0" style="border-radius: 20px; background: #ffffff; box-shadow: 0 2px 20px rgba(0, 0, 0, 0.04); transition: all 0.3s ease; overflow: hidden;">
+
+                            <div class="position-relative">
+                                <img src="{{ asset($parkir->gambar) }}" class="card-img-top" style="height: 220px; object-fit: cover; border-radius: 0;">
+                                
+                                <!-- Badge Status -->
+                                <span class="badge position-absolute top-0 end-0 m-3 px-3 py-2 rounded-pill {{ $tersedia ? 'bg-success' : 'bg-danger' }}" style="font-weight: 500; font-size: 0.65rem; letter-spacing: 0.3px;">
+                                    {{ $tersedia ? 'Tersedia' : 'Penuh' }}
+                                </span>
+
+                            </div>
+
+                            <div class="card-body" style="padding: 18px 20px 20px;">
+
+                                <!-- Nama -->
+                                <h5 class="fw-bold mb-1" style="color: #1a1a2e; font-size: 1rem;">
+                                    {{ $parkir->nama }}
+                                </h5>
+
+                                <!-- Alamat -->
+                                <p class="text-muted mb-3" style="font-size: 0.75rem; color: #8e8ea0 !important;">
+                                    <i class="mdi mdi-map-marker-outline me-1" style="font-size: 13px;"></i>
+                                    {{ $parkir->alamat }}
+                                </p>
+
+                                <!-- Slot & Tarif dalam satu baris -->
+                                <div class="d-flex justify-content-between align-items-center mb-3" style="border-bottom: 1px solid #f0f0f5; padding-bottom: 12px;">
+                                    <div>
+                                        <span style="font-size: 0.6rem; color: #9ca3af; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Slot</span>
+                                        <div class="d-flex gap-3 mt-1">
+                                            <span style="font-size: 0.85rem; font-weight: 500; color: #7367F0;">
+                                                <i class="mdi mdi-motorbike" style="font-size: 16px;"></i> {{ $parkir->slot_motor }}
+                                            </span>
+                                            <span style="font-size: 0.85rem; font-weight: 500; color: #4CAF50;">
+                                                <i class="mdi mdi-car" style="font-size: 16px;"></i> {{ $parkir->slot_mobil }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="text-end">
+                                        <span style="font-size: 0.6rem; color: #9ca3af; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Tarif / Jam</span>
+                                        <div class="fw-bold" style="color: #7367F0; font-size: 1rem;">
+                                            Rp {{ number_format($parkir->tarif_per_jam, 0, ',', '.') }}
+                                        </div>
+                                    </div>
                                 </div>
 
-                                <div class="card-body">
+                                <!-- Button -->
+                                <a href="{{ route('customer.atur-jadwal', $parkir->id) }}" class="btn w-100" style="background: #7367F0; color: #fff; border: none; border-radius: 12px; padding: 11px; font-weight: 600; font-size: 0.85rem; transition: all 0.3s ease;">
+                                    <i class="mdi mdi-calendar-check me-2"></i> Reservasi
+                                </a>
 
-                                    <div class="d-flex justify-content-between mb-2">
-                                        <h5 class="fw-semibold mb-0">{{ $parkir->nama }}</h5>
-                                        <span class="text-warning">⭐ {{ $parkir->rating ?? '4.5' }}</span>
-                                    </div>
-
-                                    <p class="text-body-secondary mb-3">{{ $parkir->alamat }}</p>
-
-                                    <div class="d-flex justify-content-between mb-3">
-                                        <span>📍 -</span>
-                                        <span class="fw-semibold">
-                                            <i class="mdi mdi-motorbike text-primary"></i> {{ $parkir->slot_motor }}
-                                            &nbsp;
-                                            <i class="mdi mdi-car text-success"></i> {{ $parkir->slot_mobil }}
-                                        </span>
-                                    </div>
-
-                                    <div class="border-top pt-3 mb-3">
-                                        <small class="text-body-secondary">Tarif</small>
-                                        <h6 class="fw-bold text-primary mb-0">
-                                            Rp {{ number_format($parkir->tarif_per_jam, 0, ',', '.') }}/Jam
-                                        </h6>
-                                    </div>
-
-                                    <a href="{{ route('customer.atur-jadwal', $parkir->id) }}" class="btn btn-primary w-100">
-                                        Reservasi
-                                    </a>
-
-                                </div>
                             </div>
                         </div>
+                    </div>
 
-                    @endforeach
+                @endforeach
 
-                </div>
+            </div>
 
-              <!-- Button -->
-              <div class="text-center mt-5">
-                  <a
-                      href="{{ route('customer.cari-parkir') }}"
-                      class="btn btn-outline-primary btn-lg px-5">
+            <!-- Button -->
+            <div class="text-center mt-5">
+                <a
+                    href="{{ route('customer.cari-parkir') }}"
+                    class="btn btn-outline-primary btn-lg px-5" style="border-radius: 50px; font-weight: 600;">
 
-                      Lihat Semua Lokasi
+                    Lihat Semua Lokasi
 
-                  </a>
-              </div>
+                </a>
+            </div>
 
-          </div>
+        </div>
 
-      </section>
+    </section>
       <!-- Lokasi: End -->
 
       <!-- Cara Kerja -->
@@ -301,358 +315,329 @@
           </div>
       </div>
       
-      <!-- Pricing plans: Start -->
-      <section id="membership" class="bg-body landing-pricing pt-5 pb-5">
-        <div class="container bg-icon-left">
-          <h6 class="text-center fw-semibold d-flex justify-content-center align-items-center mb-4">
-            <img
-              src="../../assets/img/front-pages/icons/section-tilte-icon.png"
-              alt="section title icon"
-              class="me-2" />
-            <span class="text-uppercase">Membership ParkirIn</span>
-          </h6>
-          <h3 class="text-center mb-2"><span class="fw-bold">Pilih Membership yang Sesuai Kebutuhan Anda</span> </h3>
-          <p class="text-center fw-medium mb-2 pt-3">
-            Nikmati berbagai keuntungan eksklusif, diskon parkir,
-            dan akses prioritas di seluruh area parkir yang bermitra dengan ParkirIn.
-          </p>
-          <div id="slider-pricing" class="mb-5"></div>
-          <div class="row gy-4 justify-content-center">
-            <!-- Free Plan: Start -->
-            <div class="col-xl-4 col-lg-6">
-                <div class="card shadow-none h-100">
-                  <div class="card-header border-0 pb-0">
-                    <h3 class="mb-2 pb-1">Non Member</h3>
-
-                    <div class="d-flex align-items-center">
-                      <h5 class="d-flex mb-0">
-                        <span class="display-3 fw-bold">0</span>
-                      </h5>
-
-                      <div class="ms-2 ps-1">
-                        <h6 class="mb-1">Gratis</h6>
-                        <p class="small mb-0">Tanpa biaya keanggotaan</p>
-                      </div>
-                    </div>
-
-                    <img src="../../assets/img/front-pages/icons/smiling-icon.png" alt="" />
-                  </div>
-
-                  <div class="card-body d-flex flex-column">
-                    <ul class="list-unstyled mb-0 flex-grow-1">
-
-                    <li class="d-flex align-items-center mb-3">
-                      <img src="../../assets/img/front-pages/icons/list-arrow-icon.png"
-                          alt=""
-                          class="me-2"
-                          width="16">
-                      <span>Reservasi slot parkir</span>
-                    </li>
-
-                    <li class="d-flex align-items-center mb-3">
-                      <img src="../../assets/img/front-pages/icons/list-arrow-icon.png"
-                          alt=""
-                          class="me-2"
-                          width="16">
-                      <span>Pembayaran online</span>
-                    </li>
-
-                    <li class="d-flex align-items-center mb-3">
-                      <img src="../../assets/img/front-pages/icons/list-arrow-icon.png"
-                          alt=""
-                          class="me-2"
-                          width="16">
-                      <span>QR Code tiket parkir</span>
-                    </li>
-
-                    <li class="d-flex align-items-center mb-3">
-                      <img src="../../assets/img/front-pages/icons/list-arrow-icon.png"
-                          alt=""
-                          class="me-2"
-                          width="16">
-                      <span>Riwayat reservasi</span>
-                    </li>
-
-                    <li class="d-flex align-items-center mb-3">
-                      <img src="../../assets/img/front-pages/icons/list-arrow-icon.png"
-                          alt=""
-                          class="me-2"
-                          width="16">
-                      <span>Kelola kendaraan</span>
-                    </li>
-
-                    <li class="d-flex align-items-center mb-3">
-                      <img src="../../assets/img/front-pages/icons/list-arrow-icon.png"
-                          alt=""
-                          class="me-2"
-                          width="16">
-                      <span>Akses seluruh lokasi ParkirIn</span>
-                    </li>
-
-                  </ul>
-
-                  <hr>
-
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                      <h6 class="mb-1">Status</h6>
-                      <p class="small mb-0">Pengguna Reguler</p>
-                    </div>
-
-                    <span class="badge bg-label-secondary rounded-pill">
-                      Gratis
-                    </span>
-                  </div>
-
-                  <div class="text-center mt-4 pt-2">
-                    <a href="register.html" class="btn btn-outline-secondary w-100">
-                      Mulai Gratis
-                    </a>
-                  </div>
-
-                </div>
-              </div>
+    <!-- Pricing plans: Start -->
+    <section id="membership" class="bg-body landing-pricing pt-5 pb-5">
+        <div class="container">
+            <!-- Heading -->
+            <div class="text-center mb-5">
+                <h6 class="text-center fw-semibold d-flex justify-content-center align-items-center mb-3">
+                    <img
+                        src="{{ asset('assets/img/front-pages/icons/section-tilte-icon.png') }}"
+                        alt="section title icon"
+                        class="me-2" />
+                    <span class="text-uppercase">Membership ParkirIn</span>
+                </h6>
+                <h3 class="fw-bold mb-3">
+                    Pilih Membership yang <span class="text-primary">Sesuai Kebutuhan Anda</span>
+                </h3>
+                <p class="text-body-secondary mx-auto" style="max-width:650px;">
+                    Nikmati berbagai keuntungan eksklusif, diskon parkir,
+                    dan akses prioritas di seluruh area parkir yang bermitra dengan ParkirIn.
+                </p>
             </div>
-            <!-- Free Plan: End -->
 
-            <!-- Basic Plan: Start -->
-            <div class="col-xl-4 col-lg-6">
-              <div class="card shadow-none h-100 border border-primary">
-                <div class="card-header border-0 pb-0">
-                  <span class="badge bg-primary mb-3">
-                    PALING POPULER
-                  </span>
+            <div class="row gy-4 justify-content-center">
+                <!-- Free Plan -->
+                <div class="col-xl-4 col-lg-6">
+                    <div class="card h-100 border-0 membership-card" style="border-radius: 20px; background: #ffffff; box-shadow: 0 2px 20px rgba(0,0,0,0.04); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); overflow: hidden; transform: translateY(0);">
+                        <div class="card-body p-4 d-flex flex-column">
+                            <h4 class="fw-bold mb-1" style="color: #1a1a2e;">Non Member</h4>
+                            <p class="text-muted small mb-3" style="color: #8e8ea0 !important;">Tanpa biaya keanggotaan</p>
 
-                  <h3 class="mb-2 pb-1">
-                    Member ParkirIn
-                  </h3>
+                            <div class="d-flex align-items-end mb-4">
+                                <span class="display-4 fw-bold" style="color: #1a1a2e; font-size: 2.5rem;">Gratis</span>
+                                <span class="text-muted small mb-1 ms-2" style="color: #8e8ea0 !important;">/ selamanya</span>
+                            </div>
 
-                  <div class="d-flex align-items-center">
+                            <ul class="list-unstyled mb-4 flex-grow-1" style="font-size: 0.85rem; color: #4b5563; line-height: 2;">
+                                <li class="d-flex align-items-center gap-2">
+                                    <i class="mdi mdi-check-circle" style="color: #7367F0; font-size: 18px;"></i> Reservasi slot parkir
+                                </li>
+                                <li class="d-flex align-items-center gap-2">
+                                    <i class="mdi mdi-check-circle" style="color: #7367F0; font-size: 18px;"></i> Pembayaran online
+                                </li>
+                                <li class="d-flex align-items-center gap-2">
+                                    <i class="mdi mdi-check-circle" style="color: #7367F0; font-size: 18px;"></i> QR Code tiket parkir
+                                </li>
+                                <li class="d-flex align-items-center gap-2">
+                                    <i class="mdi mdi-check-circle" style="color: #7367F0; font-size: 18px;"></i> Riwayat reservasi
+                                </li>
+                                <li class="d-flex align-items-center gap-2">
+                                    <i class="mdi mdi-check-circle" style="color: #7367F0; font-size: 18px;"></i> Kelola kendaraan
+                                </li>
+                                <li class="d-flex align-items-center gap-2">
+                                    <i class="mdi mdi-check-circle" style="color: #7367F0; font-size: 18px;"></i> Akses seluruh lokasi ParkirIn
+                                </li>
+                            </ul>
 
-                    <h5 class="d-flex mb-0">
-                      <sup class="h5 mt-3">Rp</sup>
-                      <span class="display-3 fw-bold">50</span>
-                      <sub class="h5 mb-1">.000</sub>
-                    </h5>
-
-                    <div class="ms-2 ps-1">
-                      <h6 class="mb-1">Lifetime</h6>
-                      <p class="small mb-0">
-                        Bayar sekali, aktif selamanya
-                      </p>
+                            <div class="pt-3" style="border-top: 1px solid #f0f0f5;">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <span class="text-muted small" style="color: #8e8ea0 !important;">Status</span>
+                                    <span class="badge rounded-pill px-3 py-1" style="background: #f0f2ff; color: #7367F0; font-weight: 600; font-size: 0.65rem;">Pengguna Reguler</span>
+                                </div>
+                                @auth
+                                    <a href="{{ route('customer.cari-parkir') }}"
+                                    class="btn w-100 membership-btn membership-btn-login">
+                                        <i class="mdi mdi-car-search me-1"></i>
+                                        Mulai Reservasi
+                                    </a>
+                                @else
+                                    <a href="{{ route('login') }}"
+                                    class="btn w-100 membership-btn membership-btn-register">
+                                        <i class="mdi mdi-login me-1"></i>
+                                        Mulai Gratis
+                                    </a>
+                                @endauth
+                            </div>
+                        </div>
                     </div>
-
-                  </div>
-
-                  <img src="../../assets/img/front-pages/icons/smiling-icon.png" alt="" />
-
                 </div>
 
-                <div class="card-body d-flex flex-column">
+                <!-- Member Plan -->
+                <div class="col-xl-4 col-lg-6">
+                    <div class="card h-100 border-0 membership-card featured" style="border-radius: 20px; background: #ffffff; box-shadow: 0 2px 20px rgba(0,0,0,0.04); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); overflow: hidden; transform: translateY(0);">
 
-                  <ul class="list-unstyled mb-0 flex-grow-1">
+                        <div class="card-body p-4 d-flex flex-column">
+                            <h4 class="fw-bold mb-1" style="color: #1a1a2e;">Member ParkirIn</h4>
+                            <p class="text-muted small mb-3" style="color: #8e8ea0 !important;">Akses penuh semua fitur</p>
 
-                    <li class="d-flex align-items-center mb-3">
-                      <img src="../../assets/img/front-pages/icons/list-arrow-icon.png"
-                          alt=""
-                          class="me-2"
-                          width="16">
-                      <span>Semua fitur Non Member</span>
-                    </li>
+                            <div class="d-flex align-items-end mb-4">
+                                <span class="display-4 fw-bold" style="color: #7367F0; font-size: 2.5rem;">Rp 50.000</span>
+                                <span class="text-muted small mb-1 ms-2" style="color: #8e8ea0 !important;">/ Lifetime</span>
+                            </div>
 
-                    <li class="d-flex align-items-center mb-3">
-                      <img src="../../assets/img/front-pages/icons/list-arrow-icon.png"
-                          alt=""
-                          class="me-2"
-                          width="16">
-                      <span>Dapat Point setiap transaksi</span>
-                    </li>
+                            <ul class="list-unstyled mb-4 flex-grow-1" style="font-size: 0.85rem; color: #4b5563; line-height: 2;">
+                                <li class="d-flex align-items-center gap-2">
+                                    <i class="mdi mdi-check-circle" style="color: #7367F0; font-size: 18px;"></i> Semua fitur Non Member
+                                </li>
+                                <li class="d-flex align-items-center gap-2">
+                                    <i class="mdi mdi-check-circle" style="color: #7367F0; font-size: 18px;"></i> Dapat Point setiap transaksi
+                                </li>
+                                <li class="d-flex align-items-center gap-2">
+                                    <i class="mdi mdi-check-circle" style="color: #7367F0; font-size: 18px;"></i> Tukarkan Point potongan harga
+                                </li>
+                                <li class="d-flex align-items-center gap-2">
+                                    <i class="mdi mdi-check-circle" style="color: #7367F0; font-size: 18px;"></i> Member Day diskon 10%
+                                </li>
+                                <li class="d-flex align-items-center gap-2">
+                                    <i class="mdi mdi-check-circle" style="color: #7367F0; font-size: 18px;"></i> Berlaku aktif bertransaksi
+                                </li>
+                                <li class="d-flex align-items-center gap-2">
+                                    <i class="mdi mdi-check-circle" style="color: #7367F0; font-size: 18px;"></i> Riwayat Point & Reward
+                                </li>
+                            </ul>
 
-                    <li class="d-flex align-items-center mb-3">
-                      <img src="../../assets/img/front-pages/icons/list-arrow-icon.png"
-                          alt=""
-                          class="me-2"
-                          width="16">
-                      <span>Tukarkan Point menjadi potongan harga</span>
-                    </li>
-
-                    <li class="d-flex align-items-center mb-3">
-                      <img src="../../assets/img/front-pages/icons/list-arrow-icon.png"
-                          alt=""
-                          class="me-2"
-                          width="16">
-                      <span>Member Day diskon 10% (syarat transaksi terpenuhi)</span>
-                    </li>
-
-                    <li class="d-flex align-items-center mb-3">
-                      <img src="../../assets/img/front-pages/icons/list-arrow-icon.png"
-                          alt=""
-                          class="me-2"
-                          width="16">
-                      <span>Berlaku jika aktif bertransaksi</span>
-                    </li>
-
-                    <li class="d-flex align-items-center mb-3">
-                      <img src="../../assets/img/front-pages/icons/list-arrow-icon.png"
-                          alt=""
-                          class="me-2"
-                          width="16">
-                      <span>Riwayat Point & Reward</span>
-                    </li>
-
-                  </ul>
-
-                  <hr>
-
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                      <h6 class="mb-1">Status</h6>
-                      <p class="small mb-0">Member Lifetime</p>
+                            <div class="pt-3" style="border-top: 1px solid #f0f0f5;">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <span class="text-muted small" style="color: #8e8ea0 !important;">Status</span>
+                                    <span class="badge rounded-pill px-3 py-1" style="background: #7367F0; color: #fff; font-weight: 600; font-size: 0.65rem;">Member Lifetime</span>
+                                </div>
+                                <a href="#" class="btn w-100 membership-btn featured-btn" style="background: #7367F0; color: #fff; border: none; border-radius: 12px; padding: 12px; font-weight: 600; font-size: 0.85rem; transition: all 0.3s ease; box-shadow: 0 4px 16px rgba(115, 103, 240, 0.25);">
+                                    <i class="mdi mdi-crown me-2"></i> Daftar Member
+                                </a>
+                            </div>
+                        </div>
                     </div>
-
-                    <span class="badge bg-label-primary rounded-pill">
-                      Lifetime
-                    </span>
-                  </div>
-
-                  <div class="text-center mt-4 pt-2">
-                    <a href="payment-page.html" class="btn btn-primary w-100">
-                      Daftar Member
-                    </a>
-                  </div>
-
                 </div>
-
-              </div>
             </div>
-            <!-- Basic Plan: End -->
-          </div>
         </div>
-      </section>
-      <!-- Pricing plans: End -->
+    </section>
 
-      <!-- Keunggulan Parkirin: Start -->
-      <section id="keunggulan-parkirin" class="min-vh-100 d-flex align-items-center overflow-hidden">
-          <div class="container-fluid">
-              <!-- CARD 1 -->
-              <div class="text-center mb-5">
-                  <h6 class="text-center fw-semibold d-flex justify-content-center align-items-center mb-4">
-                      <img
-                          src="{{ asset('assets/img/front-pages/icons/section-tilte-icon.png') }}"
-                          class="me-2">
-                      <span class="text-uppercase">
-                          Keunggulan ParkirIn
-                      </span>
-                  </h6>
+    <!-- Pricing plans: End -->
 
-                  <h3 class="fw-bold">
-                      Solusi Parkir Modern yang Cepat dan Praktis
-                  </h3>
+        <section id="keunggulan-parkirin" class="min-vh-100 d-flex align-items-center overflow-hidden">
+        <div class="container-fluid">
+            <!-- Header Section -->
+            <div class="text-center mb-5">
+                <div class="d-flex justify-content-center align-items-center mb-3">
+                    <img
+                        src="{{ asset('assets/img/front-pages/icons/section-tilte-icon.png') }}"
+                        class="me-2"
+                        style="width: 28px; height: 28px; opacity: 0.7;">
+                    <span class="section-badge">
+                        Keunggulan ParkirIn
+                    </span>
+                </div>
 
-                  <p class="text-body-secondary">
-                      Nikmati pengalaman mencari dan memesan parkir dengan lebih mudah.
-                  </p>
+                <h3 class="section-title">
+                    Solusi Parkir Modern yang Cepat dan Praktis
+                </h3>
 
-              </div>
+                <p class="section-subtitle">
+                    Nikmati pengalaman mencari dan memesan parkir dengan lebih mudah.
+                </p>
+            </div>
 
-              <!-- Marquee -->
-              <div class="feature-slider">
-                  <div class="feature-track">
-                      <!-- Card 1 -->
-                      <div class="parkirin-card">
-                          <div class="parkirin-body">
-                              <h3>Lokasi Parkir Terdekat</h3>
-                              <p>
-                                  Menampilkan area parkir terdekat berdasarkan lokasi pengguna secara realtime.
-                              </p>
+            <!-- Marquee Cards -->
+            <div class="feature-slider">
+                <div class="feature-track">
+                    <!-- Card 1 -->
+                    <div class="parkirin-card">
+                        <div class="parkirin-body">
+                            <h3>Lokasi Parkir Terdekat</h3>
+                            <p>
+                                Menampilkan area parkir terdekat berdasarkan lokasi pengguna secara realtime.
+                            </p>
+                        </div>
+                        <img
+                            src="{{ asset('assets/img/keunggulan/parkir.svg') }}"
+                            class="parkirin-image"
+                            alt="Lokasi Parkir">
+                    </div>
+            
+                    <!-- Card 2 -->
+                    <div class="parkirin-card">
+                        <div class="parkirin-body">
+                            <h3>Informasi Slot Tersedia</h3>
+                            <p>
+                                Mengetahui jumlah slot kosong yang tersedia sebelum pengguna tiba di lokasi parkir.
+                            </p>
+                        </div>
+                        <img
+                            src="{{ asset('assets/img/keunggulan/slot-tersedia.svg') }}"
+                            class="parkirin-image"
+                            alt="Slot Tersedia">
+                    </div>
 
-                          </div>
-                          <img
-                              src="{{ asset('assets/img/keunggulan/parkir.svg') }}"
-                              class="parkirin-image"
-                              alt="Lokasi Parkir">
-                      </div>
-              
-                      <!-- Card 2 -->
-                      <div class="parkirin-card">
-                          <div class="parkirin-body">
-                              <h3>Informasi Slot Tersedia</h3>
-                              <p>
-                                  Mengetahui jumlah slot kosong yang tersedia sebelum pengguna tiba di lokasi parkir.
-                              </p>
-                          </div>
+                    <!-- Card 3 -->
+                    <div class="parkirin-card">
+                        <div class="parkirin-body">
+                            <h3>Denah Parkir Interaktif</h3>
+                            <p>
+                                Memilih slot parkir terbaik melalui denah parkir interaktif secara realtime.
+                            </p>
+                        </div>
+                        <img
+                            src="{{ asset('assets/img/keunggulan/denah.svg') }}"
+                            class="parkirin-image"
+                            alt="Denah Parkir">
+                    </div>
 
-                          <img
-                              src="{{ asset('assets/img/keunggulan/slot-tersedia.svg') }}"
-                              class="parkirin-image"
-                              alt="Slot Tersedia">
-                      </div>
+                    <!-- Card 4 -->
+                    <div class="parkirin-card">
+                        <div class="parkirin-body">
+                            <h3>Reservasi Cepat</h3>
+                            <p>
+                                Reservasi slot parkir hanya dalam beberapa detik tanpa perlu mencari tempat kosong.
+                            </p>
+                        </div>
+                        <img
+                            src="{{ asset('assets/img/keunggulan/reservasi.svg') }}"
+                            class="parkirin-image"
+                            alt="Reservasi">
+                    </div>
 
-                      <!-- Card 3 -->
-                      <div class="parkirin-card">
-                          <div class="parkirin-body">
-                              <h3>Denah Parkir Interaktif</h3>
-                              <p>
-                                  Memilih slot parkir terbaik melalui denah parkir interaktif secara realtime.
-                              </p>
-                          </div>
+                    <!-- Card 5 -->
+                    <div class="parkirin-card">
+                        <div class="parkirin-body">
+                            <h3>Tarif Transparan</h3>
+                            <p>
+                                Menampilkan tarif parkir secara jelas sehingga pengguna mengetahui biaya sejak awal.
+                            </p>
+                        </div>
+                        <img
+                            src="{{ asset('assets/img/keunggulan/tarif.svg') }}"
+                            class="parkirin-image"
+                            alt="Tarif Parkir">
+                    </div>
 
-                          <img
-                              src="{{ asset('assets/img/keunggulan/denah.svg') }}"
-                              class="parkirin-image"
-                              alt="Denah Parkir">
-                      </div>
+                    <!-- Card 6 -->
+                    <div class="parkirin-card">
+                        <div class="parkirin-body">
+                            <h3>Pembayaran Mudah</h3>
+                            <p>
+                                Mendukung pembayaran digital melalui QRIS, Virtual Account, dan E-Wallet secara aman.
+                            </p>
+                        </div>
+                        <img
+                            src="{{ asset('assets/img/keunggulan/pembayaran.svg') }}"
+                            class="parkirin-image"
+                            alt="Pembayaran">
+                    </div>
 
-                      <!-- Card 4 -->
-                      <div class="parkirin-card">
-                          <div class="parkirin-body">
-                              <h3>Reservasi Cepat</h3>
-                              <p>
-                                  Reservasi slot parkir hanya dalam beberapa detik tanpa perlu mencari tempat kosong.
-                              </p>
-                          </div>
+                    <!-- DUPLIKAT untuk seamless loop -->
+                    <div class="parkirin-card">
+                        <div class="parkirin-body">
+                            <h3>Lokasi Parkir Terdekat</h3>
+                            <p>
+                                Menampilkan area parkir terdekat berdasarkan lokasi pengguna secara realtime.
+                            </p>
+                        </div>
+                        <img
+                            src="{{ asset('assets/img/keunggulan/parkir.svg') }}"
+                            class="parkirin-image"
+                            alt="Lokasi Parkir">
+                    </div>
+            
+                    <div class="parkirin-card">
+                        <div class="parkirin-body">
+                            <h3>Informasi Slot Tersedia</h3>
+                            <p>
+                                Mengetahui jumlah slot kosong yang tersedia sebelum pengguna tiba di lokasi parkir.
+                            </p>
+                        </div>
+                        <img
+                            src="{{ asset('assets/img/keunggulan/slot-tersedia.svg') }}"
+                            class="parkirin-image"
+                            alt="Slot Tersedia">
+                    </div>
 
-                          <img
-                              src="{{ asset('assets/img/keunggulan/reservasi.svg') }}"
-                              class="parkirin-image"
-                              alt="Reservasi">
-                      </div>
+                    <div class="parkirin-card">
+                        <div class="parkirin-body">
+                            <h3>Denah Parkir Interaktif</h3>
+                            <p>
+                                Memilih slot parkir terbaik melalui denah parkir interaktif secara realtime.
+                            </p>
+                        </div>
+                        <img
+                            src="{{ asset('assets/img/keunggulan/denah.svg') }}"
+                            class="parkirin-image"
+                            alt="Denah Parkir">
+                    </div>
 
-                      <!-- Card 5 -->
-                      <div class="parkirin-card">
-                          <div class="parkirin-body">
-                              <h3>Tarif Transparan</h3>
-                              <p>
-                                  Menampilkan tarif parkir secara jelas sehingga pengguna mengetahui biaya sejak awal.
-                              </p>
-                          </div>
+                    <div class="parkirin-card">
+                        <div class="parkirin-body">
+                            <h3>Reservasi Cepat</h3>
+                            <p>
+                                Reservasi slot parkir hanya dalam beberapa detik tanpa perlu mencari tempat kosong.
+                            </p>
+                        </div>
+                        <img
+                            src="{{ asset('assets/img/keunggulan/reservasi.svg') }}"
+                            class="parkirin-image"
+                            alt="Reservasi">
+                    </div>
 
-                          <img
-                              src="{{ asset('assets/img/keunggulan/tarif.svg') }}"
-                              class="parkirin-image"
-                              alt="Tarif Parkir">
+                    <div class="parkirin-card">
+                        <div class="parkirin-body">
+                            <h3>Tarif Transparan</h3>
+                            <p>
+                                Menampilkan tarif parkir secara jelas sehingga pengguna mengetahui biaya sejak awal.
+                            </p>
+                        </div>
+                        <img
+                            src="{{ asset('assets/img/keunggulan/tarif.svg') }}"
+                            class="parkirin-image"
+                            alt="Tarif Parkir">
+                    </div>
 
-                      </div>
-
-                      <!-- Card 6 -->
-                      <div class="parkirin-card">
-                          <div class="parkirin-body">
-                              <h3>Pembayaran Mudah</h3>
-                              <p>
-                                  Mendukung pembayaran digital melalui QRIS, Virtual Account, dan E-Wallet secara aman.
-                              </p>
-                          </div>
-
-                          <img
-                              src="{{ asset('assets/img/keunggulan/pembayaran.svg') }}"
-                              class="parkirin-image"
-                              alt="Pembayaran">
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </section>
-      <!-- Keunggulan Parkirin: End -->   
+                    <div class="parkirin-card">
+                        <div class="parkirin-body">
+                            <h3>Pembayaran Mudah</h3>
+                            <p>
+                                Mendukung pembayaran digital melalui QRIS, Virtual Account, dan E-Wallet secara aman.
+                            </p>
+                        </div>
+                        <img
+                            src="{{ asset('assets/img/keunggulan/pembayaran.svg') }}"
+                            class="parkirin-image"
+                            alt="Pembayaran">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Keunggulan Parkirin: End -->  
 
     <!-- Reviews: Start -->
       <section id="ulasan-parkirin" class="bg-body landing-reviews pb-0 d-flex flex-column justify-content-center pt-5">
@@ -1368,85 +1353,238 @@
 
 }
     /*keunggulan*/
-.parkirin-card{
+ /*keunggulan - Mempertahankan struktur asli */
+    .parkirin-card {
+        width: 360px;
+        height: 500px;
+        background: #fff;
+        border-radius: 30px;
+        overflow: hidden;
+        position: relative;
+        border: 1px solid #ECECEC;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, .05);
+        transition: .35s;
+    }
 
-    width:360px;
-    height:500px;
+    .parkirin-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 45px rgba(0, 0, 0, .12);
+    }
 
-    background:#fff;
+    .parkirin-body {
+        padding: 30px;
+    }
 
-    border-radius:30px;
+    /* ===== PERBAIKAN FONT & WARNA ===== */
+    .parkirin-body h3 {
+        font-family: 'Inter', 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+        font-size: 28px;
+        font-weight: 700;
+        color: #1A1A2E;
+        line-height: 1.3;
+        margin-bottom: 16px;
+        letter-spacing: -0.5px;
+    }
 
-    overflow:hidden;
+    .parkirin-body p {
+        font-family: 'Inter', 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+        font-size: 17px;
+        line-height: 1.7;
+        color: #6B7280;
+        margin: 0;
+        font-weight: 400;
+        letter-spacing: 0.2px;
+    }
 
-    position:relative;
+    .parkirin-image {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 230px;
+        object-fit: cover;
+    }
 
-    border:1px solid #ECECEC;
+    /* ===== PERBAIKAN TITLE SECTION ===== */
+    #keunggulan-parkirin .section-badge {
+        font-family: 'Inter', 'Poppins', sans-serif;
+        font-weight: 600;
+        font-size: 0.75rem;
+        letter-spacing: 2.5px;
+        color: #6C5CE7;
+        text-transform: uppercase;
+        background: rgba(108, 92, 231, 0.10);
+        padding: 6px 18px;
+        border-radius: 50px;
+        display: inline-block;
+    }
 
-    box-shadow:
-        0 8px 25px rgba(0,0,0,.05);
+    #keunggulan-parkirin .section-title {
+        font-family: 'Inter', 'Poppins', sans-serif;
+        font-weight: 700;
+        font-size: 2.6rem;
+        color: #1A1A2E;
+        letter-spacing: -0.8px;
+        line-height: 1.2;
+        margin-bottom: 12px;
+    }
 
-    transition:.35s;
-}
+    #keunggulan-parkirin .section-subtitle {
+        font-family: 'Inter', 'Poppins', sans-serif;
+        font-weight: 400;
+        font-size: 1.1rem;
+        color: #6B7280;
+        letter-spacing: 0.2px;
+    }
 
-.parkirin-card:hover{
+    /* ===== MARQUEE / SLIDER ===== */
+    .feature-slider {
+        overflow: hidden;
+        padding: 20px 0;
+        position: relative;
+    }
 
-    transform:translateY(-8px);
+    .feature-slider::before,
+    .feature-slider::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 120px;
+        z-index: 2;
+        pointer-events: none;
+    }
 
-    box-shadow:
-        0 20px 45px rgba(0,0,0,.12);
+    .feature-slider::before {
+        left: 0;
+        background: linear-gradient(90deg, #f8f9fc, transparent);
+    }
 
-}
+    .feature-slider::after {
+        right: 0;
+        background: linear-gradient(-90deg, #f8f9fc, transparent);
+    }
 
-.parkirin-body{
+    .feature-track {
+        display: flex;
+        animation: scrollCards 30s linear infinite;
+        gap: 24px;
+        padding: 10px 0;
+    }
 
-    padding:30px;
+    .feature-track:hover {
+        animation-play-state: paused;
+    }
 
-}
+    @keyframes scrollCards {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+    }
 
-.parkirin-body h3{
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 992px) {
+        .parkirin-card {
+            width: 300px;
+            height: 440px;
+        }
 
-    font-size:34px;
+        .parkirin-body h3 {
+            font-size: 24px;
+        }
 
-    font-weight:700;
+        .parkirin-body p {
+            font-size: 15px;
+        }
 
-    color:#404040;
+        .parkirin-image {
+            height: 200px;
+        }
 
-    line-height:1.2;
+        #keunggulan-parkirin .section-title {
+            font-size: 2.2rem;
+        }
+    }
 
-    margin-bottom:22px;
+    @media (max-width: 768px) {
+        .parkirin-card {
+            width: 260px;
+            height: 400px;
+        }
 
-}
+        .parkirin-body {
+            padding: 24px;
+        }
 
-.parkirin-body p{
+        .parkirin-body h3 {
+            font-size: 21px;
+            margin-bottom: 12px;
+        }
 
-    font-size:18px;
+        .parkirin-body p {
+            font-size: 14px;
+            line-height: 1.6;
+        }
 
-    line-height:1.6;
+        .parkirin-image {
+            height: 170px;
+        }
 
-    color:#666;
+        #keunggulan-parkirin .section-title {
+            font-size: 1.8rem;
+        }
 
-    margin:0;
+        #keunggulan-parkirin .section-subtitle {
+            font-size: 1rem;
+        }
 
-}
+        .feature-slider::before,
+        .feature-slider::after {
+            width: 60px;
+        }
 
-.parkirin-image{
+        .feature-track {
+            gap: 16px;
+        }
+    }
 
-    position:absolute;
+    @media (max-width: 480px) {
+        .parkirin-card {
+            width: 220px;
+            height: 360px;
+            border-radius: 20px;
+        }
 
-    left:0;
+        .parkirin-body {
+            padding: 20px;
+        }
 
-    right:0;
+        .parkirin-body h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
 
-    bottom:0;
+        .parkirin-body p {
+            font-size: 13px;
+            line-height: 1.5;
+        }
 
-    width:100%;
+        .parkirin-image {
+            height: 150px;
+        }
 
-    height:230px;
+        #keunggulan-parkirin .section-title {
+            font-size: 1.5rem;
+        }
 
-    object-fit:cover;
+        #keunggulan-parkirin .section-subtitle {
+            font-size: 0.9rem;
+        }
 
-}
+        .feature-track {
+            gap: 12px;
+        }
+    }
 
 
 /*Pengguna*/
@@ -1615,7 +1753,80 @@
     visibility:visible !important;
 
 }
+
+/* ===== MEMBERSHIP CARDS ===== */
+.membership-card {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateY(0);
+}
+
+.membership-card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 20px 60px rgba(115, 103, 240, 0.12) !important;
+}
+
+/* Featured card - pulse animation hanya saat di-hover */
+.membership-card.featured:hover {
+    animation: pulse-border 1.5s ease-in-out infinite;
+    box-shadow: 0 20px 60px rgba(115, 103, 240, 0.25) !important;
+    border-color: #7367F0 !important;
+}
+
+@keyframes pulse-border {
+    0%, 100% {
+        border-color: #7367F0;
+        box-shadow: 0 20px 60px rgba(115, 103, 240, 0.25);
+    }
+    50% {
+        border-color: #a78bfa;
+        box-shadow: 0 20px 60px rgba(115, 103, 240, 0.40);
+    }
+}
+
+.membership-card .membership-btn {
+    transition: all 0.3s ease;
+}
+
+.membership-card:hover .membership-btn {
+    background: #7367F0;
+    color: #fff;
+    transform: scale(1.02);
+    box-shadow: 0 4px 20px rgba(115, 103, 240, 0.35);
+}
+
+.membership-card.featured:hover .featured-btn {
+    background: linear-gradient(135deg, #7367F0, #5a4bd1);
+    box-shadow: 0 8px 30px rgba(115, 103, 240, 0.45);
+    transform: scale(1.02);
+}
+
+.membership-card .mdi-check-circle {
+    transition: all 0.3s ease;
+}
+
+.membership-card:hover .mdi-check-circle {
+    transform: scale(1.1);
+    color: #5a4bd1;
+}
+
+.membership-card .badge {
+    transition: all 0.3s ease;
+}
+
+.membership-card:hover .badge {
+    transform: scale(1.05);
+}
+
+.membership-card .display-4 {
+    transition: all 0.3s ease;
+}
+
+.membership-card:hover .display-4 {
+    transform: scale(1.02);
+}
 </style>
+
+
 @endpush
 
 @push('scripts')
