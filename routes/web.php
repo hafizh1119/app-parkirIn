@@ -38,6 +38,7 @@ Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth')->
 Route::prefix('customer')->group(function () {
     Route::get('/cari-parkir', [CustomerLokasiParkirController::class, 'index'])->name('customer.cari-parkir');
     Route::get('/atur-jadwal/{id}', [CustomerLokasiParkirController::class, 'aturJadwal'])->name('customer.atur-jadwal');
+    Route::get('/events', [CustomerEventController::class, 'index'])->name('customers.events');
 });
 
 Route::middleware(['auth', 'role:customer'])->prefix('customer')->group(function () {
@@ -53,7 +54,7 @@ Route::middleware(['auth', 'role:customer'])->prefix('customer')->group(function
     Route::get('/qr-muncul/{id}', [ReservasiController::class, 'tiket'])->name('customer.qr-muncul');
     Route::get('/riwayat', [RiwayatController::class, 'index'])->name('customer.riwayat');
     Route::view('/profil', 'customers.profil')->name('customer.profil');
-    Route::get('/events', [CustomerEventController::class, 'index'])->name('customers.events');
+    
 });
 
 Route::prefix('admin')->name('admin.')->group(function () {
