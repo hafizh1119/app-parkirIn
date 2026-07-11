@@ -383,9 +383,35 @@
                                     <span class="text-muted small" style="color: #8e8ea0 !important;">Status</span>
                                     <span class="badge rounded-pill px-3 py-1" style="background: #7367F0; color: #fff; font-weight: 600; font-size: 0.65rem;">Member Lifetime</span>
                                 </div>
-                                <a href="#" class="btn w-100 membership-btn featured-btn" style="background: #7367F0; color: #fff; border: none; border-radius: 12px; padding: 12px; font-weight: 600; font-size: 0.85rem; transition: all 0.3s ease; box-shadow: 0 4px 16px rgba(115, 103, 240, 0.25);">
-                                    <i class="mdi mdi-crown me-2"></i> Daftar Member
-                                </a>
+                                @if(auth()->check())
+
+                                    @if(auth()->user()->status_member == 'member')
+
+                                        <button
+                                            class="btn w-100"
+                                            disabled
+                                            style="background:#28C76F;color:#fff;border:none;border-radius:12px;padding:12px;font-weight:600;">
+
+                                            <i class="mdi mdi-check-circle me-2"></i>
+                                            Membership Aktif
+
+                                        </button>
+
+                                    @else
+
+                                        <a
+                                            href="{{ route('customer.membership') }}"
+                                            class="btn w-100 membership-btn featured-btn"
+                                            style="background:#7367F0;color:#fff;border:none;border-radius:12px;padding:12px;font-weight:600;font-size:.85rem;transition:.3s;box-shadow:0 4px 16px rgba(115,103,240,.25);">
+
+                                            <i class="mdi mdi-crown me-2"></i>
+                                            Daftar Member
+
+                                        </a>
+
+                                    @endif
+
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -1870,266 +1896,83 @@ document.addEventListener("DOMContentLoaded", function () {
 </script>
 
 <style>
-/* ===== HERO SECTION MODERN ===== */
-.hero-section {
+/* ===== HERO SECTION ===== */
+.hero-section{
     background: linear-gradient(
         135deg,
-        #0f0f1a 0%,
-        #1a1a2e 40%,
-        #16213e 70%,
-        #0f3460 100%
+        #1a1a2e 0%,
+        #16161f 50%,
+        #0d0d14 100%
     );
-    position: relative;
-    overflow: hidden;
 }
 
-/* Gradient overlay untuk efek lebih premium */
-.hero-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: radial-gradient(ellipse at 30% 50%, rgba(115, 103, 240, 0.15) 0%, transparent 70%);
-    z-index: 0;
-}
-
-/* ===== BADGE ===== */
-.hero-section .badge.bg-label-primary {
-    font-family: 'Inter', 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
-    background: rgba(115, 103, 240, 0.18) !important;
-    color: #b8a8ff !important;
-    border: 1px solid rgba(115, 103, 240, 0.25);
-    font-weight: 600;
-    font-size: 0.75rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    padding: 8px 24px !important;
-    border-radius: 50px !important;
-    backdrop-filter: blur(10px);
-    display: inline-block;
-    margin-bottom: 24px;
-}
-
-/* ===== HERO TITLE ===== */
 .hero-section h1,
-.hero-section .display-3 {
-    font-family: 'Inter', 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
-    font-weight: 800;
-    font-size: clamp(2.5rem, 5vw, 4.2rem);
-    color: #ffffff;
-    line-height: 1.15;
-    letter-spacing: -1.5px;
-    margin-bottom: 20px;
+.hero-section .display-3{
+    color:#ffffff;
 }
 
-.hero-section h1 .text-primary,
-.hero-section .display-3 .text-primary {
-    background: linear-gradient(135deg, #818cf8 0%, #a78bfa 40%, #c4b5fd 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    font-weight: 800;
+.hero-section .text-body-secondary{
+    color:#b8b8c5!important;
 }
 
-/* ===== HERO SUBTITLE / DESKRIPSI ===== */
-.hero-section .fs-5,
-.hero-section .text-body-secondary {
-    font-family: 'Inter', 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
-    font-size: clamp(1rem, 1.2vw, 1.2rem) !important;
-    font-weight: 400;
-    color: rgba(255, 255, 255, 0.75) !important;
-    line-height: 1.8;
-    letter-spacing: 0.2px;
-    max-width: 560px;
-    margin-bottom: 32px;
+.hero-section .badge.bg-label-primary{
+    background:rgba(115,103,240,.2)!important;
+    color:#c4b8ff!important;
+    border:1px solid rgba(115,103,240,.3);
 }
 
-/* ===== HERO BUTTONS ===== */
-.hero-section .btn-primary {
-    font-family: 'Inter', 'Poppins', sans-serif;
-    font-weight: 600;
-    font-size: 1rem;
-    padding: 14px 40px !important;
-    border-radius: 50px !important;
-    background: linear-gradient(135deg, #666CFF 0%, #5A5FDC 100%) !important;
-    border: none !important;
-    color: #ffffff !important;
-    box-shadow: 0 4px 24px rgba(102, 108, 255, 0.35);
-    transition: all 0.35s ease;
-    letter-spacing: 0.3px;
+.hero-blur{
+    position:absolute;
+    border-radius:50%;
+    filter:blur(120px);
+    z-index:0;
 }
 
-.hero-section .btn-primary:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 40px rgba(102, 108, 255, 0.50);
-    background: linear-gradient(135deg, #7B80FF 0%, #666CFF 100%) !important;
+.hero-blur-1{
+    width:500px;
+    height:500px;
+    background:rgba(115,103,240,.35);
+    top:-150px;
+    left:-150px;
+    animation: float1 8s ease-in-out infinite;
 }
 
-.hero-section .btn-outline-primary {
-    font-family: 'Inter', 'Poppins', sans-serif;
-    font-weight: 600;
-    font-size: 1rem;
-    padding: 14px 40px !important;
-    border-radius: 50px !important;
-    border: 2px solid rgba(255, 255, 255, 0.25) !important;
-    color: rgba(255, 255, 255, 0.9) !important;
-    background: transparent !important;
-    transition: all 0.35s ease;
-    letter-spacing: 0.3px;
+.hero-blur-2{
+    width:450px;
+    height:450px;
+    background:rgba(167,139,250,.25);
+    bottom:-100px;
+    right:-100px;
+    animation: float2 10s ease-in-out infinite;
 }
 
-.hero-section .btn-outline-primary:hover {
-    border-color: #818cf8 !important;
-    background: rgba(102, 108, 255, 0.12) !important;
-    transform: translateY(-3px);
-    box-shadow: 0 8px 32px rgba(102, 108, 255, 0.15);
+.hero-section .container{
+    position:relative;
+    z-index:2;
 }
 
-/* ===== HERO BLUR EFFECT ===== */
-.hero-blur {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(120px);
-    z-index: 0;
-    pointer-events: none;
+.hero-section .card{
+    background:#ffffff;
+    box-shadow: 0 1rem 4rem rgba(0,0,0,.4)!important;
 }
 
-.hero-blur-1 {
-    width: 600px;
-    height: 600px;
-    background: rgba(115, 103, 240, 0.30);
-    top: -200px;
-    left: -200px;
-    animation: floatHero1 10s ease-in-out infinite;
+@keyframes float1{
+    0%,100%{ transform:translateY(0); }
+    50%{ transform:translateY(30px); }
 }
 
-.hero-blur-2 {
-    width: 500px;
-    height: 500px;
-    background: rgba(167, 139, 250, 0.20);
-    bottom: -150px;
-    right: -150px;
-    animation: floatHero2 12s ease-in-out infinite;
+@keyframes float2{
+    0%,100%{ transform:translateY(0); }
+    50%{ transform:translateY(-30px); }
 }
 
-@keyframes floatHero1 {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    50% { transform: translate(40px, -30px) scale(1.1); }
+.parking-card{
+    transition:all .3s ease;
 }
 
-@keyframes floatHero2 {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    50% { transform: translate(-30px, 40px) scale(1.15); }
-}
-
-/* ===== CONTAINER & ROW ===== */
-.hero-section .container {
-    position: relative;
-    z-index: 2;
-}
-
-.hero-section .row {
-    min-height: 80vh;
-}
-
-/* ===== RESPONSIVE ===== */
-@media (max-width: 992px) {
-    .hero-section h1,
-    .hero-section .display-3 {
-        font-size: clamp(2rem, 4vw, 3rem);
-    }
-    
-    .hero-section .fs-5,
-    .hero-section .text-body-secondary {
-        font-size: 1rem !important;
-        max-width: 100%;
-    }
-
-    .hero-section .btn-primary,
-    .hero-section .btn-outline-primary {
-        padding: 12px 32px !important;
-        font-size: 0.95rem;
-    }
-}
-
-@media (max-width: 768px) {
-    .hero-section {
-        padding-top: 80px !important;
-        min-height: auto;
-        padding-bottom: 60px;
-    }
-
-    .hero-section .row {
-        min-height: auto;
-    }
-
-    .hero-section h1,
-    .hero-section .display-3 {
-        font-size: clamp(1.8rem, 3.5vw, 2.5rem);
-        letter-spacing: -0.5px;
-    }
-
-    .hero-section .badge.bg-label-primary {
-        font-size: 0.65rem;
-        padding: 6px 18px !important;
-        margin-bottom: 16px;
-    }
-
-    .hero-section .btn-primary,
-    .hero-section .btn-outline-primary {
-        padding: 10px 24px !important;
-        font-size: 0.85rem;
-        width: 100%;
-        text-align: center;
-        justify-content: center;
-    }
-
-    .hero-section .d-flex.gap-3 {
-        flex-direction: column;
-        gap: 12px !important;
-        width: 100%;
-    }
-
-    .hero-section .d-flex.gap-3 a {
-        width: 100%;
-    }
-
-    .hero-blur-1 {
-        width: 300px;
-        height: 300px;
-        top: -100px;
-        left: -100px;
-        filter: blur(80px);
-    }
-
-    .hero-blur-2 {
-        width: 250px;
-        height: 250px;
-        bottom: -80px;
-        right: -80px;
-        filter: blur(80px);
-    }
-}
-
-@media (max-width: 480px) {
-    .hero-section h1,
-    .hero-section .display-3 {
-        font-size: 1.6rem;
-    }
-
-    .hero-section .fs-5,
-    .hero-section .text-body-secondary {
-        font-size: 0.9rem !important;
-        line-height: 1.7;
-    }
-
-    .hero-section .btn-primary,
-    .hero-section .btn-outline-primary {
-        padding: 10px 20px !important;
-        font-size: 0.8rem;
-    }
+.parking-card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 1rem 3rem rgba(0,0,0,.12)!important;
 }
 
 #swiper-reviews {

@@ -103,4 +103,9 @@ class Membership extends Model
     {
         return $this->available_points >= $points;
     }
+
+    public function pembayaranMembership()
+    {
+        return $this->hasMany(PembayaranMembership::class);
+    }
 }

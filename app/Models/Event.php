@@ -135,4 +135,9 @@ class Event extends Model
             }
          return 'Tidak ada diskon';
     }
+
+    public function reservasis()
+    {
+        return $this->hasMany(Reservasi::class);
+    }
 }

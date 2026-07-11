@@ -12,6 +12,8 @@ use App\Http\Controllers\Customer\PembayaranController as CustomerPembayaranCont
 use App\Http\Controllers\Customer\RiwayatController;
 use App\Http\Controllers\Customer\KendaraanController;
 use App\Http\Controllers\Customer\EventController as CustomerEventController;
+use App\Http\Controllers\Customer\MembershipController as CustomerMembershipController;
+use App\Http\Controllers\Customer\ProfileController;
 
 // Admin
 use App\Http\Controllers\Admin\LokasiParkirController as AdminLokasiParkirController;
@@ -53,7 +55,10 @@ Route::middleware(['auth', 'role:customer'])->prefix('customer')->group(function
     Route::post('/pembayaran/{reservasi}/snap-token',[CustomerPembayaranController::class, 'getSnapToken'])->name('customer.midtrans.snap');
     Route::get('/qr-muncul/{id}', [ReservasiController::class, 'tiket'])->name('customer.qr-muncul');
     Route::get('/riwayat', [RiwayatController::class, 'index'])->name('customer.riwayat');
-    Route::view('/profil', 'customers.profil')->name('customer.profil');
+    Route::get('/profil', [ProfileController::class, 'index'])->name('customer.profil');
+    Route::get('/membership', [CustomerMembershipController::class, 'index'])->name('customer.membership');
+    Route::post('/membership/payment', [CustomerMembershipController::class, 'payment'])->name('customer.membership.payment');
+    Route::post('/membership/finish/{id}', [CustomerMembershipController::class, 'finish'])->name('customer.membership.finish');
     
 });
 

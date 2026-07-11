@@ -13,6 +13,7 @@ class User extends Authenticatable
         'role',
         'nomor_hp',
         'status_member',
+        'total_points',
         'status_akun',
         'foto_profil'
     ];
@@ -30,6 +31,26 @@ class User extends Authenticatable
     public function reservasi()
     {
         return $this->hasMany(Reservasi::class);
+    }
+
+    public function membership()
+    {
+        return $this->hasOne(Membership::class);
+    }
+
+    public function pembayaranMembership()
+    {
+        return $this->hasMany(PembayaranMembership::class);
+    }
+    
+    public function pointTransactions()
+    {
+        return $this->hasMany(PointTransaction::class);
+    }
+
+    public function getTotalPointAttribute()
+    {
+        return $this->pointTransactions()->sum('points');
     }
 }
 

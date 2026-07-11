@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Reservasi;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use App\Models\PointTransaction;
+use App\Models\PointSetting;
 
 class ScanController extends Controller
 {
@@ -101,6 +103,45 @@ class ScanController extends Controller
                 'jam_keluar_aktual' => $jamKeluar,
                 'kekurangan_bayar' => $kekurangan,
             ]);
+
+            $user = $reservasi->user;
+            if ($user && $user->status_member == 'member') {
+
+                $setting = PointSetting::first();
+
+                if ($setting && $reservasi->total_bayar >= $setting->min_transaction) {
+
+                    $pointDidapat = floor(
+                        $reservasi->total_bayar /
+                        $setting->min_transaction
+                    ) * $setting->points_per_rupiah;
+
+                    $alreadyEarn = PointTransaction::where('reservasi_id', $reservasi->id)
+                        ->where('type', 'earn')
+                        ->exists();
+
+                    if (!$alreadyEarn) {
+
+                        PointTransaction::create([
+
+                            'user_id'       => $reservasi->user_id,
+
+                            'reservasi_id'  => $reservasi->id,
+
+                            'points'        => $pointDidapat,
+
+                            'type'          => 'earn',
+
+                            'description'   => 'Point dari reservasi '.$reservasi->kode_reservasi
+
+                        ]);
+
+                    }
+
+                }
+
+            }
+            
             $reservasi->refresh();
 
             return response()->json([

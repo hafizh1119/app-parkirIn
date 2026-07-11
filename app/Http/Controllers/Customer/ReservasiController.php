@@ -9,6 +9,8 @@ use App\Models\Kendaraan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Pembayaran;
+use App\Models\Event;
+use App\Models\PointTransaction;
 
 class ReservasiController extends Controller
 {
@@ -23,8 +25,22 @@ class ReservasiController extends Controller
         $tanggal   = $request->tanggal_parkir;
         $jam_masuk = $request->jam_masuk;
         $durasi    = $request->durasi_jam;
+        $events = collect();
 
-        return view('customers.reservasi', compact('lokasi', 'slot', 'kendaraan', 'kendaraanList', 'tanggal', 'jam_masuk', 'durasi'));
+        if (Auth::user()->status_member === 'member') {
+
+            $events = Event::where('is_active', true)
+                ->where('start_date', '<=', now())
+                ->where('end_date', '>=', now())
+                ->orderBy('start_date')
+                ->get();
+
+        }
+
+        $totalPoint = PointTransaction::where('user_id', Auth::id())
+        ->sum('points');
+
+        return view('customers.reservasi', compact('lokasi', 'slot', 'kendaraan', 'kendaraanList', 'tanggal', 'jam_masuk', 'durasi', 'events', 'totalPoint'));
     }
 
     public function store(Request $request)
@@ -47,6 +63,68 @@ class ReservasiController extends Controller
                 substr(md5(uniqid()), 0, 8)
             );
 
+        // Hitung ulang tarif parkir dari database
+        $slot = SlotParkir::findOrFail($request->slot_parkir_id);
+
+        $biayaParkir = $slot->areaParkir->tarif_per_jam * $request->durasi_jam;
+
+        $biayaAdmin = 1000;
+
+        $discountEvent = 0;
+        $eventId = null;
+
+        // ==========================
+        // EVENT
+        // ==========================
+        if ($request->filled('event_id')) {
+
+            $event = Event::where('id', $request->event_id)
+                ->where('is_active', true)
+                ->where('status', 'active')
+                ->where('start_date', '<=', now())
+                ->where('end_date', '>=', now())
+                ->first();
+
+            if ($event) {
+
+                $eventId = $event->id;
+
+                $discountEvent = round(
+                    ($biayaParkir * $event->discount_percentage) / 100
+                );
+
+            }
+
+        }
+
+        $sisaBiayaParkir = $biayaParkir - $discountEvent;
+
+        // ==========================
+        // POINT
+        // ==========================
+
+        $pointUsed = 0;
+        $pointDiscount = 0;
+
+        if ($request->use_point == 1) {
+
+            $totalPoint = PointTransaction::where('user_id', Auth::id())
+                ->sum('points');
+
+            // Point HANYA boleh menutup biaya parkir, TIDAK termasuk biaya admin
+            if ($totalPoint >= $sisaBiayaParkir) {
+
+                $pointUsed = $sisaBiayaParkir;
+
+                $pointDiscount = $sisaBiayaParkir;
+
+            }
+
+        }
+
+        // Biaya admin SELALU ditambahkan dan tidak pernah ikut dipotong point
+        $totalBayar = max(0, ($sisaBiayaParkir - $pointDiscount)) + $biayaAdmin;
+
         $reservasi = Reservasi::create([
             'kode_reservasi' => $kodeReservasi,
             'user_id' => Auth::id(),
@@ -56,7 +134,11 @@ class ReservasiController extends Controller
             'tanggal_masuk' => $request->tanggal_masuk,
             'jam_masuk' => $request->jam_masuk,
             'durasi_jam' => $request->durasi_jam,
-            'total_bayar' => $request->total_bayar,
+            'event_id' => $eventId,
+            'discount_amount' => $discountEvent,
+            'point_used' => $pointUsed,
+            'point_discount' => $pointDiscount,
+            'total_bayar' => $totalBayar,
             'status' => 'pending'
         ]);
 
