@@ -416,6 +416,17 @@
             display: flex !important;
         }
     }
+
+    .vehicle-item{
+    min-height:70px;
+    margin-bottom:12px;
+    }
+
+    .vehicle-scroll{
+        max-height:160px;
+        overflow-y:auto;
+        padding-right:6px;
+    }
 </style>
 @endpush
 
@@ -431,14 +442,14 @@
                 <div class="profile-card">
                     <div class="card-body">
                         <div class="d-flex align-items-center gap-3">
-                            <img 
-                                class="profile-avatar" 
-                                src="https://ui-avatars.com/api/?name=Tasya+Suci+Rahmadani&background=7367F0&color=fff&size=128" 
-                                alt="Profile">
+                            <img
+                                class="profile-avatar"
+                                src="https://ui-avatars.com/api/?name={{ urlencode($user->name) }}&background=7367F0&color=fff&size=128"
+                                alt="{{ $user->name }}">
                             <div class="flex-grow-1 min-width-0">
-                                <h6 class="fw-bold mb-0 text-truncate" style="color: #1a1a2e; font-size: 1rem;">Tasya Suci Rahmadani</h6>
-                                <p class="text-muted mb-0 text-truncate" style="font-size: 0.8rem;">tasya@gmail.com</p>
-                                <p class="text-muted mt-1 mb-0" style="font-size: 0.65rem;">Bergabung sejak Jan 2023</p>
+                                <h6 class="fw-bold mb-0 text-truncate" style="color: #1a1a2e; font-size: 1rem;">{{ $user->name }}</h6>
+                                <p class="text-muted mb-0 text-truncate" style="font-size: 0.8rem;">{{ $user->email }}</p>
+                                <p class="text-muted mt-1 mb-0" style="font-size: 0.65rem;">Bergabung sejak {{ $user->created_at->format('M Y') }}</p>
                             </div>
                         </div>
                     </div>
@@ -453,7 +464,7 @@
                                     <i class="mdi mdi-star-four-points" style="font-size: 28px; color: #fff;"></i>
                                 </div>
                                 <div>
-                                    <div class="stat-number" style="font-size: 1.8rem; line-height: 1.2;">1,250</div>
+                                    <div class="stat-number" style="font-size: 1.8rem; line-height: 1.2;">{{ number_format($totalPoint) }}</div>
                                     <div class="stat-label" style="font-size: 0.7rem; color: #8e8ea0; font-weight: 500; letter-spacing: 0.5px;">POINT SAYA</div>
                                 </div>
                             </div>
@@ -472,7 +483,7 @@
                             <span>Reservasi Saya</span>
                             <span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span>
                         </a>
-                        <a href="#" class="menu-item-custom">
+                        <a href="{{ route('customer.riwayat') }}" class="menu-item-custom">
                             <span class="menu-icon"><i class="mdi mdi-history"></i></span>
                             <span>Riwayat Parkir</span>
                             <span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span>
@@ -509,20 +520,13 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="info-label-custom">Nama Lengkap</div>
-                                <div class="info-value-custom">Tasya Suci Rahmadani</div>
+                                <div class="info-value-custom">{{ $user->name }}</div>
                                 
                                 <div class="info-label-custom">Email</div>
-                                <div class="info-value-custom">tasya@gmail.com</div>
+                                <div class="info-value-custom">{{ $user->email }}</div>
                                 
                                 <div class="info-label-custom">Telepon</div>
-                                <div class="info-value-custom">+62 812-3456-7890</div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="info-label-custom">Jenis Kelamin</div>
-                                <div class="info-value-custom">Perempuan</div>
-                                
-                                <div class="info-label-custom">Alamat</div>
-                                <div class="info-value-custom">Jl. Imam Bonjol No. 207, Semarang</div>
+                                <div class="info-value-custom">{{ $user->nomor_hp }}</div>
                             </div>
                         </div>
                     </div>
@@ -530,47 +534,94 @@
                 
                 <!-- Kendaraan Terdaftar -->
                 <div class="profile-card flex-grow-1">
-                    <div class="card-body d-flex flex-column">
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <h5 class="section-title">Kendaraan Terdaftar</h5>
-                            <a href="#" class="btn-add-custom">
-                                <i class="mdi mdi-plus"></i> Tambah
-                            </a>
+    <div class="card-body d-flex flex-column">
+
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="section-title">Kendaraan Terdaftar</h5>
+
+            <a href="#" class="btn-add-custom">
+                <i class="mdi mdi-plus"></i> Tambah
+            </a>
+        </div>
+
+        {{-- List Kendaraan --}}
+        <div class="vehicle-scroll">
+
+            @forelse($kendaraans as $kendaraan)
+
+                <div class="vehicle-item">
+
+                    <div class="d-flex align-items-center">
+
+                        <div class="vehicle-icon-custom">
+
+                            @if($kendaraan->jenis_kendaraan == 'Mobil')
+                                <i class="mdi mdi-car"></i>
+                            @else
+                                <i class="mdi mdi-motorbike"></i>
+                            @endif
+
                         </div>
-                        
-                        <div class="vehicle-item">
-                            <div class="d-flex align-items-center">
-                                <div class="vehicle-icon-custom">
-                                    <i class="mdi mdi-car"></i>
-                                </div>
-                                <div>
-                                    <div class="fw-semibold" style="color: #1a1a2e; font-size: 0.95rem;">Toyota Avanza</div>
-                                    <div style="color: #8e8ea0; font-size: 0.75rem;">H 4587 WE - White</div>
-                                </div>
+
+                        <div>
+
+                            <div class="fw-semibold"
+                                style="color:#1a1a2e;font-size:.95rem">
+
+                                {{ $kendaraan->merk }}
+
                             </div>
-                            <div class="d-flex gap-2">
-                                <a href="#" style="color: #8e8ea0; font-size: 0.85rem;"><i class="mdi mdi-pencil"></i></a>
-                                <a href="#" style="color: #ef4444; font-size: 0.85rem;"><i class="mdi mdi-delete"></i></a>
+
+                            <div
+                                style="color:#8e8ea0;font-size:.75rem">
+
+                                {{ $kendaraan->nomor_polisi }}
+
+                                @if($kendaraan->warna)
+                                    - {{ $kendaraan->warna }}
+                                @endif
+
                             </div>
+
                         </div>
-                        
-                        <div class="vehicle-item">
-                            <div class="d-flex align-items-center">
-                                <div class="vehicle-icon-custom">
-                                    <i class="mdi mdi-motorbike"></i>
-                                </div>
-                                <div>
-                                    <div class="fw-semibold" style="color: #1a1a2e; font-size: 0.95rem;">Honda Beat</div>
-                                    <div style="color: #8e8ea0; font-size: 0.75rem;">H 1234 AB - Black</div>
-                                </div>
-                            </div>
-                            <div class="d-flex gap-2">
-                                <a href="#" style="color: #8e8ea0; font-size: 0.85rem;"><i class="mdi mdi-pencil"></i></a>
-                                <a href="#" style="color: #ef4444; font-size: 0.85rem;"><i class="mdi mdi-delete"></i></a>
-                            </div>
-                        </div>
+
                     </div>
+
+                    <div class="d-flex gap-2">
+
+                        <a href="#">
+                            <i class="mdi mdi-pencil"></i>
+                        </a>
+
+                        <a href="#" class="text-danger">
+                            <i class="mdi mdi-delete"></i>
+                        </a>
+
+                    </div>
+
                 </div>
+
+            @empty
+
+                <div class="text-center py-5">
+
+                    <i class="mdi mdi-car-off"
+                        style="font-size:45px;color:#bdbdbd"></i>
+
+                    <p class="mt-2 text-muted">
+
+                        Belum ada kendaraan.
+
+                    </p>
+
+                </div>
+
+            @endforelse
+
+        </div>
+
+    </div>
+</div>
                 
                 <!-- Menu Mobile (di bawah kendaraan) -->
                 <div class="profile-card menu-section-mobile">
@@ -580,7 +631,7 @@
                             <span>Reservasi Saya</span>
                             <span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span>
                         </a>
-                        <a href="#" class="menu-item-custom">
+                        <a href="{{ route('customer.riwayat') }}" class="menu-item-custom">
                             <span class="menu-icon"><i class="mdi mdi-history"></i></span>
                             <span>Riwayat Parkir</span>
                             <span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span>

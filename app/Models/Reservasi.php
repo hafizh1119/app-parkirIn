@@ -21,8 +21,13 @@ class Reservasi extends Model
         'jam_keluar_aktual',
         'durasi_jam',
         'total_bayar',
+        'event_id',      
+        'discount_amount',
+        'point_used',
+        'point_discount',  
         'kekurangan_bayar',
-        'status'
+        'status',
+        'qr_code'
     ];
 
     public function user()
@@ -53,5 +58,10 @@ class Reservasi extends Model
     public function tiketParkir()
     {
         return $this->hasOne(TiketParkir::class);
+    }
+
+    public function event()
+    {
+        return $this->belongsTo(Event::class);
     }
 }

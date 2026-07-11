@@ -13,7 +13,7 @@ class PointTransaction extends Model
 
     protected $fillable = [
         'user_id',
-        'transaction_id',
+        'reservasi_id',
         'points',
         'type',
         'description'
@@ -26,6 +26,11 @@ class PointTransaction extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function reservasi()
+    {
+        return $this->belongsTo(Reservasi::class);
     }
 
     public function scopeEarn($query)

@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Midtrans\Transaction;
 use Endroid\QrCode\Builder\Builder;
 use Endroid\QrCode\Writer\PngWriter;
+use App\Models\PointTransaction;
 
 class PembayaranController extends Controller
 {
@@ -79,7 +80,7 @@ class PembayaranController extends Controller
         }
 
         $statusPembayaran = $pembayaran->status;
-
+    
         return view(
             'customers.pembayaran',
             compact(
@@ -174,6 +175,38 @@ class PembayaranController extends Controller
                 ]);
 
                 $reservasi->refresh();
+
+                /*
+                |--------------------------------------------------------------------------
+                | POTONG POINT MEMBER
+                |--------------------------------------------------------------------------
+                */
+
+                if ($reservasi->point_used > 0) {
+
+                    $alreadyRedeem = PointTransaction::where('reservasi_id', $reservasi->id)
+                        ->where('type', 'redeem')
+                        ->exists();
+
+                    if (!$alreadyRedeem) {
+
+                        PointTransaction::create([
+
+                            'user_id' => $reservasi->user_id,
+
+                            'reservasi_id' => $reservasi->id,
+
+                            'points' => -$reservasi->point_used,
+
+                            'type' => 'redeem',
+
+                            'description' => 'Penukaran point reservasi ' . $reservasi->kode_reservasi
+
+                        ]);
+
+                    }
+
+                }
 
                 // Generate QR jika belum ada
                 if (!$reservasi->qr_code) {

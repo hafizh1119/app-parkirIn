@@ -138,16 +138,74 @@
         background: var(--pk-bg);
     }
 
+    /* ===================== CARD POSTER / PAMFLET ===================== */
+
     .promo-card {
         background: var(--pk-surface);
         border: 1px solid var(--pk-border);
         transition: all 0.3s ease;
+        overflow: hidden;
     }
 
     .promo-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 16px 32px -10px rgba(42,20,180,0.20);
+        transform: translateY(-6px);
+        box-shadow: 0 20px 40px -12px rgba(42,20,180,0.25);
         border-color: var(--pk-primary-light);
+    }
+
+    /* Wrapper poster: rasio vertikal 2:3 ala poster film / pamflet */
+    .pk-poster {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 2 / 3;
+        overflow: hidden;
+        border-radius: 14px;
+        background: #f2f4f6;
+    }
+
+    .pk-poster img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.4s ease;
+    }
+
+    .promo-card:hover .pk-poster img {
+        transform: scale(1.06);
+    }
+
+    /* Gradient overlay di bagian bawah poster, tempat judul & tanggal menempel */
+    .pk-poster-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+            to top,
+            rgba(20,22,43,0.92) 0%,
+            rgba(20,22,43,0.55) 32%,
+            rgba(20,22,43,0.0) 60%
+        );
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 16px;
+    }
+
+    .pk-poster-title {
+        color: #fff;
+        font-weight: 800;
+        font-size: 1.05rem;
+        line-height: 1.25;
+        text-shadow: 0 2px 8px rgba(0,0,0,0.35);
+    }
+
+    .pk-poster-date {
+        color: rgba(255,255,255,0.85);
+        font-size: 0.72rem;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        margin-top: 4px;
     }
 
     .pk-badge-discount {
@@ -192,44 +250,124 @@
         background: var(--pk-primary-dark);
     }
 
+    .pk-empty-icon {
+        color: #c7c9e0;
+    }
+
+    /* ===================== MODAL DETAIL — MODERN ===================== */
+
     .pk-modal-content {
         border: none;
         overflow: hidden;
+        border-radius: 22px;
+        box-shadow: 0 30px 70px -20px rgba(20,22,43,0.35);
     }
 
-    .pk-modal-topbar {
-        height: 6px;
-        background: linear-gradient(90deg, var(--pk-primary) 0%, var(--pk-primary-light) 50%, var(--pk-amber) 100%);
-    }
-
-    .pk-ticket-divider {
-        border-left: 2px dashed var(--pk-border);
+    /* Hero image full-bleed di atas modal */
+    .pk-modal-hero {
         position: relative;
+        width: 100%;
+        height: 260px;
+        overflow: hidden;
+        background: #eef0fb;
     }
 
-    .pk-ticket-divider::before,
-    .pk-ticket-divider::after {
-        content: '';
+    .pk-modal-hero img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .pk-modal-hero-overlay {
         position: absolute;
-        left: -8px;
-        width: 14px;
-        height: 14px;
+        inset: 0;
+        background: linear-gradient(
+            to top,
+            rgba(20,22,43,0.95) 0%,
+            rgba(20,22,43,0.45) 45%,
+            rgba(20,22,43,0.05) 75%
+        );
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 24px;
+    }
+
+    .pk-modal-badges {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 10px;
+    }
+
+    .pk-modal-title {
+        color: #fff;
+        font-weight: 800;
+        font-size: 1.5rem;
+        line-height: 1.2;
+        text-shadow: 0 2px 10px rgba(0,0,0,0.4);
+    }
+
+    /* Tombol close melayang di atas hero image */
+    .pk-modal-close-float {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: rgba(20,22,43,0.55);
+        backdrop-filter: blur(6px);
+        border: none;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s ease;
+        z-index: 5;
+    }
+
+    .pk-modal-close-float:hover {
+        background: rgba(20,22,43,0.85);
+        transform: rotate(90deg);
+    }
+
+    .pk-modal-body {
+        padding: 24px 28px 28px;
+    }
+
+    .pk-modal-desc {
+        color: var(--pk-text-muted);
+        font-size: 0.92rem;
+        line-height: 1.6;
+    }
+
+    /* Grid info modern, pengganti list bergaris tiket */
+    .pk-info-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        margin-top: 20px;
+    }
+
+    .pk-info-card {
         background: var(--pk-bg);
         border: 1px solid var(--pk-border);
-        border-radius: 50%;
+        border-radius: 14px;
+        padding: 14px;
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
     }
 
-    .pk-ticket-divider::before { top: -8px; }
-    .pk-ticket-divider::after { bottom: -8px; }
-
-    .pk-info-row {
-        border-bottom: 1px solid #f0f1f8;
+    .pk-info-card.pk-info-card-wide {
+        grid-column: 1 / -1;
     }
 
     .pk-info-icon {
-        width: 34px;
-        height: 34px;
-        border-radius: 9px;
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
         background: #eeecfc;
         color: var(--pk-primary);
         display: flex;
@@ -238,18 +376,54 @@
         flex-shrink: 0;
     }
 
+    .pk-info-label {
+        font-size: 0.65rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        font-weight: 700;
+        color: var(--pk-text-muted);
+        margin-bottom: 2px;
+    }
+
+    .pk-info-value {
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: var(--pk-text);
+        line-height: 1.35;
+    }
+
+    .pk-capacity-bar {
+        width: 100%;
+        height: 6px;
+        border-radius: 999px;
+        background: #e3e6f5;
+        overflow: hidden;
+        margin-top: 8px;
+    }
+
+    .pk-capacity-fill {
+        height: 100%;
+        background: linear-gradient(90deg, var(--pk-primary) 0%, var(--pk-primary-light) 100%);
+        border-radius: 999px;
+    }
+
+    .pk-modal-footer {
+        border: none;
+        padding: 0 28px 28px;
+    }
+
     .pk-close-btn {
-        background: var(--pk-text);
-        color: #fff;
+        background: var(--pk-bg);
+        color: var(--pk-text);
+        border: 1px solid var(--pk-border);
         transition: all 0.2s ease;
+        width: 100%;
+        font-size: 0.9rem;
     }
 
     .pk-close-btn:hover {
-        background: #000;
-    }
-
-    .pk-empty-icon {
-        color: #c7c9e0;
+        background: #e9ebfa;
+        color: var(--pk-text);
     }
 
     .animate-bounce {
@@ -292,156 +466,162 @@
         <div class="max-w-7xl mx-auto">
 
             @if($events->count() > 0)
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
                     @foreach($events as $event)
                         @php
                             $eventImage = $event->image ? asset($event->image) : asset('assets/img/default-event.jpg');
                         @endphp
 
-                        {{-- CARD --}}
-                        <div class="promo-card rounded-2xl p-4 flex flex-col cursor-pointer"
+                        {{-- CARD POSTER --}}
+                        <div class="promo-card rounded-2xl p-3 flex flex-col cursor-pointer"
                              data-bs-toggle="modal" data-bs-target="#eventModal{{ $event->id }}">
 
-                            <div class="relative w-full aspect-video rounded-xl overflow-hidden mb-4" style="background:#f2f4f6;">
-                                <img src="{{ $eventImage }}" alt="{{ $event->name }}" class="w-full h-full object-cover">
+                            <div class="pk-poster">
+                                <img src="{{ $eventImage }}" alt="{{ $event->name }}">
 
                                 @if($event->discount_percentage > 0)
-                                    <div class="pk-badge-discount absolute top-3 right-3 text-white px-3 py-1 rounded-full text-xs font-extrabold">
+                                    <div class="pk-badge-discount absolute top-3 right-3 text-white px-3 py-1 rounded-full text-xs font-extrabold z-10">
                                         {{ $event->discount_percentage }}%
                                     </div>
                                 @endif
 
                                 @if($event->status == 'active')
-                                    <div class="pk-badge-live absolute top-3 left-3 text-white pl-2 pr-3 py-1 rounded-full text-[10px] font-bold flex items-center gap-1.5">
+                                    <div class="pk-badge-live absolute top-3 left-3 text-white pl-2 pr-3 py-1 rounded-full text-[10px] font-bold flex items-center gap-1.5 z-10">
                                         <span class="pk-dot"></span> Sedang Berlangsung
                                     </div>
                                 @endif
-                            </div>
 
-                            <div class="flex-1">
-                                <h3 class="text-xl font-bold mb-1" style="color: var(--pk-text);">{{ $event->name }}</h3>
-                                <p class="text-sm mb-4 line-clamp-2" style="color: var(--pk-text-muted);">{{ $event->description }}</p>
-
-                                <div class="pk-date-chip inline-flex items-center gap-2 mb-4">
-                                    <span class="material-symbols-outlined text-lg">calendar_today</span>
-                                    <span class="text-sm font-semibold">
-                                        {{ $event->start_date->format('d M Y') }} - {{ $event->end_date->format('d M Y') }}
-                                    </span>
+                                {{-- Overlay judul + tanggal, gaya caption pamflet --}}
+                                <div class="pk-poster-overlay">
+                                    <h3 class="pk-poster-title line-clamp-2">{{ $event->name }}</h3>
+                                    <div class="pk-poster-date">
+                                        <span class="material-symbols-outlined" style="font-size:14px;">calendar_today</span>
+                                        {{ $event->start_date->format('d M') }} - {{ $event->end_date->format('d M Y') }}
+                                    </div>
                                 </div>
                             </div>
 
-                            <button class="pk-detail-btn w-full py-2.5 text-white rounded-xl font-semibold"
-                                    onclick="event.stopPropagation();">
-                                Lihat Detail
-                            </button>
+                            <div class="pt-3">
+                                <p class="text-sm mb-3 line-clamp-2" style="color: var(--pk-text-muted);">{{ $event->description }}</p>
+
+                                <button class="pk-detail-btn w-full py-2.5 text-white rounded-xl font-semibold"
+                                        onclick="event.stopPropagation();">
+                                    Lihat Detail
+                                </button>
+                            </div>
                         </div>
 
-                        {{-- MODAL DETAIL --}}
+                        {{-- MODAL DETAIL — MODERN --}}
                         <div class="modal fade" id="eventModal{{ $event->id }}" tabindex="-1"
                              aria-labelledby="eventModalLabel{{ $event->id }}" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered">
-                                <div class="pk-modal-content modal-content rounded-2xl">
-                                    <div class="pk-modal-topbar"></div>
+                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="max-width: 480px;">
+                                <div class="pk-modal-content modal-content">
 
-                                    <div class="modal-header border-0 px-5 pt-5 pb-2">
-                                        <h5 class="modal-title font-extrabold text-xl" style="color: var(--pk-text);" id="eventModalLabel{{ $event->id }}">
-                                            {{ $event->name }}
-                                        </h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
+                                    {{-- Hero image full-bleed dengan judul overlay --}}
+                                    <div class="pk-modal-hero">
+                                        <img src="{{ $eventImage }}" alt="{{ $event->name }}">
 
-                                    <div class="modal-body p-5 pt-2">
-                                        <div class="row g-4">
-                                            <div class="col-md-6">
-                                                <img src="{{ $eventImage }}" alt="{{ $event->name }}"
-                                                     class="w-full max-h-[200px] object-cover rounded-xl">
+                                        <button type="button" class="pk-modal-close-float" data-bs-dismiss="modal" aria-label="Close">
+                                            <span class="material-symbols-outlined" style="font-size:18px;">close</span>
+                                        </button>
+
+                                        <div class="pk-modal-hero-overlay">
+                                            <div class="pk-modal-badges">
+                                                @if($event->status == 'active')
+                                                    <span class="pk-badge-live inline-flex items-center gap-1.5 text-white px-3 py-1 rounded-full text-[11px] font-bold">
+                                                        <span class="pk-dot"></span> Sedang Berlangsung
+                                                    </span>
+                                                @else
+                                                    <span class="inline-flex items-center text-white px-3 py-1 rounded-full text-[11px] font-bold" style="background: var(--pk-amber-dark);">
+                                                        Akan Datang
+                                                    </span>
+                                                @endif
+
+                                                @if($event->discount_percentage > 0)
+                                                    <span class="pk-badge-discount inline-flex items-center gap-1 text-white px-3 py-1 rounded-full text-[11px] font-extrabold">
+                                                        <span class="material-symbols-outlined text-sm">local_offer</span>
+                                                        {{ $event->discount_percentage }}%
+                                                    </span>
+                                                @endif
                                             </div>
 
-                                            <div class="col-md-6 pk-ticket-divider ps-4">
-                                                <div class="flex flex-wrap gap-2 mb-3">
-                                                    @if($event->status == 'active')
-                                                        <span class="pk-badge-live inline-flex items-center gap-1.5 text-white px-3 py-1 rounded-full text-[11px] font-bold">
-                                                            <span class="pk-dot"></span> Sedang Berlangsung
-                                                        </span>
-                                                    @else
-                                                        <span class="inline-flex items-center text-white px-3 py-1 rounded-full text-[11px] font-bold" style="background: var(--pk-amber-dark);">
-                                                            Akan Datang
-                                                        </span>
-                                                    @endif
-
-                                                    @if($event->discount_percentage > 0)
-                                                        <span class="pk-badge-discount inline-flex items-center gap-1 text-white px-3 py-1 rounded-full text-[11px] font-extrabold">
-                                                            <span class="material-symbols-outlined text-sm">local_offer</span>
-                                                            {{ $event->discount_percentage }}%
-                                                        </span>
-                                                    @endif
-                                                </div>
-
-                                                <p class="text-sm mb-4" style="color: var(--pk-text-muted);">{{ $event->description }}</p>
-
-                                                <div>
-                                                    <div class="pk-info-row flex items-center gap-3 py-3">
-                                                        <div class="pk-info-icon">
-                                                            <span class="material-symbols-outlined text-lg">calendar_today</span>
-                                                        </div>
-                                                        <div>
-                                                            <div class="text-[10px] uppercase tracking-wide font-semibold" style="color: var(--pk-text-muted);">Tanggal</div>
-                                                            <div class="font-bold text-sm" style="color: var(--pk-text);">
-                                                                {{ $event->start_date->format('d M Y') }} — {{ $event->end_date->format('d M Y') }}
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="pk-info-row flex items-center gap-3 py-3">
-                                                        <div class="pk-info-icon">
-                                                            <span class="material-symbols-outlined text-lg">schedule</span>
-                                                        </div>
-                                                        <div>
-                                                            <div class="text-[10px] uppercase tracking-wide font-semibold" style="color: var(--pk-text-muted);">Waktu</div>
-                                                            <div class="font-bold text-sm" style="color: var(--pk-text);">
-                                                                {{ $event->start_date->format('H:i') }} — {{ $event->end_date->format('H:i') }}
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    @if($event->max_capacity)
-                                                        <div class="pk-info-row flex items-center gap-3 py-3">
-                                                            <div class="pk-info-icon">
-                                                                <span class="material-symbols-outlined text-lg">groups</span>
-                                                            </div>
-                                                            <div>
-                                                                <div class="text-[10px] uppercase tracking-wide font-semibold" style="color: var(--pk-text-muted);">Kapasitas</div>
-                                                                <div class="font-bold text-sm" style="color: var(--pk-text);">
-                                                                    {{ $event->current_participants ?? 0 }} / {{ $event->max_capacity }}
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    @endif
-
-                                                    @if($event->lokasiParkirs->count() > 0)
-                                                        <div class="flex items-center gap-3 py-3">
-                                                            <div class="pk-info-icon">
-                                                                <span class="material-symbols-outlined text-lg">location_on</span>
-                                                            </div>
-                                                            <div>
-                                                                <div class="text-[10px] uppercase tracking-wide font-semibold mb-1" style="color: var(--pk-text-muted);">Lokasi Parkir</div>
-                                                                <div class="flex flex-wrap gap-1.5">
-                                                                    @foreach($event->lokasiParkirs as $lokasi)
-                                                                        <span class="text-xs font-semibold px-2.5 py-1 rounded-full" style="background:#eeecfc; color: var(--pk-primary);">
-                                                                            {{ $lokasi->nama }}
-                                                                        </span>
-                                                                    @endforeach
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    @endif
-                                                </div>
-                                            </div>
+                                            <h5 class="pk-modal-title" id="eventModalLabel{{ $event->id }}">
+                                                {{ $event->name }}
+                                            </h5>
                                         </div>
                                     </div>
 
-                                    <div class="modal-footer border-0 px-5 pb-5 pt-0">
-                                        <button type="button" class="pk-close-btn btn btn-sm rounded-xl px-4 py-2 fw-semibold" data-bs-dismiss="modal">
+                                    <div class="pk-modal-body">
+                                        <p class="pk-modal-desc">{{ $event->description }}</p>
+
+                                        <div class="pk-info-grid">
+
+                                            <div class="pk-info-card pk-info-card-wide">
+                                                <div class="pk-info-icon">
+                                                    <span class="material-symbols-outlined text-lg">calendar_today</span>
+                                                </div>
+                                                <div>
+                                                    <div class="pk-info-label">Tanggal</div>
+                                                    <div class="pk-info-value">
+                                                        {{ $event->start_date->format('d M Y') }} — {{ $event->end_date->format('d M Y') }}
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="pk-info-card">
+                                                <div class="pk-info-icon">
+                                                    <span class="material-symbols-outlined text-lg">schedule</span>
+                                                </div>
+                                                <div>
+                                                    <div class="pk-info-label">Waktu</div>
+                                                    <div class="pk-info-value">
+                                                        {{ $event->start_date->format('H:i') }} — {{ $event->end_date->format('H:i') }}
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            @if($event->max_capacity)
+                                                <div class="pk-info-card">
+                                                    <div class="pk-info-icon">
+                                                        <span class="material-symbols-outlined text-lg">groups</span>
+                                                    </div>
+                                                    <div style="width: 100%;">
+                                                        <div class="pk-info-label">Kapasitas</div>
+                                                        <div class="pk-info-value">
+                                                            {{ $event->current_participants ?? 0 }} / {{ $event->max_capacity }}
+                                                        </div>
+                                                        <div class="pk-capacity-bar">
+                                                            <div class="pk-capacity-fill"
+                                                                 style="width: {{ min(100, round((($event->current_participants ?? 0) / $event->max_capacity) * 100)) }}%;">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endif
+
+                                            @if($event->lokasiParkirs->count() > 0)
+                                                <div class="pk-info-card pk-info-card-wide">
+                                                    <div class="pk-info-icon">
+                                                        <span class="material-symbols-outlined text-lg">location_on</span>
+                                                    </div>
+                                                    <div>
+                                                        <div class="pk-info-label mb-1">Lokasi Parkir</div>
+                                                        <div class="flex flex-wrap gap-1.5">
+                                                            @foreach($event->lokasiParkirs as $lokasi)
+                                                                <span class="text-xs font-semibold px-2.5 py-1 rounded-full" style="background:#fff; color: var(--pk-primary); border: 1px solid var(--pk-border);">
+                                                                    {{ $lokasi->nama }}
+                                                                </span>
+                                                            @endforeach
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endif
+
+                                        </div>
+                                    </div>
+
+                                    <div class="pk-modal-footer">
+                                        <button type="button" class="pk-close-btn btn rounded-xl px-4 py-2.5 fw-semibold" data-bs-dismiss="modal">
                                             Tutup
                                         </button>
                                     </div>
