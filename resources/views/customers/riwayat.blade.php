@@ -81,7 +81,7 @@
 
                     <div class="detail-item">
                         <small class="text-muted d-block">Slot</small>
-                        <p class="mb-0 fw-semibold">{{ $item->slotParkir->nomor_slot }}</p>
+                        <p class="mb-0 fw-semibold">{{ $item->slotParkir->kode_slot ?? '-' }}</p>
                     </div>
 
                     <div class="detail-item">
@@ -106,9 +106,7 @@
                     </div>
 
                     <div class="d-flex gap-2 riwayat-actions">
-                        <a href="#" class="btn btn-outline-primary btn-sm-custom">
-                            Detail
-                        </a>
+                        
 
                         @if($item->status == 'dibayar' || $item->status == 'checkin')
                             <a href="{{ route('customer.qr-muncul', $item->id) }}" class="btn btn-primary btn-sm-custom">
