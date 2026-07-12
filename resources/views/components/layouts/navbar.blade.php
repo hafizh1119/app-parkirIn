@@ -270,19 +270,20 @@
             <!-- navbar button Login/Register di sebelah kanan: Start -->
             @guest
             <li class="nav-item ms-2">
-                <a href="{{ route('login') }}" class="btn btn-login-register">
+                <a href="{{ route('login') }}"
+                class="btn btn-login-register d-flex align-items-center gap-1 text-nowrap px-2 px-sm-3">
                     <i class="tf-icons mdi mdi-account"></i>
-                    <span>Login / Register</span>
+                    <span class="d-none d-sm-inline">Login / Register</span>
+                    <span class="d-inline d-sm-none">Login</span>
                 </a>
             </li>
             @endguest
+
             @auth
             <li>
-                <a
-                    href="{{ route('customer.profil') }}"
-                    class="btn btn-primary px-2 px-sm-4 px-lg-2 px-xl-4"
-                    style="border-radius: 8px;">
-
+                <a href="{{ route('customer.profil') }}"
+                class="btn btn-primary px-2 px-sm-4 px-lg-2 px-xl-4"
+                style="border-radius: 8px;">
                     <span class="tf-icons mdi mdi-account me-md-1"></span>
                 </a>
             </li>

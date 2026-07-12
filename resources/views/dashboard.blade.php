@@ -8,66 +8,66 @@
 @section('content')
 
     <!-- Sections:Start -->
-
     <section
-    id="dashboard"
-    class="hero-section position-relative overflow-hidden min-vh-100 d-flex align-items-center"
-    style="padding-top: 100px;">
+        id="dashboard"
+        class="hero-section position-relative overflow-hidden min-vh-100 d-flex align-items-center"
+        style="padding-top: 100px;">
 
-          <!-- Background Blur -->
-          <div class="hero-blur hero-blur-1"></div>
-          <div class="hero-blur hero-blur-2"></div>
+        <!-- Background Blur -->
+        <div class="hero-blur hero-blur-1"></div>
+        <div class="hero-blur hero-blur-2"></div>
 
-          <div class="container">
+        <div class="container">
 
-              <div class="row align-items-center gy-5">
+            <div class="row align-items-center gy-5">
 
-                  <!-- Kiri -->
-                  <div class="col-lg-6">
+                <!-- Kiri -->
+                <div class="col-12 col-lg-6">
 
-                      <span class="badge bg-label-primary rounded-pill px-4 py-2 mb-4">
-                          Smart Parking Platform
-                      </span>
+                    <span class="badge bg-label-primary rounded-pill px-4 py-2 mb-4">
+                        Smart Parking Platform
+                    </span>
 
-                      <h1 class="display-3 fw-bold mb-4">
-                          Temukan Tempat Parkir Terdekat
-                          <span class="text-primary">
-                              dalam Hitungan Detik
-                          </span>
-                      </h1>
+                    <h1 class="display-3 fw-bold mb-4">
+                        Temukan Tempat Parkir Terdekat
+                        <span class="text-primary">
+                            dalam Hitungan Detik
+                        </span>
+                    </h1>
 
-                      <p class="fs-5 text-body-secondary mb-5">
-                          Cari lokasi parkir yang tersedia secara real-time,
-                          pilih slot terbaik, dan lakukan reservasi sebelum tiba.
-                          Nikmati pengalaman parkir yang lebih cepat dan praktis
-                          bersama ParkirIn.
-                      </p>
+                    <p class="fs-5 text-body-secondary mb-5">
+                        Cari lokasi parkir yang tersedia secara real-time,
+                        pilih slot terbaik, dan lakukan reservasi sebelum tiba.
+                        Nikmati pengalaman parkir yang lebih cepat dan praktis
+                        bersama ParkirIn.
+                    </p>
 
-                      <div class="d-flex gap-3 flex-wrap">
+                    <div class="d-flex gap-3 flex-wrap">
 
-                          <a href="{{ route('customer.cari-parkir') }}" class="btn btn-primary btn-lg">
-                              Cari Parkir
-                          </a>
+                        <a href="{{ route('customer.cari-parkir') }}" class="btn btn-primary btn-lg">
+                            Cari Parkir
+                        </a>
 
-                          <a href="#cara-kerja" class="btn btn-outline-primary btn-lg">
-                              Cara Kerja
-                          </a>
+                        <a href="#cara-kerja" class="btn btn-outline-primary btn-lg">
+                            Cara Kerja
+                        </a>
 
-                      </div>
-
-                  </div>
-
-                <!-- Kanan - Ilustrasi Parkir -->
-                <!-- Kanan -->
-                    <div class="col-lg-5 offset-lg-1 d-flex align-items-center">
-                        @include('partials.parking-illustration')
                     </div>
-              </div>
 
-          </div>
+                </div>
 
-      </section>
+                <!-- Kanan - Ilustrasi Parkir (disembunyikan di mobile) -->
+                <div class="col-lg-5 offset-lg-1 d-none d-lg-flex align-items-center">
+                    @include('partials.parking-illustration')
+                </div>
 
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Rekomendasi -->
       <section id="parkir-terdekat" class="bg-body position-relative d-flex align-items-center pt-4 pb-5">
 
         <div class="container">
@@ -266,161 +266,173 @@
             </div>
         </section>
       
-    <!-- Pricing plans: Start -->
-    <section id="membership" class="bg-body landing-pricing pt-5 pb-5">
-        <div class="container">
-            <!-- Heading -->
-            <div class="text-center mb-5">
-                <h6 class="text-center fw-semibold d-flex justify-content-center align-items-center mb-3">
-                    <img
-                        src="{{ asset('assets/img/front-pages/icons/section-tilte-icon.png') }}"
-                        alt="section title icon"
-                        class="me-2" />
-                    <span class="text-uppercase">Membership ParkirIn</span>
-                </h6>
-                <h3 class="fw-bold mb-3">
-                    Pilih Membership yang <span class="text-primary">Sesuai Kebutuhan Anda</span>
-                </h3>
-                <p class="text-body-secondary mx-auto" style="max-width:650px;">
-                    Nikmati berbagai keuntungan eksklusif, diskon parkir,
-                    dan akses prioritas di seluruh area parkir yang bermitra dengan ParkirIn.
-                </p>
-            </div>
+        {{-- Pricing plans: Start --}}
+        @php
+            $isMember = auth()->check() && auth()->user()->status_member == 'member';
+        @endphp
 
-            <div class="row gy-4 justify-content-center">
-                <!-- Free Plan -->
-                <div class="col-xl-4 col-lg-6">
-                    <div class="card h-100 border-0 membership-card" style="border-radius: 20px; background: #ffffff; box-shadow: 0 2px 20px rgba(0,0,0,0.04); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); overflow: hidden; transform: translateY(0);">
-                        <div class="card-body p-4 d-flex flex-column">
-                            <h4 class="fw-bold mb-1" style="color: #1a1a2e;">Non Member</h4>
-                            <p class="text-muted small mb-3" style="color: #8e8ea0 !important;">Tanpa biaya keanggotaan</p>
+        <section id="membership" class="bg-gray-50 py-20">
+            <div class="max-w-6xl mx-auto px-4">
 
-                            <div class="d-flex align-items-end mb-4">
-                                <span class="display-4 fw-bold" style="color: #1a1a2e; font-size: 2.5rem;">Gratis</span>
-                                <span class="text-muted small mb-1 ms-2" style="color: #8e8ea0 !important;">/ selamanya</span>
+                {{-- Heading --}}
+                <div class="text-center mb-14">
+                    <h6 class="flex items-center justify-center gap-2 text-xs font-semibold uppercase tracking-widest text-violet-600 mb-3">
+                        <img src="{{ asset('assets/img/front-pages/icons/section-tilte-icon.png') }}" alt="section title icon" class="w-4 h-4" />
+                        Membership ParkirIn
+                    </h6>
+                    <h3 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
+                        Pilih Membership yang <span class="text-violet-600">Sesuai Kebutuhan Anda</span>
+                    </h3>
+                    <p class="text-gray-500 max-w-xl mx-auto">
+                        Nikmati berbagai keuntungan eksklusif, diskon parkir, dan akses prioritas
+                        di seluruh area parkir yang bermitra dengan ParkirIn.
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+
+                    {{-- ================= NON MEMBER CARD ================= --}}
+                    <div class="relative rounded-3xl transition-all duration-300 hover:-translate-y-2
+                                {{ $isMember
+                                    ? 'bg-gray-50 border border-gray-200 shadow-sm'
+                                    : 'bg-white border border-violet-200 ring-2 ring-violet-500 shadow-xl shadow-violet-100' }}">
+
+                        @unless($isMember)
+                            <span class="absolute -top-3 left-6 bg-violet-600 text-white text-[11px] font-semibold px-3 py-1 rounded-full shadow">
+                                Status Anda Saat Ini
+                            </span>
+                        @endunless
+
+                        <div class="p-8 flex flex-col h-full">
+                            <h4 class="text-xl font-bold text-gray-900 mb-1">Non Member</h4>
+                            <p class="text-sm text-gray-400 mb-5">Tanpa biaya keanggotaan</p>
+
+                            <div class="flex items-end gap-2 mb-6">
+                                <span class="text-4xl font-bold text-gray-900">Gratis</span>
+                                <span class="text-sm text-gray-400 mb-1">/ selamanya</span>
                             </div>
 
-                            <ul class="list-unstyled mb-4 flex-grow-1" style="font-size: 0.85rem; color: #4b5563; line-height: 2;">
-                                <li class="d-flex align-items-center gap-2">
-                                    <i class="mdi mdi-check-circle" style="color: #7367F0; font-size: 18px;"></i> Reservasi slot parkir
-                                </li>
-                                <li class="d-flex align-items-center gap-2">
-                                    <i class="mdi mdi-check-circle" style="color: #7367F0; font-size: 18px;"></i> Pembayaran online
-                                </li>
-                                <li class="d-flex align-items-center gap-2">
-                                    <i class="mdi mdi-check-circle" style="color: #7367F0; font-size: 18px;"></i> QR Code tiket parkir
-                                </li>
-                                <li class="d-flex align-items-center gap-2">
-                                    <i class="mdi mdi-check-circle" style="color: #7367F0; font-size: 18px;"></i> Riwayat reservasi
-                                </li>
-                                <li class="d-flex align-items-center gap-2">
-                                    <i class="mdi mdi-check-circle" style="color: #7367F0; font-size: 18px;"></i> Kelola kendaraan
-                                </li>
-                                <li class="d-flex align-items-center gap-2">
-                                    <i class="mdi mdi-check-circle" style="color: #7367F0; font-size: 18px;"></i> Akses seluruh lokasi ParkirIn
-                                </li>
+                            <ul class="space-y-3 text-sm text-gray-600 mb-8 flex-1">
+                                @foreach ([
+                                    'Reservasi slot parkir',
+                                    'Pembayaran online',
+                                    'QR Code tiket parkir',
+                                    'Riwayat reservasi',
+                                    'Kelola kendaraan',
+                                    'Akses seluruh lokasi ParkirIn',
+                                ] as $feature)
+                                    <li class="flex items-center gap-2">
+                                        <i class="mdi mdi-check-circle {{ $isMember ? 'text-gray-300' : 'text-violet-500' }} text-lg"></i>
+                                        {{ $feature }}
+                                    </li>
+                                @endforeach
                             </ul>
 
-                            <div class="pt-3" style="border-top: 1px solid #f0f0f5;">
-                                <div class="d-flex justify-content-between align-items-center mb-3">
-                                    <span class="text-muted small" style="color: #8e8ea0 !important;">Status</span>
-                                    <span class="badge rounded-pill px-3 py-1" style="background: #f0f2ff; color: #7367F0; font-weight: 600; font-size: 0.65rem;">Pengguna Reguler</span>
+                            <div class="pt-5 border-t border-gray-100">
+                                <div class="flex items-center justify-between mb-4">
+                                    <span class="text-xs text-gray-400">Status</span>
+                                    @if($isMember)
+                                        <span class="text-[11px] font-semibold px-3 py-1 rounded-full bg-gray-100 text-gray-400">Tidak Digunakan</span>
+                                    @else
+                                        <span class="text-[11px] font-semibold px-3 py-1 rounded-full bg-violet-100 text-violet-600">Pengguna Reguler · Aktif</span>
+                                    @endif
                                 </div>
+
                                 @auth
                                     <a href="{{ route('customer.cari-parkir') }}"
-                                    class="btn w-100 membership-btn membership-btn-login">
-                                        <i class="mdi mdi-car-search me-1"></i>
-                                        Mulai Reservasi
+                                    class="flex items-center justify-center gap-2 w-full rounded-xl py-3 text-sm font-semibold transition
+                                            {{ $isMember
+                                                ? 'bg-gray-100 text-gray-500 hover:bg-gray-200'
+                                                : 'bg-violet-600 text-white hover:bg-violet-700 shadow-lg shadow-violet-200' }}">
+                                        <i class="mdi mdi-car-search"></i> Mulai Reservasi
                                     </a>
                                 @else
                                     <a href="{{ route('login') }}"
-                                    class="btn w-100 membership-btn membership-btn-register">
-                                        <i class="mdi mdi-login me-1"></i>
-                                        Mulai Gratis
+                                    class="flex items-center justify-center gap-2 w-full rounded-xl py-3 text-sm font-semibold bg-violet-600 text-white hover:bg-violet-700 shadow-lg shadow-violet-200 transition">
+                                        <i class="mdi mdi-login"></i> Mulai Gratis
                                     </a>
                                 @endauth
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Member Plan -->
-                <div class="col-xl-4 col-lg-6">
-                    <div class="card h-100 border-0 membership-card featured" style="border-radius: 20px; background: #ffffff; box-shadow: 0 2px 20px rgba(0,0,0,0.04); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); overflow: hidden; transform: translateY(0);">
+                    {{-- ================= MEMBER CARD ================= --}}
+                    <div class="relative rounded-3xl transition-all duration-300 hover:-translate-y-2
+                                {{ $isMember
+                                    ? 'bg-gradient-to-br from-violet-600 to-indigo-700 shadow-xl shadow-violet-300'
+                                    : 'bg-white border border-gray-200 shadow-sm' }}">
 
-                        <div class="card-body p-4 d-flex flex-column">
-                            <h4 class="fw-bold mb-1" style="color: #1a1a2e;">Member ParkirIn</h4>
-                            <p class="text-muted small mb-3" style="color: #8e8ea0 !important;">Akses penuh semua fitur</p>
+                        @if($isMember)
+                            <span class="absolute -top-3 left-6 bg-white text-violet-700 text-[11px] font-semibold px-3 py-1 rounded-full shadow flex items-center gap-1">
+                                <i class="mdi mdi-check-circle"></i> Membership Aktif
+                            </span>
+                        @else
+                            <span class="absolute -top-3 left-6 bg-gray-900 text-white text-[11px] font-semibold px-3 py-1 rounded-full shadow">
+                                Rekomendasi
+                            </span>
+                        @endif
 
-                            <div class="d-flex align-items-end mb-4">
-                                <span class="display-4 fw-bold" style="color: #7367F0; font-size: 2.5rem;">Rp 50.000</span>
-                                <span class="text-muted small mb-1 ms-2" style="color: #8e8ea0 !important;">/ Lifetime</span>
+                        <div class="p-8 flex flex-col h-full">
+                            <h4 class="text-xl font-bold mb-1 {{ $isMember ? 'text-white' : 'text-gray-900' }}">Member ParkirIn</h4>
+                            <p class="text-sm mb-5 {{ $isMember ? 'text-violet-200' : 'text-gray-400' }}">Akses penuh semua fitur</p>
+
+                            <div class="flex items-end gap-2 mb-6">
+                                <span class="text-4xl font-bold {{ $isMember ? 'text-white' : 'text-violet-600' }}">Rp 50.000</span>
+                                <span class="text-sm mb-1 {{ $isMember ? 'text-violet-200' : 'text-gray-400' }}">/ Lifetime</span>
                             </div>
 
-                            <ul class="list-unstyled mb-4 flex-grow-1" style="font-size: 0.85rem; color: #4b5563; line-height: 2;">
-                                <li class="d-flex align-items-center gap-2">
-                                    <i class="mdi mdi-check-circle" style="color: #7367F0; font-size: 18px;"></i> Semua fitur Non Member
-                                </li>
-                                <li class="d-flex align-items-center gap-2">
-                                    <i class="mdi mdi-check-circle" style="color: #7367F0; font-size: 18px;"></i> Dapat Point setiap transaksi
-                                </li>
-                                <li class="d-flex align-items-center gap-2">
-                                    <i class="mdi mdi-check-circle" style="color: #7367F0; font-size: 18px;"></i> Tukarkan Point potongan harga
-                                </li>
-                                <li class="d-flex align-items-center gap-2">
-                                    <i class="mdi mdi-check-circle" style="color: #7367F0; font-size: 18px;"></i> Member Day diskon 10%
-                                </li>
-                                <li class="d-flex align-items-center gap-2">
-                                    <i class="mdi mdi-check-circle" style="color: #7367F0; font-size: 18px;"></i> Berlaku aktif bertransaksi
-                                </li>
-                                <li class="d-flex align-items-center gap-2">
-                                    <i class="mdi mdi-check-circle" style="color: #7367F0; font-size: 18px;"></i> Riwayat Point & Reward
-                                </li>
+                            <ul class="space-y-3 text-sm mb-8 flex-1 {{ $isMember ? 'text-violet-50' : 'text-gray-600' }}">
+                                @foreach ([
+                                    'Semua fitur Non Member',
+                                    'Dapat Point setiap transaksi',
+                                    'Tukarkan Point potongan harga',
+                                    'Member Day diskon 10%',
+                                    'Berlaku aktif bertransaksi',
+                                    'Riwayat Point & Reward',
+                                ] as $feature)
+                                    <li class="flex items-center gap-2">
+                                        <i class="mdi mdi-check-circle {{ $isMember ? 'text-white' : 'text-violet-500' }} text-lg"></i>
+                                        {{ $feature }}
+                                    </li>
+                                @endforeach
                             </ul>
 
-                            <div class="pt-3" style="border-top: 1px solid #f0f0f5;">
-                                <div class="d-flex justify-content-between align-items-center mb-3">
-                                    <span class="text-muted small" style="color: #8e8ea0 !important;">Status</span>
-                                    <span class="badge rounded-pill px-3 py-1" style="background: #7367F0; color: #fff; font-weight: 600; font-size: 0.65rem;">Member Lifetime</span>
-                                </div>
-                                @if(auth()->check())
-
-                                    @if(auth()->user()->status_member == 'member')
-
-                                        <button
-                                            class="btn w-100"
-                                            disabled
-                                            style="background:#28C76F;color:#fff;border:none;border-radius:12px;padding:12px;font-weight:600;">
-
-                                            <i class="mdi mdi-check-circle me-2"></i>
-                                            Membership Aktif
-
-                                        </button>
-
+                            <div class="pt-5 border-t {{ $isMember ? 'border-white/20' : 'border-gray-100' }}">
+                                <div class="flex items-center justify-between mb-4">
+                                    <span class="text-xs {{ $isMember ? 'text-violet-200' : 'text-gray-400' }}">Status</span>
+                                    @if($isMember)
+                                        <span class="text-[11px] font-semibold px-3 py-1 rounded-full bg-white/20 text-white">Member Lifetime · Aktif</span>
                                     @else
-
-                                        <a
-                                            href="{{ route('customer.membership') }}"
-                                            class="btn w-100 membership-btn featured-btn"
-                                            style="background:#7367F0;color:#fff;border:none;border-radius:12px;padding:12px;font-weight:600;font-size:.85rem;transition:.3s;box-shadow:0 4px 16px rgba(115,103,240,.25);">
-
-                                            <i class="mdi mdi-crown me-2"></i>
-                                            Daftar Member
-
-                                        </a>
-
+                                        <span class="text-[11px] font-semibold px-3 py-1 rounded-full bg-violet-100 text-violet-600">Belum Aktif</span>
                                     @endif
+                                </div>
 
-                                @endif
+                                @auth
+                                    @if($isMember)
+                                        <button disabled
+                                            class="flex items-center justify-center gap-2 w-full rounded-xl py-3 text-sm font-semibold bg-white text-violet-700 cursor-default">
+                                            <i class="mdi mdi-check-circle"></i> Membership Aktif
+                                        </button>
+                                    @else
+                                        <a href="{{ route('customer.membership') }}"
+                                        class="flex items-center justify-center gap-2 w-full rounded-xl py-3 text-sm font-semibold bg-violet-600 text-white hover:bg-violet-700 shadow-lg shadow-violet-200 transition">
+                                            <i class="mdi mdi-crown"></i> Daftar Member
+                                        </a>
+                                    @endif
+                                @else
+                                    <a href="{{ route('login') }}"
+                                    class="flex items-center justify-center gap-2 w-full rounded-xl py-3 text-sm font-semibold bg-gray-900 text-white hover:bg-gray-800 transition">
+                                        <i class="mdi mdi-login"></i> Login untuk Daftar
+                                    </a>
+                                @endauth
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Pricing plans: End -->
+        </section>
+        {{-- Pricing plans: End --}}
 
         <section id="keunggulan-parkirin" class="min-vh-100 d-flex align-items-center overflow-hidden">
         <div class="container-fluid">
@@ -801,11 +813,6 @@
 
                   <h6 class="fw-semibold d-flex justify-content-center align-items-center mb-3">
 
-                      <img
-                          src="{{ asset('assets/img/front-pages/icons/section-tilte-icon.png') }}"
-                          class="me-2"
-                          alt="">
-
                       <span class="text-uppercase">
                           FAQ
                       </span>
@@ -839,7 +846,7 @@
 
                           <img
                               src="{{ asset('assets/img/cara-kerja/faq.svg') }}"
-                              class="faq-image"
+                              class="faq-image d-none d-lg-flex"
                               alt="FAQ ParkirIn">
 
                       </div>
@@ -1734,77 +1741,6 @@
 
     visibility:visible !important;
 
-}
-
-/* ===== MEMBERSHIP CARDS ===== */
-.membership-card {
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    transform: translateY(0);
-}
-
-.membership-card:hover {
-    transform: translateY(-12px);
-    box-shadow: 0 20px 60px rgba(115, 103, 240, 0.12) !important;
-}
-
-/* Featured card - pulse animation hanya saat di-hover */
-.membership-card.featured:hover {
-    animation: pulse-border 1.5s ease-in-out infinite;
-    box-shadow: 0 20px 60px rgba(115, 103, 240, 0.25) !important;
-    border-color: #7367F0 !important;
-}
-
-@keyframes pulse-border {
-    0%, 100% {
-        border-color: #7367F0;
-        box-shadow: 0 20px 60px rgba(115, 103, 240, 0.25);
-    }
-    50% {
-        border-color: #a78bfa;
-        box-shadow: 0 20px 60px rgba(115, 103, 240, 0.40);
-    }
-}
-
-.membership-card .membership-btn {
-    transition: all 0.3s ease;
-}
-
-.membership-card:hover .membership-btn {
-    background: #7367F0;
-    color: #fff;
-    transform: scale(1.02);
-    box-shadow: 0 4px 20px rgba(115, 103, 240, 0.35);
-}
-
-.membership-card.featured:hover .featured-btn {
-    background: linear-gradient(135deg, #7367F0, #5a4bd1);
-    box-shadow: 0 8px 30px rgba(115, 103, 240, 0.45);
-    transform: scale(1.02);
-}
-
-.membership-card .mdi-check-circle {
-    transition: all 0.3s ease;
-}
-
-.membership-card:hover .mdi-check-circle {
-    transform: scale(1.1);
-    color: #5a4bd1;
-}
-
-.membership-card .badge {
-    transition: all 0.3s ease;
-}
-
-.membership-card:hover .badge {
-    transform: scale(1.05);
-}
-
-.membership-card .display-4 {
-    transition: all 0.3s ease;
-}
-
-.membership-card:hover .display-4 {
-    transform: scale(1.02);
 }
 </style>
 
