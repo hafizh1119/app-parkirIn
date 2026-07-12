@@ -1,239 +1,143 @@
 @extends('Admin.layouts.app')
 
+@section('title', 'Verifikasi Pembayaran')
+
 @section('content')
+<div class="space-y-6">
+    <!-- Breadcrumb -->
+    <nav class="flex items-center gap-2 text-sm text-gray-500">
+        <span>Dashboard</span>
+        <span class="material-symbols-outlined text-sm">chevron_right</span>
+        <span class="text-[#5445cf] font-semibold">Verifikasi Pembayaran</span>
+    </nav>
 
-<div class="mb-6">
-    <h2 class="text-2xl font-bold">
-        Verifikasi Pembayaran
-    </h2>
-</div>
-
-<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-6">
-
-    <div class="bg-white rounded-2xl shadow-sm border-l-4 border-green-500 p-6">
-    <div class="flex items-center justify-between">
-        <div>
-            <p class="text-sm text-gray-500">
-                Total Pendapatan
-            </p>
-            <h3 class="text-2xl font-bold text-green-600 mt-2">
-                Rp {{ number_format($totalPendapatan, 0, ',', '.') }}
-            </h3>
+    <!-- Alert Messages -->
+    @if(session('success'))
+        <div class="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg flex items-center gap-2">
+            <span class="material-symbols-outlined text-green-500">check_circle</span>
+            {{ session('success') }}
         </div>
+    @endif
 
-        <span class="material-symbols-outlined text-green-500 text-4xl">
-            payments
-        </span>
-    </div>
-</div>
-
-<div class="bg-white rounded-2xl shadow-sm border-l-4 border-blue-500 p-6">
-    <div class="flex items-center justify-between">
-        <div>
-            <p class="text-sm text-gray-500">
-                Parkir Mobil
-            </p>
-            <h3 class="text-2xl font-bold text-blue-600 mt-2">
-                {{ $parkirMobil }}
-            </h3>
+    @if(session('error'))
+        <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg flex items-center gap-2">
+            <span class="material-symbols-outlined text-red-500">error</span>
+            {{ session('error') }}
         </div>
+    @endif
 
-        <span class="material-symbols-outlined text-blue-500 text-4xl">
-            directions_car
-        </span>
-    </div>
-</div>
-
-<div class="bg-white rounded-2xl shadow-sm border-l-4 border-orange-500 p-6">
-    <div class="flex items-center justify-between">
-        <div>
-            <p class="text-sm text-gray-500">
-                Parkir Motor
-            </p>
-            <h3 class="text-2xl font-bold text-orange-600 mt-2">
-                {{ $parkirMotor }}
-            </h3>
-        </div>
-
-        <span class="material-symbols-outlined text-orange-500 text-4xl">
-            two_wheeler
-        </span>
-    </div>
-</div>
-
-<div class="bg-white rounded-2xl shadow-sm border-l-4 border-purple-500 p-6">
-    <div class="flex items-center justify-between">
-        <div>
-            <p class="text-sm text-gray-500">
-                Transaksi Berhasil
-            </p>
-            <h3 class="text-2xl font-bold text-purple-600 mt-2">
-                {{ $totalTransaksi }}
-            </h3>
-        </div>
-
-        <span class="material-symbols-outlined text-purple-500 text-4xl">
-            receipt_long
-        </span>
-    </div>
-</div>
-
-</div>
-
-<div class="bg-white rounded-2xl shadow overflow-hidden">
-
-    <table class="w-full">
-
-        <thead class="bg-gray-50">
-            <tr>
-                <th class="px-4 py-3 text-left">Kode Reservasi</th>
-                <th class="px-4 py-3 text-left">Nama Customer</th>
-                <th class="px-4 py-3 text-left">Lokasi</th>
-                <th class="px-4 py-3 text-left">Slot</th>
-                <th class="px-4 py-3 text-left">Total Bayar</th>
-                <th class="px-4 py-3 text-center">Bukti Transfer</th>
-                <th class="px-4 py-3 text-left">Status</th>
-                <th class="px-4 py-3 text-center">Aksi</th>
-            </tr>
-        </thead>
-
-        <tbody>
-
-            @forelse($pembayaran as $item)
-
-            <tr class="border-t hover:bg-gray-50">
-
-                <td class="px-4 py-4 font-medium">
-                    {{ $item->reservasi->kode_reservasi }}
-                </td>
-
-                <td class="px-4 py-4">
-                    {{ $item->reservasi->user->name ?? '-' }}
-                </td>
-
-                <td class="px-4 py-4">
-                    {{ $item->reservasi->lokasiParkir->nama ?? '-' }}
-                </td>
-
-                <td class="px-4 py-4">
-                    {{ $item->reservasi->slotParkir->kode_slot ?? '-' }}
-                </td>
-
-                <td class="px-4 py-4 font-semibold text-primary">
-                    Rp {{ number_format($item->reservasi->total_bayar ?? 0, 0, ',', '.') }}
-                </td>
-
-                <td class="px-4 py-4 text-center">
-
-                    <a
-                        href="{{ asset('assets/img/bukti-pembayaran/' . $item->bukti_pembayaran) }}"
-                        target="_blank">
-
-                        <img
-                            src="{{ asset('assets/img/bukti-pembayaran/' . $item->bukti_pembayaran) }}"
-                            alt="Bukti Pembayaran"
-                            class="w-16 h-16 object-cover rounded-lg border mx-auto hover:scale-105 transition">
-
-                    </a>
-
-                </td>
-
-                <td class="px-4 py-4">
-
-                    @if($item->status == 'pending')
-                        <span class="px-3 py-1 rounded-full bg-gray-100 text-gray-700 text-xs font-medium">
-                            Belum Bayar
-                        </span>
-
-                    @elseif($item->status == 'menunggu_verifikasi')
-                        <span class="px-3 py-1 rounded-full bg-yellow-100 text-yellow-700 text-xs font-medium">
-                            Menunggu Verifikasi
-                        </span>
-
-                    @elseif($item->status == 'dibayar')
-                        <span class="px-3 py-1 rounded-full bg-green-100 text-green-700 text-xs font-medium">
-                            Disetujui
-                        </span>
-
-                    @elseif($item->status == 'ditolak')
-                        <span class="px-3 py-1 rounded-full bg-red-100 text-red-700 text-xs font-medium">
-                            Ditolak
-                        </span>
-
-                    @else
-                        <span class="text-gray-400 text-sm">
-                            {{ $item->status }}
-                        </span>
-                    @endif
-
-                </td>
-
-                <td class="px-4 py-4">
-
-                @if($item->status == 'menunggu_verifikasi')
-
-                <div class="flex items-center justify-center gap-2">
-
-                    <form
-                        action="{{ route('admin.pembayaran.verifikasi', $item->id) }}"
-                        method="POST">
-
-                        @csrf
-
-                        <button
-                            type="submit"
-                            class="px-3 py-2 rounded-lg bg-green-600 text-white hover:bg-green-700">
-
-                            Terima
-
-                        </button>
-
-                    </form>
-
-                    <form
-                        action="{{ route('admin.pembayaran.tolak', $item->id) }}"
-                        method="POST">
-
-                        @csrf
-
-                        <button
-                            type="submit"
-                            class="px-3 py-2 rounded-lg bg-red-600 text-white hover:bg-red-700">
-
-                            Tolak
-
-                        </button>
-
-                    </form>
-
+    <!-- Stats Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="bg-gradient-to-r from-[#5445cf] to-[#7c5cbf] p-6 rounded-xl text-white shadow-lg">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm opacity-80">Total Pendapatan</p>
+                    <h2 class="text-2xl font-bold">Rp {{ number_format($totalPendapatan, 0, ',', '.') }}</h2>
                 </div>
+                <span class="material-symbols-outlined text-4xl opacity-80">payments</span>
+            </div>
+        </div>
 
-                @else
+        <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm text-gray-500">Total Transaksi</p>
+                    <h2 class="text-3xl font-bold text-gray-800">{{ number_format($totalTransaksi) }}</h2>
+                </div>
+                <span class="material-symbols-outlined text-4xl text-[#5445cf]">receipt_long</span>
+            </div>
+        </div>
 
-                <span class="text-gray-400 text-sm">
-                    Selesai
-                </span>
+        <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm text-gray-500">Parkir Mobil</p>
+                    <h2 class="text-3xl font-bold text-gray-800">{{ number_format($parkirMobil) }}</h2>
+                </div>
+                <span class="material-symbols-outlined text-4xl text-blue-500">directions_car</span>
+            </div>
+        </div>
 
-                @endif
+        <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm text-gray-500">Parkir Motor</p>
+                    <h2 class="text-3xl font-bold text-gray-800">{{ number_format($parkirMotor) }}</h2>
+                </div>
+                <span class="material-symbols-outlined text-4xl text-orange-500">two_wheeler</span>
+            </div>
+        </div>
+    </div>
 
-            </td>
+    <!-- Payment List Table -->
+    <div class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+        <div class="p-6 border-b border-gray-200">
+            <h3 class="text-lg font-bold text-gray-800">Daftar Pembayaran</h3>
+            <p class="text-sm text-gray-500">Riwayat pembayaran pelanggan</p>
+        </div>
 
-            </tr>
-
-            @empty
-
-            <tr>
-                <td colspan="7" class="text-center py-10 text-gray-500">
-                    Belum ada data pembayaran
-                </td>
-            </tr>
-
-            @endforelse
-
-        </tbody>
-
-    </table>
-
+        <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+                <thead>
+                    <tr class="bg-gray-50 text-gray-600 border-b border-gray-200">
+                        <th class="px-6 py-3 text-left font-semibold">Kode Reservasi</th>
+                        <th class="px-6 py-3 text-left font-semibold">Pelanggan</th>
+                        <th class="px-6 py-3 text-left font-semibold">Lokasi / Slot</th>
+                        <th class="px-6 py-3 text-left font-semibold">Kendaraan</th>
+                        <th class="px-6 py-3 text-left font-semibold">Total Bayar</th>
+                        <th class="px-6 py-3 text-left font-semibold">Status</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-100">
+                    @forelse($pembayaran as $item)
+                    <tr class="hover:bg-gray-50/50 transition">
+                        <td class="px-6 py-4 font-semibold text-gray-800">
+                            {{ $item->reservasi->kode_reservasi ?? '-' }}
+                        </td>
+                        <td class="px-6 py-4">
+                            <p class="font-semibold text-gray-800">{{ $item->reservasi->user->name ?? '-' }}</p>
+                            <p class="text-xs text-gray-500">{{ $item->reservasi->user->email ?? '-' }}</p>
+                        </td>
+                        <td class="px-6 py-4">
+                            <p>{{ $item->reservasi->lokasiParkir->nama ?? '-' }}</p>
+                            <p class="text-xs text-gray-500">{{ $item->reservasi->slotParkir->kode_slot ?? '-' }}</p>
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ $item->reservasi->kendaraan->jenis_kendaraan ?? '-' }}
+                        </td>
+                        <td class="px-6 py-4 font-semibold">
+                            Rp {{ number_format($item->reservasi->total_bayar ?? 0, 0, ',', '.') }}
+                        </td>
+                        <td class="px-6 py-4">
+                            @php
+                                $statusLabel = match($item->status) {
+                                    'dibayar' => 'Dibayar',
+                                    'ditolak' => 'Ditolak',
+                                    'belum_bayar' => 'Belum Bayar',
+                                    default => ucfirst(str_replace('_', ' ', $item->status)),
+                                };
+                                $statusClass = match($item->status) {
+                                    'dibayar' => 'bg-green-50 text-green-600',
+                                    'ditolak' => 'bg-red-50 text-red-600',
+                                    default => 'bg-yellow-50 text-yellow-600',
+                                };
+                            @endphp
+                            <span class="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase {{ $statusClass }}">
+                                {{ $statusLabel }}
+                            </span>
+                        </td>
+                    </tr>
+                    @empty
+                    <tr>
+                        <td colspan="6" class="px-6 py-8 text-center text-gray-500">
+                            <span class="material-symbols-outlined text-4xl text-gray-300 block mb-2">receipt_long</span>
+                            Belum ada data pembayaran.
+                        </td>
+                    </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
-
 @endsection

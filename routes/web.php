@@ -25,6 +25,7 @@ use App\Http\Controllers\Admin\HistoryController;
 use App\Http\Controllers\Admin\KelolaUserController;
 use App\Http\Controllers\Admin\EventController;
 use App\Http\Controllers\Admin\MembershipController;
+use App\Http\Controllers\Admin\DashboardController;
 
 Route::get('/', [HomeController::class, 'index'])->name('dashboard');
 
@@ -69,7 +70,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::post('/scan', [ScanController::class, 'scan'])->name('scan.process');
 
     // Dashboard
-    Route::view('/dashboard', 'Admin.dashboard.index')->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     // Lokasi Parkir
     Route::resource('lokasi-parkir', AdminLokasiParkirController::class);
