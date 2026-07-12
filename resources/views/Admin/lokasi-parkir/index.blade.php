@@ -149,7 +149,7 @@
 
                         </td>
 
-                        <<td class="p-4">
+                        <td class="p-4">
                             <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm whitespace-nowrap">
                                 {{ $lokasi->area_parkir_count }} Area
                             </span>

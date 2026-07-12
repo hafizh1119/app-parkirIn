@@ -47,7 +47,11 @@ Route::prefix('customer')->group(function () {
 Route::middleware(['auth', 'role:customer'])->prefix('customer')->group(function () {
     Route::get('/denah', [CustomerLokasiParkirController::class, 'denah'])->name('customer.denah');
     Route::post('/kendaraan',[KendaraanController::class, 'store'])->name('customer.kendaraan.store');
+    Route::put('/kendaraan/{kendaraan}', [KendaraanController::class, 'update'])->name('customer.kendaraan.update');
+    Route::delete('/kendaraan/{kendaraan}', [KendaraanController::class, 'destroy'])->name('customer.kendaraan.destroy');
     Route::get('/reservasi/{id}', [ReservasiController::class, 'show'])->name('customer.reservasi');
+    Route::get('/reservasi-saya', [ReservasiController::class, 'mine'])->name('customer.reservasi.mine');
+    Route::get('/customer/reservasi/{id}/qr', [ReservasiController::class, 'qr'])->name('customer.reservasi.qr');
     Route::post('/reservasi', [ReservasiController::class, 'store'])->name('customer.reservasi.store');
     Route::get('/reservasi/{reservasi}/download-ticket', [ReservasiController::class, 'downloadTicket'])->name('reservasi.download-ticket');
     Route::get('/pembayaran/{id}', [CustomerPembayaranController::class, 'show'])->name('customer.pembayaran');
@@ -57,6 +61,7 @@ Route::middleware(['auth', 'role:customer'])->prefix('customer')->group(function
     Route::get('/qr-muncul/{id}', [ReservasiController::class, 'tiket'])->name('customer.qr-muncul');
     Route::get('/riwayat', [RiwayatController::class, 'index'])->name('customer.riwayat');
     Route::get('/profil', [ProfileController::class, 'index'])->name('customer.profil');
+    Route::put('/profil', [ProfileController::class, 'update'])->name('customer.profil.update');
     Route::get('/membership', [CustomerMembershipController::class, 'index'])->name('customer.membership');
     Route::post('/membership/payment', [CustomerMembershipController::class, 'payment'])->name('customer.membership.payment');
     Route::post('/membership/finish/{id}', [CustomerMembershipController::class, 'finish'])->name('customer.membership.finish');
@@ -64,17 +69,13 @@ Route::middleware(['auth', 'role:customer'])->prefix('customer')->group(function
 });
 
 Route::prefix('admin')->name('admin.')->group(function () {
-
-    //Scan
+    
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    
     Route::get('/scan', [ScanController::class, 'index'])->name('scan.index');
     Route::post('/scan', [ScanController::class, 'scan'])->name('scan.process');
-
-    // Dashboard
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-
     // Lokasi Parkir
     Route::resource('lokasi-parkir', AdminLokasiParkirController::class);
-
     // Slot Area
     Route::get('/slot-area/{lokasi}',             [AreaParkirController::class, 'index'])->name('slot-area.index');
     Route::get('/slot-area/{lokasi}/create',      [AreaParkirController::class, 'create'])->name('slot-area.create');
@@ -82,21 +83,18 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/slot-area/{lokasi}/{area}/edit', [AreaParkirController::class, 'edit'])->name('slot-area.edit');
     Route::put('/slot-area/{lokasi}/{area}',      [AreaParkirController::class, 'update'])->name('slot-area.update');
     Route::delete('/slot-area/{lokasi}/{area}',   [AreaParkirController::class, 'destroy'])->name('slot-area.destroy');
-
     // Slot Parkir
     Route::get('/slot-parkir/{area}',           [SlotParkirController::class, 'index'])->name('slot-parkir.index');
     Route::post('/slot-parkir/{area}',          [SlotParkirController::class, 'store'])->name('slot-parkir.store');
     Route::put('/slot-parkir/{area}/{slot}',    [SlotParkirController::class, 'update'])->name('slot-parkir.update');
     Route::delete('/slot-parkir/{area}/{slot}', [SlotParkirController::class, 'destroy'])->name('slot-parkir.destroy');
-
     //pembayaran
     Route::get('/pembayaran', [AdminPembayaranController::class, 'index'])->name('pembayaran.index');
     Route::post('/pembayaran/{id}/verifikasi', [AdminPembayaranController::class, 'verifikasi'])->name('pembayaran.verifikasi');
     Route::post('/pembayaran/{id}/tolak', [AdminPembayaranController::class, 'tolak'])->name('pembayaran.tolak');
-
     //history
     Route::get('/history',[HistoryController::class, 'index'])->name('history.index');
-    
+
     //kelola user
     Route::get('/kelola-user',[KelolaUserController::class, 'index'])->name('kelola-user.index');
     Route::get('/kelola-user/{user}',[KelolaUserController::class, 'show'])->name('kelola-user.show');
@@ -105,11 +103,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/kelola-user/{user}/reset-password',[KelolaUserController::class, 'resetPasswordForm'])->name('kelola-user.reset-password');
     Route::put('/kelola-user/{user}/reset-password',[KelolaUserController::class, 'resetPassword'])->name('kelola-user.reset-password.update');
     Route::put('/kelola-user/{user}/toggle-status',[KelolaUserController::class, 'toggleStatus'])->name('kelola-user.toggle-status');
-
      // Event Management
     Route::resource('events', EventController::class);
     Route::post('/events/{event}/toggle-status', [EventController::class, 'toggleStatus'])->name('events.toggle-status');
-
     // Membership & Points
     Route::get('/membership', [MembershipController::class, 'index'])->name('membership.index');
     Route::get('/membership/export', [MembershipController::class, 'export'])->name('membership.export');

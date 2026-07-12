@@ -10,12 +10,19 @@ class HomeController extends Controller
     {
         $lokasiParkir = LokasiParkir::with('areaParkir.slotParkir')->get();
 
-        foreach ($lokasiParkir as $parkir) {
-            $semuaSlot = $parkir->areaParkir->flatMap->slotParkir;
+        foreach ($lokasiParkir as $lokasi) {
 
-            $parkir->slot_mobil    = $semuaSlot->where('jenis_kendaraan', 'mobil')->where('status', 'tersedia')->count();
-            $parkir->slot_motor    = $semuaSlot->where('jenis_kendaraan', 'motor')->where('status', 'tersedia')->count();
-            $parkir->tarif_per_jam = $parkir->areaParkir->min('tarif_per_jam') ?? 0;
+            $semuaSlot = $lokasi->areaParkir->flatMap->slotParkir;
+
+            $lokasi->slot_mobil = $semuaSlot
+                ->filter(fn($slot) => $slot->areaParkir->jenis_kendaraan == 'mobil' && $slot->status == 'tersedia')
+                ->count();
+
+            $lokasi->slot_motor = $semuaSlot
+                ->filter(fn($slot) => $slot->areaParkir->jenis_kendaraan == 'motor' && $slot->status == 'tersedia')
+                ->count();
+
+            $lokasi->tarif_per_jam = $lokasi->areaParkir->min('tarif_per_jam');
         }
 
         return view('dashboard', compact('lokasiParkir'));

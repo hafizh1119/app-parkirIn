@@ -94,16 +94,6 @@
                 @error('end_date') <p class="text-red-500 text-sm mt-1">{{ $message }}</p> @enderror
             </div>
         </div>
-
-        <!-- Kapasitas -->
-        <div>
-            <label class="block font-semibold text-gray-700 mb-1 text-sm">Kapasitas Maksimal</label>
-            <input type="number" name="max_capacity" value="{{ old('max_capacity') }}" 
-                   class="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#5445cf] focus:border-[#5445cf] outline-none" 
-                   min="1" placeholder="Kosongkan jika unlimited">
-            <p class="text-xs text-gray-400 mt-1">Biarkan kosong untuk kapasitas unlimited</p>
-        </div>
-
         <!-- Gambar -->
         <div>
             <label class="block font-semibold text-gray-700 mb-1 text-sm">Gambar Event</label>

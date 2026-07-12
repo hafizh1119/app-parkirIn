@@ -41,24 +41,85 @@
         </span>
     </button>
 
-    <div class="h-8 w-px bg-outline-variant/50"></div>
+    <div class="relative">
 
-    <div class="flex items-center gap-3">
+    <button
+        type="button"
+        onclick="toggleUserMenu()"
+        class="flex items-center gap-3 hover:bg-surface-variant/50 rounded-xl px-2 py-1.5 transition-colors">
+
         <div class="text-right">
             <p class="font-bold text-on-surface">
-                Admin User
+                {{ auth()->user()->name }}
             </p>
             <p class="text-sm text-secondary">
-                Super Admin
+                {{ auth()->user()->role == 'admin' ? 'Super Admin' : ucfirst(auth()->user()->role) }}
             </p>
         </div>
 
         <img
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDWwz7PC7TBYhMrNBGTPXb0iJF_JdbTjkw-4FR7xOcHJZbdd0X9u28CiV5p9DYxJv5oItjsZAtnbWF4kg-uNDIo9xjdCB5XBL8Vl2fT06Md2_-uThR1UhAwqZKod84kEuTa4a6_VX8fL6o7CsPLgUbkV0Br0iiOo9MgwflnvCAf4PWcMz-6hBNWgSFNammbl_U4h_oV9PoeF0vBomBNMLtDE7Hjw1neYJuTqUALxSq85_m_3QjztoJ1B22wLQCF2C2d0BbbjcBWX1g"
-            class="w-10 h-10 rounded-full border-2 border-primary-container"
-            alt="Admin">
+            src="{{ auth()->user()->foto_profil ? asset(auth()->user()->foto_profil) : 'https://ui-avatars.com/api/?name=' . urlencode(auth()->user()->name) . '&background=5445cf&color=fff' }}"
+            class="w-10 h-10 rounded-full border-2 border-primary-container object-cover"
+            alt="{{ auth()->user()->name }}">
+
+        <span class="material-symbols-outlined text-gray-400 text-[18px]">
+            expand_more
+        </span>
+
+    </button>
+
+    <!-- Dropdown Menu -->
+    <div
+        id="userDropdownMenu"
+        class="hidden absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-lg border border-gray-100 py-2 z-50">
+
+        <div class="px-4 py-2 border-b border-gray-100">
+            <p class="text-sm font-semibold text-gray-800">{{ auth()->user()->name }}</p>
+            <p class="text-xs text-gray-500">{{ auth()->user()->email }}</p>
+        </div>
+
+        <a href="#"
+            class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
+            <span class="material-symbols-outlined text-[18px] text-gray-500">person</span>
+            Profil Saya
+        </a>
+
+        <a href="#"
+            class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
+            <span class="material-symbols-outlined text-[18px] text-gray-500">settings</span>
+            Pengaturan
+        </a>
+
+        <hr class="my-2 border-gray-100">
+
+        <form action="{{ route('logout') }}" method="POST">
+            @csrf
+            <button
+                type="submit"
+                class="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors">
+                <span class="material-symbols-outlined text-[18px]">logout</span>
+                Logout
+            </button>
+        </form>
+
     </div>
 
 </div>
+
+<script>
+    function toggleUserMenu() {
+        document.getElementById('userDropdownMenu').classList.toggle('hidden');
+    }
+
+    // Tutup dropdown kalau klik di luar area menu
+    document.addEventListener('click', function (event) {
+        const menu = document.getElementById('userDropdownMenu');
+        const button = event.target.closest('button[onclick="toggleUserMenu()"]');
+
+        if (!button && menu && !menu.contains(event.target)) {
+            menu.classList.add('hidden');
+        }
+    });
+</script>
 
 </header>

@@ -20,7 +20,9 @@ class ReservasiController extends Controller
             ->findOrFail($id);
 
         $lokasi    = $slot->areaParkir->lokasiParkir;
-        $kendaraan = Kendaraan::where('user_id', Auth::id())->first();
+        $kendaraan = Kendaraan::where('user_id', Auth::id())
+        ->where('jenis_kendaraan', $slot->areaParkir->jenis_kendaraan)
+        ->first();
         $kendaraanList = Kendaraan::where('user_id', Auth::id())->get();
         $tanggal   = $request->tanggal_parkir;
         $jam_masuk = $request->jam_masuk;
@@ -42,7 +44,16 @@ class ReservasiController extends Controller
 
         return view('customers.reservasi', compact('lokasi', 'slot', 'kendaraan', 'kendaraanList', 'tanggal', 'jam_masuk', 'durasi', 'events', 'totalPoint'));
     }
+    public function mine()
+    {
+        $reservasiList = Reservasi::with(['lokasiParkir', 'slotParkir', 'kendaraan'])
+            ->where('user_id', Auth::id())
+            ->whereIn('status', [ 'dibayar', 'checkin'])
+            ->latest()
+            ->get();
 
+        return view('customers.reservasi-saya', compact('reservasiList'));
+    }
     public function store(Request $request)
     {
        $existing = Reservasi::where('slot_parkir_id', $request->slot_parkir_id)
@@ -55,7 +66,18 @@ class ReservasiController extends Controller
             return back()->with('error', 'Slot sudah direservasi');
         }
 
-        $kendaraan = Kendaraan::where('user_id', Auth::id())->first();
+        $slot = SlotParkir::findOrFail($request->slot_parkir_id);
+
+        $kendaraan = Kendaraan::where('user_id', Auth::id())
+            ->where('jenis_kendaraan', $slot->areaParkir->jenis_kendaraan)
+            ->first();
+
+        if (!$kendaraan) {
+            return back()->with(
+                'error',
+                'Anda belum memiliki kendaraan jenis ' . ucfirst($slot->areaParkir->jenis_kendaraan) . '. Silakan tambahkan kendaraan terlebih dahulu di halaman profil.'
+            );
+        }
 
         $kodeReservasi =
             'RSV-' .

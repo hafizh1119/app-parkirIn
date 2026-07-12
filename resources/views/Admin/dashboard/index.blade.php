@@ -71,24 +71,19 @@
         <div class="lg:col-span-2 space-y-6">
 
             <!-- Status Reservasi -->
-            <div class="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
-                <h3 class="font-semibold text-lg text-gray-900 mb-4">Status Reservasi</h3>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <div class="text-center p-4 bg-yellow-50 rounded-xl">
-                        <p class="text-2xl font-bold text-yellow-600">{{ $reservasiPending }}</p>
-                        <p class="text-xs text-gray-500 mt-1">Pending</p>
-                    </div>
-                    <div class="text-center p-4 bg-blue-50 rounded-xl">
-                        <p class="text-2xl font-bold text-blue-600">{{ $reservasiCheckin }}</p>
-                        <p class="text-xs text-gray-500 mt-1">Check-in</p>
-                    </div>
-                    <div class="text-center p-4 bg-green-50 rounded-xl">
-                        <p class="text-2xl font-bold text-green-600">{{ $reservasiSelesai }}</p>
-                        <p class="text-xs text-gray-500 mt-1">Selesai</p>
-                    </div>
-                    <div class="text-center p-4 bg-red-50 rounded-xl">
-                        <p class="text-2xl font-bold text-red-600">{{ $reservasiBatal }}</p>
-                        <p class="text-xs text-gray-500 mt-1">Batal</p>
+            <div class="bg-white rounded-2xl shadow-md p-6 relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-indigo-100 to-transparent rounded-full -mr-10 -mt-10 blur-2xl"></div>
+                <div class="flex items-center gap-2 mb-4 relative z-10">
+                    <span class="material-symbols-outlined text-indigo-500 text-[18px]">donut_large</span>
+                    <h3 class="text-sm font-semibold text-gray-700"> Status Reservasi</h3>
+                </div>
+                <div class="h-64 flex items-center justify-center relative">
+                    <canvas id="chartStatusReservasi"></canvas>
+                    <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+                        <span class="text-3xl font-bold text-gray-800" id="totalReservasiChart">
+                            {{ $reservasiPending + $reservasiCheckin + $reservasiSelesai + $reservasiBatal }}
+                        </span>
+                        <span class="text-xs text-gray-400">Total</span>
                     </div>
                 </div>
             </div>
@@ -155,35 +150,15 @@
         <!-- Kolom kanan: 1/3 -->
         <div class="space-y-6">
 
-            <!-- Ringkasan Operasional -->
-            <div class="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
-                <h3 class="font-semibold text-lg text-gray-900 mb-4">Ringkasan Operasional</h3>
-
-                <div class="space-y-3">
-                    <div class="flex items-center justify-between">
-                        <span class="text-sm text-gray-500">Total Lokasi Parkir</span>
-                        <span class="font-semibold text-gray-800">{{ $totalLokasi }}</span>
-                    </div>
-                    <div class="flex items-center justify-between">
-                        <span class="text-sm text-gray-500">Total Area Parkir</span>
-                        <span class="font-semibold text-gray-800">{{ $totalArea }}</span>
-                    </div>
-                    <div class="flex items-center justify-between">
-                        <span class="text-sm text-gray-500">Slot Terisi</span>
-                        <span class="font-semibold text-red-600">{{ $slotTerisi }}</span>
-                    </div>
-                    <div class="flex items-center justify-between">
-                        <span class="text-sm text-gray-500">Transaksi Lunas</span>
-                        <span class="font-semibold text-green-600">{{ $totalTransaksiLunas }}</span>
-                    </div>
-                    <div class="flex items-center justify-between">
-                        <span class="text-sm text-gray-500">Menunggu Verifikasi</span>
-                        <span class="font-semibold text-amber-600">{{ $menungguVerifikasi }}</span>
-                    </div>
-                    <div class="flex items-center justify-between">
-                        <span class="text-sm text-gray-500">User Nonaktif</span>
-                        <span class="font-semibold text-gray-800">{{ $userNonaktif }}</span>
-                    </div>
+            
+           <!-- Ringkasan Operasional -->
+            <div class="bg-white rounded-2xl shadow-md p-6">
+                <div class="flex items-center gap-2 mb-4">
+                    <span class="material-symbols-outlined text-teal-500 text-[18px]">bar_chart</span>
+                    <h3 class="text-sm font-semibold text-gray-700">Ringkasan Operasional</h3>
+                </div>
+                <div class="h-64 flex items-center justify-center">
+                    <canvas id="chartOperasional"></canvas>
                 </div>
             </div>
 
@@ -218,7 +193,7 @@
 
             <!-- Lokasi Teramai -->
             <div class="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
-                <h3 class="font-semibold text-lg text-gray-900 mb-4">Lokasi Teramai</h3>
+                <h3 class="font-semibold text-lg text-gray-900 mb-4">Lokasi Parkir</h3>
 
                 <div class="space-y-3">
                     @forelse($lokasiTeramai as $i => $lokasi)
@@ -244,3 +219,133 @@
 </div>
 
 @endsection
+
+@push('scripts')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script>
+    // ===== Palet warna modern (vivid tapi soft) =====
+    const palette = {
+        amber:   '#f59e0b',
+        sky:     '#0ea5e9',
+        emerald: '#10b981',
+        rose:    '#f43f5e',
+        violet:  '#8b5cf6',
+        indigo:  '#6366f1',
+        teal:    '#14b8a6',
+        slate:   '#64748b',
+    };
+
+    // ===== Donut Chart: Status Reservasi =====
+    const ctxStatus = document.getElementById('chartStatusReservasi');
+
+    new Chart(ctxStatus, {
+        type: 'doughnut',
+        data: {
+            labels: ['Pending', 'Check-in', 'Selesai', 'Batal'],
+            datasets: [{
+                data: [
+                    {{ $reservasiPending }},
+                    {{ $reservasiCheckin }},
+                    {{ $reservasiSelesai }},
+                    {{ $reservasiBatal }}
+                ],
+                backgroundColor: [palette.amber, palette.sky, palette.emerald, palette.rose],
+                borderWidth: 4,
+                borderColor: '#ffffff',
+                hoverOffset: 8,
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            cutout: '72%',
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        usePointStyle: true,
+                        pointStyle: 'circle',
+                        boxWidth: 8,
+                        font: { size: 11 },
+                        padding: 16,
+                    },
+                },
+                tooltip: {
+                    backgroundColor: '#1f2937',
+                    padding: 12,
+                    cornerRadius: 8,
+                    titleFont: { size: 12, weight: 'bold' },
+                    bodyFont: { size: 12 },
+                    callbacks: {
+                        label: function (context) {
+                            const value = context.parsed;
+                            const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                            const percentage = total > 0 ? ((value / total) * 100).toFixed(1) : 0;
+                            return `${value} reservasi (${percentage}%)`;
+                        },
+                    },
+                },
+            },
+        }
+    });
+
+    // ===== Bar Chart: Ringkasan Operasional (gradient) =====
+    const ctxOps = document.getElementById('chartOperasional');
+    const gradientColors = [palette.indigo, palette.sky, palette.rose, palette.emerald, palette.amber, palette.slate];
+
+    // Bikin gradient vertikal buat tiap bar
+    const barGradients = gradientColors.map(color => {
+        const gradient = ctxOps.getContext('2d').createLinearGradient(0, 0, 0, 260);
+        gradient.addColorStop(0, color);
+        gradient.addColorStop(1, color + '33'); // fade ke transparan di bawah
+        return gradient;
+    });
+
+    new Chart(ctxOps, {
+        type: 'bar',
+        data: {
+            labels: ['Lokasi', 'Area', 'Slot Terisi', 'Transaksi Lunas', 'Menunggu', 'Nonaktif'],
+            datasets: [{
+                label: 'Jumlah',
+                data: [
+                    {{ $totalLokasi }},
+                    {{ $totalArea }},
+                    {{ $slotTerisi }},
+                    {{ $totalTransaksiLunas }},
+                    {{ $menungguVerifikasi }},
+                    {{ $userNonaktif }}
+                ],
+                backgroundColor: barGradients,
+                borderRadius: 8,
+                borderSkipped: false,
+                maxBarThickness: 42,
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    backgroundColor: '#1f2937',
+                    padding: 12,
+                    cornerRadius: 8,
+                    titleFont: { size: 12, weight: 'bold' },
+                    bodyFont: { size: 12 },
+                },
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    grid: { color: '#f1f5f9' },
+                    ticks: { precision: 0, font: { size: 11 } },
+                },
+                x: {
+                    grid: { display: false },
+                    ticks: { font: { size: 11 } },
+                },
+            },
+        }
+    });
+</script>
+@endpush

@@ -22,15 +22,15 @@ class LokasiParkirController extends Controller
 
             $lokasi->slot_mobil = $semuaSlot
                 ->filter(function ($slot) {
-                    return $slot->jenis_kendaraan == 'mobil'
-                        && $slot->status_tampil == 'tersedia';
+                    return $slot->areaParkir->jenis_kendaraan == 'mobil'
+                        && $slot->status == 'tersedia';
                 })
                 ->count();
 
             $lokasi->slot_motor = $semuaSlot
                 ->filter(function ($slot) {
-                    return $slot->jenis_kendaraan == 'motor'
-                        && $slot->status_tampil == 'tersedia';
+                    return $slot->areaParkir->jenis_kendaraan == 'motor'
+                        && $slot->status == 'tersedia';
                 })
                 ->count();
         }
@@ -102,4 +102,6 @@ class LokasiParkirController extends Controller
             'jenis_kendaraan' => $request->kendaraan,
         ]);
     }
+
+    
 }

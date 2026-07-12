@@ -87,14 +87,6 @@
             </div>
         </div>
 
-        <!-- Kapasitas -->
-        <div>
-            <label class="block font-semibold text-gray-700 mb-1 text-sm">Kapasitas Maksimal</label>
-            <input type="number" name="max_capacity" value="{{ old('max_capacity', $event->max_capacity) }}" 
-                   class="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#5445cf] focus:border-[#5445cf] outline-none" 
-                   min="1" placeholder="Kosongkan jika unlimited">
-        </div>
-
         <!-- Status -->
         <div>
             <label class="block font-semibold text-gray-700 mb-1 text-sm">Status</label>

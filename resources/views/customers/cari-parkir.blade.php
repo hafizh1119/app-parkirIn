@@ -133,10 +133,7 @@
 
                         <div class="d-flex justify-content-between align-items-start mb-2">
                             <h5 class="fw-bold mb-0">{{ $parkir->nama }}</h5>
-                            <div class="d-flex align-items-center gap-1 text-warning">
-                                <i class="mdi mdi-star"></i>
-                                <span class="fw-semibold text-body">{{ $parkir->rating ?? '4.5' }}</span>
-                            </div>
+                            
                         </div>
 
                         <p class="text-body-secondary small d-flex align-items-center gap-1 mb-3">
@@ -145,10 +142,7 @@
                         </p>
 
                         <div class="d-flex gap-4 mb-3">
-                            <div class="d-flex align-items-center gap-1 text-body-secondary small">
-                                <i class="mdi mdi-map text-primary"></i>
-                                -
-                            </div>
+                            
                             <div class="d-flex align-items-center gap-3 text-body-secondary small">
 
                                 <span>
