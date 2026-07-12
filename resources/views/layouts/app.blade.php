@@ -29,7 +29,7 @@
         <link rel="stylesheet" href="{{ asset('assets/vendor/css/rtl/core.css') }}" />
         <link rel="stylesheet" href="{{ asset('assets/vendor/css/rtl/theme-default.css') }}" />
         <link rel="stylesheet" href="{{ asset('assets/css/demo.css') }}" />
-
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
         <!-- Auth Page -->
         <link rel="stylesheet" href="{{ asset('assets/vendor/css/pages/page-auth.css') }}" />
 
@@ -65,7 +65,7 @@
 
         <!-- Vendors JS -->
         <script src="{{ asset('assets/vendor/libs/nouislider/nouislider.js') }}"></script>
-        <script src="{{ asset('assets/vendor/libs/swiper/swiper.js') }}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
 
         <!-- Main JS -->
         <script src="{{ asset('assets/js/main.js') }}"></script>
