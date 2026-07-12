@@ -46,11 +46,8 @@ class KelolaUserController extends Controller
     );
 }
 
-    public function update(
-    Request $request,
-    User $user
-) {
-
+    public function update(Request $request, User $user)
+{
     $request->validate([
         'name' => 'required|max:255',
         'email' => 'required|email',
@@ -65,12 +62,25 @@ class KelolaUserController extends Controller
         'status_member' => $request->status_member,
     ]);
 
+    if ($request->status_member === 'member') {
+        $membership = \App\Models\Membership::firstOrNew(['user_id' => $user->id]);
+
+        if (!$membership->exists) {
+            $membership->tier = 'basic';
+            $membership->total_points = 0;
+            $membership->redeemed_points = 0;
+            $membership->join_date = now();
+        }
+
+        $membership->is_active = true;
+        $membership->save();
+    } else {
+        \App\Models\Membership::where('user_id', $user->id)->update(['is_active' => false]);
+    }
+
     return redirect()
         ->route('admin.kelola-user.index')
-        ->with(
-            'success',
-            'Data user berhasil diperbarui.'
-        );
+        ->with('success', 'Data user berhasil diperbarui.');
 }
 
     public function resetPasswordForm(User $user)

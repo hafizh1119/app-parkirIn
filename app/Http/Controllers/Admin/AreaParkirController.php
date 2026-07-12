@@ -28,13 +28,20 @@ class AreaParkirController extends Controller
         $request->validate([
             'nama_area' => 'required',
             'jenis_kendaraan' => 'required',
-            'kapasitas' => 'required|integer',
+            'kapasitas' => 'required|integer|min:1',
             'tarif_per_jam' => 'required|numeric',
             'status' => 'required',
             'deskripsi' => 'nullable',
         ]);
 
-        $lokasi->areaParkir()->create($request->all());
+        $area = $lokasi->areaParkir()->create($request->all());
+
+        for ($i = 1; $i <= $area->kapasitas; $i++) {
+            $area->slotParkir()->create([
+                'kode_slot' => $area->nama_area . '-' . str_pad($i, 2, '0', STR_PAD_LEFT),
+                'status' => 'tersedia',
+            ]);
+        }
 
         return redirect()
             ->route('admin.slot-area.index', $lokasi->id)
@@ -51,13 +58,39 @@ class AreaParkirController extends Controller
         $request->validate([
             'nama_area' => 'required',
             'jenis_kendaraan' => 'required',
-            'kapasitas' => 'required|integer',
+            'kapasitas' => 'required|integer|min:1',
             'tarif_per_jam' => 'required|numeric',
             'status' => 'required',
             'deskripsi' => 'nullable',
         ]);
 
         $area->update($request->all());
+
+        $kapasitasBaru = $area->kapasitas;
+        $jumlahSlotSekarang = $area->slotParkir()->count();
+
+        if ($kapasitasBaru > $jumlahSlotSekarang) {
+            // Kurang slot -> generate tambahan
+            for ($i = $jumlahSlotSekarang + 1; $i <= $kapasitasBaru; $i++) {
+                $area->slotParkir()->create([
+                    'kode_slot' => $area->nama_area . '-' . str_pad($i, 2, '0', STR_PAD_LEFT),
+                    'status' => 'tersedia',
+                ]);
+            }
+        } elseif ($kapasitasBaru < $jumlahSlotSekarang) {
+            // Kelebihan slot -> hapus yang masih 'tersedia' aja
+            $jumlahHapus = $jumlahSlotSekarang - $kapasitasBaru;
+
+            $slotDihapus = $area->slotParkir()
+                ->where('status', 'tersedia')
+                ->orderByDesc('id')
+                ->limit($jumlahHapus)
+                ->get();
+
+            foreach ($slotDihapus as $slot) {
+                $slot->delete();
+            }
+        }
 
         return redirect()
             ->route('admin.slot-area.index', $lokasi->id)
@@ -66,6 +99,7 @@ class AreaParkirController extends Controller
 
     public function destroy(LokasiParkir $lokasi, AreaParkir $area)
     {
+        $area->slotParkir()->delete();
         $area->delete();
 
         return redirect()

@@ -9,11 +9,17 @@ use Illuminate\Http\Request;
 class LokasiParkirController extends Controller
 {
     public function index()
-    {
-        $lokasiParkir = LokasiParkir::withCount('areaParkir')->latest()->get();
+{
+    $lokasiParkir = LokasiParkir::withCount('areaParkir')
+        ->withCount('slotParkir') 
+        ->withCount(['slotParkir as slot_tersedia_count' => function ($query) {
+            $query->where('slot_parkir.status', 'tersedia');
+        }])
+        ->latest()
+        ->paginate(10);
 
-        return view('Admin.lokasi-parkir.index', compact('lokasiParkir'));
-    }
+    return view('Admin.lokasi-parkir.index', compact('lokasiParkir'));
+}
 
     public function create()
     {
@@ -25,16 +31,15 @@ class LokasiParkirController extends Controller
         $data = $request->validate([
             'nama' => 'required',
             'alamat' => 'required',
-            'link_maps' => 'nullable',
-            'gambar' => 'nullable|image',
+            'link_maps' => 'required|string|max:500',
+            'gambar' => 'required|image',
             'deskripsi' => 'nullable',
         ]);
 
-        if ($request->hasFile('gambar')) {
-            $data['gambar'] = $request
-                ->file('gambar')
-                ->store('lokasi-parkir', 'public');
-        }
+        $file = $request->file('gambar');
+        $namaFile = time() . '_' . $file->getClientOriginalName();
+        $file->move(public_path('assets/img/lokasi'), $namaFile);
+        $data['gambar'] = 'assets/img/lokasi/' . $namaFile;
 
         LokasiParkir::create($data);
 
@@ -57,15 +62,24 @@ class LokasiParkirController extends Controller
         $data = $request->validate([
             'nama' => 'required',
             'alamat' => 'required',
-            'link_maps' => 'nullable',
+            'link_maps' => 'required|string|max:500',
             'gambar' => 'nullable|image',
             'deskripsi' => 'nullable',
         ]);
 
         if ($request->hasFile('gambar')) {
-            $data['gambar'] = $request
-                ->file('gambar')
-                ->store('lokasi-parkir', 'public');
+            // hapus gambar lama kalau ada
+            if ($lokasi->gambar && file_exists(public_path($lokasi->gambar))) {
+                unlink(public_path($lokasi->gambar));
+            }
+
+            $file = $request->file('gambar');
+            $namaFile = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('assets/img/lokasi'), $namaFile);
+            $data['gambar'] = 'assets/img/lokasi/' . $namaFile;
+        } else {
+            // gak upload gambar baru, tetap pakai yang lama
+            $data['gambar'] = $lokasi->gambar;
         }
 
         $lokasi->update($data);
@@ -78,6 +92,10 @@ class LokasiParkirController extends Controller
     public function destroy($id)
     {
         $lokasi = LokasiParkir::findOrFail($id);
+
+        if ($lokasi->gambar && file_exists(public_path($lokasi->gambar))) {
+            unlink(public_path($lokasi->gambar));
+        }
 
         $lokasi->delete();
 

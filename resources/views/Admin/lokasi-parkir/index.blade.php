@@ -149,20 +149,16 @@
 
                         </td>
 
-                        <td class="p-4">
-
-                            <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm">
+                        <<td class="p-4">
+                            <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm whitespace-nowrap">
                                 {{ $lokasi->area_parkir_count }} Area
                             </span>
-
                         </td>
 
                         <td class="p-4">
-
-                            <span class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm">
-                                0 Slot
+                            <span class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm whitespace-nowrap">
+                                {{ $lokasi->slot_parkir_count ?? 0 }} Slot
                             </span>
-
                         </td>
 
                         <td class="p-4 max-w-xs">
@@ -190,8 +186,7 @@
                                 </a>
 
                                 {{-- Edit --}}
-                                <a
-                                    href="#"
+                               <a href="{{ route('admin.lokasi-parkir.edit', $lokasi->id) }}"
                                     class="w-9 h-9 rounded-lg bg-amber-50 text-amber-600 hover:bg-amber-100 flex items-center justify-center"
                                     title="Edit Lokasi">
 
@@ -204,8 +199,7 @@
                                 {{-- Hapus --}}
                                 <form
                                     action="{{ route('admin.lokasi-parkir.destroy', $lokasi->id) }}"
-                                    method="POST"
-                                    onsubmit="return confirm('Yakin ingin menghapus lokasi ini?')">
+                                    method="POST">
 
                                     @csrf
                                     @method('DELETE')
@@ -254,57 +248,15 @@
 
             <p class="text-secondary">
                 Menampilkan
-                <span class="font-bold text-on-surface">1 - 3</span>
+                <span class="font-bold text-on-surface">{{ $lokasiParkir->firstItem() ?? 0 }} - {{ $lokasiParkir->lastItem() ?? 0 }}</span>
                 dari
-                <span class="font-bold text-on-surface">12</span>
+                <span class="font-bold text-on-surface">{{ $lokasiParkir->total() }}</span>
                 lokasi
             </p>
 
-            <div class="flex items-center gap-2">
-
-                <button
-                    class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant/30 text-secondary hover:bg-surface-container transition-colors disabled:opacity-50"
-                    disabled>
-
-                    <span class="material-symbols-outlined">
-                        chevron_left
-                    </span>
-
-                </button>
-
-                <button
-                    class="w-10 h-10 flex items-center justify-center rounded-lg bg-primary text-white font-bold shadow-md shadow-primary/20">
-                    1
-                </button>
-
-                <button
-                    class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant/30">
-                    2
-                </button>
-
-                <button
-                    class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant/30">
-                    3
-                </button>
-
-                <button
-                    class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant/30">
-                    4
-                </button>
-
-                <button
-                    class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant/30">
-
-                    <span class="material-symbols-outlined">
-                        chevron_right
-                    </span>
-
-                </button>
-
-            </div>
+            {{ $lokasiParkir->links() }}
 
         </div>
-
 </section>
 
 

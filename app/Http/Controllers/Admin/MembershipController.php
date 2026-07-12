@@ -7,36 +7,39 @@ use App\Models\Membership;
 use App\Models\MembershipTier;
 use App\Models\PointSetting;
 use App\Models\PointTransaction;
-use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class MembershipController extends Controller
 {
     public function index()
     {
-        // Statistik
         $totalMembers = Membership::count();
-        $totalPoints = Membership::sum('total_points');
+        $totalPoints = PointTransaction::sum('points');
+
         $activeMembers = Membership::where('is_active', true)->count();
-        
-        // Data members dengan pagination
+
+        $newMembersThisMonth = Membership::where('is_active', true)
+            ->whereMonth('created_at', now()->month)
+            ->whereYear('created_at', now()->year)
+            ->count();
+
         $members = Membership::with('user')
-            ->orderBy('total_points', 'desc')
+            ->where('is_active', true)
+            ->withSum('pointTransactions as computed_points', 'points')
+            ->withMax('pointTransactions as latest_transaction_at', 'created_at')
+            ->orderByDesc('computed_points')
             ->paginate(10);
 
-        // Point settings
         $pointSettings = PointSetting::getSettings();
-
-        // Membership tiers
         $tiers = MembershipTier::where('is_active', true)->get();
 
-        // Statistik tambahan
         $stats = [
             'total_members' => $totalMembers,
             'total_points' => $totalPoints,
             'active_members' => $activeMembers,
             'inactive_members' => $totalMembers - $activeMembers,
+            'new_members_this_month' => $newMembersThisMonth,
+            'avg_points' => $activeMembers > 0 ? round($totalPoints / $activeMembers) : 0,
         ];
 
         return view('Admin.membership.index', compact('members', 'stats', 'pointSettings', 'tiers'));
@@ -44,8 +47,10 @@ class MembershipController extends Controller
 
     public function updateTier(Request $request, $id)
     {
+        $validTiers = MembershipTier::where('is_active', true)->pluck('slug')->toArray();
+
         $request->validate([
-            'tier' => 'required|in:basic,premium,gold'
+            'tier' => 'required|in:' . implode(',', $validTiers)
         ]);
 
         $membership = Membership::findOrFail($id);
@@ -113,8 +118,7 @@ class MembershipController extends Controller
     public function deleteTier($id)
     {
         $tier = MembershipTier::findOrFail($id);
-        
-        // Cek apakah ada member yang menggunakan tier ini
+
         $memberCount = Membership::where('tier', $tier->slug)->count();
         if ($memberCount > 0) {
             return redirect()->back()->with('error', "Tidak bisa menghapus. Ada {$memberCount} member dengan tier ini.");
@@ -126,8 +130,19 @@ class MembershipController extends Controller
 
     public function detail($id)
     {
-        $member = Membership::with('user', 'transactions')->findOrFail($id);
-        return view('Admin.membership.detail', compact('member'));
+        $member = Membership::with('user')->findOrFail($id);
+
+        $pointTransactions = PointTransaction::where('user_id', $member->user_id)
+            ->latest()
+            ->get();
+
+        $totalPoint  = $pointTransactions->sum('points');
+        $pointMasuk  = $pointTransactions->where('points', '>', 0)->sum('points');
+        $pointKeluar = abs($pointTransactions->where('points', '<', 0)->sum('points'));
+
+        return view('Admin.membership.detail', compact(
+            'member', 'pointTransactions', 'totalPoint', 'pointMasuk', 'pointKeluar'
+        ));
     }
 
     public function addPoints(Request $request, $id)
@@ -138,7 +153,13 @@ class MembershipController extends Controller
         ]);
 
         $membership = Membership::findOrFail($id);
-        $membership->addPoints($request->points, $request->description ?? 'Bonus poin dari admin');
+
+        PointTransaction::create([
+            'user_id' => $membership->user_id,
+            'points' => $request->points,
+            'type' => 'earn',
+            'description' => $request->description ?? 'Bonus poin dari admin',
+        ]);
 
         return redirect()->back()->with('success', "{$request->points} poin berhasil ditambahkan!");
     }
@@ -151,43 +172,48 @@ class MembershipController extends Controller
         ]);
 
         $membership = Membership::findOrFail($id);
-        
-        try {
-            $membership->redeemPoints($request->points, $request->description ?? 'Penukaran poin');
-            return redirect()->back()->with('success', "{$request->points} poin berhasil ditukarkan!");
-        } catch (\Exception $e) {
-            return redirect()->back()->with('error', $e->getMessage());
+
+        $totalPoint = PointTransaction::where('user_id', $membership->user_id)->sum('points');
+
+        if ($totalPoint < $request->points) {
+            return redirect()->back()->with('error', 'Poin tidak mencukupi');
         }
+
+        PointTransaction::create([
+            'user_id' => $membership->user_id,
+            'points' => -$request->points,
+            'type' => 'redeem',
+            'description' => $request->description ?? 'Penukaran poin',
+        ]);
+
+        return redirect()->back()->with('success', "{$request->points} poin berhasil ditukarkan!");
     }
 
     public function export()
     {
-        $members = Membership::with('user')->get();
-        
-        // Buat CSV
+        $members = Membership::with('user')
+            ->withSum('pointTransactions as computed_points', 'points')
+            ->get();
+
         $filename = 'membership_report_' . date('Y-m-d') . '.csv';
         $handle = fopen('php://output', 'w');
-        
+
         header('Content-Type: text/csv');
         header('Content-Disposition: attachment; filename="' . $filename . '"');
-        
-        // Header
-        fputcsv($handle, ['Nama', 'Email', 'Tier', 'Total Poin', 'Poin Digunakan', 'Poin Tersedia', 'Status', 'Bergabung']);
-        
-        // Data
+
+        fputcsv($handle, ['Nama', 'Email', 'Tier', 'Total Poin', 'Status', 'Bergabung']);
+
         foreach ($members as $member) {
             fputcsv($handle, [
                 $member->user->name ?? '-',
                 $member->user->email ?? '-',
                 ucfirst($member->tier),
-                $member->total_points,
-                $member->redeemed_points,
-                $member->available_points,
+                $member->computed_points ?? 0,
                 $member->is_active ? 'Aktif' : 'Tidak Aktif',
                 $member->join_date ? $member->join_date->format('d/m/Y') : '-'
             ]);
         }
-        
+
         fclose($handle);
         exit;
     }

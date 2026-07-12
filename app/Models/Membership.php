@@ -84,7 +84,7 @@ class Membership extends Model
 
         PointTransaction::create([
             'user_id' => $this->user_id,
-            'points' => $points,
+            'points' => -$points,
             'type' => 'redeem',
             'description' => $description
         ]);
@@ -107,5 +107,10 @@ class Membership extends Model
     public function pembayaranMembership()
     {
         return $this->hasMany(PembayaranMembership::class);
+    }
+    
+    public function pointTransactions()
+    {
+        return $this->hasMany(PointTransaction::class, 'user_id', 'user_id');
     }
 }

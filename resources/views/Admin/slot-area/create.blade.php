@@ -15,7 +15,7 @@
                     Lokasi Parkir
                 </a>
                 <span class="material-symbols-outlined text-sm">chevron_right</span>
-                <a href="{{ route('admin.slot-area.index') }}" class="hover:text-primary">
+                <a href="{{ route('admin.slot-area.index', $lokasi->id) }}" class="hover:text-primary">
                     Parkir UDINUS
                 </a>
                 <span class="material-symbols-outlined text-sm">chevron_right</span>
@@ -24,7 +24,7 @@
             <h2 class="text-2xl font-bold text-gray-900">Tambah Area Parkir</h2>
         </div>
 
-        <a href="{{ route('admin.slot-area.index') }}"
+        <a href="{{ route('admin.slot-area.index', $lokasi->id) }}"
             class="border border-gray-300 text-gray-600 hover:bg-gray-50 px-5 py-3 rounded-xl flex items-center gap-2 transition-all">
             <span class="material-symbols-outlined">arrow_back</span>
             <span>Kembali</span>
@@ -33,10 +33,12 @@
     </div>
 
     {{-- Form Card --}}
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <div class="max-w-3xl">
 
-        {{-- Form Utama --}}
-        <div class="lg:col-span-2">
+        <form action="{{ route('admin.slot-area.store', $lokasi->id) }}" method="POST">
+            @csrf
+            <input type="hidden" name="status" value="aktif">
+
             <section class="bg-white rounded-2xl border border-outline-variant/20 overflow-hidden" style="box-shadow: 0px 2px 10px 0px rgba(76,78,100,0.1);">
 
                 <div class="p-5 border-b border-gray-200">
@@ -46,16 +48,21 @@
 
                 <div class="p-6 space-y-5">
 
-                    {{-- Kode Area --}}
+                    {{-- Nama Area --}}
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">
                             Kode Area <span class="text-red-500">*</span>
                         </label>
                         <input
                             type="text"
+                            name="nama_area"
+                            value="{{ old('nama_area') }}"
                             placeholder="Contoh: A"
-                            class="w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary/10 focus:border-primary text-sm outline-none transition-all">
+                            class="w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary/10 focus:border-primary text-sm outline-none transition-all @error('nama_area') border-red-500 @enderror">
                         <p class="text-xs text-gray-400 mt-1">Kode singkat untuk identifikasi area (maks. 2 karakter)</p>
+                        @error('nama_area')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
                     </div>
 
                     <div class="grid grid-cols-2 gap-3">
@@ -67,7 +74,7 @@
                             type="radio"
                             name="jenis_kendaraan"
                             value="mobil"
-                            checked
+                            {{ old('jenis_kendaraan', 'mobil') == 'mobil' ? 'checked' : '' }}
                             class="peer hidden">
 
                         <div class="flex items-center gap-3 p-4 border-2 border-gray-200 rounded-xl transition-all
@@ -101,6 +108,7 @@
                             type="radio"
                             name="jenis_kendaraan"
                             value="motor"
+                            {{ old('jenis_kendaraan') == 'motor' ? 'checked' : '' }}
                             class="peer hidden">
 
                         <div class="flex items-center gap-3 p-4 border-2 border-gray-200 rounded-xl transition-all
@@ -129,17 +137,22 @@
 
                 </div>
 
-                    {{-- Jumlah Slot --}}
+                    {{-- Kapasitas / Jumlah Slot --}}
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">
                             Jumlah Slot <span class="text-red-500">*</span>
                         </label>
                         <input
                             type="number"
+                            name="kapasitas"
+                            value="{{ old('kapasitas') }}"
                             min="1"
                             placeholder="Contoh: 20"
-                            class="w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary/10 focus:border-primary text-sm outline-none transition-all">
+                            class="w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary/10 focus:border-primary text-sm outline-none transition-all @error('kapasitas') border-red-500 @enderror">
                         <p class="text-xs text-gray-400 mt-1">Slot akan digenerate otomatis sesuai jumlah yang diisi</p>
+                        @error('kapasitas')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
                     </div>
 
                     {{-- Tarif Per Jam --}}
@@ -151,21 +164,42 @@
                             <span class="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-gray-500 font-medium">Rp</span>
                             <input
                                 type="number"
+                                name="tarif_per_jam"
+                                value="{{ old('tarif_per_jam') }}"
                                 min="0"
                                 placeholder="5000"
-                                class="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary/10 focus:border-primary text-sm outline-none transition-all">
+                                class="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary/10 focus:border-primary text-sm outline-none transition-all @error('tarif_per_jam') border-red-500 @enderror">
                         </div>
+                        @error('tarif_per_jam')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    {{-- Deskripsi --}}
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">
+                            Deskripsi
+                        </label>
+                        <textarea
+                            name="deskripsi"
+                            rows="3"
+                            placeholder="Deskripsi area (opsional)"
+                            class="w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary/10 focus:border-primary text-sm outline-none transition-all @error('deskripsi') border-red-500 @enderror">{{ old('deskripsi') }}</textarea>
+                        @error('deskripsi')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
                     </div>
 
                 </div>
 
                 {{-- Form Actions --}}
                 <div class="px-6 py-4 bg-gray-50 border-t border-gray-200 flex justify-end gap-3">
-                    <a href="{{ route('admin.slot-area.index') }}"
+                    <a href="{{ route('admin.slot-area.index', $lokasi->id) }}"
                         class="px-5 py-2.5 border border-gray-300 text-gray-600 rounded-xl hover:bg-gray-100 text-sm font-medium transition-all">
                         Batal
                     </a>
                     <button
+                        type="submit"
                         class="px-5 py-2.5 bg-primary text-white rounded-xl hover:opacity-90 text-sm font-medium shadow-lg flex items-center gap-2 transition-all">
                         <span class="material-symbols-outlined text-[18px]">save</span>
                         Simpan Area
@@ -173,77 +207,8 @@
                 </div>
 
             </section>
-        </div>
 
-        {{-- Sidebar Info --}}
-        <div class="flex flex-col gap-5">
-
-            {{-- Preview Card --}}
-            <section class="bg-white rounded-2xl border border-outline-variant/20 overflow-hidden" style="box-shadow: 0px 2px 10px 0px rgba(76,78,100,0.1);">
-
-                <div class="p-5 border-b border-gray-200">
-                    <h3 class="text-lg font-semibold text-gray-900">Preview Area</h3>
-                    <p class="text-sm text-gray-500 mt-1">Tampilan setelah area disimpan</p>
-                </div>
-
-                <div class="p-5">
-                    <div class="flex items-center gap-3 p-4 border border-outline-variant/30 rounded-xl bg-surface-container-low/30">
-                        <div class="w-10 h-10 rounded-lg flex items-center justify-center text-white font-bold flex-shrink-0" style="background: #5445cf;">
-                            A
-                        </div>
-                        <div class="flex-1 min-w-0">
-                            <p class="font-semibold text-gray-900 text-sm truncate">Area A - Basement</p>
-                            <div class="flex items-center gap-1 text-gray-500 text-xs mt-0.5">
-                                <span class="material-symbols-outlined text-[14px]">directions_car</span>
-                                Mobil · 20 Slot
-                            </div>
-                        </div>
-                        <span class="px-2 py-0.5 bg-green-100 text-green-700 rounded-full text-xs font-semibold flex-shrink-0">Aktif</span>
-                    </div>
-
-                    <div class="mt-4 space-y-2">
-                        <div class="flex justify-between text-sm">
-                            <span class="text-gray-500">Tarif Per Jam</span>
-                            <span class="font-semibold text-gray-900">Rp 5.000</span>
-                        </div>
-                        <div class="flex justify-between text-sm">
-                            <span class="text-gray-500">Total Slot</span>
-                            <span class="font-semibold text-gray-900">20 Slot</span>
-                        </div>
-                        <div class="w-full bg-gray-100 rounded-full h-1.5 mt-3">
-                            <div class="h-full rounded-full w-0" style="background: #5445cf;"></div>
-                        </div>
-                        <p class="text-xs text-gray-400">0% terisi (baru dibuat)</p>
-                    </div>
-                </div>
-
-            </section>
-
-            {{-- Tips Card --}}
-            <section class="bg-primary/5 border border-primary/20 rounded-2xl p-5">
-                <div class="flex items-start gap-3">
-                    <span class="material-symbols-outlined text-primary text-[22px] flex-shrink-0">lightbulb</span>
-                    <div>
-                        <p class="text-sm font-semibold text-gray-900 mb-2">Tips Pengisian</p>
-                        <ul class="text-xs text-gray-600 space-y-1.5">
-                            <li class="flex items-start gap-1.5">
-                                <span class="material-symbols-outlined text-primary text-[14px] mt-0.5">check_circle</span>
-                                Gunakan kode area yang unik dan mudah diingat
-                            </li>
-                            <li class="flex items-start gap-1.5">
-                                <span class="material-symbols-outlined text-primary text-[14px] mt-0.5">check_circle</span>
-                                Slot akan digenerate otomatis dengan format [Kode]-[Nomor]
-                            </li>
-                            <li class="flex items-start gap-1.5">
-                                <span class="material-symbols-outlined text-primary text-[14px] mt-0.5">check_circle</span>
-                                Tarif dapat diubah kapan saja setelah area dibuat
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-
-        </div>
+        </form>
 
     </div>
 

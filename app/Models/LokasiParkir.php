@@ -33,9 +33,22 @@ class LokasiParkir extends Model
     {
         return $this->hasMany(Reservasi::class, 'lokasi_parkir_id'); 
     }
+    
+    public function slotParkir()
+    {
+        return $this->hasManyThrough(
+            SlotParkir::class,
+            AreaParkir::class,
+            'lokasi_parkir_id',
+            'area_parkir_id',
+            'id',
+            'id'
+        );
+    }
 
     public function getNamaLengkapAttribute()
     {
         return $this->nama . ' - ' . $this->alamat;
+
     }
 }

@@ -78,7 +78,12 @@
                 <input
                     type="text"
                     name="nama"
-                    class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary">
+                    value="{{ old('nama') }}"
+                    class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary @error('nama') border-red-500 @enderror">
+
+                @error('nama')
+                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                @enderror
             </div>
 
             {{-- Alamat --}}
@@ -91,8 +96,13 @@
                 <input
                     type="text"
                     name="alamat"
+                    value="{{ old('alamat') }}"
                     placeholder="Masukkan alamat lokasi"
-                    class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary">
+                    class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary @error('alamat') border-red-500 @enderror">
+
+                @error('alamat')
+                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                @enderror
             </div>
 
             {{-- Link Maps --}}
@@ -104,7 +114,12 @@
                 <input
                     type="url"
                     name="link_maps"
-                    class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary">
+                    value="{{ old('link_maps') }}"
+                    class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary @error('link_maps') border-red-500 @enderror">
+
+                @error('link_maps')
+                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                @enderror
             </div>
 
         </div>
@@ -171,6 +186,7 @@
                 </div>
 
                 <input
+                    id="gambar"
                     name="gambar"
                     type="file"
                     accept="image/*"
@@ -178,6 +194,10 @@
                     onchange="previewGambar(event)">
 
             </label>
+
+            @error('gambar')
+                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
 
         </div>
 
@@ -199,8 +219,12 @@
                 <textarea
                     name="deskripsi"
                     rows="5"
-                    class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary"
-                    placeholder="Masukkan deskripsi lokasi parkir..."></textarea>
+                    class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary @error('deskripsi') border-red-500 @enderror"
+                    placeholder="Masukkan deskripsi lokasi parkir...">{{ old('deskripsi') }}</textarea>
+
+                @error('deskripsi')
+                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                @enderror
             </div>
 
         </div>

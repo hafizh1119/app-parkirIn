@@ -47,4 +47,24 @@ class PointTransaction extends Model
     {
         return $query->where('type', 'bonus');
     }
+
+    protected static function booted()
+    {
+        static::created(function ($transaction) {
+            self::syncUserTotalPoints($transaction->user_id);
+        });
+
+        static::deleted(function ($transaction) {
+            self::syncUserTotalPoints($transaction->user_id);
+        });
+    }
+
+    protected static function syncUserTotalPoints($userId)
+    {
+        $total = self::where('user_id', $userId)->sum('points');
+
+        User::where('id', $userId)->update([
+            'total_points' => $total,
+        ]);
+    }
 }
