@@ -122,8 +122,8 @@
                     <tr>
                         <th class="px-4 py-3 text-left font-semibold text-gray-600">Event</th>
                         <th class="px-4 py-3 text-left font-semibold text-gray-600">Lokasi Parkir</th>
-                        <th class="px-4 py-3 text-left font-semibold text-gray-600">Tanggal</th>
-                        <th class="px-4 py-3 text-left font-semibold text-gray-600">Kapasitas</th>
+                        <th class="px-4 py-3 text-left font-semibold text-gray-600">Tanggal Mulai</th>
+                        <th class="px-4 py-3 text-left font-semibold text-gray-600">Tanggal Berakhir</th>
                         <th class="px-4 py-3 text-center font-semibold text-gray-600">Diskon</th>
                         <th class="px-4 py-3 text-center font-semibold text-gray-600">Status</th>
                         <th class="px-4 py-3 text-center font-semibold text-gray-600">Aksi</th>
@@ -166,23 +166,20 @@
                             @endif
                         </td>
                         <td class="px-4 py-3">
-                            <p class="font-medium text-gray-800">{{ $event->formatted_date['start'] }}</p>
-                            <p class="text-xs text-gray-500">{{ $event->formatted_date['start_time'] }} - {{ $event->formatted_date['end_time'] }}</p>
+                            <div class="flex items-center gap-1.5">
+                                <span class="material-symbols-outlined text-[14px] text-gray-400">calendar_today</span>
+                                <span class="text-xs font-medium">
+                                    {{ $event->formatted_date['start'] }} • {{ $event->formatted_date['start_time'] }}
+                                </span>
+                            </div>
                         </td>
                         <td class="px-4 py-3 text-gray-600">
-                            @if($event->max_capacity)
-                                <div class="flex items-center gap-2">
-                                    <span class="text-xs font-medium">{{ $event->current_participants ?? 0 }}/{{ $event->max_capacity }}</span>
-                                    <div class="w-12 bg-gray-200 rounded-full h-1.5">
-                                        @php
-                                            $percentage = $event->max_capacity > 0 ? ($event->current_participants / $event->max_capacity) * 100 : 0;
-                                        @endphp
-                                        <div class="bg-[#5445cf] h-1.5 rounded-full" style="width: {{ min($percentage, 100) }}%"></div>
-                                    </div>
-                                </div>
-                            @else
-                                <span class="text-gray-400 text-xs">Unlimited</span>
-                            @endif
+                            <div class="flex items-center gap-1.5 mt-1">
+                                <span class="material-symbols-outlined text-[14px] text-gray-400">event_busy</span>
+                                <span class="text-xs text-gray-500">
+                                 {{ $event->formatted_date['end'] }} • {{ $event->formatted_date['end_time'] }}
+                                </span>
+                            </div>
                         </td>
                         <td class="px-4 py-3 text-center">
                             @if($event->discount_percentage > 0)

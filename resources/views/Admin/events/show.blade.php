@@ -48,16 +48,7 @@
                     <p class="text-sm text-gray-500">Tanggal Selesai</p>
                     <p class="font-semibold text-gray-800">{{ $event->formatted_date['end'] }} {{ $event->formatted_date['end_time'] }}</p>
                 </div>
-                <div>
-                    <p class="text-sm text-gray-500">Kapasitas</p>
-                    <p class="font-semibold text-gray-800">
-                        @if($event->max_capacity)
-                            {{ $event->current_participants ?? 0 }} / {{ $event->max_capacity }}
-                        @else
-                            Unlimited
-                        @endif
-                    </p>
-                </div>
+                
                 <div>
                     <p class="text-sm text-gray-500">Diskon Member</p>
                     <p class="font-semibold">
@@ -94,23 +85,7 @@
 
             <!-- Progress Bar Kapasitas -->
             @if($event->max_capacity)
-                <div class="pt-4 border-t border-gray-100">
-                    <div class="flex justify-between items-center mb-1">
-                        <p class="text-sm text-gray-500">Progres Partisipan</p>
-                        <p class="text-sm font-semibold text-gray-700">
-                            {{ $event->current_participants ?? 0 }}/{{ $event->max_capacity }}
-                        </p>
-                    </div>
-                    <div class="w-full bg-gray-200 rounded-full h-2.5">
-                        @php
-                            $percentage = $event->max_capacity > 0 ? ($event->current_participants / $event->max_capacity) * 100 : 0;
-                        @endphp
-                        <div class="bg-[#5445cf] h-2.5 rounded-full transition-all duration-500" 
-                             style="width: {{ min($percentage, 100) }}%">
-                        </div>
-                    </div>
-                    <p class="text-xs text-gray-400 mt-1">{{ round($percentage, 1) }}% terisi</p>
-                </div>
+                
             @endif
 
             <!-- Tombol Aksi -->

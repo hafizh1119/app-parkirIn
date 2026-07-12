@@ -427,6 +427,67 @@
         overflow-y:auto;
         padding-right:6px;
     }
+
+.sheet-handle {
+    width: 55px;
+    height: 6px;
+    background: #d9d9d9;
+    border-radius: 20px;
+    margin: 12px auto 6px;
+}
+
+.vehicle-item {
+    border: 1px solid #ebeef2;
+    border-radius: 16px;
+    padding: 16px;
+    margin-bottom: 14px;
+    cursor: pointer;
+    transition: .25s;
+    background: #fff;
+}
+.vehicle-item:hover {
+    border-color: #7367F0;
+    background: #f8f8ff;
+}
+
+@media (max-width: 768px) {
+    .modal.fade .modal-dialog.modal-bottom-sheet {
+        transform: translateY(100%);
+        transition: transform .35s ease;
+        margin: 0;
+    }
+    .modal.show .modal-dialog.modal-bottom-sheet {
+        transform: translateY(0);
+    }
+    .modal-bottom-sheet {
+        position: fixed;
+        left: 0; right: 0; bottom: 0;
+        width: 100%; max-width: 100%;
+        margin: 0;
+        display: flex;
+        align-items: flex-end;
+    }
+    .modal-bottom-sheet .modal-content {
+        width: 100%;
+        border: 0;
+        border-radius: 28px 28px 0 0;
+        min-height: 50vh;
+        max-height: 85vh;
+        overflow: hidden;
+        overflow-y: auto;
+        box-shadow: 0 -10px 40px rgba(0,0,0,.18);
+        animation: sheetUp .35s ease;
+    }
+    .modal-backdrop.show {
+        opacity: .45;
+        backdrop-filter: blur(2px);
+    }
+}
+
+@keyframes sheetUp {
+    from { transform: translateY(80px); opacity: .4; }
+    to { transform: translateY(0); opacity: 1; }
+}
 </style>
 @endpush
 
@@ -434,10 +495,9 @@
 <div class="profile-container">
     <div class="container">
         <div class="row g-4">
-            
+
             <!-- ============ KOLOM KIRI ============ -->
             <div class="col-lg-4 d-flex flex-column gap-4">
-                
                 <!-- Profile Header -->
                 <div class="profile-card">
                     <div class="card-body">
@@ -454,7 +514,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Statistik - Point Saya -->
                 <div class="profile-card">
                     <div class="card-body">
@@ -474,11 +534,11 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Menu Desktop (di kiri) -->
                 <div class="profile-card flex-grow-1 menu-section-desktop">
                     <div class="card-body d-flex flex-column">
-                        <a href="#" class="menu-item-custom">
+                        <a href="{{ route('customer.reservasi.mine') }}" class="menu-item-custom">
                             <span class="menu-icon"><i class="mdi mdi-calendar-clock"></i></span>
                             <span>Reservasi Saya</span>
                             <span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span>
@@ -501,132 +561,112 @@
                         </form>
                     </div>
                 </div>
-                
+
             </div>
-            
+
             <!-- ============ KOLOM KANAN ============ -->
             <div class="col-lg-8 d-flex flex-column gap-4">
-                
+
                 <!-- Informasi Akun -->
                 <div class="profile-card">
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <h5 class="section-title">Informasi Akun</h5>
-                            <a href="#" class="btn-edit-custom">
+                            <button type="button" class="btn-edit-custom" data-bs-toggle="modal" data-bs-target="#modalEditAkun">
                                 <i class="mdi mdi-pencil"></i> Edit
-                            </a>
+                            </button>
                         </div>
-                        
+
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="info-label-custom">Nama Lengkap</div>
                                 <div class="info-value-custom">{{ $user->name }}</div>
-                                
+
                                 <div class="info-label-custom">Email</div>
                                 <div class="info-value-custom">{{ $user->email }}</div>
-                                
+
                                 <div class="info-label-custom">Telepon</div>
-                                <div class="info-value-custom">{{ $user->nomor_hp }}</div>
+                                <div class="info-value-custom">{{ $user->nomor_hp ?? '-' }}</div>
                             </div>
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Kendaraan Terdaftar -->
                 <div class="profile-card flex-grow-1">
-    <div class="card-body d-flex flex-column">
+                    <div class="card-body d-flex flex-column">
 
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <h5 class="section-title">Kendaraan Terdaftar</h5>
-
-            <a href="#" class="btn-add-custom">
-                <i class="mdi mdi-plus"></i> Tambah
-            </a>
-        </div>
-
-        {{-- List Kendaraan --}}
-        <div class="vehicle-scroll">
-
-            @forelse($kendaraans as $kendaraan)
-
-                <div class="vehicle-item">
-
-                    <div class="d-flex align-items-center">
-
-                        <div class="vehicle-icon-custom">
-
-                            @if($kendaraan->jenis_kendaraan == 'Mobil')
-                                <i class="mdi mdi-car"></i>
-                            @else
-                                <i class="mdi mdi-motorbike"></i>
-                            @endif
-
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="section-title">Kendaraan Terdaftar</h5>
+                            <button type="button" class="btn-add-custom" data-bs-toggle="modal" data-bs-target="#modalTambahKendaraan">
+                                <i class="mdi mdi-plus"></i> Tambah
+                            </button>
                         </div>
 
-                        <div>
+                        {{-- List Kendaraan --}}
+                        <div class="vehicle-scroll">
 
-                            <div class="fw-semibold"
-                                style="color:#1a1a2e;font-size:.95rem">
+                            @forelse($kendaraans as $kendaraan)
 
-                                {{ $kendaraan->merk }}
+                                <div class="vehicle-item">
 
-                            </div>
+                                    <div class="d-flex align-items-center">
 
-                            <div
-                                style="color:#8e8ea0;font-size:.75rem">
+                                        <div class="vehicle-icon-custom">
+                                            @if($kendaraan->jenis_kendaraan == 'mobil')
+                                                <i class="mdi mdi-car"></i>
+                                            @else
+                                                <i class="mdi mdi-motorbike"></i>
+                                            @endif
+                                        </div>
 
-                                {{ $kendaraan->nomor_polisi }}
+                                        <div>
+                                            <div class="fw-semibold" style="color:#1a1a2e;font-size:.95rem">
+                                                {{ $kendaraan->merk }}
+                                            </div>
+                                            <div style="color:#8e8ea0;font-size:.75rem">
+                                                {{ $kendaraan->nomor_polisi }}
+                                                @if($kendaraan->warna)
+                                                    - {{ $kendaraan->warna }}
+                                                @endif
+                                            </div>
+                                        </div>
 
-                                @if($kendaraan->warna)
-                                    - {{ $kendaraan->warna }}
-                                @endif
+                                    </div>
 
-                            </div>
+                                    <div class="d-flex gap-2">
+                                        <a href="#" onclick="editKendaraan({{ $kendaraan->id }}, '{{ $kendaraan->jenis_kendaraan }}', '{{ $kendaraan->nomor_polisi }}', '{{ $kendaraan->merk }}', '{{ $kendaraan->warna }}'); return false;">
+                                            <i class="mdi mdi-pencil"></i>
+                                        </a>
+                                        <form action="{{ route('customer.kendaraan.destroy', $kendaraan->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin hapus kendaraan ini?')">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="text-danger border-0 bg-transparent p-0">
+                                                <i class="mdi mdi-delete"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+
+                                </div>
+
+                            @empty
+
+                                <div class="text-center py-5">
+                                    <i class="mdi mdi-car-off" style="font-size:45px;color:#bdbdbd"></i>
+                                    <p class="mt-2 text-muted">Belum ada kendaraan.</p>
+                                </div>
+
+                            @endforelse
 
                         </div>
 
                     </div>
-
-                    <div class="d-flex gap-2">
-
-                        <a href="#">
-                            <i class="mdi mdi-pencil"></i>
-                        </a>
-
-                        <a href="#" class="text-danger">
-                            <i class="mdi mdi-delete"></i>
-                        </a>
-
-                    </div>
-
                 </div>
 
-            @empty
-
-                <div class="text-center py-5">
-
-                    <i class="mdi mdi-car-off"
-                        style="font-size:45px;color:#bdbdbd"></i>
-
-                    <p class="mt-2 text-muted">
-
-                        Belum ada kendaraan.
-
-                    </p>
-
-                </div>
-
-            @endforelse
-
-        </div>
-
-    </div>
-</div>
-                
                 <!-- Menu Mobile (di bawah kendaraan) -->
                 <div class="profile-card menu-section-mobile">
                     <div class="card-body d-flex flex-column">
-                        <a href="#" class="menu-item-custom">
+                        <a href="{{ route('customer.reservasi.mine') }}" class="menu-item-custom">
                             <span class="menu-icon"><i class="mdi mdi-calendar-clock"></i></span>
                             <span>Reservasi Saya</span>
                             <span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span>
@@ -649,10 +689,146 @@
                         </form>
                     </div>
                 </div>
-                
+
             </div>
-            
+
         </div>
     </div>
 </div>
+
+<!-- ============ SEMUA MODAL DITARUH DI SINI, DI LUAR STRUKTUR CARD ============ -->
+
+<!-- Modal Edit Informasi Akun -->
+<div class="modal fade" id="modalEditAkun" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-bottom-sheet">
+        <div class="modal-content">
+            <div class="sheet-handle"></div>
+            <div class="modal-header border-0 pb-2">
+                <h5 class="modal-title fw-bold">Edit Informasi Akun</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form action="{{ route('customer.profil.update') }}" method="POST">
+                @csrf
+                @method('PUT')
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Nama Lengkap</label>
+                        <input type="text" name="name" class="form-control" value="{{ old('name', $user->name) }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input type="email" name="email" class="form-control" value="{{ old('email', $user->email) }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Nomor Telepon</label>
+                        <input type="text" name="nomor_hp" class="form-control" value="{{ old('nomor_hp', $user->nomor_hp) }}">
+                    </div>
+                </div>
+                <div class="modal-footer border-0">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Tambah Kendaraan -->
+<div class="modal fade" id="modalTambahKendaraan" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-bottom-sheet">
+        <div class="modal-content">
+            <div class="sheet-handle"></div>
+            <div class="modal-header border-0 pb-2">
+                <h5 class="modal-title fw-bold">Tambah Kendaraan</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form action="{{ route('customer.kendaraan.store') }}" method="POST">
+                @csrf
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Jenis Kendaraan</label>
+                        <select name="jenis_kendaraan" class="form-select" required>
+                            <option value="">Pilih</option>
+                            <option value="mobil">Mobil</option>
+                            <option value="motor">Motor</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Nomor Polisi</label>
+                        <input type="text" name="nomor_polisi" class="form-control" placeholder="Contoh: B 1234 ABC" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Merk Kendaraan</label>
+                        <input type="text" name="merk" class="form-control" placeholder="Contoh: Honda Beat" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Warna</label>
+                        <input type="text" name="warna" class="form-control" placeholder="Contoh: Hitam" required>
+                    </div>
+                </div>
+                <div class="modal-footer border-0">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">Simpan Kendaraan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Edit Kendaraan (SATU AJA, DI LUAR LOOP) -->
+<div class="modal fade" id="modalEditKendaraan" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-bottom-sheet">
+        <div class="modal-content">
+            <div class="sheet-handle"></div>
+            <div class="modal-header border-0 pb-2">
+                <h5 class="modal-title fw-bold">Edit Kendaraan</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form id="formEditKendaraan" method="POST">
+                @csrf
+                @method('PUT')
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Jenis Kendaraan</label>
+                        <select name="jenis_kendaraan" id="editJenisKendaraan" class="form-select" required>
+                            <option value="mobil">Mobil</option>
+                            <option value="motor">Motor</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Nomor Polisi</label>
+                        <input type="text" name="nomor_polisi" id="editNomorPolisi" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Merk Kendaraan</label>
+                        <input type="text" name="merk" id="editMerk" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Warna</label>
+                        <input type="text" name="warna" id="editWarna" class="form-control" required>
+                    </div>
+                </div>
+                <div class="modal-footer border-0">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@push('scripts')
+<script>
+function editKendaraan(id, jenis, nopol, merk, warna) {
+    document.getElementById('formEditKendaraan').action = `/customer/kendaraan/${id}`;
+    document.getElementById('editJenisKendaraan').value = jenis;
+    document.getElementById('editNomorPolisi').value = nopol;
+    document.getElementById('editMerk').value = merk;
+    document.getElementById('editWarna').value = warna;
+
+    var modal = new bootstrap.Modal(document.getElementById('modalEditKendaraan'));
+    modal.show();
+}
+</script>
+@endpush
 @endsection
