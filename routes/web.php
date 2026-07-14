@@ -68,7 +68,7 @@ Route::middleware(['auth', 'role:customer'])->prefix('customer')->group(function
     
 });
 
-Route::prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
     
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     
